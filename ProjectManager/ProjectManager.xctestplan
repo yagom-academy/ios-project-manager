@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "867CB75D-B6D9-4312-93DA-3CF5F1F4558D",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ProjectManager.xcodeproj",
+      "identifier" : "C7431F0125F51E1D0094C4CF",
+      "name" : "ProjectManager"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ProjectManager.xcodeproj",
+        "identifier" : "FBC20AAF2A270F9100EDB6A8",
+        "name" : "PlanManagerViewModelTests"
+      }
+    }
+  ],
+  "version" : 1
+}

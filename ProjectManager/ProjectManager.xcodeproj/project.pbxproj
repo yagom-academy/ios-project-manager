@@ -12,8 +12,11 @@
 		C7431F0A25F51E1D0094C4CF /* PlanManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* PlanManagerViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		FB7522B62A2869E800C051E9 /* MockPlanSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7522B52A2869E800C051E9 /* MockPlanSubscriber.swift */; };
+		FBB1445E2A27598800F4D4A2 /* PlanViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB1445D2A27598800F4D4A2 /* PlanViewModelTests.swift */; };
 		FBC20AA32A1F90AB00EDB6A8 /* PlanManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC20AA22A1F90AB00EDB6A8 /* PlanManagerViewModel.swift */; };
 		FBC20AAB2A25B14900EDB6A8 /* PlanSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC20AAA2A25B14900EDB6A8 /* PlanSubscriber.swift */; };
+		FBC20AB32A270F9100EDB6A8 /* PlanManagerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC20AB22A270F9100EDB6A8 /* PlanManagerViewModelTests.swift */; };
 		FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */; };
 		FBF062882A14B8A00088A9E3 /* PlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */; };
 		FBF0628A2A14B9720088A9E3 /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062892A14B9720088A9E3 /* PlanViewModel.swift */; };
@@ -29,6 +32,23 @@
 		FBF062B02A1F16010088A9E3 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF062AF2A1F16010088A9E3 /* PlanViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FBB144582A2758A400F4D4A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7431EFA25F51E1D0094C4CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7431F0125F51E1D0094C4CF;
+			remoteInfo = ProjectManager;
+		};
+		FBC20AB42A270F9100EDB6A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7431EFA25F51E1D0094C4CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7431F0125F51E1D0094C4CF;
+			remoteInfo = ProjectManager;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,8 +57,14 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB7522B52A2869E800C051E9 /* MockPlanSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlanSubscriber.swift; sourceTree = "<group>"; };
+		FBB144542A2758A400F4D4A2 /* PlanViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBB1445D2A27598800F4D4A2 /* PlanViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModelTests.swift; sourceTree = "<group>"; };
 		FBC20AA22A1F90AB00EDB6A8 /* PlanManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManagerViewModel.swift; sourceTree = "<group>"; };
 		FBC20AAA2A25B14900EDB6A8 /* PlanSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSubscriber.swift; sourceTree = "<group>"; };
+		FBC20AB02A270F9100EDB6A8 /* PlanManagerViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanManagerViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBC20AB22A270F9100EDB6A8 /* PlanManagerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManagerViewModelTests.swift; sourceTree = "<group>"; };
+		FBC20AB92A270FB800EDB6A8 /* ProjectManager.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProjectManager.xctestplan; sourceTree = "<group>"; };
 		FBF0627B2A132F820088A9E3 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		FBF0627C2A14639D0088A9E3 /* PlusTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewController.swift; sourceTree = "<group>"; };
 		FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanTableViewCell.swift; path = ProjectManager/View/PlanTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -63,14 +89,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBB144512A2758A400F4D4A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBC20AAD2A270F9100EDB6A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				FBC20AB92A270FB800EDB6A8 /* ProjectManager.xctestplan */,
 				FBF0627B2A132F820088A9E3 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				FBC20AB12A270F9100EDB6A8 /* ProjectManagerTests */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0225F51E1D0094C4CF /* ProjectManager.app */,
+				FBC20AB02A270F9100EDB6A8 /* PlanManagerViewModelTests.xctest */,
+				FBB144542A2758A400F4D4A2 /* PlanViewModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +134,7 @@
 				FBF062832A14ACA20088A9E3 /* ViewModel */,
 				FBF062812A1488E00088A9E3 /* View */,
 				FBF062982A166B4D0088A9E3 /* ViewController */,
+				FB7522B42A2869C200C051E9 /* Mock */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -97,6 +142,23 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		FB7522B42A2869C200C051E9 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				FB7522B52A2869E800C051E9 /* MockPlanSubscriber.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		FBC20AB12A270F9100EDB6A8 /* ProjectManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				FBB1445D2A27598800F4D4A2 /* PlanViewModelTests.swift */,
+				FBC20AB22A270F9100EDB6A8 /* PlanManagerViewModelTests.swift */,
+			);
+			path = ProjectManagerTests;
 			sourceTree = "<group>";
 		};
 		FBF062812A1488E00088A9E3 /* View */ = {
@@ -164,6 +226,42 @@
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FBB144532A2758A400F4D4A2 /* PlanViewModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBB1445C2A2758A400F4D4A2 /* Build configuration list for PBXNativeTarget "PlanViewModelTests" */;
+			buildPhases = (
+				FBB144502A2758A400F4D4A2 /* Sources */,
+				FBB144512A2758A400F4D4A2 /* Frameworks */,
+				FBB144522A2758A400F4D4A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBB144592A2758A400F4D4A2 /* PBXTargetDependency */,
+			);
+			name = PlanViewModelTests;
+			productName = PlanViewModelTests;
+			productReference = FBB144542A2758A400F4D4A2 /* PlanViewModelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FBC20AAF2A270F9100EDB6A8 /* PlanManagerViewModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBC20AB82A270F9100EDB6A8 /* Build configuration list for PBXNativeTarget "PlanManagerViewModelTests" */;
+			buildPhases = (
+				FBC20AAC2A270F9100EDB6A8 /* Sources */,
+				FBC20AAD2A270F9100EDB6A8 /* Frameworks */,
+				FBC20AAE2A270F9100EDB6A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBC20AB52A270F9100EDB6A8 /* PBXTargetDependency */,
+			);
+			name = PlanManagerViewModelTests;
+			productName = PlanManagerViewModelTests;
+			productReference = FBC20AB02A270F9100EDB6A8 /* PlanManagerViewModelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -171,11 +269,19 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					C7431F0125F51E1D0094C4CF = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					FBB144532A2758A400F4D4A2 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = C7431F0125F51E1D0094C4CF;
+					};
+					FBC20AAF2A270F9100EDB6A8 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = C7431F0125F51E1D0094C4CF;
 					};
 				};
 			};
@@ -193,6 +299,8 @@
 			projectRoot = "";
 			targets = (
 				C7431F0125F51E1D0094C4CF /* ProjectManager */,
+				FBC20AAF2A270F9100EDB6A8 /* PlanManagerViewModelTests */,
+				FBB144532A2758A400F4D4A2 /* PlanViewModelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -204,6 +312,20 @@
 			files = (
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBB144522A2758A400F4D4A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBC20AAE2A270F9100EDB6A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +362,7 @@
 				FBF062882A14B8A00088A9E3 /* PlanTableViewCell.swift in Sources */,
 				FBF0628D2A14BA780088A9E3 /* Plan.swift in Sources */,
 				FBF0627D2A14639D0088A9E3 /* PlusTodoViewController.swift in Sources */,
+				FB7522B62A2869E800C051E9 /* MockPlanSubscriber.swift in Sources */,
 				FBF062A82A1C5E230088A9E3 /* HeaderView.swift in Sources */,
 				FBC20AAB2A25B14900EDB6A8 /* PlanSubscriber.swift in Sources */,
 				FBC20AA32A1F90AB00EDB6A8 /* PlanManagerViewModel.swift in Sources */,
@@ -256,7 +379,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBB144502A2758A400F4D4A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBC20AAC2A270F9100EDB6A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBC20AB32A270F9100EDB6A8 /* PlanManagerViewModelTests.swift in Sources */,
+				FBB1445E2A27598800F4D4A2 /* PlanViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FBB144592A2758A400F4D4A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7431F0125F51E1D0094C4CF /* ProjectManager */;
+			targetProxy = FBB144582A2758A400F4D4A2 /* PBXContainerItemProxy */;
+		};
+		FBC20AB52A270F9100EDB6A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7431F0125F51E1D0094C4CF /* ProjectManager */;
+			targetProxy = FBC20AB42A270F9100EDB6A8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */ = {
@@ -424,6 +576,94 @@
 			};
 			name = Release;
 		};
+		FBB1445A2A2758A400F4D4A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.riji.PlanViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProjectManager";
+			};
+			name = Debug;
+		};
+		FBB1445B2A2758A400F4D4A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.riji.PlanViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProjectManager";
+			};
+			name = Release;
+		};
+		FBC20AB62A270F9100EDB6A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.riji.PlanManagerViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProjectManager";
+			};
+			name = Debug;
+		};
+		FBC20AB72A270F9100EDB6A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.riji.PlanManagerViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ProjectManager";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -441,6 +681,24 @@
 			buildConfigurations = (
 				C7431F1725F51E1E0094C4CF /* Debug */,
 				C7431F1825F51E1E0094C4CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBB1445C2A2758A400F4D4A2 /* Build configuration list for PBXNativeTarget "PlanViewModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBB1445A2A2758A400F4D4A2 /* Debug */,
+				FBB1445B2A2758A400F4D4A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBC20AB82A270F9100EDB6A8 /* Build configuration list for PBXNativeTarget "PlanManagerViewModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBC20AB62A270F9100EDB6A8 /* Debug */,
+				FBC20AB72A270F9100EDB6A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
