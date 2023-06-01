@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ProjectListView: View {
-    @Binding var viewModel: ProjectViewModel
+    @ObservedObject var viewModel: ProjectViewModel
     private let currentState: ProjectState
     
-    init(viewModel: Binding<ProjectViewModel>, currentState: ProjectState) {
+    init(viewModel: ObservedObject<ProjectViewModel>, currentState: ProjectState) {
         self._viewModel = viewModel
         self.currentState = currentState
     }
@@ -19,13 +19,7 @@ struct ProjectListView: View {
     var body: some View {
         List {
             Section {
-                ProjectListSectionView(viewModel: $viewModel, state: currentState)
-                    .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
-                    .listRowBackground(
-                        Rectangle()
-                            .fill(.white)
-                            .padding(.top, 10)
-                    )
+                ProjectListSectionView(viewModel: _viewModel, state: currentState)
             } header: {
                 let count = viewModel.search(state: currentState).count
                 let binding = Binding<String>.constant("\(count)")
@@ -39,7 +33,7 @@ struct ProjectListView: View {
 
 struct ProjectListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListView(viewModel: .constant(ProjectViewModel()), currentState: .todo)
+        ProjectListView(viewModel: .init(wrappedValue: ProjectViewModel()), currentState: .todo)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ProjectMainView: View {
-    @State private var viewModel = ProjectViewModel()
+    @ObservedObject private var viewModel = ProjectViewModel()
     @State private var showModal = false
     
     var body: some View {
         NavigationStack{
             HStack{
-                ProjectListView(viewModel: $viewModel, currentState: .todo)
-                ProjectListView(viewModel: $viewModel, currentState: .doing)
-                ProjectListView(viewModel: $viewModel, currentState: .done)
+                ProjectListView(viewModel: _viewModel, currentState: .todo)
+                ProjectListView(viewModel: _viewModel, currentState: .doing)
+                ProjectListView(viewModel: _viewModel, currentState: .done)
             }
             .background(Color(UIColor.systemGray4))
             .navigationTitle("Project Manager")
@@ -33,7 +33,7 @@ struct ProjectMainView: View {
             }
             .sheet(isPresented: $showModal) {
                 ProjectDetailView(
-                    viewModel: $viewModel,
+                    viewModel: _viewModel,
                     project: Project(title: "", body: "", date: Date()),
                     disableEdit: false,
                     isEditMode: false)

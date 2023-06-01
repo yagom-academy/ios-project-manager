@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct ProjectDetailView: View {
-    @Binding var viewModel: ProjectViewModel
+    @ObservedObject var viewModel: ProjectViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @State var project: Project
     @State var disableEdit: Bool
     let isEditMode: Bool
+    
+    init(viewModel: ObservedObject<ProjectViewModel>, project: Project, disableEdit: Bool, isEditMode: Bool) {
+        self._viewModel = viewModel
+        self._project = State<Project>(initialValue: project)
+        self._disableEdit = State<Bool>(initialValue: disableEdit)
+        self.isEditMode = isEditMode
+    }
+    
     
     var body: some View {
         NavigationStack {
@@ -59,7 +67,7 @@ struct ProjectDetailView: View {
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
         ProjectDetailView(
-            viewModel: .constant(ProjectViewModel()),
+            viewModel: .init(wrappedValue: ProjectViewModel()),
             project: .init(title: "", body: "", date: Date()),
             disableEdit: true,
             isEditMode: true

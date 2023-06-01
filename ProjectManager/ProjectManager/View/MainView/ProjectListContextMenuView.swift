@@ -8,23 +8,24 @@
 import SwiftUI
 
 struct ProjectListContextMenuView: View {
-    @Binding var viewModel: ProjectViewModel
     private let state: ProjectState
     private let project: Project
+    private let closure: (Project, ProjectState) -> Void
     
-    init(viewModel: Binding<ProjectViewModel>, state: ProjectState, project: Project) {
-        self._viewModel = viewModel
+    init(state: ProjectState, project: Project, closure: @escaping (Project, ProjectState) -> Void) {
+
         self.state = state
         self.project = project
+        self.closure = closure
     }
     
     var body: some View {
         VStack {
             Button(state.contextItem.first.contextText) {
-                viewModel.move(project: project, to: state.contextItem.first)
+                closure( project, state.contextItem.first)
             }
             Button(state.contextItem.second.contextText) {
-                viewModel.move(project: project, to: state.contextItem.second)
+                closure( project, state.contextItem.second)
             }
         }
     }
@@ -33,9 +34,9 @@ struct ProjectListContextMenuView: View {
 struct ProjectListContextMenuView_Previews: PreviewProvider {
     static var previews: some View {
         ProjectListContextMenuView(
-            viewModel: .constant(ProjectViewModel()),
             state: .todo,
-            project: .init(title: "", body: "", date: Date())
+            project: .init(title: "", body: "", date: Date()),
+            closure: ProjectViewModel().move(project:to:)
         )
         
     }
