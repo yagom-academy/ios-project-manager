@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol ChangeWorkStateViewModelDelegate: AnyObject {
-    func changeWorkState(planID: UUID, with workState: WorkState)
+    func changeWorkState(of plan: Plan, to workState: WorkState)
 }
 
 final class ChangeWorkStateViewModel {

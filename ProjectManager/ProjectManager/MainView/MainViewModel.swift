@@ -66,8 +66,8 @@ extension MainViewModel: PlanListViewModelDelegate {
 }
 
 extension MainViewModel: ChangeWorkStateViewModelDelegate {
-    func changeWorkState(planID: UUID, with workState: WorkState) {
-        service.changeWorkState(planID: planID, with: workState)
+    func changeWorkState(of plan: Plan, to workState: WorkState) {
+        service.changeWorkState(planID: plan.id, with: workState)
         fetchPlanList()
         distributePlan()
     }
