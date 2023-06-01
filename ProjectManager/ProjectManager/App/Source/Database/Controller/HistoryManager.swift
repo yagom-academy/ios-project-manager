@@ -19,9 +19,9 @@ final class HistoryManager {
     }
     
     init() {
-        firebaseManager.addListener(History.self,
-                                    createCompletion: create,
-                                    deleteCompletion: delete)
+//        firebaseManager.addListener(History.self,
+//                                    createCompletion: create,
+//                                    deleteCompletion: delete)
     }
     
     private func fetch() {
@@ -66,6 +66,16 @@ final class HistoryManager {
         return History(title: historyTitle)
     }
     
+    func addListenerIfNetworkConnected(_ isConnected: Bool) {
+        if isConnected {
+            firebaseManager.addListener(History.self,
+                                        createCompletion: create,
+                                        deleteCompletion: delete)
+        } else {
+            firebaseManager.removeListener()
+        }
+    }
+        
     private func removeHistoryIfNeeded() {
         if historyList.count > 7 {
             let history = historyList.removeFirst()

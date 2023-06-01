@@ -15,7 +15,11 @@ final class ProjectManagerService {
     private let historyManager = HistoryManager()
     private let networkMonitor = NetworkMonitor.shared
     
-    private init() { }
+    private var subscriptions = Set<AnyCancellable>()
+    
+    private init() {
+        bindNeteworkConnectable()
+    }
     
     func isNetworkConnectedPublisher() -> AnyPublisher<Bool, Never> {
         return networkMonitor.$isConnected.eraseToAnyPublisher()
@@ -56,5 +60,14 @@ final class ProjectManagerService {
         let history = historyManager.getRemovedHistory(title: task.title, from: task.state)
         
         historyManager.create(history)
+    }
+    
+    func bindNeteworkConnectable() {
+        isNetworkConnectedPublisher()
+            .sink { [weak self] in
+                self?.taskManager.addListenerIfNetworkConnected($0)
+                self?.historyManager.addListenerIfNetworkConnected($0)
+            }
+            .store(in: &subscriptions)
     }
 }

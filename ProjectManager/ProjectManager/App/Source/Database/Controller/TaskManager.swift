@@ -15,10 +15,10 @@ final class TaskManager {
     @Published private var taskList: [MyTask] = []
     
     init() {
-        firebaseManager.addListener(MyTask.self,
-                             createCompletion: create,
-                             updateCompletion: update,
-                             deleteCompletion: delete)
+//        firebaseManager.addListener(MyTask.self,
+//                             createCompletion: create,
+//                             updateCompletion: update,
+//                             deleteCompletion: delete)
     }
     
     func requestTaskListPublisher() -> AnyPublisher<[MyTask], Never> {
@@ -56,5 +56,16 @@ final class TaskManager {
         
         realmManager.delete(type: RealmTask.self, id: task.id)
         firebaseManager.delete(type: MyTask.self, id: task.id)
+    }
+    
+    func addListenerIfNetworkConnected(_ isConnected: Bool) {
+        if isConnected {
+            firebaseManager.addListener(MyTask.self,
+                                        createCompletion: create,
+                                        updateCompletion: update,
+                                        deleteCompletion: delete)
+        } else {
+            firebaseManager.removeListener()
+        }
     }
 }

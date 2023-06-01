@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 
 final class FirebaseManager {
     private let database = Firestore.firestore()
+    private var snapShotListener: ListenerRegistration?
     
     func addListener<DTO: DataTransferObject> (_ type: DTO.Type,
                                         createCompletion: ((DTO) -> Void)? = nil,
@@ -19,7 +20,7 @@ final class FirebaseManager {
         let collectionName = String(describing: type)
         let databaseReference = database.collection(collectionName)
         
-        databaseReference.addSnapshotListener { snapshot, error in
+        snapShotListener = databaseReference.addSnapshotListener { snapshot, error in
             snapshot?.documentChanges.forEach { diff in
                 guard let dto = try? diff.document.data(as: type) else { return }
                 
@@ -39,6 +40,10 @@ final class FirebaseManager {
                 }
             }
         }
+    }
+    
+    func removeListener() {
+        snapShotListener?.remove()
     }
     
     func fetch<DTO: DataTransferObject> (_ type: DTO.Type, completion: @escaping ([DTO]) -> ()) {
