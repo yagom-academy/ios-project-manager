@@ -9,8 +9,6 @@ import UIKit
 
 final class TaskListCell: UICollectionViewListCell {
     
-    static let identifier = "TaskTableViewCell"
-    
     private let titleLabel = {
         let label = UILabel()
         

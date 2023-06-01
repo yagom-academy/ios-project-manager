@@ -27,9 +27,7 @@ final class MainViewController: UIViewController {
         configureChildViewControllerUI()
         configureObserver()
         bindCollectionView()
-        
-        viewModel.networkStateHandler = bindNetworkStateHandler(isConnect:)
-        viewModel.configure()
+        configureViewModel()
     }
     
     func presentTodoViewController(_ state: TodoState, _ task: Task?) {
@@ -100,6 +98,11 @@ final class MainViewController: UIViewController {
                                                selector: #selector(bindErrorHandler(_:)),
                                                name: .errorTask,
                                                object: nil)
+    }
+    
+    private func configureViewModel() {
+        viewModel.networkStateHandler = bindNetworkStateHandler(isConnect:)
+        viewModel.configure()
     }
 }
 
