@@ -8,15 +8,9 @@ import UIKit
 
 final class MainViewController: UIViewController {
     private let viewModel: WorkViewModel
-    private let todoCollectionView: WorkCollectionView
-    private let doingCollectionView: WorkCollectionView
-    private let doneCollectionView: WorkCollectionView
     
     init() {
         self.viewModel = WorkViewModel()
-        self.todoCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.todo, viewModel: viewModel)
-        self.doingCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.doing, viewModel: viewModel)
-        self.doneCollectionView = WorkCollectionView(status: WorkViewModel.WorkStatus.done, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,6 +22,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureUIOption()
+        addchildren()
         configureCollectionListView()
         addAlertObserver()
     }
@@ -38,6 +33,12 @@ final class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(presentAppendWork))
+    }
+    
+    private func addchildren() {
+        addChild(WorkCollectionViewController(status: .todo, viewModel: viewModel))
+        addChild(WorkCollectionViewController(status: .doing, viewModel: viewModel))
+        addChild(WorkCollectionViewController(status: .done, viewModel: viewModel))
     }
     
     @objc private func presentAppendWork() {
@@ -52,7 +53,7 @@ final class MainViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(showAlert),
-            name: .requestingAlert,
+            name: .workDeleted,
             object: nil
         )
     }
@@ -79,6 +80,9 @@ extension MainViewController {
         let stackView = createWorksCollectionStackView()
         
         view.addSubview(stackView)
+        children.forEach {
+            stackView.addArrangedSubview($0.view)
+        }
         
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -91,9 +95,7 @@ extension MainViewController {
     }
     
     private func createWorksCollectionStackView() -> UIStackView {
-        let stackView = UIStackView(arrangedSubviews: [todoCollectionView,
-                                                       doingCollectionView,
-                                                       doneCollectionView])
+        let stackView = UIStackView()
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -106,18 +108,16 @@ extension MainViewController {
     }
 }
 
-extension MainViewController: WorkCollectionViewDelegate {
+// MARK: - Work Collection View Controller Delegate
+extension MainViewController: WorkCollectionViewControllerDelegate {
     private func configureDelegate() {
-        todoCollectionView.delegate = todoCollectionView
-        doingCollectionView.delegate = doingCollectionView
-        doneCollectionView.delegate = doneCollectionView
-        
-        todoCollectionView.workDelegate = self
-        doingCollectionView.workDelegate = self
-        doneCollectionView.workDelegate = self
+        children.forEach {
+            guard let viewController = $0 as? WorkCollectionViewController else { return }
+            viewController.delegate = self
+        }
     }
     
-    func workCollectionView(_ collectionView: WorkCollectionView, id: UUID) {
+    func workCollectionViewController(id: UUID) {
         let detailViewController = DetailViewController(viewModel: viewModel, viewMode: .edit, id: id)
         let navigationController = UINavigationController(rootViewController: detailViewController)
         navigationController.modalPresentationStyle = .formSheet
@@ -125,7 +125,7 @@ extension MainViewController: WorkCollectionViewDelegate {
         present(navigationController, animated: true)
     }
     
-    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkViewModel.WorkStatus, rect: CGRect) {
+    func workCollectionViewController(moveWork id: UUID, toStatus status: WorkViewModel.WorkStatus, rect: CGRect) {
         showPopoverViewController(status: status, rect: rect, id: id)
     }
     

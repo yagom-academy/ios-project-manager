@@ -1,5 +1,5 @@
 //
-//  WorkCollectionView.swift
+//  WorkCollectionViewControllerDelegate.swift
 //  ProjectManager
 //
 //  Created by Hyejeong Jeong on 2023/05/23.
@@ -7,52 +7,68 @@
 
 import UIKit
 
-protocol WorkCollectionViewDelegate: AnyObject {
-    func workCollectionView(_ collectionView: WorkCollectionView, id: UUID)
-    func workCollectionView(_ collectionView: WorkCollectionView, moveWork id: UUID, toStatus status: WorkViewModel.WorkStatus, rect: CGRect)
+protocol WorkCollectionViewControllerDelegate: AnyObject {
+    func workCollectionViewController(id: UUID)
+    func workCollectionViewController(moveWork id: UUID, toStatus status: WorkViewModel.WorkStatus, rect: CGRect)
 }
 
-final class WorkCollectionView: UICollectionView {
+final class WorkCollectionViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<WorkViewModel.WorkStatus, WorkViewModel.Work>
     typealias Snapshot = NSDiffableDataSourceSnapshot<WorkViewModel.WorkStatus, WorkViewModel.Work>
     
-    weak var workDelegate: WorkCollectionViewDelegate?
     let status: WorkViewModel.WorkStatus
     let viewModel: WorkViewModel
+    
+    weak var delegate: WorkCollectionViewControllerDelegate?
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var workDataSource: DataSource?
     
     init(status: WorkViewModel.WorkStatus, viewModel: WorkViewModel) {
         self.status = status
         self.viewModel = viewModel
-        
-        super.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-        
-        configureCollectionView()
-        configureDataSource()
-        applySnapshot()
-        addUpdateSnapshotObserver()
-        configureLongPressGesture()
-        
-        let layout = createLayout()
-        collectionViewLayout = layout
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureCollectionView() {
-        backgroundColor = .lightGray
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        register(WorkCell.self, forCellWithReuseIdentifier: WorkCell.identifier)
-        register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderReusableView.identifier)
+        configureCollectionView()
+        configureDataSource()
+        applySnapshot()
+        addUpdateSnapshotObserver()
+        configureLongPressGesture()
+    }
+    
+    private func configureCollectionView() {
+        view.backgroundColor = .lightGray
+        view.addSubview(collectionView)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = workDataSource
+        collectionView.register(WorkCell.self,
+                                forCellWithReuseIdentifier: WorkCell.identifier)
+        collectionView.register(HeaderReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: HeaderReusableView.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     private func createLayout() -> UICollectionViewLayout {
         let sectionProvider = {
             [weak self] (sectionIndex: Int, environment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             let section: NSCollectionLayoutSection
-            var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
             
             configuration.headerMode = .supplementary
             configuration.trailingSwipeActionsConfigurationProvider = self?.addSwipeActions
@@ -80,7 +96,7 @@ final class WorkCollectionView: UICollectionView {
         
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { _, _, completion in
-            NotificationCenter.default.post(name: .requestingAlert, object: id)
+            NotificationCenter.default.post(name: .workDeleted, object: id)
             completion(false)
         }
         
@@ -88,7 +104,7 @@ final class WorkCollectionView: UICollectionView {
     }
     
     private func configureDataSource() {
-        workDataSource = DataSource(collectionView: self) { [weak self]
+        workDataSource = DataSource(collectionView: collectionView) { [weak self]
             (collectionView, indexPath, work) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WorkCell.identifier, for: indexPath) as? WorkCell,
                   let isExceededDeadline = self?.viewModel.checkExceededDeadline(work.deadline) else {
@@ -134,7 +150,7 @@ final class WorkCollectionView: UICollectionView {
         
         workDataSource?.apply(snapshot, animatingDifferences: false)
         
-        guard let headerView = visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? HeaderReusableView else { return }
+        guard let headerView = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? HeaderReusableView else { return }
         
         configureHeaderView(headerView)
     }
@@ -143,41 +159,45 @@ final class WorkCollectionView: UICollectionView {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(applySnapshot),
-            name: .updateSnapShot,
+            name: .worksChanged,
             object: nil
         )
     }
 }
 
-extension WorkCollectionView: UICollectionViewDelegate {
+// MARK: - UICollectionView Delegate
+extension WorkCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let id = workDataSource?.itemIdentifier(for: indexPath)?.id else { return }
 
-        workDelegate?.workCollectionView(self, id: id)
+        delegate?.workCollectionViewController(id: id)
     }
 }
 
-extension WorkCollectionView: UIGestureRecognizerDelegate {
+// MARK: - UIGestureRecognizer Delegate
+extension WorkCollectionViewController: UIGestureRecognizerDelegate {
     private func configureLongPressGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
 
         longPressGesture.delegate = self
-        addGestureRecognizer(longPressGesture)
+        collectionView.addGestureRecognizer(longPressGesture)
     }
 
     @objc private func handleLongPressGesture(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.location(in: self)
+        let location = gestureRecognizer.location(in: collectionView)
 
         if gestureRecognizer.state == .began {
-            guard let indexPath = self.indexPathForItem(at: location),
-                  let cell = cellForItem(at: indexPath),
+            guard let indexPath = collectionView.indexPathForItem(at: location),
+                  let cell = collectionView.cellForItem(at: indexPath),
                   let id = workDataSource?.itemIdentifier(for: indexPath)?.id,
                   let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                   let window = windowScene.windows.first else { return }
             
-            let rect = convert(cell.frame, to: window)
-
-            workDelegate?.workCollectionView(self, moveWork: id, toStatus: status, rect: rect)
+            let rect = collectionView.convert(cell.frame, to: window)
+            
+            delegate?.workCollectionViewController(moveWork: id,
+                                                   toStatus: status,
+                                                   rect: rect)
         }
     }
 }

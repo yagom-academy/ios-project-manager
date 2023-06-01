@@ -9,7 +9,7 @@ import Foundation
 
 final class WorkViewModel {
     struct Work: Hashable {
-        let id: UUID = UUID()
+        let id: UUID
         var status: String = WorkStatus.todo.title
         var title: String
         var body: String
@@ -60,8 +60,8 @@ final class WorkViewModel {
     }
     
     func addWork(title: String, body: String, deadline: Date) {
-        works.append(Work(title: title, body: body, deadline: deadline))
-        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
+        works.append(Work(id: UUID(), title: title, body: body, deadline: deadline))
+        NotificationCenter.default.post(name: .worksChanged, object: nil)
     }
     
     func updateWork(id: UUID, title: String, body: String, deadline: Date) {
@@ -70,21 +70,21 @@ final class WorkViewModel {
         works[index].title = title
         works[index].body = body
         works[index].deadline = deadline
-        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
+        NotificationCenter.default.post(name: .worksChanged, object: nil)
     }
     
     func removeWork(id: UUID) {
         guard let index = fetchWorkIndex(for: id) else { return }
         
         works.remove(at: index)
-        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
+        NotificationCenter.default.post(name: .worksChanged, object: nil)
     }
     
     func moveStatus(id: UUID, to status: WorkStatus) {
         guard let index = fetchWorkIndex(for: id) else { return }
         
         works[index].status = status.title
-        NotificationCenter.default.post(name: .updateSnapShot, object: nil)
+        NotificationCenter.default.post(name: .worksChanged, object: nil)
     }
     
     func fetchWorkCount(of status: WorkStatus) -> Int {
