@@ -6,22 +6,16 @@
 //
 
 import Combine
+import Foundation
 
 final class DoingViewModel: PlanListViewModel {
-    var planList: [Plan] = [] {
-        didSet {
-            currentPlanSubject.send((planList, isUpdating))
-        }
-    }
-    let currentPlanSubject = PassthroughSubject<([Plan], Bool), Never>()
-    var planWorkState: WorkState = .doing
-    var delegate: PlanListViewModelDelegate?
-    
-    private var isUpdating: Bool = false
-    
-    func setState(isUpdating: Bool) {
-        self.isUpdating = isUpdating
-    }
+    var planList: [Plan] = []
+    var planCreated = PassthroughSubject<Void, Never>()
+    var planUpdated = PassthroughSubject<UUID, Never>()
+    var planDeleted = PassthroughSubject<UUID, Never>()
+    let planWorkState: WorkState = .doing
+
+    weak var delegate: PlanListViewModelDelegate?
 }
 
 extension DoingViewModel: DetailViewModelDelegate { }

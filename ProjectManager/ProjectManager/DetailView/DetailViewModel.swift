@@ -12,9 +12,7 @@ enum EditError: Error {
     case nilText
 }
 
-protocol DetailViewModelDelegate: PlanManagable {
-    func setState(isUpdating: Bool)
-}
+protocol DetailViewModelDelegate: PlanManagable { }
 
 final class DetailViewModel {
     enum Mode {
@@ -56,14 +54,12 @@ final class DetailViewModel {
     func createPlan() {
         guard let title, let body else { return }
         let plan = Plan(title: title, date: date, body: body, workState: workState)
-        delegate?.setState(isUpdating: false)
         delegate?.create(plan: plan)
     }
     
     func updatePlan() {
         guard let title, let id, let body else { return }
         let plan = Plan(title: title, date: date, body: body, workState: workState, id: id)
-        delegate?.setState(isUpdating: true)
         delegate?.update(plan: plan)
     }
     

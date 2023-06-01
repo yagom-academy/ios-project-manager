@@ -17,6 +17,7 @@ protocol PlanListViewModel: AnyObject {
     var planCreated: PassthroughSubject<Void, Never> { get }
     var planUpdated: PassthroughSubject<UUID, Never> { get }
     var planDeleted: PassthroughSubject<UUID, Never> { get }
+    var planWorkState: WorkState { get }
     var delegate: PlanListViewModelDelegate? { get set }
     
     func create(plan: Plan)
