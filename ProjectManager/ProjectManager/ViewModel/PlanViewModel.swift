@@ -14,7 +14,6 @@ final class PlanViewModel: PlanSubscriber {
     var changePublisher = PassthroughSubject<(Plan, State), Never>()
     
     private let state: State
-    private var cancellables = Set<AnyCancellable>()
     
     init(state: State) {
         self.state = state

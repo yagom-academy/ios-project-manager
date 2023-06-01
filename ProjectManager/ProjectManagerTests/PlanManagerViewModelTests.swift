@@ -17,9 +17,9 @@ final class PlanManagerViewModelTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        mockTodoPlanSubscriber = MockPlanSubscriber()
-        mockDoingPlanSubscriber = MockPlanSubscriber()
-        mockDonePlanSubscriber = MockPlanSubscriber()
+        mockTodoPlanSubscriber = MockPlanSubscriber(plan: [])
+        mockDoingPlanSubscriber = MockPlanSubscriber(plan: [])
+        mockDonePlanSubscriber = MockPlanSubscriber(plan: [])
         
         sut = PlanManagerViewModel(
             todoViewModel: mockTodoPlanSubscriber,

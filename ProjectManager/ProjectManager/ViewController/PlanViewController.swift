@@ -65,11 +65,10 @@ final class PlanViewController: UIViewController {
     }
     
     private func configureTableView() {
-        dataSource = UITableViewDiffableDataSource<Section, Plan>(tableView: tableView) { [unowned self] _, indexPath, _ in
+        dataSource = UITableViewDiffableDataSource<Section, Plan>(tableView: tableView) { [unowned self] _, indexPath, itemIdentifier in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? PlanTableViewCell else { return UITableViewCell() }
             
-            let plan = viewModel.read(at: indexPath)
-            cell.configureCell(with: plan)
+            cell.configureCell(with: itemIdentifier)
             
             return cell
         }

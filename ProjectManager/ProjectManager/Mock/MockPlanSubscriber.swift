@@ -9,11 +9,15 @@ import Foundation
 import Combine
 
 final class MockPlanSubscriber: PlanSubscriber {
-    var plans: [Plan]?
+    var plan: [Plan]
     var deletePublisher = PassthroughSubject<Plan, Never>()
     var changePublisher = PassthroughSubject<(Plan, State), Never>()
 
-    func updatePlan(_ plans: [Plan]) {
-        self.plans = plans
+    init(plan: [Plan]) {
+        self.plan = plan
+    }
+    
+    func updatePlan(_ plan: [Plan]) {
+        self.plan = plan
     }
 }

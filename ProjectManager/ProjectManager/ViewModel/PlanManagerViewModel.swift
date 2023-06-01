@@ -31,19 +31,19 @@ final class PlanManagerViewModel {
     
     private func bindPlan() {
         $planList
-            .filter { $0.contains { $0.state == .todo }}
+            .map { $0.filter { $0.state == .todo }}
             .sink { [weak self] in
                 self?.todoViewModel.updatePlan($0)
             }
             .store(in: &cancellables)
         $planList
-            .filter { $0.contains { $0.state == .doing }}
+            .map { $0.filter { $0.state == .doing }}
             .sink { [weak self] in
                 self?.doingViewModel.updatePlan($0)
             }
             .store(in: &cancellables)
         $planList
-            .filter { $0.contains { $0.state == .done }}
+            .map { $0.filter { $0.state == .done }}
             .sink { [weak self] in
                 self?.doneViewModel.updatePlan($0)
             }

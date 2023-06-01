@@ -10,10 +10,18 @@ import XCTest
 
 final class PlanTableCellViewModelTests: XCTestCase {
     var sut: PlanTableCellViewModel!
+    let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. dd"
+        return dateFormatter
+    }()
+    
+    var date: Date!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         
+        date = dateFormatter.date(from: "2023. 06. 01")
         let plan = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
         sut = PlanTableCellViewModel(plan: plan)
     }
@@ -26,7 +34,6 @@ final class PlanTableCellViewModelTests: XCTestCase {
     
     func test_convertDate호출시_Date가String으로변환한다() {
         // given
-        let date = Date()
         let expectation = "2023. 06. 01."
         
         // when
