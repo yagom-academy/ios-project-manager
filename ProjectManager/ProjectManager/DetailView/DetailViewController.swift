@@ -183,17 +183,28 @@ final class DetailViewController: UIViewController {
     }
     
     private func bindViewToViewModel() {
-        assign(publisher: titleTextfield.textPublisher, keyPath: \.title)
-        assign(publisher: bodyTextView.textPublisher, keyPath: \.body)
-        assign(publisher: datePicker.datePublisher, keyPath: \.date)
-    }
-    
-    private func assign<Value>(
-        publisher: AnyPublisher<Value, Never>,
-        keyPath: ReferenceWritableKeyPath<DetailViewModel, Value>
-    ) {
-        publisher
-            .assign(to: keyPath, on: viewModel)
+        titleTextfield.textPublisher
+            .sink { [weak self] title in
+                guard let self else { return }
+                
+                self.viewModel.title = title
+            }
+            .store(in: &cancellables)
+        
+        bodyTextView.textPublisher
+            .sink { [weak self] body in
+                guard let self else { return }
+                
+                self.viewModel.body = body
+            }
+            .store(in: &cancellables)
+        
+        datePicker.datePublisher
+            .sink { [weak self] date in
+                guard let self else { return }
+                
+                self.viewModel.date = date
+            }
             .store(in: &cancellables)
     }
     
