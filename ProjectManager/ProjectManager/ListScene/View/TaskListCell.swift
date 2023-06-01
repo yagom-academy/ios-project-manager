@@ -61,16 +61,16 @@ final class TaskListCell: UICollectionViewListCell {
     func updateText(by task: Task) {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
-        deadlineDateLabel.text = task.date.formattedText
+        deadlineDateLabel.text = task.date.formatedListDateText
         deadlineDateLabel.textColor = calculateDateLabelTextColor(task)
     }
     
     private func calculateDateLabelTextColor(_ task: Task) -> UIColor {
         guard task.state != .done else { return .label }
         
-        let nowDate = Date().formattedText
+        let nowDate = Date().formatedListDateText
         
-        if task.date.formattedText >= nowDate {
+        if task.date.formatedListDateText >= nowDate {
             return .label
         } else {
             return .systemRed

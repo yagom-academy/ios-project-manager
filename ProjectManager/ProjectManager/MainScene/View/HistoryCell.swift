@@ -47,7 +47,7 @@ class HistoryCell: UITableViewCell {
     
     func updateLabel(by history: History) {
         titleLabel.text = history.text
-        dateLabel.text = "\(history.date)"
+        dateLabel.text = history.date.formatedHistoryDateText
     }
     
     private func configureUI() {

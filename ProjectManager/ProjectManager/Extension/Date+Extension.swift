@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    private static let dateFormatter = {
+    private static let listDateFormatter = {
         let formatter = DateFormatter()
         
         formatter.dateFormat = "YYYY. MM. dd."
@@ -17,7 +17,20 @@ extension Date {
         return formatter
     }()
     
-    var formattedText: String {
-        return Date.dateFormatter.string(from: self)
+    private static let historyDateFormatter = {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "YYYY. MM. dd. hh:mm a"
+        formatter.locale = Locale.current
+        
+        return formatter
+    }()
+    
+    var formatedListDateText: String {
+        return Date.listDateFormatter.string(from: self)
+    }
+    
+    var formatedHistoryDateText: String {
+        return Date.historyDateFormatter.string(from: self)
     }
 }
