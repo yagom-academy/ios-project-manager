@@ -12,6 +12,8 @@
 		C7431F0A25F51E1D0094C4CF /* PlanManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* PlanManagerViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		FB2C68D22A28817300B9DE55 /* PlanTableCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2C68D12A28817300B9DE55 /* PlanTableCellViewModelTests.swift */; };
+		FB2C68D42A28865E00B9DE55 /* TextColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2C68D32A28865E00B9DE55 /* TextColor.swift */; };
 		FB7522B62A2869E800C051E9 /* MockPlanSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7522B52A2869E800C051E9 /* MockPlanSubscriber.swift */; };
 		FB7522B82A287CC200C051E9 /* PlusTodoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7522B72A287CC200C051E9 /* PlusTodoViewModelTests.swift */; };
 		FBB1445E2A27598800F4D4A2 /* PlanViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB1445D2A27598800F4D4A2 /* PlanViewModelTests.swift */; };
@@ -58,6 +60,8 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB2C68D12A28817300B9DE55 /* PlanTableCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTableCellViewModelTests.swift; sourceTree = "<group>"; };
+		FB2C68D32A28865E00B9DE55 /* TextColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColor.swift; sourceTree = "<group>"; };
 		FB7522B52A2869E800C051E9 /* MockPlanSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlanSubscriber.swift; sourceTree = "<group>"; };
 		FB7522B72A287CC200C051E9 /* PlusTodoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusTodoViewModelTests.swift; sourceTree = "<group>"; };
 		FBB144542A2758A400F4D4A2 /* PlanViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +161,7 @@
 		FBC20AB12A270F9100EDB6A8 /* ProjectManagerTests */ = {
 			isa = PBXGroup;
 			children = (
+				FB2C68D12A28817300B9DE55 /* PlanTableCellViewModelTests.swift */,
 				FB7522B72A287CC200C051E9 /* PlusTodoViewModelTests.swift */,
 				FBB1445D2A27598800F4D4A2 /* PlanViewModelTests.swift */,
 				FBC20AB22A270F9100EDB6A8 /* PlanManagerViewModelTests.swift */,
@@ -167,6 +172,7 @@
 		FBF062812A1488E00088A9E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FB2C68D32A28865E00B9DE55 /* TextColor.swift */,
 				FBF062872A14B8A00088A9E3 /* PlanTableViewCell.swift */,
 				FBF0628E2A1607570088A9E3 /* CircleLabel.swift */,
 				FBF062A72A1C5E230088A9E3 /* HeaderView.swift */,
@@ -373,6 +379,7 @@
 				FBF0629A2A16F6930088A9E3 /* DateFormatManager.swift in Sources */,
 				FBF062AA2A1D11B90088A9E3 /* State.swift in Sources */,
 				FBF062972A166AD90088A9E3 /* SavingItemDelegate.swift in Sources */,
+				FB2C68D42A28865E00B9DE55 /* TextColor.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FBF062A02A1B391B0088A9E3 /* PlusTodoViewModel.swift in Sources */,
 				FBF062B02A1F16010088A9E3 /* PlanViewController.swift in Sources */,
@@ -395,6 +402,7 @@
 			files = (
 				FBC20AB32A270F9100EDB6A8 /* PlanManagerViewModelTests.swift in Sources */,
 				FBB1445E2A27598800F4D4A2 /* PlanViewModelTests.swift in Sources */,
+				FB2C68D22A28817300B9DE55 /* PlanTableCellViewModelTests.swift in Sources */,
 				FB7522B82A287CC200C051E9 /* PlusTodoViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
