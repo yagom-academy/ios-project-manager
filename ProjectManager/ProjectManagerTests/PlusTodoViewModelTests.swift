@@ -10,13 +10,13 @@ import XCTest
 
 final class PlusTodoViewModelTests: XCTestCase {
     var sut: PlusTodoViewModel!
-
-    override func setUpWithError() throws {
-      try super.setUpWithError()
     
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        
         sut = PlusTodoViewModel()
     }
-
+    
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         
@@ -26,7 +26,7 @@ final class PlusTodoViewModelTests: XCTestCase {
     func test_addPlan호출시_현재plan은_nil이아니다() {
         // given
         let plan = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
-    
+        
         // when
         sut.addPlan(plan)
         
@@ -82,5 +82,4 @@ final class PlusTodoViewModelTests: XCTestCase {
         XCTAssertEqual(result.body, plan.body)
         XCTAssertEqual(result.date, plan.date)
     }
-
 }

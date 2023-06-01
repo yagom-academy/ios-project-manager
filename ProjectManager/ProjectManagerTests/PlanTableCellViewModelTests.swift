@@ -7,18 +7,20 @@
 
 import XCTest
 @testable import ProjectManager
+
 final class PlanTableCellViewModelTests: XCTestCase {
     var sut: PlanTableCellViewModel!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        var plan = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
+        let plan = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
         sut = PlanTableCellViewModel(plan: plan)
     }
 
     override func tearDownWithError() throws {
         try super.tearDownWithError()
+        
         sut = nil
     }
     

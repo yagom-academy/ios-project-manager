@@ -10,25 +10,21 @@ import XCTest
 
 final class PlanManagerViewModelTests: XCTestCase {
     var sut: PlanManagerViewModel!
-    var planA: Plan?
-    var planB: Plan?
-    var planC: Plan?
+    var mockTodoPlanSubscriber: MockPlanSubscriber!
+    var mockDoingPlanSubscriber: MockPlanSubscriber!
+    var mockDonePlanSubscriber: MockPlanSubscriber!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        planA = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
-        planB = Plan(title: "집안일", body: "설거지, 빨래, 청소기돌리기", date: Date(), state: .todo)
-        planC = Plan(title: "공부", body: "MVC, MVP, MVVM 패턴 공부하기", date: Date(), state: .todo)
-        
-        let todoViewModel = PlanViewModel(state: .todo)
-        let doingViewModel = PlanViewModel(state: .doing)
-        let doneViewModel = PlanViewModel(state: .done)
+        mockTodoPlanSubscriber = MockPlanSubscriber()
+        mockDoingPlanSubscriber = MockPlanSubscriber()
+        mockDonePlanSubscriber = MockPlanSubscriber()
         
         sut = PlanManagerViewModel(
-            todoViewModel: todoViewModel,
-            doingViewModel: doingViewModel,
-            doneViewModel: doneViewModel
+            todoViewModel: mockTodoPlanSubscriber,
+            doingViewModel: mockDoingPlanSubscriber,
+            doneViewModel: mockDonePlanSubscriber
         )
     }
     
@@ -40,9 +36,9 @@ final class PlanManagerViewModelTests: XCTestCase {
     
     func test_create실행시_planList에값은_nil이아니다() {
         // given
-        guard let planA = self.planA,
-              let planB = self.planB,
-              let planC = self.planC else { return }
+        let planA = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
+        let planB = Plan(title: "집안일", body: "설거지, 빨래, 청소기돌리기", date: Date(), state: .todo)
+        let planC = Plan(title: "공부", body: "MVC, MVP, MVVM 패턴 공부하기", date: Date(), state: .todo)
         
         sut.create(planA)
         sut.create(planB)
@@ -57,7 +53,8 @@ final class PlanManagerViewModelTests: XCTestCase {
     
     func test_update실행시_같은id를가진plan이_업데이트된다() {
         // given
-        guard var planB = self.planB else { return }
+        var planB = Plan(title: "집안일", body: "설거지, 빨래, 청소기돌리기", date: Date(), state: .todo)
+        
         sut.create(planB)
         
         let planBID = planB.id
@@ -85,5 +82,53 @@ final class PlanManagerViewModelTests: XCTestCase {
         XCTAssertEqual(expectationTitle, newPlanB.title)
         XCTAssertEqual(expectationBody, newPlanB.body)
         XCTAssertEqual(expectationState, newPlanB.state)
+    }
+    
+    func test_mockPlanSubscriber의_deletePublisher에값이들어오면_planList배열에서삭제된다() {
+        // given
+        let todoPlan = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
+        let doingPlan = Plan(title: "집안일", body: "설거지, 빨래, 청소기돌리기", date: Date(), state: .doing)
+        let donePlan = Plan(title: "공부", body: "MVC, MVP, MVVM 패턴 공부하기", date: Date(), state: .done)
+        
+        sut.create(todoPlan)
+        sut.create(doingPlan)
+        sut.create(donePlan)
+        let oldPlans = sut.planList
+        
+        mockTodoPlanSubscriber.deletePublisher.send(todoPlan)
+        mockDoingPlanSubscriber.deletePublisher.send(doingPlan)
+        mockDonePlanSubscriber.deletePublisher.send(donePlan)
+        
+        // when
+        let newPlans = sut.planList
+        
+        // then
+        XCTAssertNotEqual(oldPlans, newPlans)
+    }
+    
+    func test_mockPlanSubscriber의_changePublisher에값이들어오면_plan의상태가_새로운값으로변경된다() {
+        // given
+        let todoPlan = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
+        let doingPlan = Plan(title: "집안일", body: "설거지, 빨래, 청소기돌리기", date: Date(), state: .doing)
+        let donePlan = Plan(title: "공부", body: "MVC, MVP, MVVM 패턴 공부하기", date: Date(), state: .done)
+        
+        sut.create(todoPlan)
+        sut.create(doingPlan)
+        sut.create(donePlan)
+        
+        mockTodoPlanSubscriber.changePublisher.send((todoPlan, .doing))
+        mockDoingPlanSubscriber.changePublisher.send((doingPlan, .done))
+        mockDonePlanSubscriber.changePublisher.send((donePlan, .todo))
+        
+        // when
+        let newPlans = sut.planList
+        let newTodoPlan = newPlans[0]
+        let newDoingPlan = newPlans[1]
+        let newDonePlan = newPlans[2]
+        
+        // then
+        XCTAssertEqual(newTodoPlan.state, .doing)
+        XCTAssertEqual(newDoingPlan.state, .done)
+        XCTAssertEqual(newDonePlan.state, .todo)
     }
 }

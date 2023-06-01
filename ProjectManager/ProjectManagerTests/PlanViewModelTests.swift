@@ -11,25 +11,21 @@ import XCTest
 
 final class PlanViewModelTests: XCTestCase {
     var sut: PlanViewModel!
-    var mockSubscriber: MockPlanSubscriber!
     var cancellabels = Set<AnyCancellable>()
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = PlanViewModel(state: .todo)
-        mockSubscriber = MockPlanSubscriber()
         
+        sut = PlanViewModel(state: .todo)
         let planA = Plan(title: "산책", body: "강아지 산책시키기", date: Date(), state: .todo)
         let planB = Plan(title: "집안일", body: "설거지, 빨래, 청소기돌리기", date: Date(), state: .todo)
         let planC = Plan(title: "공부", body: "MVC, MVP, MVVM 패턴 공부하기", date: Date(), state: .todo)
-        
         sut.plan = [planA, planB, planC]
-        sut.deletePublisher = mockSubscriber.deletePublisher
-        sut.changePublisher = mockSubscriber.changePublisher
     }
 
     override func tearDownWithError() throws {
         try super.tearDownWithError()
+        
         sut = nil
         cancellabels.forEach { $0.cancel() }
     }
@@ -107,7 +103,7 @@ final class PlanViewModelTests: XCTestCase {
         let planToDelete = sut.read(at: indexPath)
         let expectation = expectation(description: "delete")
         
-        mockSubscriber.deletePublisher
+        sut.deletePublisher
             .sink { plan in
                 XCTAssertEqual(plan, planToDelete)
                 expectation.fulfill()
@@ -128,7 +124,7 @@ final class PlanViewModelTests: XCTestCase {
         let newState = State.doing
         let expectation = expectation(description: "change")
         
-        mockSubscriber.changePublisher
+        sut.changePublisher
             .sink { plan, state in
                 XCTAssertEqual(plan, planToChange)
                 XCTAssertEqual(state, newState)
@@ -138,9 +134,8 @@ final class PlanViewModelTests: XCTestCase {
         
         // when
         sut.changeState(plan: planToChange, state: newState)
-        
+       
         // then
         waitForExpectations(timeout: 1)
     }
-
 }
