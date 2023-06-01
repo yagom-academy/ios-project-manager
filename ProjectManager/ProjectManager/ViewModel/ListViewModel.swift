@@ -9,9 +9,9 @@ import UIKit
 
 final class ListViewModel {
     static var shared = ListViewModel()
-    var todoList: Observable<[ProjectModel]> = Observable([ProjectModel(title: "111", description: "111", deadLine: Date().addingTimeInterval(-200000), state: .todo)])
-    var doingList: Observable<[ProjectModel]> = Observable([ProjectModel(title: "2222222", description: "2222", deadLine: Date().addingTimeInterval(33333333), state: .doing)])
-    var doneList: Observable<[ProjectModel]> = Observable([ProjectModel(title: "33", description: "333333333333333333333333", deadLine: Date(), state: .done)])
+    var todoList: Observable<[ProjectModel]> = Observable([])
+    var doingList: Observable<[ProjectModel]> = Observable([])
+    var doneList: Observable<[ProjectModel]> = Observable([])
 
     func configureCell(to cell: TableViewCell, with data: ProjectModel) {
         cell.configureContent(with: data)
