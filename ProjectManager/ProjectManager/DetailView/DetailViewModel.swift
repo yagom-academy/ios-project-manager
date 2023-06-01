@@ -12,11 +12,6 @@ enum EditError: Error {
     case nilText
 }
 
-protocol PlanManagable: AnyObject {
-    func create(plan: Plan)
-    func update(plan: Plan)
-}
-
 protocol DetailViewModelDelegate: PlanManagable {
     func setState(isUpdating: Bool)
 }

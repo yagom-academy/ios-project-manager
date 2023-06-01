@@ -46,7 +46,7 @@ final class PlanCell: UICollectionViewListCell {
     }()
     
     private var viewModel: PlanCellViewModel?
-    private var bindings = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,19 +67,19 @@ final class PlanCell: UICollectionViewListCell {
             .sink { title in
                 self.titleLabel.text = title
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
         
         viewModel?.$body
             .sink { body in
                 self.bodyLabel.text = body
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
         
         viewModel?.$date
             .sink { date in
                 self.dateLabel.text = date
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
         
         viewModel?.$isDateExpired
             .sink { state in
@@ -87,7 +87,7 @@ final class PlanCell: UICollectionViewListCell {
                 
                 self.dateLabel.textColor = state ? .systemRed : .black
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
     }
     
     private func configureContentLayout() {

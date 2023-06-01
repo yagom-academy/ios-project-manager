@@ -36,7 +36,7 @@ final class ChangeWorkStateViewController: UIViewController {
     }()
     
     private let viewModel: ChangeWorkStateViewModel
-    private var bindings = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     init(viewModel: ChangeWorkStateViewModel) {
         self.viewModel = viewModel
@@ -99,12 +99,12 @@ final class ChangeWorkStateViewController: UIViewController {
             .sink { firstText in
                 self.firstButton.setTitle(firstText, for: .normal)
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
         
         viewModel.$secondText
             .sink { secondText in
                 self.secondButton.setTitle(secondText, for: .normal)
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
     }
 }

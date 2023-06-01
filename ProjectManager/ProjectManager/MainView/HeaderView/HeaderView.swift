@@ -46,7 +46,7 @@ final class HeaderView: UICollectionReusableView {
     }()
     
     private var viewModel: HeaderViewModel?
-    private var bindings = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,13 +67,13 @@ final class HeaderView: UICollectionReusableView {
             .sink { title in
                 self.titleLabel.text = title
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
         
         viewModel?.$badgeText
             .sink { badgeText in
                 self.badgeLabel.text = badgeText
             }
-            .store(in: &bindings)
+            .store(in: &cancellables)
     }
     
     private func configureLayout() {

@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol PlanManagable: AnyObject {
+    func create(plan: Plan)
+    func update(plan: Plan)
+}
+
 final class PlanStorageService {
     private var planStore: [Plan]
     

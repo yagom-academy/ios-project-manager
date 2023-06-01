@@ -64,7 +64,7 @@ final class DetailViewController: UIViewController {
     weak var delegate: DetailViewModelDelegate?
     
     private let viewModel: DetailViewModel
-    private var bindings = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
@@ -194,7 +194,7 @@ final class DetailViewController: UIViewController {
     ) {
         publisher
             .assign(to: keyPath, on: viewModel)
-            .store(in: &bindings)
+            .store(in: &cancellables)
     }
     
     private func bindViewModelToView() {
@@ -210,6 +210,6 @@ final class DetailViewController: UIViewController {
             }, receiveValue: { isEditingDone in
                 self.navigationItem.rightBarButtonItem?.isEnabled = isEditingDone ? true : false
             })
-            .store(in: &bindings)
+            .store(in: &cancellables)
     }
 }
