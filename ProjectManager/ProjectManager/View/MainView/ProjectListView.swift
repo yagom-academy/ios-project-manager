@@ -19,37 +19,21 @@ struct ProjectListView: View {
     var body: some View {
         List {
             Section {
-                let list = viewModel.search(state: currentState)
-                
-                createListItems(for: list) { indexSet in
-                    viewModel.delete(state: currentState, at: indexSet)
-                }
+                ProjectListSectionView(viewModel: $viewModel, state: currentState)
+                    .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
+                    .listRowBackground(
+                        Rectangle()
+                            .fill(.white)
+                            .padding(.top, 10)
+                    )
             } header: {
                 let count = viewModel.search(state: currentState).count
                 let binding = Binding<String>.constant("\(count)")
+                
                 ProjectListHeaderView(count: binding, state: currentState)
             }
         }
         .listStyle(.grouped)
-    }
- 
-}
-
-private extension ProjectListView {
-    func createListItems(for models: [Project], onDelete: @escaping (IndexSet) -> Void) -> some View {
-        ForEach(models) { model in
-            ProjectListCell(viewModel: $viewModel, model: model)
-                .contextMenu {
-                    ProjectListContextMenuView(viewModel: $viewModel, state: currentState, project: model)
-                }
-        }
-        .onDelete(perform: onDelete)
-        .listRowInsets(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
-        .listRowBackground(
-            Rectangle()
-                .fill(.white)
-                .padding(.top, 10)
-        )
     }
 }
 
