@@ -50,11 +50,9 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func bindErrorHandler(_ noti: Notification) {
-        guard let error = noti.userInfo?["error"] as? Error else {
-            return
+        if let error = noti.userInfo?["error"] as? Error {
+            showErrorAlert(error)
         }
-        
-        showErrorAlert(error)
     }
     
     private func bindNetworkStateHandler(isConnect: Bool) {

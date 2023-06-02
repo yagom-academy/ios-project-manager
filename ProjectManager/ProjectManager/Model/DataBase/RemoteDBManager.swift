@@ -34,25 +34,23 @@ final class RemoteDBManager: DatabaseManagable {
     
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
         ref?.child("Task").getData(completion: { error, snapshot in
-            guard error == nil else {
-                completion(.failure(DatabaseError.fetchedError))
+            if error == nil {
+                let snapshotValue = snapshot?.value as? NSDictionary
+                var fetchedData: [Storable] = []
+                
+                snapshotValue?.forEach({ key, value in
+                    let value = value as? NSDictionary
+                    
+                    if let task = Task.convertToStorable(value) {
+                        fetchedData.append(task)
+                    }
+                })
+                
+                completion(.success(fetchedData))
                 return
             }
             
-            let snapshotValue = snapshot?.value as? NSDictionary
-            var fetchedData: [Storable] = []
-            
-            snapshotValue?.forEach({ key, value in
-                let value = value as? NSDictionary
-                
-                guard let task = Task.convertToStorable(value) else {
-                    return
-                }
-                
-                fetchedData.append(task)
-            })
-            
-            completion(.success(fetchedData))
+            completion(.failure(DatabaseError.fetchedError))
         })
     }
     
