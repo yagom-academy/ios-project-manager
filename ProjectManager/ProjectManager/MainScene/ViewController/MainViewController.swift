@@ -56,7 +56,7 @@ final class MainViewController: UIViewController {
     }
     
     private func bindNetworkStateHandler(isConnect: Bool) {
-        navigationItem.title = isConnect == true ? "Project Manager" : "🔴 Project Manager"
+        navigationItem.title = isConnect ? "Project Manager" : "🔴 Project Manager"
         navigationItem.rightBarButtonItem?.isEnabled = isConnect == true ? true : false
         
         todoViewController.viewModel.isNetworkConnecting = isConnect
@@ -66,7 +66,6 @@ final class MainViewController: UIViewController {
         let title = "네트워크 연결 확인"
         let message = isConnect == true ? "네트워크가 연결되었습니다." : "네트워크 상태를 확인해주세요"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
 
         alert.addAction(cancelAction)
