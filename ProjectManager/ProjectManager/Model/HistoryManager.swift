@@ -11,7 +11,9 @@ struct HistoryManager {
     private var histories: [History] = []
     
     var sortedHistories: [History] {
-        return histories.sorted { $0.date > $1.date }
+        return histories.sorted { prevHistory, nextHistory in
+            return prevHistory.date > nextHistory.date
+        }
     }
     
     mutating func addHistory(text: String, date: Date) {
