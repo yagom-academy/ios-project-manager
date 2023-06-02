@@ -49,8 +49,8 @@ final class ChangeWorkStateViewController: UIViewController {
     
     override func viewDidLoad() {
         configureLayout()
-        configureButtonAction()
-        bindViewModelToView()
+        configureButtonTitle()
+        bind()
     }
     
     private func configureLayout() {
@@ -68,42 +68,23 @@ final class ChangeWorkStateViewController: UIViewController {
         ])
     }
     
-    private func configureButtonAction() {
-        firstButton.addTarget(
-            self,
-            action: #selector(firstButtonTapped),
-            for: .touchUpInside
+    private func configureButtonTitle() {
+        firstButton.setTitle(viewModel.filteredStates[safe: 0]?.buttonTitle, for: .normal)
+        secondButton.setTitle(viewModel.filteredStates[safe: 1]?.buttonTitle, for: .normal)
+    }
+    
+    private func bind() {
+        let input = ChangeWorkStateViewModel.Input(
+            firstButtonTappedEvent: firstButton.publisher(for: .touchUpInside).eraseToAnyPublisher(),
+            secondButtonTappedEvent: secondButton.publisher(for: .touchUpInside).eraseToAnyPublisher()
         )
         
-        secondButton.addTarget(
-            self,
-            action: #selector(secondButtonTapped),
-            for: .touchUpInside
-        )
-    }
-    
-    @objc
-    private func firstButtonTapped() {
-        viewModel.changeWorkState(buttonIndex: .first)
-        self.dismiss(animated: true)
-    }
-    
-    @objc
-    private func secondButtonTapped() {
-        viewModel.changeWorkState(buttonIndex: .second)
-        self.dismiss(animated: true)
-    }
-    
-    private func bindViewModelToView() {
-        viewModel.$firstText
-            .sink { [weak self] firstText in
-                self?.firstButton.setTitle(firstText, for: .normal)
-            }
-            .store(in: &cancellables)
+        let output = viewModel.transform(input: input)
         
-        viewModel.$secondText
-            .sink { [weak self] secondText in
-                self?.secondButton.setTitle(secondText, for: .normal)
+        output
+            .dismissTrigger
+            .sink { [weak self] in
+                self?.dismiss(animated: true)
             }
             .store(in: &cancellables)
     }

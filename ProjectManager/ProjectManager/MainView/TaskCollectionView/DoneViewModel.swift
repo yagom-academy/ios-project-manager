@@ -11,9 +11,9 @@ import Combine
 final class DoneViewModel: PlanListViewModel {
     var planList: [Plan] = []
     var planCountChanged = PassthroughSubject<Int, Never>()
-    var planCreated = PassthroughSubject<Void, Never>()
+    var planCreated = PassthroughSubject<Int, Never>()
     var planUpdated = PassthroughSubject<UUID, Never>()
-    var planDeleted = PassthroughSubject<UUID, Never>()
+    var planDeleted = PassthroughSubject<(Int, UUID), Never>()
     let planWorkState: WorkState = .done
 
     weak var delegate: PlanListViewModelDelegate?

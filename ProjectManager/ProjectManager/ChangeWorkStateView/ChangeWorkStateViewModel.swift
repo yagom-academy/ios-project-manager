@@ -14,17 +14,18 @@ protocol ChangeWorkStateViewModelDelegate: AnyObject {
 
 final class ChangeWorkStateViewModel {
     struct Input {
-        
+        let firstButtonTappedEvent: AnyPublisher<Void, Never>
+        let secondButtonTappedEvent: AnyPublisher<Void, Never>
     }
     
     struct Output {
-        
+        let dismissTrigger: AnyPublisher<Void, Never>
     }
     
     weak var delegate: ChangeWorkStateViewModelDelegate?
     
     private let plan: Plan
-    private var filteredStates: [WorkState]
+    var filteredStates: [WorkState]
 
     init(from plan: Plan) {
         self.plan = plan
@@ -33,10 +34,26 @@ final class ChangeWorkStateViewModel {
     }
     
     func transform(input: Input) -> Output {
-        guard let state = filteredStates[safe: buttonIndex.rawValue] else {
-            return
-        }
-
-        delegate?.changeWorkState(of: plan, to: state)
+        let firstButtonPublisher = input.firstButtonTappedEvent
+            .map { [weak self] in
+                guard let self, let state = self.filteredStates[safe: 0] else { return }
+                
+                self.delegate?.changeWorkState(of: self.plan, to: state)
+            }
+            .eraseToAnyPublisher()
+        
+        let secondButtonPublisher = input.secondButtonTappedEvent
+            .map { [weak self] in
+                guard let self, let state = self.filteredStates[safe: 1] else { return }
+                
+                self.delegate?.changeWorkState(of: self.plan, to: state)
+            }
+            .eraseToAnyPublisher()
+        
+        let dismissTrigger = firstButtonPublisher
+            .merge(with: secondButtonPublisher)
+            .eraseToAnyPublisher()
+        
+        return Output(dismissTrigger: dismissTrigger)
     }
 }

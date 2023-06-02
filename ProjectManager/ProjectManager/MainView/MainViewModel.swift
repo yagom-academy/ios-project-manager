@@ -8,10 +8,7 @@
 import Foundation
 
 final class MainViewModel {
-    private var todoList: [Plan] = []
-    private var doingList: [Plan] = []
-    private var doneList: [Plan] = []
-    
+    private var planListDictionary: [WorkState: [Plan]] = [:]
     private var viewModelDictionary: [WorkState: PlanListViewModel] = [:]
     private let service: PlanStorageService
     
@@ -28,26 +25,31 @@ final class MainViewModel {
     }
     
     func fetchPlanList() {
-        service.fetchPlanList().forEach { plan in
-            switch plan.workState {
-            case .todo:
-                todoList.append(plan)
-            case .doing:
-                doingList.append(plan)
-            case .done:
-                doneList.append(plan)
-            }
-        }
+        let todoList = service.fetchPlanList().filter { $0.workState == .todo }
+        let doingList = service.fetchPlanList().filter { $0.workState == .doing }
+        let doneList = service.fetchPlanList().filter { $0.workState == .done }
+        
+        planListDictionary[.todo] = todoList
+        planListDictionary[.doing] = doingList
+        planListDictionary[.done] = doneList
     }
     
     func distributePlan() {
-        viewModelDictionary[.todo]?.planList = todoList
-        viewModelDictionary[.doing]?.planList = doingList
-        viewModelDictionary[.done]?.planList = doneList
+        providePlanList(workState: .todo)
+        providePlanList(workState: .doing)
+        providePlanList(workState: .done)
     }
     
     func todoViewModel() -> PlanListViewModel? {
         return viewModelDictionary[.todo]
+    }
+    
+    private func providePlanList(workState: WorkState) {
+        guard let planList = planListDictionary[workState] else {
+            return
+        }
+        
+        viewModelDictionary[workState]?.planList = planList
     }
 }
 
@@ -67,8 +69,21 @@ extension MainViewModel: PlanListViewModelDelegate {
 
 extension MainViewModel: ChangeWorkStateViewModelDelegate {
     func changeWorkState(of plan: Plan, to workState: WorkState) {
+        guard var planList = planListDictionary[plan.workState],
+              var targetList = planListDictionary[workState],
+              let targetIndex = planList.firstIndex(of: plan) else { return }
+        
+        let target = planList.remove(at: targetIndex)
+        targetList.append(target)
+        
+        planListDictionary[plan.workState] = planList
+        planListDictionary[workState] = targetList
+        
+        providePlanList(workState: plan.workState)
+        providePlanList(workState: workState)
+        
+        viewModelDictionary[plan.workState]?.planDeleted.send((planList.count, plan.id))
+        viewModelDictionary[workState]?.planCreated.send((targetList.count))
         service.changeWorkState(planID: plan.id, with: workState)
-        fetchPlanList()
-        distributePlan()
     }
 }

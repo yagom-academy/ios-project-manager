@@ -167,8 +167,9 @@ final class PlanCollectionViewController: UIViewController {
     
     private func bindState() {
         viewModel.planCreated
-            .sink { [weak self] in
+            .sink { [weak self] planListCount in
                 self?.applyLatestSnapshot()
+                self?.viewModel.planCountChanged.send(planListCount)
             }
             .store(in: &cancellables)
         
@@ -179,8 +180,9 @@ final class PlanCollectionViewController: UIViewController {
             .store(in: &cancellables)
         
         viewModel.planDeleted
-            .sink { [weak self] planID in
+            .sink { [weak self] (planListCount, planID) in
                 self?.deleteItems(id: planID)
+                self?.viewModel.planCountChanged.send(planListCount)
             }
             .store(in: &cancellables)
     }
