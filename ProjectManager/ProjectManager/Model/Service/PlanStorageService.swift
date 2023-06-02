@@ -15,7 +15,7 @@ protocol PlanManagable: AnyObject {
 final class PlanStorageService {
     private var planStore: [Plan]
     
-    init(planStore: [Plan]) {
+    init(planStore: [Plan] = []) {
         self.planStore = planStore
     }
     

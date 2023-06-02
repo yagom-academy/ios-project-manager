@@ -13,20 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let planStore = [
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hiThere", date: Date(), body: "body", workState: .done),
-            Plan(title: "hi", date: Date(), body: "body", workState: .doing),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo),
-            Plan(title: "hi", date: Date(), body: "body", workState: .todo)
-        ]
-        let planStorageService = PlanStorageService(planStore: planStore)
+        let planStorageService = PlanStorageService()
         let mainViewModel = MainViewModel(service: planStorageService)
         
         window?.rootViewController = UINavigationController(
