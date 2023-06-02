@@ -240,9 +240,9 @@ let dbManager = LocalDBManager<TaskObject>()
 * Alert을 표시해주는 것 뿐만아니라 우측 `NavigationItem.rightBarButton`을 비활성화 시키고 `title`에 따로 빨간색 원을 추가함으로 현재 네트워크가 연결되어 있지 않다는 것을 보여주도록 구현하였습니다.
 
 ## 6. Reference
-[Apple - Implementing Modern Collection Views](https://developer.apple.com/documentation/uikit/views_and_controls/collection_views/implementing_modern_collection_views)
-[Apple - UITextField: textRect(forBounds:)](https://developer.apple.com/documentation/uikit/uitextfield/1619636-textrect)
-[Apple - UITextField: editingRect(forBounds:)](https://developer.apple.com/documentation/uikit/uitextfield/1619589-editingrect)
-[Apple - CALayer: layer.shadowOffset](https://developer.apple.com/documentation/quartzcore/calayer/1410970-shadowoffset)
-[Firebase - Apple 플랫폼에서 데이터 읽기 및 쓰기](https://firebase.google.com/docs/database/ios/read-and-write?hl=ko)
-[RealmSwift](https://www.mongodb.com/docs/realm-legacy/kr/docs/swift/latest.html)
+* [Apple - Implementing Modern Collection Views](https://developer.apple.com/documentation/uikit/views_and_controls/collection_views/implementing_modern_collection_views)
+* [Apple - UITextField: textRect(forBounds:)](https://developer.apple.com/documentation/uikit/uitextfield/1619636-textrect)
+* [Apple - UITextField: editingRect(forBounds:)](https://developer.apple.com/documentation/uikit/uitextfield/1619589-editingrect)
+* [Apple - CALayer: layer.shadowOffset](https://developer.apple.com/documentation/quartzcore/calayer/1410970-shadowoffset)
+* [Firebase - Apple 플랫폼에서 데이터 읽기 및 쓰기](https://firebase.google.com/docs/database/ios/read-and-write?hl=ko)
+* [RealmSwift](https://www.mongodb.com/docs/realm-legacy/kr/docs/swift/latest.html)
