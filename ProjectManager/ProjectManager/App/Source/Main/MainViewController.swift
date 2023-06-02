@@ -75,8 +75,6 @@ final class MainViewController: UIViewController {
         
         let historyViewController = HistoryViewController()
         historyViewController.modalPresentationStyle = .popover
-        historyViewController.preferredContentSize = CGSize(width: view.frame.width * 0.4,
-                                                            height: view.frame.height * 0.53)
         
         let popoverController = historyViewController.popoverPresentationController
         popoverController?.sourceView = view

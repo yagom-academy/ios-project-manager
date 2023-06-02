@@ -34,6 +34,18 @@ final class HistoryViewController: UIViewController {
         
         setupView()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        updatePrefferContentSize()
+    }
+    
+    func updatePrefferContentSize() {
+        let contentSize = collectionView.collectionViewLayout.collectionViewContentSize
+        
+        preferredContentSize = CGSize(width: contentSize.width, height: contentSize.height)
+    }
     
     private func createListLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout() { sectionIndex, layoutEnvironment in
@@ -63,10 +75,10 @@ final class HistoryViewController: UIViewController {
         let safe = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 15),
-            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 15),
-            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -15),
-            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -15)
+            collectionView.topAnchor.constraint(equalTo: safe.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
         ])
     }
     
