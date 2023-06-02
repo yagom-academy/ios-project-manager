@@ -34,14 +34,14 @@ class HistoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return histories.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.identifier) as? HistoryCell else {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.identifier) as? HistoryCell {
+            cell.updateLabel(by: histories[indexPath.row])
+            
+            return cell
+        } else {
             return UITableViewCell()
         }
-        
-        cell.updateLabel(by: histories[indexPath.row])
-
-        return cell
     }
 }
