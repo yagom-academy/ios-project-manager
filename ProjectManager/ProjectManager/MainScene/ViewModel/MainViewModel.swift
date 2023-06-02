@@ -37,7 +37,7 @@ class MainViewModel {
     var networkStateHandler: ((Bool) -> Void)?
     
     var historyTasks: [History] {
-        return historyManager.sortedHistoryList
+        return historyManager.sortedHistories
     }
     
     deinit {

@@ -9,10 +9,10 @@ import UIKit
 
 class HistoryViewController: UITableViewController {
     
-    private let history: [History]
+    private let histories: [History]
     
-    init(history: [History]) {
-        self.history = history
+    init(histoies: [History]) {
+        self.histories = histoies
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,7 +32,7 @@ class HistoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return history.count
+        return histories.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,7 +40,7 @@ class HistoryViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        cell.updateLabel(by: history[indexPath.row])
+        cell.updateLabel(by: histories[indexPath.row])
 
         return cell
     }

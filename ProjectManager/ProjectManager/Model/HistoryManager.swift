@@ -8,15 +8,15 @@
 import Foundation
 
 struct HistoryManager {
-    private var historyList: [History] = []
+    private var histories: [History] = []
     
-    var sortedHistoryList: [History] {
-        return historyList.sorted { $0.date > $1.date }
+    var sortedHistories: [History] {
+        return histories.sorted { $0.date > $1.date }
     }
     
     mutating func addHistory(text: String, date: Date) {
         let history = History(text: text, date: date)
         
-        historyList.append(history)
+        histories.append(history)
     }
 }
