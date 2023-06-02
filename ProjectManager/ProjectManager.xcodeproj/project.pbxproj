@@ -113,7 +113,7 @@
 				62A63EAF2A1DB33400AF928F /* MainViewModel.swift */,
 				62A63EA92A1DA18600AF928F /* MainViewController.swift */,
 				62D600522A1750EB00AD7490 /* PlanCollectionView */,
-				ADB54CEC2A2078DF00A6409C /* TaskCell */,
+				ADB54CEC2A2078DF00A6409C /* PlanCell */,
 				ADB54CEB2A2078D000A6409C /* HeaderView */,
 			);
 			path = MainView;
@@ -205,13 +205,13 @@
 			path = HeaderView;
 			sourceTree = "<group>";
 		};
-		ADB54CEC2A2078DF00A6409C /* TaskCell */ = {
+		ADB54CEC2A2078DF00A6409C /* PlanCell */ = {
 			isa = PBXGroup;
 			children = (
 				62D600572A1778DE00AD7490 /* PlanCell.swift */,
 				AD5FFB8B2A14B64E00CF6A39 /* PlanCellViewModel.swift */,
 			);
-			path = TaskCell;
+			path = PlanCell;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {

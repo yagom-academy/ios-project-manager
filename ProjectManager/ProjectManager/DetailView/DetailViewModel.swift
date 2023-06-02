@@ -78,7 +78,6 @@ final class DetailViewModel {
                 
                 return true
             }
-            .eraseToAnyPublisher()
         
         let bodyPublisher = input.bodyTextEvent
             .tryMap { [weak self] body in
@@ -89,7 +88,6 @@ final class DetailViewModel {
                 
                 return true
             }
-            .eraseToAnyPublisher()
         
         let datePublisher = input.datePickerEvent
             .tryMap { [weak self] date in
@@ -99,7 +97,6 @@ final class DetailViewModel {
                 
                 return true
             }
-            .eraseToAnyPublisher()
         
         let isEditingDone = titlePublisher
             .merge(with: bodyPublisher, datePublisher)

@@ -40,7 +40,6 @@ final class ChangeWorkStateViewModel {
                 
                 self.delegate?.changeWorkState(of: self.plan, to: state)
             }
-            .eraseToAnyPublisher()
         
         let secondButtonPublisher = input.secondButtonTappedEvent
             .map { [weak self] in
@@ -48,7 +47,6 @@ final class ChangeWorkStateViewModel {
                 
                 self.delegate?.changeWorkState(of: self.plan, to: state)
             }
-            .eraseToAnyPublisher()
         
         let dismissTrigger = firstButtonPublisher
             .merge(with: secondButtonPublisher)
