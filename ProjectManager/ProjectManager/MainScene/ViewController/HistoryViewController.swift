@@ -40,8 +40,8 @@ class HistoryViewController: UITableViewController {
             cell.updateLabel(by: histories[indexPath.row])
             
             return cell
-        } else {
-            return UITableViewCell()
         }
+        
+        return UITableViewCell()
     }
 }
