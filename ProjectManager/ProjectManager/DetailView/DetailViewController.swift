@@ -106,7 +106,7 @@ final class DetailViewController: UIViewController {
             title: viewModel.mode.leftButtonTitle,
             style: .plain,
             target: self,
-            action: #selector(cancelButtonTapped)
+            action: #selector(leftButtonTapped)
         )
     }
     
@@ -123,7 +123,7 @@ final class DetailViewController: UIViewController {
     }
     
     @objc
-    private func cancelButtonTapped() {
+    private func leftButtonTapped() {
         if viewModel.mode == .create {
             self.dismiss(animated: true)
             return
