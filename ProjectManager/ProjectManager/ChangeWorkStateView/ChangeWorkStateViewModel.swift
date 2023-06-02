@@ -24,11 +24,11 @@ final class ChangeWorkStateViewModel {
             .filter { $0 != plan.workState }
     }
     
-    func transform(input: Input) -> Output {
+//    func transform(input: Input) -> Output {
 //        guard let state = filteredStates[safe: buttonIndex.rawValue] else {
 //            return
 //        }
 //
 //        delegate?.changeWorkState(of: plan, to: state)
-    }
+//    }
 }

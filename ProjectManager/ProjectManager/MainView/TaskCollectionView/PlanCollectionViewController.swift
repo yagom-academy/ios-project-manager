@@ -30,9 +30,13 @@ final class PlanCollectionViewController: UIViewController {
         configureCollectionViewLayout()
         configureDataSource()
         configureCollectionView()
-        applyLatestSnapshot()
         bindState()
         setupLongTapGestureRecognizer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        applyLatestSnapshot()
     }
     
     init(viewModel: PlanListViewModel, dateFormatter: DateFormatter) {

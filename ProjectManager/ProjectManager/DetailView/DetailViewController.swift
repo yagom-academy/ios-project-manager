@@ -184,23 +184,24 @@ final class DetailViewController: UIViewController {
     private func bind() {
         let input = DetailViewModel.Input(
             titleTextEvent: titleTextfield.textPublisher,
-            bodyTextEvent: bodyTextView.textPublisher
+            bodyTextEvent: bodyTextView.textPublisher,
+            datePickerEvent: datePicker.datePublisher
         )
         
         let output = viewModel.transform(input: input)
+        
         output
             .isEditingDone
-            .tryCatch { error -> AnyPublisher<Bool, Error> in
-                throw error
-            }
-            .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
-                    print(error)
-                }
+            .sink(receiveCompletion: { error in
+                print(error)
             }, receiveValue: { [weak self] isEditingDone in
                 guard let self else { return }
                 
-                self.navigationItem.rightBarButtonItem?.isEnabled = isEditingDone ? true : false
+                if isEditingDone {
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                } else {
+                    self.navigationItem.rightBarButtonItem?.isEnabled = false
+                }
             })
             .store(in: &cancellables)
     }

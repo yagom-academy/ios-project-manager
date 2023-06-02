@@ -10,6 +10,7 @@ import Combine
 
 enum EditError: Error {
     case nilText
+    case nilViewModel
 }
 
 protocol DetailViewModelDelegate: PlanManagable { }
@@ -32,10 +33,11 @@ final class DetailViewModel {
     struct Input {
         let titleTextEvent: AnyPublisher<String?, Never>
         let bodyTextEvent: AnyPublisher<String?, Never>
+        let datePickerEvent: AnyPublisher<Date, Never>
     }
     
     struct Output {
-        let isEditingDone = PassthroughSubject<Bool, Error>()
+        let isEditingDone: AnyPublisher<Bool, Error>
     }
     
     let mode: Mode
@@ -48,7 +50,6 @@ final class DetailViewModel {
     
     private var workState: WorkState = .todo
     private var id: UUID?
-    private var cancellables = Set<AnyCancellable>()
     
     init(from plan: Plan? = nil, mode: DetailViewModel.Mode) {
         self.mode = mode
@@ -68,27 +69,43 @@ final class DetailViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let output = Output()
-        
-        input.titleTextEvent
-            .sink(receiveValue: { [weak self] title in
-                guard let self else { return }
+        let titlePublisher = input.titleTextEvent
+            .tryMap { [weak self] title in
+                guard let title else { throw EditError.nilText }
+                guard let self else { throw EditError.nilViewModel }
                 
                 self.title = title
-                output.isEditingDone.send(true)
-            })
-            .store(in: &cancellables)
+                
+                return true
+            }
+            .eraseToAnyPublisher()
         
-        input.bodyTextEvent
-            .sink(receiveValue: { [weak self] body in
-                guard let self else { return }
+        let bodyPublisher = input.bodyTextEvent
+            .tryMap { [weak self] body in
+                guard let body else { throw EditError.nilText }
+                guard let self else { throw EditError.nilViewModel }
                 
                 self.body = body
-                output.isEditingDone.send(true)
-            })
-            .store(in: &cancellables)
-       
-        return output
+                
+                return true
+            }
+            .eraseToAnyPublisher()
+        
+        let datePublisher = input.datePickerEvent
+            .tryMap { [weak self] date in
+                guard let self else { throw EditError.nilViewModel}
+                
+                self.date = date
+                
+                return true
+            }
+            .eraseToAnyPublisher()
+        
+        let isEditingDone = titlePublisher
+            .merge(with: bodyPublisher, datePublisher)
+            .eraseToAnyPublisher()
+        
+        return Output(isEditingDone: isEditingDone)
     }
     
     private func configureContents(with plan: Plan?) {
