@@ -51,8 +51,9 @@
 # 🌳 프로젝트 구조
 
 ## UML Class Diagram
-![](https://hackmd.io/_uploads/BJNgOhaH2.jpg)
-![](https://hackmd.io/_uploads/HJA763TS2.jpg)
+![](https://hackmd.io/_uploads/BkUD2NvLn.jpg)
+![](https://hackmd.io/_uploads/rkvX34PI3.jpg)
+![](https://hackmd.io/_uploads/BJFSpXDI3.jpg)
 
 </br>
 
