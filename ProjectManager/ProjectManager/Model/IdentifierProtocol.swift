@@ -8,7 +8,5 @@
 import UIKit
 
 protocol IdentifierProtocol {
-    
     func setUpIdentifier() -> String
-    
 }

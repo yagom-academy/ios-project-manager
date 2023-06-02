@@ -203,9 +203,15 @@ final class ToDoListViewContorller: UIViewController, sendToDoListProtocol {
         alertController.addAction(secondeAction)
         alertController.addAction(cancelAction)
         
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+        let statusBarManager = windowScene.statusBarManager else { return }
+        let statusBarHeight = statusBarManager.statusBarFrame.size.height
+        
+        guard let navigationBarHeight = navigationController?.navigationBar.frame.size.height else { return }
+        
         guard let popoverController = alertController.popoverPresentationController else { return }
         popoverController.sourceView = self.view
-        popoverController.sourceRect = CGRect(x: point.x, y: point.y + 70, width: 0, height: 0)
+        popoverController.sourceRect = CGRect(x: point.x, y: point.y + navigationBarHeight + statusBarHeight , width: 0, height: 0)
         present(alertController, animated: true, completion: nil)
     }
     
