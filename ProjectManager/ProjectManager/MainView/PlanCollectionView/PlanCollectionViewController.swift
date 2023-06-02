@@ -85,8 +85,11 @@ final class PlanCollectionViewController: UIViewController {
                     guard let plan = self?.viewModel.plan(at: indexPath.row) else {
                         return
                     }
-                    
-                    self?.viewModel.delete(planID: plan.id)
+                    do {
+                        try self?.viewModel.delete(planID: plan.id)
+                    } catch {
+                        print(error)
+                    }
                     completion(true)
                 }
                 

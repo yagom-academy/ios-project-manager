@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+enum PlanCollectionViewError: Error {
+    case deleteError
+}
+
 protocol PlanListViewModelDelegate: PlanManagable {
     func deletePlan(id: UUID)
 }
@@ -23,7 +27,7 @@ protocol PlanListViewModel: AnyObject {
     
     func create(plan: Plan)
     func update(plan: Plan)
-    func delete(planID: UUID)
+    func delete(planID: UUID) throws
     func plan(at index: Int) -> Plan?
 }
 
@@ -44,9 +48,9 @@ extension PlanListViewModel {
         delegate?.update(plan: plan)
     }
     
-    func delete(planID: UUID) {
+    func delete(planID: UUID) throws {
         guard let index = planList.firstIndex(where: { $0.id == planID }) else {
-            return
+            throw PlanCollectionViewError.deleteError
         }
         
         let plan = planList.remove(at: index)

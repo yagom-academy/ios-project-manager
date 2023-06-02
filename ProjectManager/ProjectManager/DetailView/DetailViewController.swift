@@ -112,14 +112,17 @@ final class DetailViewController: UIViewController {
     
     @objc
     private func doneButtonTapped() {
-        switch viewModel.mode {
-        case .create:
-            viewModel.createPlan()
-        case .update:
-            viewModel.updatePlan()
+        do {
+            switch viewModel.mode {
+            case .create:
+                try viewModel.createPlan()
+            case .update:
+                try viewModel.updatePlan()
+            }
+            self.dismiss(animated: true)
+        } catch {
+            print(error)
         }
-        
-        self.dismiss(animated: true)
     }
     
     @objc

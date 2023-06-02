@@ -8,9 +8,11 @@
 import Foundation
 import Combine
 
-enum EditError: Error {
+enum DetailViewError: Error {
     case nilText
     case nilViewModel
+    case createError
+    case updateError
 }
 
 protocol DetailViewModelDelegate: PlanManagable { }
@@ -56,14 +58,14 @@ final class DetailViewModel {
         configureContents(with: plan)
     }
     
-    func createPlan() {
-        guard let title, let body else { return }
+    func createPlan() throws {
+        guard let title, let body else { throw DetailViewError.createError }
         let plan = Plan(title: title, date: date, body: body, workState: workState)
         delegate?.create(plan: plan)
     }
     
-    func updatePlan() {
-        guard let title, let id, let body else { return }
+    func updatePlan() throws {
+        guard let title, let id, let body else { throw DetailViewError.updateError }
         let plan = Plan(title: title, date: date, body: body, workState: workState, id: id)
         delegate?.update(plan: plan)
     }
@@ -71,8 +73,8 @@ final class DetailViewModel {
     func transform(input: Input) -> Output {
         let titlePublisher = input.titleTextEvent
             .tryMap { [weak self] title in
-                guard let title else { throw EditError.nilText }
-                guard let self else { throw EditError.nilViewModel }
+                guard let title else { throw DetailViewError.nilText }
+                guard let self else { throw DetailViewError.nilViewModel }
                 
                 self.title = title
                 
@@ -81,8 +83,8 @@ final class DetailViewModel {
         
         let bodyPublisher = input.bodyTextEvent
             .tryMap { [weak self] body in
-                guard let body else { throw EditError.nilText }
-                guard let self else { throw EditError.nilViewModel }
+                guard let body else { throw DetailViewError.nilText }
+                guard let self else { throw DetailViewError.nilViewModel }
                 
                 self.body = body
                 
@@ -91,7 +93,7 @@ final class DetailViewModel {
         
         let datePublisher = input.datePickerEvent
             .tryMap { [weak self] date in
-                guard let self else { throw EditError.nilViewModel}
+                guard let self else { throw DetailViewError.nilViewModel}
                 
                 self.date = date
                 
