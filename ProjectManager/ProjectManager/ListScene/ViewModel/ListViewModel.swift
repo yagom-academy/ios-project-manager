@@ -22,14 +22,14 @@ final class ListViewModel {
     }
     
     func postChangedTaskState(by vc: MainViewController?, task: Task, state: TaskState) {
-        guard isNetworkConnecting == true else { return }
-        
-        vc?.viewModel.changeTaskState(by: task, state)
+        if isNetworkConnecting {
+            vc?.viewModel.changeTaskState(by: task, state)
+        }
     }
     
     func postDeleteTask(by vc: MainViewController?, task: Task) {
-        guard isNetworkConnecting == true else { return }
-        
-        vc?.viewModel.deleteTask(task)
+        if isNetworkConnecting {
+            vc?.viewModel.deleteTask(task)
+        }
     }
 }
