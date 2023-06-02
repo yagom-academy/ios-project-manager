@@ -10,7 +10,7 @@ import Combine
 
 final class TodoViewModel: PlanListViewModel {
     var planList: [Plan] = []
-    var planCountChanged = PassthroughSubject<Int, Never >()
+    var planCountChanged = PassthroughSubject<Int, Never>()
     var planCreated = PassthroughSubject<Void, Never>()
     var planUpdated = PassthroughSubject<UUID, Never>()
     var planDeleted = PassthroughSubject<UUID, Never>()

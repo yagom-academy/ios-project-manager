@@ -13,6 +13,14 @@ protocol ChangeWorkStateViewModelDelegate: AnyObject {
 }
 
 final class ChangeWorkStateViewModel {
+    struct Input {
+        
+    }
+    
+    struct Output {
+        
+    }
+    
     weak var delegate: ChangeWorkStateViewModelDelegate?
     
     private let plan: Plan
@@ -24,11 +32,11 @@ final class ChangeWorkStateViewModel {
             .filter { $0 != plan.workState }
     }
     
-//    func transform(input: Input) -> Output {
-//        guard let state = filteredStates[safe: buttonIndex.rawValue] else {
-//            return
-//        }
-//
-//        delegate?.changeWorkState(of: plan, to: state)
-//    }
+    func transform(input: Input) -> Output {
+        guard let state = filteredStates[safe: buttonIndex.rawValue] else {
+            return
+        }
+
+        delegate?.changeWorkState(of: plan, to: state)
+    }
 }
