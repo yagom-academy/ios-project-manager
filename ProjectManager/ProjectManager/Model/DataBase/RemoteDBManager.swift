@@ -9,31 +9,31 @@ import FirebaseDatabase
 
 final class RemoteDBManager: DatabaseManagable {
     
-    var ref: DatabaseReference?
+    private var databaseReference: DatabaseReference?
     var errorHandler: ((Error) -> Void)?
     
     init(errorHandler: ((Error) -> Void)?) {
         self.errorHandler = errorHandler
-        ref = Database.database().reference()
+        databaseReference = Database.database().reference()
     }
     
     deinit {
-        ref?.cancelDisconnectOperations()
+        databaseReference?.cancelDisconnectOperations()
     }
     
     func create(object: Storable) {
-        guard let ref = self.ref else {
+        guard let databaseReference = self.databaseReference else {
             errorHandler?(DatabaseError.createError)
             return
         }
         
         let dict = object.convertedDictonary
         
-        ref.child("Task").child("\(object.id.uuidString)").setValue(dict)
+        databaseReference.child("Task").child("\(object.id.uuidString)").setValue(dict)
     }
     
     func fetch(_ completion: @escaping (Result<[Storable], Error>) -> Void) {
-        ref?.child("Task").getData(completion: { error, snapshot in
+        databaseReference?.child("Task").getData(completion: { error, snapshot in
             if error == nil {
                 let snapshotValue = snapshot?.value as? NSDictionary
                 var fetchedData: [Storable] = []
@@ -55,22 +55,22 @@ final class RemoteDBManager: DatabaseManagable {
     }
     
     func delete(object: Storable) {
-        guard let ref = self.ref else {
+        guard let databaseReference = self.databaseReference else {
             errorHandler?(DatabaseError.createError)
             return
         }
         
-        ref.child("Task").child("\(object.id.uuidString)").removeValue()
+        databaseReference.child("Task").child("\(object.id.uuidString)").removeValue()
     }
     
     func update(object: Storable) {
-        guard let ref = self.ref else {
+        guard let databaseReference = self.databaseReference else {
             errorHandler?(DatabaseError.createError)
             return
         }
         
         let dict = object.convertedDictonary
         
-        ref.child("Task").child("\(object.id.uuidString)").updateChildValues(dict)
+        databaseReference.child("Task").child("\(object.id.uuidString)").updateChildValues(dict)
     }
 }

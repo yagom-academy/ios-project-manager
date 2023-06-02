@@ -69,13 +69,13 @@ final class LocalDBManager<T: Object>: DatabaseManagable {
     }
     
     func update(object: Storable) {
-        guard realm?.object(ofType: T.self, forPrimaryKey: object.id) != nil else {
-            errorHandler?(DatabaseError.updatedError)
+        if realm?.object(ofType: T.self, forPrimaryKey: object.id) == nil {
+            delete(object: object)
+            create(object: object)
             return
         }
         
-        delete(object: object)
-        create(object: object)
+        errorHandler?(DatabaseError.updatedError)
     }
     
     private func deleteAll() {
