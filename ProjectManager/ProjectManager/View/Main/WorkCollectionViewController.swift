@@ -18,7 +18,6 @@ final class WorkCollectionViewController: UIViewController {
     
     let status: WorkViewModel.WorkStatus
     let viewModel: WorkViewModel
-    
     weak var delegate: WorkCollectionViewControllerDelegate?
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
     private var workDataSource: DataSource?
@@ -49,12 +48,12 @@ final class WorkCollectionViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = workDataSource
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(WorkCell.self,
                                 forCellWithReuseIdentifier: WorkCell.identifier)
         collectionView.register(HeaderReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: HeaderReusableView.identifier)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

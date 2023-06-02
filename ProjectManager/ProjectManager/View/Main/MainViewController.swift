@@ -22,7 +22,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureUIOption()
-        addchildren()
+        addChildren()
         configureCollectionListView()
         addAlertObserver()
     }
@@ -35,7 +35,7 @@ final class MainViewController: UIViewController {
                                                             action: #selector(presentAppendWork))
     }
     
-    private func addchildren() {
+    private func addChildren() {
         addChild(WorkCollectionViewController(status: .todo, viewModel: viewModel))
         addChild(WorkCollectionViewController(status: .doing, viewModel: viewModel))
         addChild(WorkCollectionViewController(status: .done, viewModel: viewModel))
