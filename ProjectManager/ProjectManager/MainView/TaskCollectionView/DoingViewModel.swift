@@ -10,6 +10,7 @@ import Foundation
 
 final class DoingViewModel: PlanListViewModel {
     var planList: [Plan] = []
+    var planCountChanged = PassthroughSubject<Int, Never >()
     var planCreated = PassthroughSubject<Void, Never>()
     var planUpdated = PassthroughSubject<UUID, Never>()
     var planDeleted = PassthroughSubject<UUID, Never>()

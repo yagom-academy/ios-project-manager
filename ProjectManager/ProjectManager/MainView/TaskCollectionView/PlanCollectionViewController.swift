@@ -10,7 +10,7 @@ import Combine
 
 final class PlanCollectionViewController: UIViewController {
     private enum Section: Hashable {
-        case main(count: Int)
+        case main
     }
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Plan.ID>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Plan.ID>
@@ -133,8 +133,10 @@ final class PlanCollectionViewController: UIViewController {
             
             let viewModel = HeaderViewModel(
                 titleText: self.viewModel.planWorkState.text,
-                badgeCount: self.viewModel.planList.count
+                badgeText: String(self.viewModel.planList.count),
+                badgeTextPublisher: self.viewModel.planCountChanged
             )
+            
             sectionHeader.provide(viewModel: viewModel)
             
             return sectionHeader
@@ -186,10 +188,9 @@ final class PlanCollectionViewController: UIViewController {
     private func applyLatestSnapshot() {
         let planIDList = viewModel.planList.map { $0.id }
         
-        let section = Section.main(count: viewModel.planList.count)
         var snapshot = Snapshot()
-        snapshot.appendSections([section])
-        snapshot.appendItems(planIDList, toSection: section)
+        snapshot.appendSections([.main])
+        snapshot.appendItems(planIDList)
         dataSource?.apply(snapshot)
     }
     

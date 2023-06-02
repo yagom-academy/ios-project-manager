@@ -14,6 +14,7 @@ protocol PlanListViewModelDelegate: PlanManagable {
 
 protocol PlanListViewModel: AnyObject {
     var planList: [Plan] { get set }
+    var planCountChanged: PassthroughSubject<Int, Never > { get }
     var planCreated: PassthroughSubject<Void, Never> { get }
     var planUpdated: PassthroughSubject<UUID, Never> { get }
     var planDeleted: PassthroughSubject<UUID, Never> { get }
@@ -30,6 +31,7 @@ extension PlanListViewModel {
     func create(plan: Plan) {
         planList.append(plan)
         planCreated.send(())
+        planCountChanged.send(planList.count)
         delegate?.create(plan: plan)
     }
     
@@ -50,6 +52,7 @@ extension PlanListViewModel {
         
         let plan = planList.remove(at: index)
         planDeleted.send(planID)
+        planCountChanged.send(planList.count)
         delegate?.deletePlan(id: plan.id)
     }
     

@@ -8,11 +8,13 @@
 import Combine
 
 final class HeaderViewModel {
-    @Published var titleText: String
-    @Published var badgeText: String
+    let titleText: String
+    let badgeText: String
+    var badgeTextPublisher: PassthroughSubject<Int, Never>
     
-    init(titleText: String, badgeCount: Int) {
+    init(titleText: String, badgeText: String ,badgeTextPublisher: PassthroughSubject<Int, Never>) {
         self.titleText = titleText
-        self.badgeText = String(badgeCount)
+        self.badgeText = badgeText
+        self.badgeTextPublisher = badgeTextPublisher
     }
 }

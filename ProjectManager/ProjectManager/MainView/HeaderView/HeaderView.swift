@@ -59,19 +59,14 @@ final class HeaderView: UICollectionReusableView {
     
     func provide(viewModel: HeaderViewModel) {
         self.viewModel = viewModel
+        self.titleLabel.text = viewModel.titleText
+        self.badgeLabel.text = viewModel.badgeText
         bindViewModelToView()
     }
     
     private func bindViewModelToView() {
-        viewModel?.$titleText
-            .sink { [weak self] title in
-                guard let self else { return }
-                
-                self.titleLabel.text = title
-            }
-            .store(in: &cancellables)
-        
-        viewModel?.$badgeText
+        viewModel?.badgeTextPublisher
+            .map { String($0) }
             .sink { [weak self] badgeText in
                 guard let self else { return }
                 
