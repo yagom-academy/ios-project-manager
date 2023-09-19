@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
 
 @main
 struct ProjectManagerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear{
+                    FirebaseApp.configure()
+                }
         }
     }
 }
