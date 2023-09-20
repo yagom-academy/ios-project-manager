@@ -13,17 +13,6 @@
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
-		DC5146C52AB96C61003539CF /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5146BA2AB96C61003539CF /* FMDatabaseQueue.m */; };
-		DC5146C62AB96C61003539CF /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5146BD2AB96C61003539CF /* FMDatabaseAdditions.m */; };
-		DC5146C72AB96C61003539CF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5146BE2AB96C61003539CF /* FMDatabase.m */; };
-		DC5146C82AB96C61003539CF /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5146C22AB96C61003539CF /* FMDatabasePool.m */; };
-		DC5146C92AB96C61003539CF /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5146C32AB96C61003539CF /* FMResultSet.m */; };
-		DC5146CC2AB96CEF003539CF /* FMDatabase.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5146B92AB96C61003539CF /* FMDatabase.h */; };
-		DC5146CD2AB96CEF003539CF /* FMResultSet.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5146BB2AB96C61003539CF /* FMResultSet.h */; };
-		DC5146CE2AB96CEF003539CF /* FMDatabasePool.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5146BC2AB96C61003539CF /* FMDatabasePool.h */; };
-		DC5146CF2AB96CEF003539CF /* FMDatabaseQueue.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5146BF2AB96C61003539CF /* FMDatabaseQueue.h */; };
-		DC5146D02AB96CEF003539CF /* FMDB.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5146C02AB96C61003539CF /* FMDB.h */; };
-		DC5146D12AB96CEF003539CF /* FMDatabaseAdditions.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5146C12AB96C61003539CF /* FMDatabaseAdditions.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,19 +24,6 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DC5146B72AB96BC9003539CF /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		DC5146B92AB96C61003539CF /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		DC5146BA2AB96C61003539CF /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		DC5146BB2AB96C61003539CF /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		DC5146BC2AB96C61003539CF /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		DC5146BD2AB96C61003539CF /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		DC5146BE2AB96C61003539CF /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		DC5146BF2AB96C61003539CF /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		DC5146C02AB96C61003539CF /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		DC5146C12AB96C61003539CF /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		DC5146C22AB96C61003539CF /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		DC5146C32AB96C61003539CF /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		DC5146CB2AB96CAC003539CF /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,10 +40,8 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
-				DC5146B82AB96C61003539CF /* fmdb */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
-				DC5146B62AB96BC9003539CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,35 +63,8 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				DC5146CB2AB96CAC003539CF /* Bridging-Header.h */,
 			);
 			path = ProjectManager;
-			sourceTree = "<group>";
-		};
-		DC5146B62AB96BC9003539CF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DC5146B72AB96BC9003539CF /* libsqlite3.tbd */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DC5146B82AB96C61003539CF /* fmdb */ = {
-			isa = PBXGroup;
-			children = (
-				DC5146B92AB96C61003539CF /* FMDatabase.h */,
-				DC5146BA2AB96C61003539CF /* FMDatabaseQueue.m */,
-				DC5146BB2AB96C61003539CF /* FMResultSet.h */,
-				DC5146BC2AB96C61003539CF /* FMDatabasePool.h */,
-				DC5146BD2AB96C61003539CF /* FMDatabaseAdditions.m */,
-				DC5146BE2AB96C61003539CF /* FMDatabase.m */,
-				DC5146BF2AB96C61003539CF /* FMDatabaseQueue.h */,
-				DC5146C02AB96C61003539CF /* FMDB.h */,
-				DC5146C12AB96C61003539CF /* FMDatabaseAdditions.h */,
-				DC5146C22AB96C61003539CF /* FMDatabasePool.m */,
-				DC5146C32AB96C61003539CF /* FMResultSet.m */,
-			);
-			path = fmdb;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,17 +140,6 @@
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				DC5146C72AB96C61003539CF /* FMDatabase.m in Sources */,
-				DC5146CC2AB96CEF003539CF /* FMDatabase.h in Sources */,
-				DC5146C52AB96C61003539CF /* FMDatabaseQueue.m in Sources */,
-				DC5146CF2AB96CEF003539CF /* FMDatabaseQueue.h in Sources */,
-				DC5146C82AB96C61003539CF /* FMDatabasePool.m in Sources */,
-				DC5146CE2AB96CEF003539CF /* FMDatabasePool.h in Sources */,
-				DC5146C92AB96C61003539CF /* FMResultSet.m in Sources */,
-				DC5146CD2AB96CEF003539CF /* FMResultSet.h in Sources */,
-				DC5146C62AB96C61003539CF /* FMDatabaseAdditions.m in Sources */,
-				DC5146D12AB96CEF003539CF /* FMDatabaseAdditions.h in Sources */,
-				DC5146D02AB96CEF003539CF /* FMDB.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +222,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/myhome/Desktop/git/ios-project-manager/ProjectManager/ProjectManager/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -341,7 +277,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/myhome/Desktop/git/ios-project-manager/ProjectManager/ProjectManager/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
