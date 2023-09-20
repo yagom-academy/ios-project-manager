@@ -5,7 +5,8 @@
 
 | UIKit | CoreData | iCloudKit | Combine | MVVM |
 | :--------: | :--------: | :--------: | :--------: | :--------: |
-|![](https://hackmd.io/_uploads/HyutYg_k6.jpg)|![](https://hackmd.io/_uploads/SkYp7edka.png)|![](https://hackmd.io/_uploads/HyngElOk6.png)|![](https://hackmd.io/_uploads/Byvb4x_Ja.png)|![](https://hackmd.io/_uploads/ByaR-buk6.png)|
+|![UIKit_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/b5f587b9-6752-4995-9e2e-1bd983e9f82a)|![CoreData_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/3f1fb55a-d897-4546-af3c-f4d182305117)|![cloudKit_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/a609ca0d-e136-46d9-9057-434887b90b91)|![Combine_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/8be4d51b-c0e2-4df9-98c0-39b456c8b8ce)|![MVVM_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/31ed8880-bf4d-4740-a101-bb72298352e5)
+
 
 ### UIKit
 개인 프로젝트로 진행하기 때문에 시간적인 문제로 SwiftUI룰 학습하며 진행하기보다 익숙한 UIKit을 채택하였습니다.
