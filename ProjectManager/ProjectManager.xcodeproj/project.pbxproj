@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		450F8F7E2ABA9E8A009D1B14 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F7D2ABA9E8A009D1B14 /* ProjectListViewController.swift */; };
+		450F8F802ABA9E98009D1B14 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */; };
 		4549D7572AB953EA005EA4D7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4549D7562AB953EA005EA4D7 /* FirebaseAnalytics */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		450F8F7D2ABA9E8A009D1B14 /* ProjectListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
+		450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		4549D7542AB94FE7005EA4D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +81,7 @@
 			children = (
 				450F8F712ABA9737009D1B14 /* Flow */,
 				450F8F632ABA8050009D1B14 /* Main */,
+				450F8F742ABA9C54009D1B14 /* ProjectList */,
 			);
 			path = ProjectManagerScene;
 			sourceTree = "<group>";
@@ -117,6 +122,31 @@
 			children = (
 			);
 			path = Flow;
+			sourceTree = "<group>";
+		};
+		450F8F742ABA9C54009D1B14 /* ProjectList */ = {
+			isa = PBXGroup;
+			children = (
+				450F8F762ABA9C73009D1B14 /* ViewModel */,
+				450F8F752ABA9C6E009D1B14 /* View */,
+			);
+			path = ProjectList;
+			sourceTree = "<group>";
+		};
+		450F8F752ABA9C6E009D1B14 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				450F8F7D2ABA9E8A009D1B14 /* ProjectListViewController.swift */,
+				450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		450F8F762ABA9C73009D1B14 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -247,6 +277,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				450F8F802ABA9E98009D1B14 /* HeaderView.swift in Sources */,
+				450F8F7E2ABA9E8A009D1B14 /* ProjectListViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
