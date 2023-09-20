@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		450F8F7E2ABA9E8A009D1B14 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F7D2ABA9E8A009D1B14 /* ProjectListViewController.swift */; };
 		450F8F802ABA9E98009D1B14 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */; };
+		450F8F822ABACCAE009D1B14 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F812ABACCAE009D1B14 /* Project.swift */; };
 		4549D7572AB953EA005EA4D7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4549D7562AB953EA005EA4D7 /* FirebaseAnalytics */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		450F8F7D2ABA9E8A009D1B14 /* ProjectListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
 		450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		450F8F812ABACCAE009D1B14 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		4549D7542AB94FE7005EA4D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +115,8 @@
 		450F8F662ABA81D1009D1B14 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				450F8F862ABADF1D009D1B14 /* Entity */,
+				450F8F852ABADF14009D1B14 /* UseCase */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -149,6 +153,28 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		450F8F852ABADF14009D1B14 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		450F8F862ABADF1D009D1B14 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				450F8F812ABACCAE009D1B14 /* Project.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		450F8F872ABADF27009D1B14 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +198,7 @@
 				450F8F5E2ABA7F57009D1B14 /* Application */,
 				450F8F662ABA81D1009D1B14 /* Model */,
 				450F8F622ABA8017009D1B14 /* ProjectManagerScene */,
+				450F8F872ABADF27009D1B14 /* Server */,
 				450F8F5F2ABA7F7E009D1B14 /* Utils */,
 				450F8F602ABA7FDA009D1B14 /* Resources */,
 			);
@@ -282,6 +309,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				450F8F822ABACCAE009D1B14 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
