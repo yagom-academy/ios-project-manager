@@ -3,7 +3,7 @@
 
 ## Tech-List
 
-| UIKit | CoreData | iCloudKit | Combine | MVVM |
+| UIKit | CoreData | CloudKit | Combine | MVVM |
 | :--------: | :--------: | :--------: | :--------: | :--------: |
 |![UIKit_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/b5f587b9-6752-4995-9e2e-1bd983e9f82a)|![CoreData_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/3f1fb55a-d897-4546-af3c-f4d182305117)|![cloudKit_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/a609ca0d-e136-46d9-9057-434887b90b91)|![Combine_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/8be4d51b-c0e2-4df9-98c0-39b456c8b8ce)|![MVVM_image](https://github.com/yagom-academy/ios-project-manager/assets/125210310/31ed8880-bf4d-4740-a101-bb72298352e5)
 
@@ -14,7 +14,7 @@
 ### CoreData
 범용성 측면에서 SQLite가 많이 쓰이기 때문에 사용해 보고 싶었지만 개인적으로 SQL을 직접 다뤄본 경험이 없고, 이전 프로젝트에서 CoreData를 사용하며 아직 완벽하게 적응하지 못한 상태라서 다시 한번 활용하여 더욱 깊게 공부하기 위해 채택하였습니다.
 
-### iCloudKit
+### CloudKit
 Firebase는 다양한 모바일 환경에서 쓰이지만, 개인적으로는 이번 프로젝트에서는 iOS/MacOS에 특화된 CouldKit을 사용해보며 경험을 해보고 싶었습니다.
 
 ### Combine
