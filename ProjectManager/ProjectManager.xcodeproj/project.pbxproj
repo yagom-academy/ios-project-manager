@@ -13,6 +13,7 @@
 		AC6FCE632AB9889100B82DF1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FCE622AB9889100B82DF1 /* ContentView.swift */; };
 		AC6FCE652AB9889200B82DF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6FCE642AB9889200B82DF1 /* Assets.xcassets */; };
 		AC6FCE682AB9889200B82DF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */; };
+		AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75E9C12ABAD8C000493121 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		AC6FCE622AB9889100B82DF1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC6FCE642AB9889200B82DF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AC75E9C12ABAD8C000493121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		AC6FCE5F2AB9889100B82DF1 /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				AC75E9C12ABAD8C000493121 /* AppDelegate.swift */,
 				AC6FCE602AB9889100B82DF1 /* ProjectManagerApp.swift */,
 				AC6FCE622AB9889100B82DF1 /* ContentView.swift */,
 				AC6FCE642AB9889200B82DF1 /* Assets.xcassets */,
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */,
 				AC6FCE632AB9889100B82DF1 /* ContentView.swift in Sources */,
 				AC6FCE612AB9889100B82DF1 /* ProjectManagerApp.swift in Sources */,
 			);
