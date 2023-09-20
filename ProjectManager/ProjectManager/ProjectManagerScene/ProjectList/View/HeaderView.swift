@@ -13,16 +13,17 @@ final class HeaderView: UIView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
+        stackView.axis = .horizontal
+        stackView.alignment = .center
         stackView.distribution = .fill
+        stackView.spacing = 8
         
         return stackView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         
         return label
     }()
@@ -34,6 +35,7 @@ final class HeaderView: UIView {
         return label
     }()
     
+    // MARK: - Life Cycle
     init() {
         super.init(frame: .zero)
         
@@ -67,10 +69,10 @@ extension HeaderView {
         let safe = self.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: safe.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -8),
+            stackView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 8),
+            stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -8)
         ])
     }
 }

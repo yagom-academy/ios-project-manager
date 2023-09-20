@@ -13,9 +13,11 @@ final class ProjectListViewController: UIViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = UIColor.systemGray6
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
+        stackView.spacing = 8
         
         return stackView
     }()
@@ -23,6 +25,7 @@ final class ProjectListViewController: UIViewController {
     private let headerView = HeaderView()
     private let tableView = UITableView()
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,9 +36,16 @@ final class ProjectListViewController: UIViewController {
 // MARK: - Configure UI
 extension ProjectListViewController {
     private func configureUI() {
+        configureTableView()
         configureView()
         configureStackView()
         configureLayout()
+    }
+    
+    private func configureTableView() {
+        tableView.register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier)
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
     }
     
     private func configureView() {

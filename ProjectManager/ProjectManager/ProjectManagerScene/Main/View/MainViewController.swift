@@ -12,9 +12,11 @@ final class MainViewController: UIViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = UIColor.systemFill
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 8
         
         return stackView
     }()
@@ -61,6 +63,7 @@ extension MainViewController {
     
     private func configureView() {
         view.addSubview(stackView)
+        view.backgroundColor = UIColor.systemBackground
     }
     
     private func configureStackView() {
