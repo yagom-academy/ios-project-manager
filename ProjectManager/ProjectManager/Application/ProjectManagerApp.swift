@@ -13,10 +13,7 @@ import FirebaseFirestore
 struct ProjectManagerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onAppear{
-                    FirebaseApp.configure()
-                }
+            TodoView()
         }
     }
 }
