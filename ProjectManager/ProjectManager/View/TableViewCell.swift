@@ -8,12 +8,11 @@
 import UIKit
 
 final class TableViewCell: UITableViewCell {
-    static let identifier: String = "TableViewCellIdentifier"
+
     private let titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
-        
         
         return label
     }()
@@ -80,19 +79,24 @@ final class TableViewCell: UITableViewCell {
     }
     
     private func configureLayout() {
+        let width = contentView.frame.height / 3.0
+        
         NSLayoutConstraint.activate([
-            titleStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleStackView.bottomAnchor.constraint(equalTo: bodyStackView.topAnchor),
+            titleStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            titleStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            titleStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            titleStackView.bottomAnchor.constraint(equalTo: bodyStackView.topAnchor, constant: -8),
+            titleStackView.heightAnchor.constraint(equalToConstant: width),
+    
+            bodyStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            bodyStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            bodyStackView.bottomAnchor.constraint(equalTo: deadlineStackView.topAnchor, constant: -8),
+            bodyStackView.heightAnchor.constraint(equalToConstant: width),
             
-            bodyStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bodyStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            bodyStackView.bottomAnchor.constraint(equalTo: deadlineStackView.topAnchor),
-            
-            deadlineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            deadlineStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            deadlineStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            deadlineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            deadlineStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            deadlineStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            deadlineStackView.heightAnchor.constraint(equalToConstant: width)
         ])
     }
     
