@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TodoView: View {
     @ObservedObject var vm = ViewModel()
-    
+    @State private var showingAddView = false
     init(vm: ViewModel = ViewModel()) {
         self.vm = vm
         
@@ -20,7 +20,7 @@ struct TodoView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
     
-    var body: some View {
+    var body: some View {        
         NavigationView {
             HStack {
                 ListView(tasks: vm.todos, title: "TODO")
@@ -32,7 +32,7 @@ struct TodoView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        vm.createTask()
+                        showingAddView = true
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -40,11 +40,20 @@ struct TodoView: View {
             }
         }
         .navigationViewStyle(.stack)
+        .customAlert(isOn: $showingAddView) {
+         TaskAddView(isOn: $showingAddView)
+        }
     }
 }
 
 struct TodoView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoView(vm: TodoView.ViewModel(todos: TodoView.ViewModel.dummyTodos, doings: TodoView.ViewModel.dummyDoings, dones: TodoView.ViewModel.dummyDones))
+        TodoView(
+            vm: TodoView.ViewModel(
+                todos: TodoView.ViewModel.dummyTodos,
+                doings: TodoView.ViewModel.dummyDoings,
+                dones: TodoView.ViewModel.dummyDones
+            )
+        )
     }
 }

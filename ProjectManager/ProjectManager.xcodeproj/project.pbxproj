@@ -11,7 +11,9 @@
 		1F223ABC2ABAC28000EDB1E9 /* TaskUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223ABB2ABAC28000EDB1E9 /* TaskUseCases.swift */; };
 		1F223AC32ABAC3F200EDB1E9 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223AC22ABAC3F200EDB1E9 /* TodoView.swift */; };
 		1F223AC52ABAC40100EDB1E9 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223AC42ABAC40100EDB1E9 /* TodoViewModel.swift */; };
+		1F223ACD2ABAE76500EDB1E9 /* TaskAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223ACC2ABAE76500EDB1E9 /* TaskAddView.swift */; };
 		1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */; };
+		1F4926172ABB53E5002663A4 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4926162ABB53E5002663A4 /* CustomAlert.swift */; };
 		3C314EC32AB99D39001BDF45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3C314EC22AB99D39001BDF45 /* Realm */; };
 		3C314EC52AB99D39001BDF45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C314EC42AB99D39001BDF45 /* RealmSwift */; };
 		3C314EC82AB99FA9001BDF45 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C314EC72AB99FA9001BDF45 /* FirebaseFirestore */; };
@@ -29,7 +31,9 @@
 		1F223ABB2ABAC28000EDB1E9 /* TaskUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskUseCases.swift; sourceTree = "<group>"; };
 		1F223AC22ABAC3F200EDB1E9 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		1F223AC42ABAC40100EDB1E9 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
+		1F223ACC2ABAE76500EDB1E9 /* TaskAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAddView.swift; sourceTree = "<group>"; };
 		1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
+		1F4926162ABB53E5002663A4 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		3C314ECD2AB9A526001BDF45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C314ED62ABACC71001BDF45 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		3C314ED82ABACE3F001BDF45 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -92,9 +96,11 @@
 		1F223ABE2ABAC2A500EDB1E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1F4926152ABB53D3002663A4 /* Utils */,
 				1F223AC22ABAC3F200EDB1E9 /* TodoView.swift */,
 				3C314ED82ABACE3F001BDF45 /* ListView.swift */,
 				3C314ED62ABACC71001BDF45 /* CellView.swift */,
+				1F223ACC2ABAE76500EDB1E9 /* TaskAddView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -124,6 +130,14 @@
 				1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		1F4926152ABB53D3002663A4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1F4926162ABB53E5002663A4 /* CustomAlert.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -238,6 +252,8 @@
 				1F223AC52ABAC40100EDB1E9 /* TodoViewModel.swift in Sources */,
 				1F223ABC2ABAC28000EDB1E9 /* TaskUseCases.swift in Sources */,
 				3C314ED72ABACC71001BDF45 /* CellView.swift in Sources */,
+				1F4926172ABB53E5002663A4 /* CustomAlert.swift in Sources */,
+				1F223ACD2ABAE76500EDB1E9 /* TaskAddView.swift in Sources */,
 				3C314ED92ABACE3F001BDF45 /* ListView.swift in Sources */,
 				1F223AC32ABAC3F200EDB1E9 /* TodoView.swift in Sources */,
 				1F223ABA2ABAC21600EDB1E9 /* Task.swift in Sources */,
