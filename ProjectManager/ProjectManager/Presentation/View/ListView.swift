@@ -2,7 +2,7 @@
 //  ListView.swift
 //  ProjectManager
 //
-//  Created by Whales on 9/20/23.
+//  Created by Minsup & Whales on 9/20/23.
 //
 
 import SwiftUI
