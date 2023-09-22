@@ -57,12 +57,11 @@
 		AC6FCE5F2AB9889100B82DF1 /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				AC75E9C12ABAD8C000493121 /* AppDelegate.swift */,
-				AC6FCE602AB9889100B82DF1 /* ProjectManagerApp.swift */,
-				AC6FCE622AB9889100B82DF1 /* ContentView.swift */,
-				AC6FCE642AB9889200B82DF1 /* Assets.xcassets */,
-				44DC005B2AB992A400AF3C0E /* GoogleService-Info.plist */,
+				ACE4DF752ABD322E0085835D /* Application */,
+				ACE4DF732ABD311F0085835D /* Views */,
+				ACE4DF762ABD34480085835D /* Resource */,
 				AC6FCE662AB9889200B82DF1 /* Preview Content */,
+				44DC005B2AB992A400AF3C0E /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -73,6 +72,31 @@
 				AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ACE4DF732ABD311F0085835D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC6FCE622AB9889100B82DF1 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ACE4DF752ABD322E0085835D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				AC6FCE602AB9889100B82DF1 /* ProjectManagerApp.swift */,
+				AC75E9C12ABAD8C000493121 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		ACE4DF762ABD34480085835D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				AC6FCE642AB9889200B82DF1 /* Assets.xcassets */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
