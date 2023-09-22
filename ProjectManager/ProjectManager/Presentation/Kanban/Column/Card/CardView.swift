@@ -1,13 +1,13 @@
 //
-//  CellView.swift
+//  CardView.swift
 //  ProjectManager
 //
-//  Created by Minsup & Whales on 9/20/23.
+//  Created by Minsup & Whales on 2023/09/22.
 //
 
 import SwiftUI
 
-struct CellView: View {
+struct CardView: View {
     var task: Task
     
     var body: some View {
@@ -22,8 +22,8 @@ struct CellView: View {
     }
 }
 
-struct CellView_Previews: PreviewProvider {
+struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CellView(task: Task(title: "제목", content: "내용", date: .now))
+        CardView(task: KanbanViewModel.mock.todos[0])
     }
 }

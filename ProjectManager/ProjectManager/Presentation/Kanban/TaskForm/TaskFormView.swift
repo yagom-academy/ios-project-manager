@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskAddView: View {
+struct TaskFormView: View {
     @State private var title = ""
     @State private var date = Date()
     @State private var content = ""
@@ -65,6 +65,6 @@ struct TaskAddView: View {
 
 struct TaskAddView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskAddView(isOn: .constant(true))
+        TaskFormView(isOn: .constant(true))
     }
 }

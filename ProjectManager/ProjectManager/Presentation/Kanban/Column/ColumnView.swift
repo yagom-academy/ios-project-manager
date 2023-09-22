@@ -1,5 +1,5 @@
 //
-//  ListView.swift
+//  ColumnView.swift
 //  ProjectManager
 //
 //  Created by Minsup & Whales on 9/20/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListView: View {
+struct ColumnView: View {
     var tasks: [Task]
     let title: String
     
@@ -15,7 +15,7 @@ struct ListView: View {
         List {
             Section {
                 ForEach(tasks) { task in
-                    CellView(task: task)
+                    CardView(task: task)
                 }
             } header: {
                 Text("\(title)")
@@ -27,12 +27,8 @@ struct ListView: View {
     }
 }
 
-struct ListView_Previews: PreviewProvider {
+struct ColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView(tasks: [
-            Task(title: "제목", content: "내용", date: .now),
-            Task(title: "제목", content: "내용", date: .now),
-            Task(title: "제목", content: "내용", date: .now)
-        ], title: "TODO")
+        ColumnView(tasks: KanbanViewModel.mock.todos, title: "TODO")
     }
 }

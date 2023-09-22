@@ -13,7 +13,7 @@ import FirebaseFirestore
 struct ProjectManagerApp: App {
     var body: some Scene {
         WindowGroup {
-            TodoView()
+            KanbanView()
         }
     }
 }
