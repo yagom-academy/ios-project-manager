@@ -8,7 +8,24 @@
 import UIKit
 
 final class TableViewCell: UITableViewCell {
-
+    private let borderLabel: UILabel = {
+        let label: UILabel = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        label.text = " "
+        label.font = UIFont.systemFont(ofSize: 8)
+        return label
+    }()
+    
+    private let borderStackView: UIStackView = {
+        let stackView: UIStackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.backgroundColor = .systemGray5
+        
+        return stackView
+    }()
+    
     private let titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,40 +86,46 @@ final class TableViewCell: UITableViewCell {
     }
     
     private func configureUI() {
+        borderStackView.addArrangedSubview(borderLabel)
         titleStackView.addArrangedSubview(titleLabel)
         bodyStackView.addArrangedSubview(bodyLabel)
         deadlineStackView.addArrangedSubview(deadlineLabel)
-        
+        contentView.addSubview(borderStackView)
         contentView.addSubview(titleStackView)
         contentView.addSubview(bodyStackView)
         contentView.addSubview(deadlineStackView)
     }
     
     private func configureLayout() {
-        let width = contentView.frame.height / 3.0
+        let height = contentView.frame.height / 3.0
         
         NSLayoutConstraint.activate([
-            titleStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            borderStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            borderStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            borderStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            borderStackView.bottomAnchor.constraint(equalTo: titleStackView.topAnchor, constant: -8),
+            
             titleStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             titleStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             titleStackView.bottomAnchor.constraint(equalTo: bodyStackView.topAnchor, constant: -8),
-            titleStackView.heightAnchor.constraint(equalToConstant: width),
+            titleStackView.heightAnchor.constraint(equalToConstant: height),
     
             bodyStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             bodyStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             bodyStackView.bottomAnchor.constraint(equalTo: deadlineStackView.topAnchor, constant: -8),
-            bodyStackView.heightAnchor.constraint(equalToConstant: width),
+            bodyStackView.heightAnchor.constraint(equalToConstant: height),
             
             deadlineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             deadlineStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             deadlineStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            deadlineStackView.heightAnchor.constraint(equalToConstant: width)
+            deadlineStackView.heightAnchor.constraint(equalToConstant: height)
         ])
     }
-    
     private func configureLabel() {
         titleLabel.text = "테스트타이틀"
         bodyLabel.text = "테스트바디"
         deadlineLabel.text = "테스트데드라인"
     }
+    
+
 }

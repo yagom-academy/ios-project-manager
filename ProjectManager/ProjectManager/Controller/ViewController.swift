@@ -12,7 +12,7 @@ class ViewController: UIViewController {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
-        
+
         return titleView
     }()
     
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
-        
+
         return titleView
     }()
     
@@ -37,9 +37,8 @@ class ViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "leftTableView")
         tableView.tag = 1
-        
-        
         tableView.backgroundColor = .systemGray5
+        tableView.separatorStyle = .none
         
         return tableView
     }()
@@ -50,6 +49,7 @@ class ViewController: UIViewController {
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "centerTableView")
         tableView.tag = 2
         tableView.backgroundColor = .systemGray5
+        tableView.separatorStyle = .none
         
         return tableView
     }()
@@ -60,7 +60,8 @@ class ViewController: UIViewController {
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "rightTableView")
         tableView.tag = 3
         tableView.backgroundColor = .systemGray5
-        
+        tableView.separatorStyle = .none
+
         return tableView
     }()
     
@@ -97,6 +98,7 @@ class ViewController: UIViewController {
     }
     
 
+    
     @objc private func tappedPlusButton() {
         
     }
@@ -107,14 +109,12 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             leftTableView.topAnchor.constraint(equalTo: TODOTitleView.bottomAnchor, constant: 8),
             leftTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//            leftTableView.trailingAnchor.constraint(equalTo: centerTableView.leadingAnchor),
             leftTableView.widthAnchor.constraint(equalToConstant: viewWidth),
             leftTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
             
             centerTableView.topAnchor.constraint(equalTo: DOINGTitleView.bottomAnchor, constant: 8),
             centerTableView.leadingAnchor.constraint(equalTo: leftTableView.trailingAnchor),
-//            centerTableView.trailingAnchor.constraint(equalTo: rightTableView.leadingAnchor),
             centerTableView.widthAnchor.constraint(equalToConstant: viewWidth),
             centerTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
@@ -151,12 +151,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else if tableView.tag == 3 {
             return 3
         }
-        
-        return 7
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         return TableViewCell()
     }
     
@@ -164,8 +163,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
 
-    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 5
+//    }
+
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//
+//        return 1
+//    }
+
+//    
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "leftTableView")
+//        
 //        return 10
 //    }
     
