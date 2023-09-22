@@ -8,6 +8,18 @@
 import UIKit
 
 final class NewTODOViewController: UIViewController {
+    private let datePicker: UIDatePicker = UIDatePicker()
+    
+    private func configureDatePicker() {
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "ko-KR")
+        datePicker.timeZone = .autoupdatingCurrent
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+
+    
     private let titleTextField: UITextField = {
         let textField: UITextField = UITextField()
         textField.placeholder = "Title"
@@ -31,21 +43,24 @@ final class NewTODOViewController: UIViewController {
         super.viewDidLoad()
         configureNavigation()
         configureUI()
+        configureDatePicker()
         configureLayout()
+        
     }
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
         bodyTextView.delegate = self
         view.addSubview(titleTextField)
+        view.addSubview(datePicker)
         view.addSubview(bodyTextView)
     }
     
     private func configureNavigation() {
-        let editButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedEditButton))
+        let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedEditButton))
         let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tappedDoneButton))
-        navigationItem.rightBarButtonItem = editButton
-        navigationItem.leftBarButtonItem = doneButton
+        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = cancelButton
         navigationItem.title = "여기에 제목불러오기"
     }
     
@@ -62,8 +77,12 @@ final class NewTODOViewController: UIViewController {
             titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-//            titleTextField.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             titleTextField.heightAnchor.constraint(equalToConstant: 64),
+            
+            datePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
             
             bodyTextView.heightAnchor.constraint(equalToConstant: 300),
             bodyTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
