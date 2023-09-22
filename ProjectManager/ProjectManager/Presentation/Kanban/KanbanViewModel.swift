@@ -17,8 +17,12 @@ final class KanbanViewModel: ObservableObject {
         self.dones = dones
     }
     
-    func createTask() {
-        todos.append(Task(title: "TEST", content: "test", date: .now))
+    func create(_ task: Task) {
+        guard task.title != "" else {
+            return
+        }
+        
+        todos.append(task)
     }
 }
 

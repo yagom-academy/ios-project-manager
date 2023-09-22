@@ -14,9 +14,11 @@ struct CardView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text("\(task.title)")
                 .font(.title3)
+                .lineLimit(1)
             Text("\(task.content)")
                 .foregroundColor(.secondary)
-            Text("\(task.date)")
+                .lineLimit(3)
+            Text("\(task.date.formatted(date: .numeric, time: .omitted))")
                 .font(.footnote)
         }
     }

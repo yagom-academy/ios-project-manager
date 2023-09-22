@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct TaskFormView: View {
-    @State private var title = ""
-    @State private var date = Date()
-    @State private var content = ""
+    @ObservedObject var taskFormViewModel = TaskFormViewModel()
+    @EnvironmentObject var kanbanViewModel: KanbanViewModel
     @Binding var isOn: Bool
     
     init(isOn: Binding<Bool>) {
@@ -29,13 +28,14 @@ struct TaskFormView: View {
                 .ignoresSafeArea()
             NavigationView {
                 VStack {
-                    TextField("", text: $title)
+                    TextField("", text: $taskFormViewModel.title)
                         .textFieldStyle(.roundedBorder)
                         .font(.title)
                         .shadow(color: .secondary, radius: 1, x: 5, y: 3)
-                    DatePicker("", selection: $date)
+                    DatePicker("", selection: $taskFormViewModel.date, displayedComponents: .date)
                         .datePickerStyle(.wheel)
-                    TextEditor(text: $content)
+                        .labelsHidden()
+                    TextEditor(text: $taskFormViewModel.content)
                         .font(.body)
                         .shadow(color: .secondary, radius: 1, x: 5, y: 3)
                 }
@@ -48,6 +48,8 @@ struct TaskFormView: View {
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Done") {
+                            let task = taskFormViewModel.returnTask()
+                            kanbanViewModel.create(task)
                             isOn = false
                         }
                     }

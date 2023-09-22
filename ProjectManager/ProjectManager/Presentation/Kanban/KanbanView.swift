@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct KanbanView: View {
-    @ObservedObject var vm = KanbanViewModel()
+    @ObservedObject var kanbanViewModel = KanbanViewModel()
     @State private var showingAddView = false
     
     var body: some View {        
         NavigationView {
             HStack {
-                ColumnView(tasks: vm.todos, title: "TODO")
-                ColumnView(tasks: vm.doings, title: "DOING")
-                ColumnView(tasks: vm.dones, title: "DONE")
+                ColumnView(tasks: kanbanViewModel.todos, title: "TODO")
+                ColumnView(tasks: kanbanViewModel.doings, title: "DOING")
+                ColumnView(tasks: kanbanViewModel.dones, title: "DONE")
             }            
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
@@ -34,11 +34,12 @@ struct KanbanView: View {
         .customAlert(isOn: $showingAddView) {
             TaskFormView(isOn: $showingAddView)
         }
+        .environmentObject(kanbanViewModel)
     }
 }
 
 struct KanbanView_Previews: PreviewProvider {
     static var previews: some View {
-        KanbanView(vm: KanbanViewModel.mock)
+        KanbanView(kanbanViewModel: KanbanViewModel.mock)
     }
 }

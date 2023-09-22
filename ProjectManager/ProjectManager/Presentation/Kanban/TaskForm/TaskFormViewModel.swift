@@ -2,7 +2,17 @@
 //  TaskFormViewModel.swift
 //  ProjectManager
 //
-//  Created by 김민성 on 2023/09/22.
+//  Created by Minsup & Whales on 2023/09/22.
 //
 
-import Foundation
+import SwiftUI
+
+final class TaskFormViewModel: ObservableObject {
+    @Published var title: String = ""
+    @Published var content: String = ""
+    @Published var date: Date = Date()
+    
+    func returnTask() -> Task {
+        Task(title: title, content: content, date: date)
+    }
+}
