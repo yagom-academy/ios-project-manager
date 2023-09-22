@@ -12,4 +12,11 @@ struct Project: Hashable {
     var title: String
     var body: String
     var deadline: Date
+    
+    init(id: UUID = UUID(), title: String, body: String, deadline: Date) {
+        self.id = id
+        self.title = title
+        self.body = body
+        self.deadline = deadline
+    }
 }
