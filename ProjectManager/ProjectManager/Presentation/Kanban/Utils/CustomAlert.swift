@@ -9,12 +9,24 @@ import SwiftUI
 
 struct CustomAlert<Alert: View>: ViewModifier {
     @Binding var isOn: Bool
-    let alert: Alert
+    let title: String
+    let alertView: Alert
     func body(content: Content) -> some View {
         ZStack {
             content
             if isOn {
-                alert
+                Color.black.opacity(0.5)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        isOn = false
+                    }
+                NavigationStack {
+                    alertView
+                        .navigationTitle(title)
+                        .navigationBarTitleDisplayMode(.inline)
+                }
+                .cornerRadius(10)
+                .frame(width: 500, height: 600)
             }
         }
     }
@@ -23,8 +35,15 @@ struct CustomAlert<Alert: View>: ViewModifier {
 extension View {
     func customAlert<Alert: View>(
         isOn: Binding<Bool>,
+        title: String,
         alertView: @escaping () -> Alert
     ) -> some View {
-        modifier(CustomAlert(isOn: isOn, alert: alertView()))
+        modifier(
+            CustomAlert(
+                isOn: isOn,
+                title: title,
+                alertView: alertView()
+            )
+        )
     }
 }

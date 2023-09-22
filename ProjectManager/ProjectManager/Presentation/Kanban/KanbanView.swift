@@ -9,30 +9,30 @@ import SwiftUI
 
 struct KanbanView: View {
     @ObservedObject var kanbanViewModel = KanbanViewModel()
-    @State private var showingAddView = false
     
     var body: some View {        
-        NavigationView {
+        NavigationStack {
             HStack {
                 ColumnView(tasks: kanbanViewModel.todos, title: "TODO")
                 ColumnView(tasks: kanbanViewModel.doings, title: "DOING")
                 ColumnView(tasks: kanbanViewModel.dones, title: "DONE")
-            }            
+            }
+            .background(.quaternary)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showingAddView = true
+                        kanbanViewModel.presentForm()
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
             }
-        }
-        .navigationViewStyle(.stack)
-        .customAlert(isOn: $showingAddView) {
-            TaskFormView(isOn: $showingAddView)
+        }        
+        .customAlert(isOn: $kanbanViewModel.isFormOn, title: "Todo") {
+            TaskFormView()
         }
         .environmentObject(kanbanViewModel)
     }

@@ -11,18 +11,24 @@ final class KanbanViewModel: ObservableObject {
     @Published var doings: [Task]
     @Published var dones: [Task]
     
+    @Published var isFormOn: Bool = false
+    
     init(todos: [Task] = [], doings: [Task] = [], dones: [Task] = []) {
         self.todos = todos
         self.doings = doings
         self.dones = dones
     }
     
-    func create(_ task: Task) {
-        guard task.title != "" else {
-            return
-        }
-        
+    func create(_ task: Task) {        
         todos.append(task)
+    }
+    
+    func presentForm() {
+        isFormOn = true
+    }
+    
+    func dismissForm() {
+        isFormOn = false
     }
 }
 

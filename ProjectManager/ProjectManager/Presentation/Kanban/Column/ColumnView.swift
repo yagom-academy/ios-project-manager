@@ -18,9 +18,18 @@ struct ColumnView: View {
                     CardView(task: task)
                 }
             } header: {
-                Text("\(title)")
-                    .font(.title)
-                    .foregroundColor(.primary)
+                HStack {
+                    Text("\(title)")
+                        .font(.title)
+                        .foregroundColor(.primary)
+                    Text("\(tasks.count)")
+                        .foregroundColor(.white)
+                        .bold()
+                        .padding(6)
+                        .background {
+                            Circle().fill(.black)
+                        }
+                }
             }
         }
         .listStyle(.grouped)
