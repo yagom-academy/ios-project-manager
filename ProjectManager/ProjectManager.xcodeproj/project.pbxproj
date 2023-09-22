@@ -14,6 +14,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		DC3920C52ABC6905007F68F5 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920C42ABC6905007F68F5 /* TableViewCell.swift */; };
 		DC3920CB2ABC79D0007F68F5 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920CA2ABC79D0007F68F5 /* TableViewModel.swift */; };
+		DC3920D12ABD8E59007F68F5 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D02ABD8E59007F68F5 /* TitleView.swift */; };
 		DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC3920C42ABC6905007F68F5 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		DC3920CA2ABC79D0007F68F5 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
+		DC3920D02ABD8E59007F68F5 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +93,7 @@
 			children = (
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				DC3920C42ABC6905007F68F5 /* TableViewCell.swift */,
+				DC3920D02ABD8E59007F68F5 /* TitleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				DC3920CB2ABC79D0007F68F5 /* TableViewModel.swift in Sources */,
 				DC3920C52ABC6905007F68F5 /* TableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				DC3920D12ABD8E59007F68F5 /* TitleView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
