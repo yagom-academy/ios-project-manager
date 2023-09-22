@@ -80,14 +80,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		450F8F622ABA8017009D1B14 /* ProjectManagerScene */ = {
+		450F8F622ABA8017009D1B14 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				450F8F712ABA9737009D1B14 /* Flow */,
 				450F8F632ABA8050009D1B14 /* Main */,
 				450F8F742ABA9C54009D1B14 /* ProjectList */,
+				459D1BB22ABC2B6900D80E1A /* ProjectDetail */,
 			);
-			path = ProjectManagerScene;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		450F8F632ABA8050009D1B14 /* Main */ = {
@@ -114,13 +115,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		450F8F662ABA81D1009D1B14 /* Model */ = {
+		450F8F662ABA81D1009D1B14 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				450F8F862ABADF1D009D1B14 /* Entity */,
 				450F8F852ABADF14009D1B14 /* UseCase */,
 			);
-			path = Model;
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		450F8F712ABA9737009D1B14 /* Flow */ = {
@@ -171,11 +172,51 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		450F8F872ABADF27009D1B14 /* Server */ = {
+		450F8F872ABADF27009D1B14 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Server;
+			path = Network;
+			sourceTree = "<group>";
+		};
+		4519DC7A2ABD134F00EF65E3 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				450F8F872ABADF27009D1B14 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		4519DC7B2ABD172A00EF65E3 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				4519DC7C2ABD179800EF65E3 /* ProjectRepositoryError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		459D1BB22ABC2B6900D80E1A /* ProjectDetail */ = {
+			isa = PBXGroup;
+			children = (
+				459D1BB42ABC2BB700D80E1A /* ViewModel */,
+				459D1BB32ABC2BB000D80E1A /* View */,
+			);
+			path = ProjectDetail;
+			sourceTree = "<group>";
+		};
+		459D1BB32ABC2BB000D80E1A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		459D1BB42ABC2BB700D80E1A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -199,9 +240,10 @@
 			isa = PBXGroup;
 			children = (
 				450F8F5E2ABA7F57009D1B14 /* Application */,
-				450F8F662ABA81D1009D1B14 /* Model */,
-				450F8F622ABA8017009D1B14 /* ProjectManagerScene */,
-				450F8F872ABADF27009D1B14 /* Server */,
+				450F8F662ABA81D1009D1B14 /* Domain */,
+				450F8F622ABA8017009D1B14 /* Presentation */,
+				4519DC7A2ABD134F00EF65E3 /* Data */,
+				4519DC7B2ABD172A00EF65E3 /* Error */,
 				450F8F5F2ABA7F7E009D1B14 /* Utils */,
 				450F8F602ABA7FDA009D1B14 /* Resources */,
 			);

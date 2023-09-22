@@ -26,15 +26,15 @@ final class ProjectTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.font = .preferredFont(forTextStyle: .title3)
         
         return label
     }()
     
     private let bodyLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = UIColor.systemGray
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .systemGray
         label.numberOfLines = 0
         
         return label
@@ -42,7 +42,7 @@ final class ProjectTableViewCell: UITableViewCell {
     
     private let deadlineLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .body)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         
         return label
@@ -78,11 +78,11 @@ extension ProjectTableViewCell {
     }
     
     private func configureView() {
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.selectionStyle = .none
         
         contentView.addSubview(stackView)
-        contentView.backgroundColor = UIColor.systemBackground
+        contentView.backgroundColor = .systemBackground
     }
     
     private func configureStackView() {

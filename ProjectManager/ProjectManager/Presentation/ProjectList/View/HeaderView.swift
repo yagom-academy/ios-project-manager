@@ -23,14 +23,15 @@ final class HeaderView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.font = .preferredFont(forTextStyle: .title1)
+        label.setContentHuggingPriority(.required, for: .horizontal)
         
         return label
     }()
     
     private let countLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.font = .preferredFont(forTextStyle: .title3)
         
         return label
     }()

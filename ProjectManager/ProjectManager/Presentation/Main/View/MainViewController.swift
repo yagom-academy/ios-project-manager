@@ -12,7 +12,7 @@ final class MainViewController: UIViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = UIColor.systemFill
+        stackView.backgroundColor = .systemGray3
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
@@ -59,11 +59,18 @@ extension MainViewController {
     
     private func configureNavigation() {
         navigationItem.title = "ProjectManager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .systemFill
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func configureView() {
         view.addSubview(stackView)
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = .systemBackground
     }
     
     private func configureStackView() {

@@ -13,7 +13,7 @@ final class ProjectListViewController: UIViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = UIColor.systemGray6
+        stackView.backgroundColor = .systemGray6
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -44,7 +44,7 @@ extension ProjectListViewController {
     
     private func configureTableView() {
         tableView.register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier)
-        tableView.backgroundColor = UIColor.clear
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
     }
     
