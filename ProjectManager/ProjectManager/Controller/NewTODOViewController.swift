@@ -12,6 +12,8 @@ final class NewTODOViewController: UIViewController {
         let textField: UITextField = UITextField()
         textField.placeholder = "Title"
         textField.text = "텍스트필드"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = .green
         
         return textField
     }()
@@ -20,6 +22,7 @@ final class NewTODOViewController: UIViewController {
         let textView: UITextView = UITextView()
         textView.backgroundColor = .brown
         textView.text = "텍스트뷰"
+        textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
     }()
@@ -33,8 +36,9 @@ final class NewTODOViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
+        bodyTextView.delegate = self
         view.addSubview(titleTextField)
-//        view.addSubview(bodyTextView)
+        view.addSubview(bodyTextView)
     }
     
     private func configureNavigation() {
@@ -58,15 +62,19 @@ final class NewTODOViewController: UIViewController {
             titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             titleTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            titleTextField.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//            titleTextField.heightAnchor.constraint(equalToConstant: 64),
+//            titleTextField.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            titleTextField.heightAnchor.constraint(equalToConstant: 64),
             
-//            bodyTextView.heightAnchor.constraint(equalToConstant: 64),
-//            bodyTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-//            bodyTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//            bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+            bodyTextView.heightAnchor.constraint(equalToConstant: 300),
+            bodyTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            bodyTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
     }
+}
+
+extension NewTODOViewController: UITextViewDelegate {
+    
 }
 
 

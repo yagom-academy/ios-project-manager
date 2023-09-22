@@ -100,8 +100,10 @@ class RootViewController: UIViewController {
     @objc private func tappedPlusButton() {
         let newTODOViewController: NewTODOViewController = NewTODOViewController()
         newTODOViewController.modalPresentationStyle = .formSheet
+        let navigationController: UINavigationController = UINavigationController(rootViewController: newTODOViewController)
         
-        present(newTODOViewController, animated: true, completion: nil)
+        
+        present(navigationController, animated: true, completion: nil)
     }
     
     private func configureLayout() {
