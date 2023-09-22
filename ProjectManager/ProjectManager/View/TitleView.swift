@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TitleView: UIView {
+final class TitleView: UIView {
     private let titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.text = "타이틀"

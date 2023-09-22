@@ -1,12 +1,12 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - RootViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class ViewController: UIViewController {
+class RootViewController: UIViewController {
     
     private let TODOTitleView: TitleView = {
         let titleView: TitleView = TitleView()
@@ -68,12 +68,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
-        configureView()
+        configureUI()
         configureLayout()
 
     }
     
-    private func configureView() {
+    private func configureUI() {
         view.backgroundColor = .systemGray6
         leftTableView.delegate = self
         leftTableView.dataSource = self
@@ -96,11 +96,12 @@ class ViewController: UIViewController {
         navigationItem.title = "Project Manager"
         
     }
-    
 
-    
     @objc private func tappedPlusButton() {
+        let newTODOViewController: NewTODOViewController = NewTODOViewController()
+        newTODOViewController.modalPresentationStyle = .formSheet
         
+        present(newTODOViewController, animated: true, completion: nil)
     }
     
     private func configureLayout() {
@@ -142,7 +143,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 1 {
             return 1
