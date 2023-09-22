@@ -25,6 +25,7 @@ struct MemoListView: View {
                 .foregroundColor(.primary)
             }
         }
+        .listStyle(.grouped)
     }
 }
 
