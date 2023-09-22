@@ -8,18 +8,30 @@
 import SwiftUI
 
 struct CardView: View {
-    var task: Task
+    @EnvironmentObject var kanbanViewModel: KanbanViewModel
+    private let cardViewModel: CardViewModel
+    
+    init(task: Task) {
+        self.cardViewModel = CardViewModel(task: task)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("\(task.title)")
+            Text("\(cardViewModel.task.title)")
                 .font(.title3)
                 .lineLimit(1)
-            Text("\(task.content)")
+            Text("\(cardViewModel.task.content)")
                 .foregroundColor(.secondary)
                 .lineLimit(3)
-            Text("\(task.date.formatted(date: .numeric, time: .omitted))")
+            Text("\(cardViewModel.date)")
                 .font(.footnote)
+                .foregroundColor(
+                    cardViewModel.isOverdued &&
+                    !kanbanViewModel.dones.contains(where: {
+                        $0 == cardViewModel.task
+                    }) ? .red : .primary
+                )
+                
         }
     }
 }

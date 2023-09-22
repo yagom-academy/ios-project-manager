@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct KanbanView: View {
-    @ObservedObject var kanbanViewModel = KanbanViewModel()
+    @ObservedObject var kanbanViewModel = KanbanViewModel.mock
     
     var body: some View {        
         NavigationStack {
