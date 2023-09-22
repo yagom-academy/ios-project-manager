@@ -182,9 +182,14 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 //        return 10
 //    }
     
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//       return
-//    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, completionHandler) in
+            print("deleteAction")
+            //변수가져다 쓰면 weak self 추가하기
+            completionHandler(true)
+        })
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
     
     
 }
