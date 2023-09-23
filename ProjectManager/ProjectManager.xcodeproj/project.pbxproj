@@ -60,17 +60,65 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				D0CED7762ABEAB570081ABE2 /* CollectionViewCell.swift */,
-				D0CED7772ABEAB570081ABE2 /* CollectionViewCell.xib */,
+				D0CED77F2ABEAEAC0081ABE2 /* Resources */,
+				D0CED77E2ABEAE800081ABE2 /* Application */,
+				D0CED77D2ABEAE600081ABE2 /* Controllers */,
+				D0CED77C2ABEAE520081ABE2 /* ViewModels */,
+				D0CED77B2ABEAE400081ABE2 /* Views */,
+				D0CED77A2ABEAE3A0081ABE2 /* Models */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D0CED77A2ABEAE3A0081ABE2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D0CED77B2ABEAE400081ABE2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				D0CED7772ABEAB570081ABE2 /* CollectionViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D0CED77C2ABEAE520081ABE2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D0CED7762ABEAB570081ABE2 /* CollectionViewCell.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D0CED77D2ABEAE600081ABE2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D0CED77E2ABEAE800081ABE2 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		D0CED77F2ABEAEAC0081ABE2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,7 +343,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,7 +362,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
