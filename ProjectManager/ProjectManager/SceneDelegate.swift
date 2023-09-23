@@ -1,6 +1,6 @@
 //
 //  ProjectManager - SceneDelegate.swift
-//  Created by yagom. 
+//  Created by Jusbug. 
 //  Copyright © yagom. All rights reserved.
 // 
 
