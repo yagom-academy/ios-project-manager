@@ -8,7 +8,7 @@
 import UIKit
 
 class ToDoListView: UIView {
-    var viewController: ToDoListViewController?
+    weak var viewController: ToDoListViewController?
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
     let today = Date().timeIntervalSinceReferenceDate

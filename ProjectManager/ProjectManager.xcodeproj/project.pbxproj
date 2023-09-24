@@ -92,22 +92,22 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		BA64636B2AC0455B0080E80D /* Protocol */ = {
+		BA64636B2AC0455B0080E80D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				BA64636C2AC045700080E80D /* ViewModelProtocol.swift */,
+				BA64636E2AC04A700080E80D /* ToDoListViewModel.swift */,
 			);
-			path = Protocol;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		BA6463702AC04AAB0080E80D /* List */ = {
 			isa = PBXGroup;
 			children = (
+				BA64636B2AC0455B0080E80D /* ViewModel */,
+				BA64637B2AC0613D0080E80D /* Cell */,
 				C7431F0925F51E1D0094C4CF /* ToDoListViewController.swift */,
-				BA64636E2AC04A700080E80D /* ToDoListViewModel.swift */,
 				BA6463722AC04F590080E80D /* ToDoListView.swift */,
-				BA6463742AC04F920080E80D /* ToDoListHeaderView.swift */,
-				BA6463792AC050AD0080E80D /* ToDoListViewCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -129,6 +129,15 @@
 			path = Builder;
 			sourceTree = "<group>";
 		};
+		BA64637B2AC0613D0080E80D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BA6463742AC04F920080E80D /* ToDoListHeaderView.swift */,
+				BA6463792AC050AD0080E80D /* ToDoListViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -148,9 +157,8 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				BA6463762AC04FDA0080E80D /* Builder */,
 				BA6463712AC04AC50080E80D /* App */,
-				BA64636B2AC0455B0080E80D /* Protocol */,
+				BA6463762AC04FDA0080E80D /* Builder */,
 				BA6463612AC043CE0080E80D /* Model */,
 				BA6463702AC04AAB0080E80D /* List */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
