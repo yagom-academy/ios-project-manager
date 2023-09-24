@@ -12,6 +12,7 @@ final class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .orange
+        tableView.register(ListViewCell.self, forCellReuseIdentifier: "cell")
         
         return tableView
     }()
@@ -59,7 +60,7 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        return ListViewCell()
     }
 }
 

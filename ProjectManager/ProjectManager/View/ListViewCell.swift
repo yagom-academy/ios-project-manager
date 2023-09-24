@@ -1,0 +1,86 @@
+//
+//  ListViewCell.swift
+//  ProjectManager
+//
+//  Created by Moon on 2023/09/25.
+//
+
+import UIKit
+
+final class ListViewCell: UITableViewCell {
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.text = "책상정리"
+        
+        return label
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .systemGray3
+        label.text = "책상정리..."
+        label.numberOfLines = 3
+        
+        return label
+    }()
+    
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .callout)
+        label.text = "2023. 09. 25."
+        
+        return label
+    }()
+    
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        
+        return stackView
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configureUI()
+        backgroundColor = .brown
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Configure UI
+extension ListViewCell {
+    private func configureUI() {
+        addSubviews()
+        setUpContentStackViewConstraints()
+    }
+    
+    private func addSubviews() {
+        [titleLabel, descriptionLabel, dateLabel].forEach {
+            contentStackView.addArrangedSubview($0)
+        }
+        
+        addSubview(contentStackView)
+    }
+    
+    private func setUpContentStackViewConstraints() {
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            contentStackView.leadingAnchor
+                .constraint(equalTo: leadingAnchor, constant: 8),
+            contentStackView.trailingAnchor
+                .constraint(equalTo: trailingAnchor, constant: -8),
+            contentStackView.topAnchor
+                .constraint(equalTo: topAnchor, constant: 8),
+            contentStackView.bottomAnchor
+                .constraint(equalTo: bottomAnchor, constant: -8)
+        ])
+    }
+}
