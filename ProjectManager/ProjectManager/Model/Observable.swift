@@ -2,7 +2,7 @@
 //  Observable.swift
 //  ProjectManager
 //
-//  Created by Min Hyun on 2023/09/24.
+//  Created by Max on 2023/09/24.
 //
 
 class Observable<T> {

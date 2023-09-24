@@ -2,12 +2,14 @@
 //  ToDoViewModel.swift
 //  ProjectManager
 //
-//  Created by Min Hyun on 2023/09/24.
+//  Created by Max on 2023/09/24.
 //
 
 import CoreData
 
 class ToDoListViewModel: ViewModelProtocol {
+    typealias DataFormat = (key: String, value: Any?)
+    
     var dataList: Observable<[ToDoStatus: [ToDo]]>
     var errorMessage: Observable<String?> = Observable(nil)
     var error: Observable<Bool> = Observable(false)
@@ -35,14 +37,15 @@ class ToDoListViewModel: ViewModelProtocol {
     
     func createData(title: String?, body: String?, dueDate: Date?) {
         guard let title, let body, let dueDate else { return }
-        let values: [(key: String, value: Any?)] = [
+        let values: [DataFormat] = [
             (key: "id", value: UUID()),
             (key: "title", value: title),
             (key: "body", value: body),
             (key: "dueDate", value: dueDate),
             (key: "createdAt", value: Date()),
-            (key: "status", value: ToDoStatus.todo.name)
+            (key: "status", value: ToDoStatus.toDo.name)
         ]
+        
         do {
             try coreDataManager.createData(type: ToDo.self, values: values)
             fetchData()
@@ -88,15 +91,47 @@ class ToDoListViewModel: ViewModelProtocol {
     func addTestData() {
         // 불러오기 테스트용
         do {
-            let values: [(key: String, value: Any?)] = [
+            let toDoValues: [(key: String, value: Any?)] = [
                 (key: "id", value: UUID()),
                 (key: "title", value: "테스트1"),
                 (key: "body", value: "테스트용입니다"),
                 (key: "dueDate", value: Date()),
                 (key: "createdAt", value: Date()),
-                (key: "status", value: ToDoStatus.todo.name)
+                (key: "status", value: ToDoStatus.toDo.name)
             ]
-            try coreDataManager.createData(type: ToDo.self, values: values)
+            
+            let doingValues: [DataFormat] = [
+                (key: "id", value: UUID()),
+                (key: "title", value: "테스트2"),
+                (key: "body", value: "테스트용입니다"),
+                (key: "dueDate", value: Date()),
+                (key: "createdAt", value: Date()),
+                (key: "status", value: ToDoStatus.doing.name)
+            ]
+            
+            let doneValues: [DataFormat] = [
+                (key: "id", value: UUID()),
+                (key: "title", value: "테스트3"),
+                (key: "body", value: "테스트용입니다"),
+                (key: "dueDate", value: Date()),
+                (key: "createdAt", value: Date()),
+                (key: "status", value: ToDoStatus.done.name)
+            ]
+            
+            let doneValues2: [DataFormat] = [
+                (key: "id", value: UUID()),
+                (key: "title", value: "테스트4"),
+                (key: "body", value: "테스트용입니다"),
+                (key: "dueDate", value: Date()),
+                (key: "createdAt", value: Date()),
+                (key: "status", value: ToDoStatus.done.name)
+            ]
+            
+            try coreDataManager.createData(type: ToDo.self, values: toDoValues)
+            try coreDataManager.createData(type: ToDo.self, values: doingValues)
+            try coreDataManager.createData(type: ToDo.self, values: doneValues)
+            try coreDataManager.createData(type: ToDo.self, values: doneValues2)
+            
             try ToDoStatus.allCases.forEach { status in
                 let predicated = NSPredicate(format: "status == %@", status.name)
                 let filtered = try coreDataManager.fetchData(entityName:"ToDo", predicate: predicated, sort: "createdAt")
