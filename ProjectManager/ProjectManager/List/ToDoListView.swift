@@ -8,10 +8,21 @@
 import UIKit
 
 class ToDoListView: UIView {
-    weak var delegate: ToDoListViewDelegate?
+    private let viewModel: ToDoListViewModel
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
     let today = Date().timeIntervalSinceReferenceDate
+    
+    var toDoEntities: [ToDo] {
+        switch status {
+        case .toDo:
+            return viewModel.toDoList.value
+        case .doing:
+            return viewModel.doingList.value
+        case .done:
+            return viewModel.doneList.value
+        }
+    }
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -28,8 +39,9 @@ class ToDoListView: UIView {
         return tableView
     }()
     
-    init(_ status: ToDoStatus) {
+    init(_ status: ToDoStatus, viewModel: ToDoListViewModel) {
         self.status = status
+        self.viewModel = viewModel
         self.headerView = ToDoListHeaderView(status)
         super.init(frame: .init())
         
@@ -56,18 +68,18 @@ class ToDoListView: UIView {
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(ToDoListViewCell.self, forCellReuseIdentifier: status.name)
+        tableView.register(ToDoListViewCell.self, forCellReuseIdentifier: status.rawValue)
     }
     
     func reloadTableView() {
         self.tableView.reloadData()
-        self.headerView.setupTotalCount(self.delegate?.viewModel.dataList.value[status]?.count ?? 0)
+        self.headerView.setupTotalCount(self.toDoEntities.count)
     }
 }
 
 extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        delegate?.viewModel.dataList.value[status]?.count ?? 0
+        toDoEntities.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -75,25 +87,17 @@ extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: status.name,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: status.rawValue,
                                                        for: indexPath) as?
                 ToDoListViewCell else { return UITableViewCell() }
         
-        guard let data = delegate?.viewModel.dataList.value[status]?[indexPath.row] else {
-            return UITableViewCell()
-        }
-        
-        let title = data.title
-        let dueDate = data.dueDate
-        let body = data.body
-        let status = data.status
-        
-        let isDone = status == ToDoStatus.done.name
-        let isPast = floor(today/86400) > floor(dueDate.timeIntervalSinceReferenceDate/86400) && !isDone
-        let date = dateFormatter.string(from: dueDate)
+        let toDoEntity = toDoEntities[indexPath.row]
+        let isDone = toDoEntity.status == ToDoStatus.done.rawValue
+        let isPast = floor(today/86400) > floor(toDoEntity.dueDate.timeIntervalSinceReferenceDate/86400) && !isDone
+        let date = dateFormatter.string(from: toDoEntity.dueDate)
         
         cell.setupUI()
-        cell.setModel(title: title, date: date, body: body, isPast: isPast)
+        cell.setModel(title: toDoEntity.title, date: date, body: toDoEntity.body, isPast: isPast)
         
         return cell
     }
@@ -101,10 +105,8 @@ extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->
     UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "") { (_, _, success: @escaping (Bool) -> Void) in
-            guard let selectedData = self.delegate?.viewModel.dataList.value[self.status]?[indexPath.row] else {
-                return
-            }
-            self.delegate?.viewModel.deleteData(selectedData)
+            let selectedEntity = self.toDoEntities[indexPath.row]
+            self.viewModel.deleteData(selectedEntity)
         }
         
         delete.backgroundColor = .systemRed

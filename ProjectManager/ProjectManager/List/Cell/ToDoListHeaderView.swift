@@ -43,7 +43,7 @@ class ToDoListHeaderView: UIView {
     
     private func setupUI() {
         self.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.98, alpha: 1)
-        headerTitleLabel.text = status.name
+        headerTitleLabel.text = status.rawValue
         self.addSubview(headerTitleLabel)
         self.addSubview(totalCountLabel)
         

@@ -51,13 +51,6 @@ struct CoreDataManager {
 
     func saveContext() throws {
         let context = persistentContainer.viewContext
-        if context.hasChanges {
-//            do {
-//                try context.save()
-//            } catch {
-//                throw CoreDataError.saveFailure
-//            }
-        }
     }
 }
 

@@ -8,12 +8,15 @@
 import Foundation
 
 protocol ViewModelProtocol {
-    var dataList: Observable<[ToDoStatus: [ToDo]]> { get set }
+    var toDoList: Observable<[ToDo]> { get set }
+    var doingList: Observable<[ToDo]> { get set }
+    var doneList: Observable<[ToDo]>{ get set }
     var errorMessage: Observable<String?> { get set }
     var error: Observable<CoreDataError?> { get set }
-    func fetchData()
+    func fetchData(_ status: ToDoStatus)
     func createData(title: String?, body: String?, dueDate: Date?)
     func updateData(_ entity: ToDo, title: String?, body: String?, dueDate: Date?)
     func deleteData(_ entity: ToDo)
+    func handel(error: Error)
     func setError(_ error: CoreDataError)
 }

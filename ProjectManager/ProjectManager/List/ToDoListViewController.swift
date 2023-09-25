@@ -6,11 +6,7 @@
 
 import UIKit
 
-protocol ToDoListViewDelegate: AnyObject {
-    var viewModel: ToDoListViewModel { get set }
-}
-
-class ToDoListViewController: UIViewController, ToDoListViewDelegate {
+class ToDoListViewController: UIViewController {
     var viewModel: ToDoListViewModel
     
     private let stackView: UIStackView = {
@@ -29,9 +25,9 @@ class ToDoListViewController: UIViewController, ToDoListViewDelegate {
     
     init(_ dataManager: CoreDataManager) {
         self.viewModel = ToDoListViewModel(dataManager: dataManager)
-        self.toDoView = ToDoListView(.toDo)
-        self.doingView = ToDoListView(.doing)
-        self.doneView = ToDoListView(.done)
+        self.toDoView = ToDoListView(.toDo, viewModel: viewModel)
+        self.doingView = ToDoListView(.doing, viewModel: viewModel)
+        self.doneView = ToDoListView(.done, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,7 +44,6 @@ class ToDoListViewController: UIViewController, ToDoListViewDelegate {
         view.backgroundColor = .systemBackground
         setupUI()
         setupNavigationBar()
-        setupView()
         setupBinding()
     }
     
@@ -82,21 +77,23 @@ class ToDoListViewController: UIViewController, ToDoListViewDelegate {
            navigationItem.rightBarButtonItem = UIBarButtonItem(primaryAction: addToDo)
        }
        
-       private func setupView() {
-           toDoView.delegate = self
-           doingView.delegate = self
-           doneView.delegate = self
-       }
-       
        private func readData() {
-           viewModel.fetchData()
+           ToDoStatus.allCases.forEach { viewModel.fetchData($0) }
        }
        
        private func setupBinding() {
-           viewModel.dataList.bind { [weak self] _ in
+           viewModel.toDoList.bind { [weak self] _ in
                guard let self else { return }
                self.toDoView.reloadTableView()
+           }
+           
+           viewModel.doingList.bind { [weak self] _ in
+               guard let self else { return }
                self.doingView.reloadTableView()
+           }
+           
+           viewModel.doneList.bind { [weak self] _ in
+               guard let self else { return }
                self.doneView.reloadTableView()
            }
            
