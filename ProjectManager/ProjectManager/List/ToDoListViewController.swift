@@ -100,12 +100,12 @@ class ToDoListViewController: UIViewController, ToDoListViewDelegate {
                self.doneView.reloadTableView()
            }
            
-           viewModel.errorMessage.bind { [weak self] _ in
+           viewModel.error.bind { [weak self] _ in
                guard let self,
-                     let message = viewModel.errorMessage.value else { return }
+                     let error = viewModel.error.value else { return }
                let alertBuilder = AlertBuilder(viewController: self, prefferedStyle: .alert)
-               alertBuilder.setControllerTitle(title: CoreDataError.alertTitle)
-               alertBuilder.setControllerMessage(message: message)
+               alertBuilder.setControllerTitle(title: error.alertTitle)
+               alertBuilder.setControllerMessage(message: error.alertMessage)
                alertBuilder.addAction(.confirm)
                let alertController = alertBuilder.makeAlertController()
                present(alertController, animated: true)

@@ -11,8 +11,13 @@ enum CoreDataError: Error {
     case updateFailure
     case deleteFailure
     case unknown
-    
-    static let alertTitle = "데이터 오류"
+
+    var alertTitle: String {
+        switch self {
+        default:
+            return "데이터 오류"
+        }
+    }
     
     var alertMessage: String {
         switch self {
