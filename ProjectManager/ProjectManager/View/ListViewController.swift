@@ -18,6 +18,8 @@ final class ListViewController: UIViewController {
         return tableView
     }()
     
+    let listViewModel = ListViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
