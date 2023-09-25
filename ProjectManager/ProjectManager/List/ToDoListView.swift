@@ -79,13 +79,14 @@ extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as?
                 ToDoListViewCell else { return UITableViewCell() }
         
-        guard let data = delegate?.viewModel.dataList.value[status]?[indexPath.row],
-              let title = data.title,
-              let dueDate = data.dueDate,
-              let body = data.body,
-              let status = data.status else {
+        guard let data = delegate?.viewModel.dataList.value[status]?[indexPath.row] else {
             return UITableViewCell()
         }
+        
+        let title = data.title
+        let dueDate = data.dueDate
+        let body = data.body
+        let status = data.status
         
         let isDone = status == ToDoStatus.done.name
         let isPast = floor(today/86400) > floor(dueDate.timeIntervalSinceReferenceDate/86400) && !isDone
