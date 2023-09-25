@@ -12,13 +12,13 @@ final class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .systemGray6
-        tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ListCell.self, forCellReuseIdentifier: ListCell.identifier)
         tableView.separatorInset.left = .zero
         
         return tableView
     }()
     
-    let listViewModel = ListViewModel()
+    private let listViewModel = ListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,15 +57,23 @@ extension ListViewController {
 // MARK: - Table View Data Source
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return ListHeader()
+        return ListHeader(viewModel: listViewModel)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return listViewModel.countTodo()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return ListCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier) as? ListCell else {
+            return UITableViewCell()
+        }
+        
+        let todo = listViewModel.getTodo(index: indexPath.row)
+        
+        cell.setUpViewModel(ListCellViewModel(todo: todo))
+        
+        return cell
     }
 }
 
