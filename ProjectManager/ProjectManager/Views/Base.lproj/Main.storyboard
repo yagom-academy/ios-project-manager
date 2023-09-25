@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,7 +85,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Jjm-eq-Nv9"/>
+                    <navigationItem key="navigationItem" id="Jjm-eq-Nv9">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="c7e-ew-wWu">
+                            <connections>
+                                <action selector="didTapAddButton:" destination="BYZ-38-t0r" id="1Rd-fK-m0i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="doingCollectionView" destination="lpR-6I-7d3" id="xzx-tk-Bte"/>
                         <outlet property="doneCollectionView" destination="uOm-Vo-onG" id="Lwn-Mf-UD9"/>
@@ -95,6 +101,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="779.49152542372883" y="-34.390243902439025"/>
+        </scene>
+        <!--TODO-->
+        <scene sceneID="5pK-Tb-6YA">
+            <objects>
+                <viewController storyboardIdentifier="secondViewController" id="51J-16-KUh" customClass="SecondViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kH3-L1-pX9">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="yev-A6-8RN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="TODO" id="uZd-L3-PTj">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="JJw-Fl-EtP">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="WVQ-xK-UdS">
+                                <rect key="frame" x="20" y="7.5" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Edit"/>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="FaT-rl-b8X">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5Km-Cp-HRP">
+                                <rect key="frame" x="1085" y="7.5" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Done"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HHo-md-dqC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2183.3898305084749" y="-34.390243902439025"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9sh-JP-X1Z">
@@ -113,6 +152,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eRu-mS-NZT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="70.677966101694921" y="-34.390243902439025"/>
+        </scene>
+        <!--SecondV Iew Controller-->
+        <scene sceneID="JPZ-BN-wez">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UGv-4Q-ubF" customClass="secondVIewController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I1n-qU-CxF">
+                        <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="51J-16-KUh" kind="relationship" relationship="rootViewController" id="5qE-9e-Z4f"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XDm-Qh-Cis" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1474.5762711864409" y="-34.390243902439025"/>
         </scene>
     </scenes>
     <resources>
