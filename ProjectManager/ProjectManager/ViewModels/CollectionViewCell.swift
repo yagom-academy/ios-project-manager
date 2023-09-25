@@ -15,10 +15,10 @@ class CollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureLabels()
+        
     }
 
-    private func configureLabels() {
+    func configureLabels() {
         titleLabel.text = "Title"
         descriptionLabel.text = "Description"
         durationLabel.text = "Duration"
