@@ -11,7 +11,6 @@ final class ListCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
-        label.text = "책상정리"
         
         return label
     }()
@@ -20,7 +19,6 @@ final class ListCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .systemGray3
-        label.text = "책상정리..."
         label.numberOfLines = 3
         
         return label
@@ -29,7 +27,6 @@ final class ListCell: UITableViewCell {
     private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .callout)
-        label.text = "2023. 09. 25."
         
         return label
     }()
@@ -41,6 +38,13 @@ final class ListCell: UITableViewCell {
         
         return stackView
     }()
+    
+    // ListCell이 재사용 될 때마다 setUpViewModel을 통해 값이 들어오면 바인딩 함
+    private var listCellViewModel: ListCellViewModel? {
+        didSet {
+            setUpBindings()
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -62,6 +66,26 @@ final class ListCell: UITableViewCell {
                 bottom: .zero,
                 right: .zero)
             )
+    }
+    
+    // ListCell이 재사용 될 때 ListCellViewModel을 받아옴
+    func setUpViewModel(_ viewModel: ListCellViewModel) {
+        self.listCellViewModel = viewModel
+    }
+    
+    // viewModel을 받을 때마다 바인딩할 것
+    private func setUpBindings() {
+        listCellViewModel?.bindTitle { [weak self] viewModel in
+            self?.titleLabel.text = viewModel.title
+        }
+        
+        listCellViewModel?.bindDescription { [weak self] viewModel in
+            self?.descriptionLabel.text = viewModel.description
+        }
+        
+        listCellViewModel?.bindDeadline { [weak self] viewModel in
+            self?.deadlineLabel.text = viewModel.deadline
+        }
     }
 }
 
