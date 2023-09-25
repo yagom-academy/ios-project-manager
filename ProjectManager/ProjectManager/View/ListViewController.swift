@@ -55,6 +55,10 @@ extension ListViewController {
 
 // MARK: - Table View Data Source
 extension ListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return ListViewHeader()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
