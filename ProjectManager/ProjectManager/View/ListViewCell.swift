@@ -66,7 +66,7 @@ extension ListViewCell {
             contentStackView.addArrangedSubview($0)
         }
         
-        addSubview(contentStackView)
+        contentView.addSubview(contentStackView)
     }
     
     private func setUpContentStackViewConstraints() {
@@ -74,13 +74,13 @@ extension ListViewCell {
         
         NSLayoutConstraint.activate([
             contentStackView.leadingAnchor
-                .constraint(equalTo: leadingAnchor, constant: 8),
+                .constraint(equalTo: contentView.leadingAnchor, constant: 8),
             contentStackView.trailingAnchor
-                .constraint(equalTo: trailingAnchor, constant: -8),
+                .constraint(equalTo: contentView.trailingAnchor, constant: -8),
             contentStackView.topAnchor
-                .constraint(equalTo: topAnchor, constant: 8),
+                .constraint(equalTo: contentView.topAnchor, constant: 8),
             contentStackView.bottomAnchor
-                .constraint(equalTo: bottomAnchor, constant: -8)
+                .constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }
