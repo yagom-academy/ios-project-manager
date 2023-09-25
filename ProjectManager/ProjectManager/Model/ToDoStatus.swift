@@ -5,10 +5,10 @@
 //  Created by Max on 2023/09/24.
 //
 
-enum ToDoStatus: Int, CaseIterable {
-    case toDo = 0
-    case doing = 1
-    case done = 2
+enum ToDoStatus: CaseIterable {
+    case toDo
+    case doing
+    case done
     
     var name: String {
         switch self {
