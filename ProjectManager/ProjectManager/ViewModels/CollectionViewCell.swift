@@ -15,7 +15,13 @@ class CollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        configureLabels()
     }
 
+    private func configureLabels() {
+        titleLabel.text = "Title"
+        descriptionLabel.text = "Description"
+        durationLabel.text = "Duration"
+        durationLabel.textColor = .red
+    }
 }
