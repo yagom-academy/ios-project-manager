@@ -12,7 +12,7 @@ final class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .systemGray6
-        tableView.register(ListViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
         tableView.separatorInset.left = .zero
         
         return tableView
@@ -57,7 +57,7 @@ extension ListViewController {
 // MARK: - Table View Data Source
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return ListViewHeader()
+        return ListHeader()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,7 +65,7 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return ListViewCell()
+        return ListCell()
     }
 }
 

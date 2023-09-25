@@ -1,5 +1,5 @@
 //
-//  ListViewCell.swift
+//  ListCell.swift
 //  ProjectManager
 //
 //  Created by Moon on 2023/09/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ListViewCell: UITableViewCell {
+final class ListCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -66,7 +66,7 @@ final class ListViewCell: UITableViewCell {
 }
 
 // MARK: - Configure UI
-extension ListViewCell {
+extension ListCell {
     private func configureUI() {
         addSubviews()
         setUpContentStackViewConstraints()

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28CA66E52AC0F72600FFD7A9 /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E42AC0F72600FFD7A9 /* ListViewCell.swift */; };
-		28CA66E72AC0FE3100FFD7A9 /* ListViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E62AC0FE3100FFD7A9 /* ListViewHeader.swift */; };
+		28CA66E52AC0F72600FFD7A9 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E42AC0F72600FFD7A9 /* ListCell.swift */; };
+		28CA66E72AC0FE3100FFD7A9 /* ListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */; };
 		28CA66EB2AC1805300FFD7A9 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66EA2AC1805300FFD7A9 /* ListViewModel.swift */; };
 		28CA66ED2AC1808E00FFD7A9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66EC2AC1808E00FFD7A9 /* Todo.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -19,8 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		28CA66E42AC0F72600FFD7A9 /* ListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
-		28CA66E62AC0FE3100FFD7A9 /* ListViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewHeader.swift; sourceTree = "<group>"; };
+		28CA66E42AC0F72600FFD7A9 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeader.swift; sourceTree = "<group>"; };
 		28CA66EA2AC1805300FFD7A9 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		28CA66EC2AC1808E00FFD7A9 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,8 +56,8 @@
 			children = (
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F0925F51E1D0094C4CF /* ListViewController.swift */,
-				28CA66E62AC0FE3100FFD7A9 /* ListViewHeader.swift */,
-				28CA66E42AC0F72600FFD7A9 /* ListViewCell.swift */,
+				28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */,
+				28CA66E42AC0F72600FFD7A9 /* ListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -186,11 +186,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				28CA66ED2AC1808E00FFD7A9 /* Todo.swift in Sources */,
-				28CA66E52AC0F72600FFD7A9 /* ListViewCell.swift in Sources */,
+				28CA66E52AC0F72600FFD7A9 /* ListCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
 				28CA66EB2AC1805300FFD7A9 /* ListViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				28CA66E72AC0FE3100FFD7A9 /* ListViewHeader.swift in Sources */,
+				28CA66E72AC0FE3100FFD7A9 /* ListHeader.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

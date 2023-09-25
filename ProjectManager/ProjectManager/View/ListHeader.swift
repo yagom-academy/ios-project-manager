@@ -1,5 +1,5 @@
 //
-//  ListViewHeader.swift
+//  ListHeader.swift
 //  ProjectManager
 //
 //  Created by Moon on 2023/09/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ListViewHeader: UIView {
+final class ListHeader: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
@@ -48,7 +48,7 @@ final class ListViewHeader: UIView {
 }
 
 // MARK: - Configure UI
-extension ListViewHeader {
+extension ListHeader {
     private func configureUI() {
         addSubviews()
         setUpConstraints()
