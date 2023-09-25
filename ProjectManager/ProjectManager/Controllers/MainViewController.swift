@@ -15,9 +15,24 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTitle()
-        
+        initDelegateAndDataSource()
+        registerNib()
     }
     
+    private func registerNib() {
+        todoCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
+        doingCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
+        doneCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
+    }
+    
+    private func initDelegateAndDataSource() {
+        todoCollectionView.dataSource = self
+        todoCollectionView.delegate = self
+        doingCollectionView.dataSource = self
+        doingCollectionView.delegate = self
+        doneCollectionView.dataSource = self
+        doneCollectionView.delegate = self
+    }
     private func configureTitle() {
         self.navigationItem.title = "Project Manager"
     }
@@ -35,5 +50,17 @@ class MainViewController: UIViewController {
         }
         
         self.present(secondVC, animated: true, completion: nil)
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
+        
+        return cell
     }
 }
