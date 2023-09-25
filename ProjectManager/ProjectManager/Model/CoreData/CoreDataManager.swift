@@ -32,13 +32,13 @@ struct CoreDataManager {
     }
     
     @discardableResult
-    func createData<T: NSManagedObject>(type: T.Type, values: [(key: String, value: Any?)]) throws -> T {
+    func createData<T: NSManagedObject>(type: T.Type, values: [Value]) throws -> T {
         let newData = T(context: persistentContainer.viewContext)
         return try updateData(entity: newData, values: values)
     }
     
     @discardableResult
-    func updateData<T: NSManagedObject>(entity: T, values: [(key: String, value: Any?)]) throws -> T  {
+    func updateData<T: NSManagedObject>(entity: T, values: [Value]) throws -> T  {
         values.forEach { entity.setValue($0.value, forKey: $0.key) }
         try saveContext()
         return entity
@@ -57,6 +57,18 @@ struct CoreDataManager {
 //            } catch {
 //                throw CoreDataError.saveFailure
 //            }
+        }
+    }
+}
+
+extension CoreDataManager {
+    struct Value {
+        let key: String
+        let value: Any?
+        
+        init(key: String, value: Any?) {
+            self.key = key
+            self.value = value
         }
     }
 }

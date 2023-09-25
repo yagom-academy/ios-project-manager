@@ -8,17 +8,17 @@
 import CoreData
 
 final class ToDoListViewModel: ViewModelProtocol {
-    typealias DataFormat = (key: String, value: Any?)
-    
-    var dataList: Observable<[ToDoStatus: [ToDo]]>
+    var dataList: Observable<[ToDoStatus: [ToDo]]> = Observable([:])
     var errorMessage: Observable<String?> = Observable(nil)
     var error: Observable<CoreDataError?> = Observable(nil)
     let coreDataManager: CoreDataManager
     
     init(dataManager: CoreDataManager) {
         coreDataManager = dataManager
-        dataList = Observable([:])
+        
+#if DEBUG
         addTestData()
+#endif
     }
     
     func fetchData() {
@@ -37,13 +37,13 @@ final class ToDoListViewModel: ViewModelProtocol {
     
     func createData(title: String?, body: String?, dueDate: Date?) {
         guard let title, let body, let dueDate else { return }
-        let values: [DataFormat] = [
-            (key: "id", value: UUID()),
-            (key: "title", value: title),
-            (key: "body", value: body),
-            (key: "dueDate", value: dueDate),
-            (key: "createdAt", value: Date()),
-            (key: "status", value: ToDoStatus.toDo.name)
+        let values: [CoreDataManager.Value] = [
+            CoreDataManager.Value(key: "id", value: UUID()),
+            CoreDataManager.Value(key: "title", value: title),
+            CoreDataManager.Value(key: "body", value: body),
+            CoreDataManager.Value(key: "dueDate", value: dueDate),
+            CoreDataManager.Value(key: "createdAt", value: Date()),
+            CoreDataManager.Value(key: "status", value: ToDoStatus.toDo.name)
         ]
         
         do {
@@ -57,10 +57,10 @@ final class ToDoListViewModel: ViewModelProtocol {
     }
     
     func updateData(_ entity: ToDo, title: String?, body: String?, dueDate: Date?) {
-        let values: [(key: String, value: Any?)] = [
-            (key: "title", value: title),
-            (key: "body", value: body),
-            (key: "dueDate", value: dueDate)
+        let values: [CoreDataManager.Value] = [
+            CoreDataManager.Value(key: "title", value: title),
+            CoreDataManager.Value(key: "body", value: body),
+            CoreDataManager.Value(key: "dueDate", value: dueDate)
         ]
         do {
             try coreDataManager.updateData(entity: entity, values: values)
@@ -87,44 +87,46 @@ final class ToDoListViewModel: ViewModelProtocol {
         self.errorMessage = Observable(error.alertMessage)
         self.error = Observable(error)
     }
-    
+}
+
+extension ToDoListViewModel {
     func addTestData() {
         // 불러오기 테스트용
         do {
-            let toDoValues: [(key: String, value: Any?)] = [
-                (key: "id", value: UUID()),
-                (key: "title", value: "테스트1"),
-                (key: "body", value: "테스트용입니다"),
-                (key: "dueDate", value: Date()),
-                (key: "createdAt", value: Date()),
-                (key: "status", value: ToDoStatus.toDo.name)
+            let toDoValues: [CoreDataManager.Value] = [
+                CoreDataManager.Value(key: "id", value: UUID()),
+                CoreDataManager.Value(key: "title", value: "테스트"),
+                CoreDataManager.Value(key: "body", value: "테스트용입니다"),
+                CoreDataManager.Value(key: "dueDate", value: Date()),
+                CoreDataManager.Value(key: "createdAt", value: Date()),
+                CoreDataManager.Value(key: "status", value: ToDoStatus.toDo.name)
             ]
             
-            let doingValues: [DataFormat] = [
-                (key: "id", value: UUID()),
-                (key: "title", value: "테스트2"),
-                (key: "body", value: "테스트용입니다"),
-                (key: "dueDate", value: Date()),
-                (key: "createdAt", value: Date()),
-                (key: "status", value: ToDoStatus.doing.name)
+            let doingValues: [CoreDataManager.Value] = [
+                CoreDataManager.Value(key: "id", value: UUID()),
+                CoreDataManager.Value(key: "title", value: "테스트2"),
+                CoreDataManager.Value(key: "body", value: "테스트용입니다2"),
+                CoreDataManager.Value(key: "dueDate", value: Date()),
+                CoreDataManager.Value(key: "createdAt", value: Date()),
+                CoreDataManager.Value(key: "status", value: ToDoStatus.doing.name)
             ]
             
-            let doneValues: [DataFormat] = [
-                (key: "id", value: UUID()),
-                (key: "title", value: "테스트3"),
-                (key: "body", value: "테스트용입니다"),
-                (key: "dueDate", value: Date()),
-                (key: "createdAt", value: Date()),
-                (key: "status", value: ToDoStatus.done.name)
+            let doneValues: [CoreDataManager.Value] = [
+                CoreDataManager.Value(key: "id", value: UUID()),
+                CoreDataManager.Value(key: "title", value: "테스트3"),
+                CoreDataManager.Value(key: "body", value: "테스트용입니다3"),
+                CoreDataManager.Value(key: "dueDate", value: Date()),
+                CoreDataManager.Value(key: "createdAt", value: Date()),
+                CoreDataManager.Value(key: "status", value: ToDoStatus.done.name)
             ]
             
-            let doneValues2: [DataFormat] = [
-                (key: "id", value: UUID()),
-                (key: "title", value: "테스트4"),
-                (key: "body", value: "테스트용입니다"),
-                (key: "dueDate", value: Date()),
-                (key: "createdAt", value: Date()),
-                (key: "status", value: ToDoStatus.done.name)
+            let doneValues2: [CoreDataManager.Value] = [
+                CoreDataManager.Value(key: "id", value: UUID()),
+                CoreDataManager.Value(key: "title", value: "테스트4"),
+                CoreDataManager.Value(key: "body", value: "테스트용입니다4"),
+                CoreDataManager.Value(key: "dueDate", value: Date()),
+                CoreDataManager.Value(key: "createdAt", value: Date()),
+                CoreDataManager.Value(key: "status", value: ToDoStatus.done.name)
             ]
             
             try coreDataManager.createData(type: ToDo.self, values: toDoValues)
@@ -140,4 +142,8 @@ final class ToDoListViewModel: ViewModelProtocol {
         } catch {
         }
     }
+}
+
+extension ToDoListViewModel {
+    
 }
