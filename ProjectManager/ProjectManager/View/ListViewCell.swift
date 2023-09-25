@@ -46,8 +46,6 @@ final class ListViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureUI()
-        backgroundColor = .brown
-        contentView.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -57,7 +55,13 @@ final class ListViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0))
+        contentView.frame = contentView.frame
+            .inset(by: UIEdgeInsets(
+                top: 8,
+                left: .zero,
+                bottom: .zero,
+                right: .zero)
+            )
     }
 }
 
@@ -66,6 +70,7 @@ extension ListViewCell {
     private func configureUI() {
         addSubviews()
         setUpContentStackViewConstraints()
+        setUpBackgroundColors()
     }
     
     private func addSubviews() {
@@ -89,5 +94,10 @@ extension ListViewCell {
             contentStackView.bottomAnchor
                 .constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
+    }
+    
+    private func setUpBackgroundColors() {
+        backgroundColor = .systemGray6
+        contentView.backgroundColor = .systemBackground
     }
 }

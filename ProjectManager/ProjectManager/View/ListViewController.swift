@@ -11,16 +11,15 @@ final class ListViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .orange
+        tableView.backgroundColor = .systemGray6
         tableView.register(ListViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.separatorInset.left = .zero
         
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .yellow
         
         configureUI()
     }

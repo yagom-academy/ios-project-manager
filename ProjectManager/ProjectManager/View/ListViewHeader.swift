@@ -40,7 +40,6 @@ final class ListViewHeader: UIView {
         super.init(frame: .zero)
         
         configureUI()
-        backgroundColor = .cyan
     }
     
     required init?(coder: NSCoder) {
