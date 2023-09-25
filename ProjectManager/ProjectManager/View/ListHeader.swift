@@ -19,7 +19,6 @@ final class ListHeader: UIView {
     private var contentAmountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
-        label.text = "3"
         label.textColor = .white
         label.textAlignment = .center
         label.layer.backgroundColor = UIColor.black.cgColor
@@ -36,14 +35,27 @@ final class ListHeader: UIView {
         return stackView
     }()
     
-    init() {
+    // contentAmountLabel에 TODO 개수를 표시하기 위한 데이터를 바인딩 할 뷰 모델
+    private let listViewModel: ListViewModel
+    
+    init(viewModel: ListViewModel) {
+        listViewModel = viewModel
+        
         super.init(frame: .zero)
         
         configureUI()
+        setUpBindings()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // contentAmountLabel에 TODO 개수 표시
+    private func setUpBindings() {
+        listViewModel.bindCount { [weak self] viewModel in
+            self?.contentAmountLabel.text = viewModel.count
+        }
     }
 }
 
