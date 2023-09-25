@@ -7,7 +7,7 @@
 
 import CoreData
 
-class CoreDataManager {
+struct CoreDataManager {
     let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ToDo")
         container.loadPersistentStores(completionHandler: { (_, _) in })

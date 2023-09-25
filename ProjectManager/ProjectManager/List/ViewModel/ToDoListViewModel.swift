@@ -12,7 +12,7 @@ class ToDoListViewModel: ViewModelProtocol {
     
     var dataList: Observable<[ToDoStatus: [ToDo]]>
     var errorMessage: Observable<String?> = Observable(nil)
-    var error: Observable<Bool> = Observable(false)
+    var error: Observable<CoreDataError?> = Observable(nil)
     let coreDataManager: CoreDataManager
     
     init(dataManager: CoreDataManager) {
@@ -29,9 +29,9 @@ class ToDoListViewModel: ViewModelProtocol {
                 dataList.value[status] = filtered as? [ToDo]
             }
         } catch CoreDataError.dataNotFound {
-            setError(CoreDataError.dataNotFound.alertMessage)
+            setError(CoreDataError.dataNotFound)
         } catch {
-            setError(CoreDataError.unknown.alertMessage)
+            setError(CoreDataError.unknown)
         }
     }
     
@@ -50,9 +50,9 @@ class ToDoListViewModel: ViewModelProtocol {
             try coreDataManager.createData(type: ToDo.self, values: values)
             fetchData()
         } catch CoreDataError.saveFailure {
-            self.setError(CoreDataError.saveFailure.alertMessage)
+            self.setError(CoreDataError.saveFailure)
         } catch {
-            self.setError(CoreDataError.unknown.alertMessage)
+            self.setError(CoreDataError.unknown)
         }
     }
     
@@ -66,9 +66,9 @@ class ToDoListViewModel: ViewModelProtocol {
             try coreDataManager.updateData(entity: entity, values: values)
             fetchData()
         } catch CoreDataError.updateFailure {
-            self.setError(CoreDataError.updateFailure.alertMessage)
+            self.setError(CoreDataError.updateFailure)
         } catch {
-            self.setError(CoreDataError.unknown.alertMessage)
+            self.setError(CoreDataError.unknown)
         }
     }
     
@@ -77,15 +77,15 @@ class ToDoListViewModel: ViewModelProtocol {
             try coreDataManager.deleteData(entity: entity)
             fetchData()
         } catch CoreDataError.deleteFailure {
-            self.setError(CoreDataError.deleteFailure.alertMessage)
+            self.setError(CoreDataError.deleteFailure)
         } catch {
-            self.setError(CoreDataError.unknown.alertMessage)
+            self.setError(CoreDataError.unknown)
         }
     }
     
-    func setError(_ message: String) {
-        self.errorMessage = Observable(message)
-        self.error = Observable(true)
+    func setError(_ error: CoreDataError) {
+        self.errorMessage = Observable(error.alertMessage)
+        self.error = Observable(error)
     }
     
     func addTestData() {
