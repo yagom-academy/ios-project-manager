@@ -17,6 +17,6 @@ protocol ViewModelProtocol {
     func createData(title: String?, body: String?, dueDate: Date?)
     func updateData(_ entity: ToDo, title: String?, body: String?, dueDate: Date?)
     func deleteData(_ entity: ToDo)
-    func handel(error: Error)
+    func handle(error: Error)
     func setError(_ error: CoreDataError)
 }
