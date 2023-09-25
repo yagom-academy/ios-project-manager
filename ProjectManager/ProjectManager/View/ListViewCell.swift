@@ -26,7 +26,7 @@ final class ListViewCell: UITableViewCell {
         return label
     }()
     
-    private let dateLabel: UILabel = {
+    private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .callout)
         label.text = "2023. 09. 25."
@@ -74,7 +74,7 @@ extension ListViewCell {
     }
     
     private func addSubviews() {
-        [titleLabel, descriptionLabel, dateLabel].forEach {
+        [titleLabel, descriptionLabel, deadlineLabel].forEach {
             contentStackView.addArrangedSubview($0)
         }
         
