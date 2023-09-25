@@ -6,8 +6,12 @@
 
 import UIKit
 
-class ToDoListViewController: UIViewController {
-    let viewModel: ToDoListViewModel
+protocol ToDoListViewDelegate: AnyObject {
+    var viewModel: ToDoListViewModel { get set }
+}
+
+class ToDoListViewController: UIViewController, ToDoListViewDelegate {
+    var viewModel: ToDoListViewModel
     
     private let stackView: UIStackView = {
             let stackView = UIStackView()
@@ -79,9 +83,9 @@ class ToDoListViewController: UIViewController {
        }
        
        private func setupView() {
-           toDoView.viewController = self
-           doingView.viewController = self
-           doneView.viewController = self
+           toDoView.delegate = self
+           doingView.delegate = self
+           doneView.delegate = self
        }
        
        private func readData() {

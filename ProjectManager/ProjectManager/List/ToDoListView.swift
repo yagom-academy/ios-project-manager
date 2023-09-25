@@ -8,7 +8,7 @@
 import UIKit
 
 class ToDoListView: UIView {
-    weak var viewController: ToDoListViewController?
+    weak var delegate: ToDoListViewDelegate?
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
     let today = Date().timeIntervalSinceReferenceDate
@@ -61,13 +61,13 @@ class ToDoListView: UIView {
     
     func reloadTableView() {
         self.tableView.reloadData()
-        self.headerView.setupTotalCount(self.viewController?.viewModel.dataList.value[status]?.count ?? 0)
+        self.headerView.setupTotalCount(self.delegate?.viewModel.dataList.value[status]?.count ?? 0)
     }
 }
 
 extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewController?.viewModel.dataList.value[status]?.count ?? 0
+        delegate?.viewModel.dataList.value[status]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -79,7 +79,7 @@ extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as?
                 ToDoListViewCell else { return UITableViewCell() }
         
-        guard let data = viewController?.viewModel.dataList.value[status]?[indexPath.row],
+        guard let data = delegate?.viewModel.dataList.value[status]?[indexPath.row],
               let title = data.title,
               let dueDate = data.dueDate,
               let body = data.body,
@@ -100,10 +100,10 @@ extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->
     UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "") { (_, _, success: @escaping (Bool) -> Void) in
-            guard let selectedData = self.viewController?.viewModel.dataList.value[self.status]?[indexPath.row] else {
+            guard let selectedData = self.delegate?.viewModel.dataList.value[self.status]?[indexPath.row] else {
                 return
             }
-            self.viewController?.viewModel.deleteData(selectedData)
+            self.delegate?.viewModel.deleteData(selectedData)
         }
         
         delete.backgroundColor = .systemRed
