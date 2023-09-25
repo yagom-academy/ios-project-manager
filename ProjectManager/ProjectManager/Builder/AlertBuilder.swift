@@ -9,13 +9,11 @@ import UIKit
 
 final class AlertBuilder {
     let alertController: UIAlertController
-    private let viewController: UIViewController
     private var controllerTitle: String = ""
     private var controllerMessage: String = ""
     private var alertActions: [UIAlertAction] = []
     
     init(viewController: UIViewController, prefferedStyle: UIAlertController.Style) {
-        self.viewController = viewController
         self.alertController = UIAlertController(title: nil, message: nil, preferredStyle: prefferedStyle)
     }
     
@@ -32,15 +30,12 @@ final class AlertBuilder {
         alertActions.append(action)
     }
     
-    @discardableResult
-    func show() -> Self {
+    func makeAlertController() -> UIAlertController {
         alertController.title = controllerTitle
         alertController.message = controllerMessage
         alertActions.forEach { alertController.addAction($0) }
         
-        viewController.present(alertController, animated: true)
-        
-        return self
+        return alertController
     }
 }
 

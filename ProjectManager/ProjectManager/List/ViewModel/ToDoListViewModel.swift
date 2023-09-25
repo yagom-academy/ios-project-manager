@@ -7,7 +7,7 @@
 
 import CoreData
 
-class ToDoListViewModel: ViewModelProtocol {
+final class ToDoListViewModel: ViewModelProtocol {
     typealias DataFormat = (key: String, value: Any?)
     
     var dataList: Observable<[ToDoStatus: [ToDo]]>

@@ -107,7 +107,8 @@ class ToDoListViewController: UIViewController, ToDoListViewDelegate {
                alertBuilder.setControllerTitle(title: CoreDataError.alertTitle)
                alertBuilder.setControllerMessage(message: message)
                alertBuilder.addAction(.confirm)
-               alertBuilder.show()
+               let alertController = alertBuilder.makeAlertController()
+               present(alertController, animated: true)
            }
        }
 }

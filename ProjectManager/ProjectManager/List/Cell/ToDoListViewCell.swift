@@ -59,6 +59,8 @@ class ToDoListViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        titleLabel.textColor = .black
+        bodyLabel.textColor = .black
         dateLabel.textColor = .black
     }
     
