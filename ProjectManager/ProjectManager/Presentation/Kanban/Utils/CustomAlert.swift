@@ -12,21 +12,25 @@ struct CustomAlert<Alert: View>: ViewModifier {
     let title: String
     let alertView: Alert
     func body(content: Content) -> some View {
-        ZStack {
-            content
-            if isOn {
-                Color.black.opacity(0.5)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        isOn = false
+        GeometryReader { geo in
+            let width = geo.size.width * (1 / 2)
+            let height = width * (6 / 5)
+            ZStack {
+                content
+                if isOn {
+                    Color.black.opacity(0.5)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            isOn = false
+                        }
+                    NavigationStack {
+                        alertView
+                            .navigationTitle(title)
+                            .navigationBarTitleDisplayMode(.inline)
                     }
-                NavigationStack {
-                    alertView
-                        .navigationTitle(title)
-                        .navigationBarTitleDisplayMode(.inline)
+                    .cornerRadius(10)
+                    .frame(width: width, height: height)
                 }
-                .cornerRadius(10)
-                .frame(width: 500, height: 600)
             }
         }
     }
