@@ -31,18 +31,18 @@ final class DescriptionCell: UITableViewCell {
         
         return label
     }()
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         setUpLabel()
         configureUI()
         
     }
-
+    
     override func prepareForReuse() {
         titleLabel.text = nil
         bodyLabel.text = nil
@@ -56,8 +56,6 @@ final class DescriptionCell: UITableViewCell {
     }
     
     private func configureUI() {
-        accessoryType = .disclosureIndicator
-        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
@@ -70,7 +68,7 @@ final class DescriptionCell: UITableViewCell {
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
-
+    
     func setModel(title: String, body: String, date: String) {
         titleLabel.text = title
         bodyLabel.text = body

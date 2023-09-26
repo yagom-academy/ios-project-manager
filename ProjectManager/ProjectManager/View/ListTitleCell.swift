@@ -23,11 +23,11 @@ final class ListTitleCell: UITableViewCell {
         
         return label
     }()
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         setUpLabel()
@@ -45,8 +45,6 @@ final class ListTitleCell: UITableViewCell {
     }
     
     private func configureUI() {
-        accessoryType = .disclosureIndicator
-        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
@@ -56,7 +54,7 @@ final class ListTitleCell: UITableViewCell {
             countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
         ])
     }
-
+    
     func setModel(title: String, count: Int) {
         titleLabel.text = title
         countLabel.text = String(count)

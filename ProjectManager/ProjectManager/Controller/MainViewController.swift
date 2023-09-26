@@ -30,7 +30,7 @@ final class MainViewController: UIViewController {
         
         return tableView
     }()
-
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +49,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setUpViewController()
+        setUpBarButtonItem()
         configureUI()
         setUpTableViewLayout()
         setUpTableView()
@@ -65,6 +66,21 @@ final class MainViewController: UIViewController {
         stackView.addArrangedSubview(doneTableView)
         
         view.addSubview(stackView)
+    }
+
+    private func setUpBarButtonItem() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButton))
+        navigationItem.rightBarButtonItem = addButton
+    }
+    
+    @objc private func addButton() {
+        let addTODOView = AddTODOViewController()
+        let navigationController = UINavigationController(rootViewController: addTODOView)
+        let backgroundView = UIView(frame: view.bounds)
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        addTODOView.view.sendSubviewToBack(backgroundView)
+    
+        present(navigationController, animated: true)
     }
     
     private func setUpTableViewLayout() {
@@ -150,7 +166,7 @@ extension MainViewController: UITableViewDataSource {
             
             descriptionCell.setModel(title: "제목2", body: "내용2", date: "날짜2")
             return descriptionCell
-        
+            
         default:
             return UITableViewCell()
         }
