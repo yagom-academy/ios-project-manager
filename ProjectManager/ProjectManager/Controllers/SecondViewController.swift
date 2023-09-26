@@ -11,7 +11,7 @@ class SecondViewController: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var bodyTextView: UITextView!
     private let placeHolderForTextField = "Title"
     private let placeHolderForTextView = "This is where you type in what to do.\n1000 characters in the limit."
     
@@ -33,9 +33,9 @@ class SecondViewController: UIViewController {
         titleTextField.delegate = self
         titleTextField.text = placeHolderForTextField
         titleTextField.textColor = .gray
-        descriptionTextView.delegate = self
-        descriptionTextView.text = placeHolderForTextView
-        descriptionTextView.textColor = .gray
+        bodyTextView.delegate = self
+        bodyTextView.text = placeHolderForTextView
+        bodyTextView.textColor = .gray
     }
     
     private func configureLayout() {
@@ -44,11 +44,11 @@ class SecondViewController: UIViewController {
         titleTextField.layer.shadowOffset = CGSize(width: 0, height: 5)
         titleTextField.layer.shadowRadius = 5
         titleTextField.layer.masksToBounds = false
-        descriptionTextView.layer.shadowColor = UIColor.gray.cgColor
-        descriptionTextView.layer.shadowOpacity = 1
-        descriptionTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        descriptionTextView.layer.shadowRadius = 5
-        descriptionTextView.layer.masksToBounds = false
+        bodyTextView.layer.shadowColor = UIColor.gray.cgColor
+        bodyTextView.layer.shadowOpacity = 1
+        bodyTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        bodyTextView.layer.shadowRadius = 5
+        bodyTextView.layer.masksToBounds = false
     }
     
     @IBAction func didTapEditButton(_ sender: Any) {
@@ -78,16 +78,16 @@ extension SecondViewController: UITextFieldDelegate {
 
 extension SecondViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if descriptionTextView.text == placeHolderForTextView {
-            descriptionTextView.text = nil
-            descriptionTextView.textColor = .black
+        if bodyTextView.text == placeHolderForTextView {
+            bodyTextView.text = nil
+            bodyTextView.textColor = .black
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            descriptionTextView.text = placeHolderForTextView
-            descriptionTextView.textColor = .gray
+        if bodyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            bodyTextView.text = placeHolderForTextView
+            bodyTextView.textColor = .gray
         }
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     
     override func awakeFromNib() {
@@ -20,7 +20,7 @@ class CollectionViewCell: UICollectionViewCell {
 
     func configureLabels() {
         titleLabel.text = "Title"
-        descriptionLabel.text = "Description"
+        bodyLabel.text = "Description"
         durationLabel.text = "Duration"
         durationLabel.textColor = .red
     }

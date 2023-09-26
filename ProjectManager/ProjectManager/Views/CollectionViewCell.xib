@@ -47,7 +47,7 @@
             <color key="backgroundColor" systemColor="systemGray5Color"/>
             <size key="customSize" width="284" height="75"/>
             <connections>
-                <outlet property="descriptionLabel" destination="5BU-OZ-1ma" id="LWh-Fl-7Bo"/>
+                <outlet property="bodyLabel" destination="5BU-OZ-1ma" id="bqg-tH-6SF"/>
                 <outlet property="durationLabel" destination="twA-bm-bSw" id="gau-3g-xmz"/>
                 <outlet property="titleLabel" destination="tzN-B2-blC" id="Wlm-O8-vAi"/>
             </connections>
