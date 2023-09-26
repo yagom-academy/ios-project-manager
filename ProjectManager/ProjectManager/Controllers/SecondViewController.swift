@@ -9,6 +9,10 @@ import UIKit
 
 class SecondViewController: UIViewController {
     
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    
     override func viewDidLoad() {
         configureTitle()
         
@@ -16,5 +20,13 @@ class SecondViewController: UIViewController {
 
     private func configureTitle() {
         self.navigationItem.title = "TODO"
+    }
+    
+    @IBAction func didTapEditButton(_ sender: Any) {
+        
+    }
+    
+    @IBAction func didTapDoneButton(_ sender: Any) {
+        
     }
 }
