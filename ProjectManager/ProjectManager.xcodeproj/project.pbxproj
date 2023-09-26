@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		44DC005A2AB991B800AF3C0E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 44DC00592AB991B800AF3C0E /* FirebaseDatabase */; };
 		44DC005C2AB992A400AF3C0E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44DC005B2AB992A400AF3C0E /* GoogleService-Info.plist */; };
+		44DC00C22AC300A000AF3C0E /* MemoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DC00C12AC300A000AF3C0E /* MemoDetail.swift */; };
 		AC20E4A82ABD67600076E80F /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4A72ABD67600076E80F /* Memo.swift */; };
 		AC20E4AA2ABD67F60076E80F /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4A92ABD67F60076E80F /* ModelData.swift */; };
-		AC20E4AC2ABD69690076E80F /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4AB2ABD69690076E80F /* MemoList.swift */; };
 		AC20E4AE2ABD6D460076E80F /* MemoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4AD2ABD6D460076E80F /* MemoRow.swift */; };
 		AC20E4B02ABD6F120076E80F /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4AF2ABD6F120076E80F /* MemoListView.swift */; };
 		AC20E4B22ABD70EB0076E80F /* MemoHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B12ABD70EB0076E80F /* MemoHome.swift */; };
@@ -24,9 +24,9 @@
 
 /* Begin PBXFileReference section */
 		44DC005B2AB992A400AF3C0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		44DC00C12AC300A000AF3C0E /* MemoDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetail.swift; sourceTree = "<group>"; };
 		AC20E4A72ABD67600076E80F /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		AC20E4A92ABD67F60076E80F /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
-		AC20E4AB2ABD69690076E80F /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		AC20E4AD2ABD6D460076E80F /* MemoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRow.swift; sourceTree = "<group>"; };
 		AC20E4AF2ABD6F120076E80F /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
 		AC20E4B12ABD70EB0076E80F /* MemoHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoHome.swift; sourceTree = "<group>"; };
@@ -54,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				AC20E4A72ABD67600076E80F /* Memo.swift */,
-				AC20E4AB2ABD69690076E80F /* MemoList.swift */,
 				AC20E4A92ABD67F60076E80F /* ModelData.swift */,
 			);
 			path = Model;
@@ -101,9 +100,10 @@
 			isa = PBXGroup;
 			children = (
 				AC6FCE622AB9889100B82DF1 /* ContentView.swift */,
-				AC20E4AD2ABD6D460076E80F /* MemoRow.swift */,
-				AC20E4AF2ABD6F120076E80F /* MemoListView.swift */,
 				AC20E4B12ABD70EB0076E80F /* MemoHome.swift */,
+				AC20E4AF2ABD6F120076E80F /* MemoListView.swift */,
+				AC20E4AD2ABD6D460076E80F /* MemoRow.swift */,
+				44DC00C12AC300A000AF3C0E /* MemoDetail.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -203,7 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */,
-				AC20E4AC2ABD69690076E80F /* MemoList.swift in Sources */,
+				44DC00C22AC300A000AF3C0E /* MemoDetail.swift in Sources */,
 				AC20E4B22ABD70EB0076E80F /* MemoHome.swift in Sources */,
 				AC20E4B02ABD6F120076E80F /* MemoListView.swift in Sources */,
 				AC20E4AE2ABD6D460076E80F /* MemoRow.swift in Sources */,

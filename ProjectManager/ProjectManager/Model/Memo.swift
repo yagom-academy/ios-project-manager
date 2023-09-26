@@ -12,4 +12,22 @@ struct Memo: Identifiable {
     var title: String
     var body: String
     var deadline: String
+    var category: Category
+    
+    enum Category: Int, CustomStringConvertible {
+        case toDo
+        case doing
+        case done
+        
+        var description: String {
+            switch self {
+            case .toDo:
+                return "TODO"
+            case .doing:
+                return "DOING"
+            case .done:
+                return "DONE"
+            }
+        }
+    }
 }

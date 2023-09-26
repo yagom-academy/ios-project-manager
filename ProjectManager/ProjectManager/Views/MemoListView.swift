@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct MemoListView: View {
-    var list: MemoList
+    var memos: [Memo]
     
     var body: some View {
         List {
             Section {
-                ForEach(list.memos) { memo in
-                    MemoRow(memo: memo)
+                ForEach(memos.indices, id: \.self) { index in
+                    NavigationLink {
+                        MemoDetail(memo: memos[index])
+                    } label: {
+                        MemoRow(memo: memos[index])
+                    }
                 }
             } header: {
-                HStack{
-                    Text(list.category.description)
-                    Image(systemName: "\(list.memos.count).circle.fill")
+                HStack {
+                    Text(memos.first?.category.description ?? "")
+                    Image(systemName: "\(memos.count).circle.fill")
                 }
                 .font(.largeTitle)
                 .foregroundColor(.primary)
@@ -31,6 +35,6 @@ struct MemoListView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListView(list: ModelData().toDoList)
+        MemoListView(memos: ModelData().memos)
     }
 }

@@ -23,6 +23,6 @@ struct MemoRow: View {
 
 struct MemoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MemoRow(memo: ModelData().toDoList.memos[0])
+        MemoRow(memo: ModelData().memos[0])
     }
 }
