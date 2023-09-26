@@ -208,7 +208,12 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 extension RootViewController: NewTODOViewControllerDelegate {
     func getTextModel(textModel: TextModel) {
         self.TODO.append(textModel)
-        leftTableView.reloadData() // 추가되 항목만 업데이트하거나, 삭제된 항목 하나만 지우는 방법도 있다고 함
-        
+        if TODO.count > 0 {
+            let indexPath = IndexPath(row: TODO.count - 1, section: 0)
+            leftTableView.insertRows(at: [indexPath], with: .automatic)
+        } else {
+            let indexPath = IndexPath(row: TODO.count, section: 0)
+            leftTableView.insertRows(at: [indexPath], with: .automatic)
+        }
     }
 }
