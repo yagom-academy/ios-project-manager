@@ -10,6 +10,7 @@ class RootViewController: UIViewController {
     private var TODO: [TextModel] = []
     private var DOING: [TextModel] = []
     private var DONE: [TextModel] = []
+    private var index: IndexPath?
     
     private let TODOTitleView: UIView = {
         let titleView: TitleView = TitleView()
@@ -121,13 +122,53 @@ class RootViewController: UIViewController {
     
 
     
-    @objc func longTappedCell() {
+    @objc func longTappedCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
         print("셀이 길게눌림")
+
+        guard let cell = gestureRecognizer.view as? UITableViewCell else {
+              return
+          }
+        
+        guard let tableView = cell.superview as? UITableView else {
+            return
+        }
+        
+
+        
+        
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let moveToDOING = UIAlertAction(title: "move to DOING", style: .default) { _ in
+        let moveToDOING = UIAlertAction(title: "move to DOING", style: .default) { [weak self] _ in
             
+
+            if tableView.tag == 1 {
+
+                guard let indexPath = self?.leftTableView.indexPath(for: cell) else {
+                    return
+                }
+                guard let todoTextModel = self?.TODO[safe: indexPath.row] else {
+                    return
+                }
+                self?.DOING.append(todoTextModel)
+                self?.TODO.remove(at: indexPath.row)
+                self?.leftTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                guard let count = self?.DOING.count else {
+                    return
+                }
+                
+                if count > 0 {
+                    let indexPath = IndexPath(row: count - 1, section: 0)
+                    self?.centerTableView.insertRows(at: [indexPath], with: .automatic)
+                } else {
+                    let indexPath = IndexPath(row: count, section: 0)
+                    self?.centerTableView.insertRows(at: [indexPath], with: .automatic)
+                }
+                
+            } else if tableView.tag == 2 {
+                
+            }
         }
         
         let moveToDONE = UIAlertAction(title: "move to DONE", style: .default) { _ in
@@ -198,20 +239,54 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = leftTableView.dequeueReusableCell(withIdentifier: "leftTableView", for: indexPath) as? TableViewCell else {
-            return TableViewCell()
+        
+        if tableView.tag == 1 {
+            guard let cell = leftTableView.dequeueReusableCell(withIdentifier: "leftTableView", for: indexPath) as? TableViewCell else {
+                return TableViewCell()
+            }
+            
+            guard let todo = TODO[safe: indexPath.item] else {
+                return TableViewCell()
+            }
+            
+            cell.configureLabel(textModel: todo)
+            
+            let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
+            cell.addGestureRecognizer(longTappedCell)
+            
+            return cell
+        } else if tableView.tag == 2 {
+            guard let cell = centerTableView.dequeueReusableCell(withIdentifier: "centerTableView", for: indexPath) as? TableViewCell else {
+                return TableViewCell()
+            }
+            
+            guard let doing = DOING[safe: indexPath.item] else {
+                return TableViewCell()
+            }
+            
+            cell.configureLabel(textModel: doing)
+            
+            let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
+            cell.addGestureRecognizer(longTappedCell)
+            
+            return cell
+        } else if tableView.tag == 3 {
+            guard let cell = rightTableView.dequeueReusableCell(withIdentifier: "rightTableView", for: indexPath) as? TableViewCell else {
+                return TableViewCell()
+            }
+            
+            guard let done = DONE[safe: indexPath.item] else {
+                return TableViewCell()
+            }
+            
+            cell.configureLabel(textModel: done)
+            
+            let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
+            cell.addGestureRecognizer(longTappedCell)
+            
+            return cell
         }
-        
-        guard let todo = TODO[safe: indexPath.item] else {
-            return TableViewCell()
-        }
-        
-        cell.configureLabel(textModel: todo)
-        
-        let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell))
-        cell.addGestureRecognizer(longTappedCell)
-        
-        return cell
+        return TableViewCell()
         
     }
     
@@ -222,11 +297,20 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, completionHandler) in
+        let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] (action, view, completionHandler) in
             print("deleteAction")
             //변수가져다 쓰면 weak self 추가하기
-            self.TODO.remove(at: indexPath.row)
-            self.leftTableView.deleteRows(at: [indexPath], with: .automatic)
+            if tableView.tag == 1 {
+                self?.TODO.remove(at: indexPath.row)
+                self?.leftTableView.deleteRows(at: [indexPath], with: .automatic)
+            } else if tableView.tag == 2 {
+                self?.DOING.remove(at: indexPath.row)
+                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
+            } else {
+                self?.DONE.remove(at: indexPath.row)
+                self?.rightTableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+
             completionHandler(true)
         })
         return UISwipeActionsConfiguration(actions: [deleteAction])
