@@ -15,6 +15,17 @@ struct Task: Identifiable, Equatable {
     var state: TaskState
 }
 
-enum TaskState {
-    case todo, doing, done
+enum TaskState: Int {
+    case todo = 1, doing, done
+    
+    var title: String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .doing:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+    }
 }
