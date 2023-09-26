@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hL3-Q6-Afd">
-                                <rect key="frame" x="0.0" y="90" width="1280" height="710"/>
+                                <rect key="frame" x="0.0" y="90" width="1181" height="710"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9LR-A9-YQc">
-                                        <rect key="frame" x="0.0" y="0.0" width="420" height="710"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="387" height="710"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="350" id="qAe-Qy-soQ"/>
@@ -33,19 +32,10 @@
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Gmd-IB-nit">
-                                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Rzt-fl-Hw1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </collectionViewCellContentView>
-                                            </collectionViewCell>
-                                        </cells>
+                                        <cells/>
                                     </collectionView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lpR-6I-7d3">
-                                        <rect key="frame" x="430" y="0.0" width="420" height="710"/>
+                                        <rect key="frame" x="397" y="0.0" width="387" height="710"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="G0s-wY-mIs">
                                             <size key="itemSize" width="128" height="128"/>
@@ -53,19 +43,10 @@
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="lLi-xI-x35">
-                                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="L1C-jf-fDM">
-                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </collectionViewCellContentView>
-                                            </collectionViewCell>
-                                        </cells>
+                                        <cells/>
                                     </collectionView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uOm-Vo-onG">
-                                        <rect key="frame" x="860" y="0.0" width="420" height="710"/>
+                                        <rect key="frame" x="794" y="0.0" width="387" height="710"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t9k-Bk-2U0">
                                             <size key="itemSize" width="128" height="128"/>
@@ -73,16 +54,7 @@
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="oR0-we-Ry3">
-                                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Y1f-pY-SSf">
-                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </collectionViewCellContentView>
-                                            </collectionViewCell>
-                                        </cells>
+                                        <cells/>
                                     </collectionView>
                                 </subviews>
                                 <constraints>
@@ -100,7 +72,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Jjm-eq-Nv9">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="c7e-ew-wWu">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="c7e-ew-wWu">
                             <connections>
                                 <action selector="didTapAddButton:" destination="BYZ-38-t0r" id="1Rd-fK-m0i"/>
                             </connections>
@@ -127,7 +99,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="TODO" id="uZd-L3-PTj">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="JJw-Fl-EtP">
+                        <barButtonItem key="leftBarButtonItem" id="JJw-Fl-EtP">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="WVQ-xK-UdS">
                                 <rect key="frame" x="20" y="7.5" width="75" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -167,10 +139,10 @@
             </objects>
             <point key="canvasLocation" x="70.677966101694921" y="-34.390243902439025"/>
         </scene>
-        <!--SecondV Iew Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="JPZ-BN-wez">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UGv-4Q-ubF" customClass="secondVIewController" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UGv-4Q-ubF" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="I1n-qU-CxF">
                         <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
