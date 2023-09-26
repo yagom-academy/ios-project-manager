@@ -12,7 +12,7 @@ final class TaskFormViewModel: ObservableObject {
     @Published var content: String = ""
     @Published var date: Date = Date()
     
-    func returnTask() -> Task {
+    var task: Task {
         Task(title: title, content: content, date: date)
     }
 }

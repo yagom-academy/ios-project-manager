@@ -36,7 +36,8 @@ struct TaskFormView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Done") {
-                    let task = taskFormViewModel.returnTask()
+                    let task = taskFormViewModel.task
+                    
                     kanbanViewModel.create(task)
                     kanbanViewModel.setFormVisible(false)
                 }
