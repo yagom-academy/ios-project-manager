@@ -78,7 +78,6 @@ final class TableViewCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         configureUI()
         configureLayout()
-        configureLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -121,10 +120,29 @@ final class TableViewCell: UITableViewCell {
             deadlineStackView.heightAnchor.constraint(equalToConstant: height)
         ])
     }
-    private func configureLabel() {
-        titleLabel.text = "테스트타이틀"
-        bodyLabel.text = "테스트바디"
-        deadlineLabel.text = "테스트데드라인"
+    func configureLabel(textModel: TextModel) {
+        titleLabel.text = textModel.title
+        bodyLabel.text = textModel.body
+        guard let deadline = textModel.deadline else { return }
+        
+        let today = Date()
+        
+        if today > deadline {
+            deadlineLabel.text = "\(deadline)"
+            deadlineLabel.textColor = .systemRed
+        } else {
+            deadlineLabel.text = "\(deadline)"
+            deadlineLabel.textColor = UIColor.black
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        bodyLabel.text = nil
+        deadlineLabel.text = nil
+        deadlineLabel.textColor = UIColor.black
     }
     
 

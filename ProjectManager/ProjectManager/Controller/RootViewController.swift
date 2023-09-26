@@ -7,27 +7,33 @@
 import UIKit
 
 class RootViewController: UIViewController {
+    private var TODO: [TextModel] = []
+    private var DOING: [TextModel] = []
+    private var DONE: [TextModel] = []
     
-    private let TODOTitleView: TitleView = {
+    private let TODOTitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
+        titleView.titleLabel.text = "TODO"
+        
+        return titleView
+    }()
+    
+    private let DOINGTitleView: UIView = {
+        let titleView: TitleView = TitleView()
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.backgroundColor = .red
+        titleView.titleLabel.text = "DOING"
 
         return titleView
     }()
     
-    private let DOINGTitleView: TitleView = {
+    private let DONETitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
-
-        return titleView
-    }()
-    
-    private let DONETitleView: TitleView = {
-        let titleView: TitleView = TitleView()
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.backgroundColor = .red
+        titleView.titleLabel.text = "DONE"
         
         return titleView
     }()
@@ -73,6 +79,11 @@ class RootViewController: UIViewController {
 
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        getTextModel(
+//    }
+    
     private func configureUI() {
         view.backgroundColor = .systemGray6
         leftTableView.delegate = self
@@ -90,6 +101,7 @@ class RootViewController: UIViewController {
         
     }
     
+    
     func configureNavigation() {
         let plusBotton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(tappedPlusButton))
         navigationItem.rightBarButtonItem = plusBotton
@@ -100,6 +112,7 @@ class RootViewController: UIViewController {
     @objc private func tappedPlusButton() {
         let newTODOViewController: NewTODOViewController = NewTODOViewController()
         newTODOViewController.modalPresentationStyle = .formSheet
+        newTODOViewController.delegate = self
         let navigationController: UINavigationController = UINavigationController(rootViewController: newTODOViewController)
         
         
@@ -148,40 +161,36 @@ class RootViewController: UIViewController {
 extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 1 {
-            return 1
+            return TODO.count
         } else if tableView.tag == 2 {
-            return 2
+            return DOING.count
         } else if tableView.tag == 3 {
-            return 3
+            return DONE.count
         }
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        return TableViewCell()
+        guard let cell = leftTableView.dequeueReusableCell(withIdentifier: "leftTableView", for: indexPath) as? TableViewCell else {
+            return TableViewCell()
+        }
+        
+        guard let todo = TODO[safe: indexPath.item] else {
+            return TableViewCell()
+        }
+        
+        cell.configureLabel(textModel: todo)
+        
+        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
     }
 
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 5
-//    }
 
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//
-//        return 1
-//    }
 
-//    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "leftTableView")
-//        
-//        return 10
-//    }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, completionHandler) in
             print("deleteAction")
@@ -192,4 +201,11 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
+}
+
+extension RootViewController: NewTODOViewControllerDelegate {
+    func getTextModel(textModel: TextModel) {
+        self.TODO.append(textModel)
+        leftTableView.reloadData() // 추가되 항목만 업데이트하거나, 삭제된 항목 하나만 지우는 방법도 있다고 함
+    }
 }

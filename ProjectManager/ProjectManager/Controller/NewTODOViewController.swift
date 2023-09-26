@@ -9,21 +9,14 @@ import UIKit
 
 final class NewTODOViewController: UIViewController {
     private let datePicker: UIDatePicker = UIDatePicker()
-    
-    private func configureDatePicker() {
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.timeZone = .autoupdatingCurrent
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
-    }
+    private var textModel: TextModel = TextModel()
+    var delegate: NewTODOViewControllerDelegate?
 
     
     private let titleTextField: UITextField = {
         let textField: UITextField = UITextField()
         textField.placeholder = "Title"
-        textField.text = "텍스트필드"
+        
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .green
         
@@ -33,7 +26,7 @@ final class NewTODOViewController: UIViewController {
     private let bodyTextView: UITextView = {
         let textView: UITextView = UITextView()
         textView.backgroundColor = .brown
-        textView.text = "텍스트뷰"
+        
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
@@ -48,28 +41,50 @@ final class NewTODOViewController: UIViewController {
         
     }
     
+    
+    private func configureDatePicker() {
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "ko-KR")
+        datePicker.timeZone = .autoupdatingCurrent
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.addTarget(self, action: #selector(selectDatePicker), for: .allEvents)
+        
+        
+    }
+    
     private func configureUI() {
         view.backgroundColor = .systemBackground
         bodyTextView.delegate = self
+        titleTextField.delegate = self
         view.addSubview(titleTextField)
         view.addSubview(datePicker)
         view.addSubview(bodyTextView)
     }
     
     private func configureNavigation() {
-        let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedEditButton))
+        let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedCancelButton))
         let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tappedDoneButton))
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.title = "여기에 제목불러오기"
     }
     
-    @objc private func tappedEditButton() {
-        
+    @objc private func tappedCancelButton() {
+        dismiss(animated: true)
     }
     
     @objc private func tappedDoneButton() {
-        
+        if textModel.deadline == nil {
+            textModel.deadline = Date()
+        }
+        delegate?.getTextModel(textModel: textModel)
+        dismiss(animated: true)
+    }
+    
+    @objc private func selectDatePicker() {
+        textModel.deadline = datePicker.date
+        print(textModel.deadline as Any)
     }
     
     private func configureLayout() {
@@ -92,8 +107,23 @@ final class NewTODOViewController: UIViewController {
     }
 }
 
+extension NewTODOViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        textModel.title = textField.text
+    }
+}
+
+
 extension NewTODOViewController: UITextViewDelegate {
-    
+    func textViewDidChange(_ textView: UITextView) {
+        textModel.body = textView.text
+    }
+
+}
+
+
+protocol NewTODOViewControllerDelegate: AnyObject {
+    func getTextModel(textModel: TextModel)
 }
 
 

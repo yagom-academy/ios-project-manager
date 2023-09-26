@@ -17,6 +17,9 @@
 		DC3920D12ABD8E59007F68F5 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D02ABD8E59007F68F5 /* TitleView.swift */; };
 		DC3920D32ABDB417007F68F5 /* SeparateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D22ABDB417007F68F5 /* SeparateView.swift */; };
 		DC3920D52ABDBB40007F68F5 /* NewTODOViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D42ABDBB40007F68F5 /* NewTODOViewController.swift */; };
+		DC39210B2AC1E1E1007F68F5 /* TextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210A2AC1E1E1007F68F5 /* TextModel.swift */; };
+		DC39210E2AC2CE8D007F68F5 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210D2AC2CE8D007F68F5 /* Array+.swift */; };
+		DC3921102AC2CF14007F68F5 /* Dateformatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210F2AC2CF14007F68F5 /* Dateformatter+.swift */; };
 		DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +36,9 @@
 		DC3920D02ABD8E59007F68F5 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		DC3920D22ABDB417007F68F5 /* SeparateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparateView.swift; sourceTree = "<group>"; };
 		DC3920D42ABDBB40007F68F5 /* NewTODOViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTODOViewController.swift; sourceTree = "<group>"; };
+		DC39210A2AC1E1E1007F68F5 /* TextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModel.swift; sourceTree = "<group>"; };
+		DC39210D2AC2CE8D007F68F5 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
+		DC39210F2AC2CF14007F68F5 /* Dateformatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter+.swift"; sourceTree = "<group>"; };
 		DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +79,7 @@
 				DC72D38C2ABB022E003A3EE9 /* View */,
 				DC72D38D2ABB0234003A3EE9 /* ViewModel */,
 				DC3920C32ABC65F2007F68F5 /* Controller */,
+				DC39210C2AC2CE71007F68F5 /* Extension */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -86,9 +93,19 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		DC39210C2AC2CE71007F68F5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DC39210D2AC2CE8D007F68F5 /* Array+.swift */,
+				DC39210F2AC2CF14007F68F5 /* Dateformatter+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		DC72D38B2ABB0228003A3EE9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DC39210A2AC1E1E1007F68F5 /* TextModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -208,12 +225,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3921102AC2CF14007F68F5 /* Dateformatter+.swift in Sources */,
 				DC3920CB2ABC79D0007F68F5 /* TableViewModel.swift in Sources */,
+				DC39210E2AC2CE8D007F68F5 /* Array+.swift in Sources */,
 				DC3920C52ABC6905007F68F5 /* TableViewCell.swift in Sources */,
 				DC3920D52ABDBB40007F68F5 /* NewTODOViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* RootViewController.swift in Sources */,
 				DC3920D12ABD8E59007F68F5 /* TitleView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				DC39210B2AC1E1E1007F68F5 /* TextModel.swift in Sources */,
 				DC3920D32ABDB417007F68F5 /* SeparateView.swift in Sources */,
 				DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

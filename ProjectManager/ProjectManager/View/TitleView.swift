@@ -8,7 +8,7 @@
 import UIKit
 
 final class TitleView: UIView {
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.text = "타이틀"
         label.font = UIFont.systemFont(ofSize: 32)
