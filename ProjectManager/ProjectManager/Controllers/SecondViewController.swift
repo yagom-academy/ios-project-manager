@@ -11,6 +11,7 @@ class SecondViewController: UIViewController {
     
     override func viewDidLoad() {
         configureTitle()
+        
     }
 
     private func configureTitle() {

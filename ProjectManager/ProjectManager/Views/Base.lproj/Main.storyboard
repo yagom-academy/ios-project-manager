@@ -17,11 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hL3-Q6-Afd">
-                                <rect key="frame" x="0.0" y="90" width="1181" height="710"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hL3-Q6-Afd">
+                                <rect key="frame" x="0.0" y="90" width="1070" height="710"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9LR-A9-YQc">
-                                        <rect key="frame" x="0.0" y="0.0" width="387" height="710"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9LR-A9-YQc">
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="710"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="350" id="qAe-Qy-soQ"/>
@@ -34,8 +34,8 @@
                                         </collectionViewFlowLayout>
                                         <cells/>
                                     </collectionView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lpR-6I-7d3">
-                                        <rect key="frame" x="397" y="0.0" width="387" height="710"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lpR-6I-7d3">
+                                        <rect key="frame" x="360" y="0.0" width="350" height="710"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="G0s-wY-mIs">
                                             <size key="itemSize" width="128" height="128"/>
@@ -45,8 +45,8 @@
                                         </collectionViewFlowLayout>
                                         <cells/>
                                     </collectionView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uOm-Vo-onG">
-                                        <rect key="frame" x="794" y="0.0" width="387" height="710"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uOm-Vo-onG">
+                                        <rect key="frame" x="720" y="0.0" width="350" height="710"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t9k-Bk-2U0">
                                             <size key="itemSize" width="128" height="128"/>
@@ -75,6 +75,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="c7e-ew-wWu">
                             <connections>
                                 <action selector="didTapAddButton:" destination="BYZ-38-t0r" id="1Rd-fK-m0i"/>
+                                <segue destination="UGv-4Q-ubF" kind="presentation" id="MWI-i9-tiw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -93,7 +94,7 @@
             <objects>
                 <viewController storyboardIdentifier="secondViewController" id="51J-16-KUh" customClass="SecondViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kH3-L1-pX9">
-                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="yev-A6-8RN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -101,7 +102,7 @@
                     <navigationItem key="navigationItem" title="TODO" id="uZd-L3-PTj">
                         <barButtonItem key="leftBarButtonItem" id="JJw-Fl-EtP">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="WVQ-xK-UdS">
-                                <rect key="frame" x="20" y="7.5" width="75" height="35"/>
+                                <rect key="frame" x="20" y="10.5" width="75" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Edit"/>
@@ -109,7 +110,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="FaT-rl-b8X">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5Km-Cp-HRP">
-                                <rect key="frame" x="1085" y="7.5" width="75" height="35"/>
+                                <rect key="frame" x="609" y="10.5" width="75" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Done"/>
@@ -145,7 +146,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UGv-4Q-ubF" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="I1n-qU-CxF">
-                        <rect key="frame" x="0.0" y="24" width="1180" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
