@@ -24,10 +24,12 @@ final class KanbanViewModel: ObservableObject {
     
     init(tasks: [Task] = []) {
         self.tasks = tasks
+        self.tasks.sort { $0.date < $1.date }
     }
     
     func create(_ task: Task) {        
         tasks.append(task)
+        tasks.sort { $0.date < $1.date }
     }
     
     func setFormVisible(_ isVisible: Bool) {
