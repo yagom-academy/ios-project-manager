@@ -97,28 +97,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bsb-Br-bkv">
-                                <rect key="frame" x="20" y="56" width="664" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bsb-Br-bkv">
+                                <rect key="frame" x="20" y="56" width="684" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="684" id="Lpf-Kf-qsv"/>
+                                    <constraint firstAttribute="height" constant="34" id="rr5-Ge-tXT"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HXc-f4-rM0">
-                                <rect key="frame" x="20" y="362" width="664" height="398"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="HXc-f4-rM0">
+                                <rect key="frame" x="20" y="351" width="684" height="409"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="409" id="9PH-NZ-chs"/>
+                                    <constraint firstAttribute="width" constant="684" id="A4D-cB-vso"/>
+                                </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="LYS-fA-Tas">
-                                <rect key="frame" x="178" y="122" width="348" height="205"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="LYS-fA-Tas">
+                                <rect key="frame" x="139" y="131" width="427" height="205"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="427" id="JTM-QT-F0f"/>
+                                    <constraint firstAttribute="height" constant="205" id="a5a-G3-NUh"/>
+                                </constraints>
                             </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yev-A6-8RN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LYS-fA-Tas" firstAttribute="leading" secondItem="yev-A6-8RN" secondAttribute="leading" constant="139" id="6Tp-6D-wFg"/>
+                            <constraint firstItem="LYS-fA-Tas" firstAttribute="top" secondItem="kH3-L1-pX9" secondAttribute="top" constant="131" id="Drx-fO-udf"/>
+                            <constraint firstItem="yev-A6-8RN" firstAttribute="bottom" secondItem="HXc-f4-rM0" secondAttribute="bottom" constant="20" id="Gvf-zY-bCp"/>
+                            <constraint firstItem="HXc-f4-rM0" firstAttribute="leading" secondItem="kH3-L1-pX9" secondAttribute="leadingMargin" id="HLn-AF-bPN"/>
+                            <constraint firstItem="HXc-f4-rM0" firstAttribute="top" secondItem="LYS-fA-Tas" secondAttribute="bottom" constant="15" id="NTg-hw-hgb"/>
+                            <constraint firstItem="HXc-f4-rM0" firstAttribute="trailing" secondItem="kH3-L1-pX9" secondAttribute="trailingMargin" id="WTZ-UO-g0e"/>
+                            <constraint firstItem="LYS-fA-Tas" firstAttribute="top" secondItem="bsb-Br-bkv" secondAttribute="bottom" constant="41" id="aiS-mf-qbJ"/>
+                            <constraint firstItem="HXc-f4-rM0" firstAttribute="leading" secondItem="bsb-Br-bkv" secondAttribute="leading" id="e5o-FT-YVI"/>
+                            <constraint firstItem="HXc-f4-rM0" firstAttribute="trailing" secondItem="bsb-Br-bkv" secondAttribute="trailing" id="kPC-2w-kFy"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TODO" id="uZd-L3-PTj">
                         <barButtonItem key="leftBarButtonItem" id="JJw-Fl-EtP">
