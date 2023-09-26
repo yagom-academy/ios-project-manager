@@ -68,18 +68,12 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTableViewLayout() {
-        let tableViewWidth = view.bounds.width / 3.0
-        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        todoTableView.widthAnchor.constraint(equalToConstant: tableViewWidth).isActive = true
-        doingTableView.widthAnchor.constraint(equalToConstant: tableViewWidth).isActive = true
-        doneTableView.widthAnchor.constraint(equalToConstant: tableViewWidth).isActive = true
     }
     
     private func setUpTableView() {
