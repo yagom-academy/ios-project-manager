@@ -152,7 +152,7 @@
                                 <action selector="didTapEditButton:" destination="51J-16-KUh" id="bQQ-gV-6f0"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="FaT-rl-b8X">
+                        <barButtonItem key="rightBarButtonItem" id="FaT-rl-b8X">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5Km-Cp-HRP">
                                 <rect key="frame" x="609" y="10.5" width="75" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

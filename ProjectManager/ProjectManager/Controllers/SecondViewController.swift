@@ -12,6 +12,7 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
+    private let placeHolderForTextField = "Title"
     private let placeHolderForTextView = "This is where you type in what to do.\n1000 characters in the limit."
     override func viewDidLoad() {
         configureTitle()
@@ -24,7 +25,7 @@ class SecondViewController: UIViewController {
     
     private func initPlaceHolderForText() {
         titleTextField.delegate = self
-        titleTextField.text = "Title"
+        titleTextField.text = placeHolderForTextField
         titleTextField.textColor = .gray
         descriptionTextView.delegate = self
         descriptionTextView.text = placeHolderForTextView
@@ -41,9 +42,18 @@ class SecondViewController: UIViewController {
 }
 
 extension SecondViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        titleTextField.resignFirstResponder()
-        return true
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if titleTextField.text == placeHolderForTextField {
+            titleTextField.text = nil
+            titleTextField.textColor = .black
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let title = titleTextField.text, title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            titleTextField.text = placeHolderForTextField
+            titleTextField.textColor = .gray
+        }
     }
 }
 
