@@ -24,4 +24,23 @@ final class CardViewModel {
         
         return calendar.compare(task.date, to: now, toGranularity: .day) == .orderedAscending && task.state != .done
     }
+    
+    var firstDestination: TaskState {
+        return destination(of: .first)
+    }
+    
+    var secondDestination: TaskState {
+        return destination(of: .second)
+    }
+    
+    private func destination(of destinationOrder: DestinationOrder) -> TaskState {
+        var states: [TaskState] = [.todo, .doing , .done]
+        guard let index = states.firstIndex(of: task.state) else { return .done }
+        states.remove(at: index)
+        return states[destinationOrder.rawValue]
+    }
+    
+    enum DestinationOrder: Int {
+        case first = 0, second
+    }    
 }

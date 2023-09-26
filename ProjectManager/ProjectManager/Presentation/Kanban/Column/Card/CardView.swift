@@ -28,16 +28,17 @@ struct CardView: View {
                 .foregroundColor(cardViewModel.isOverdued ? .red : .primary)
         }
         .contextMenu {
-            switch cardViewModel.task.state {
-            case .todo:
-                Button("Move to DOING"){ kanbanViewModel.move(cardViewModel.task, to: .doing) }
-                Button("Move to DONE"){ kanbanViewModel.move(cardViewModel.task, to: .done) }
-            case .doing:
-                Button("Move to TODO"){ kanbanViewModel.move(cardViewModel.task, to: .todo) }
-                Button("Move to DONE"){ kanbanViewModel.move(cardViewModel.task, to: .done) }
-            case .done:
-                Button("Move to TODO"){ kanbanViewModel.move(cardViewModel.task, to: .todo) }
-                Button("Move to DOING"){ kanbanViewModel.move(cardViewModel.task, to: .doing) }
+            Button("Move to \(cardViewModel.firstDestination.title)") {
+                kanbanViewModel.move(
+                    cardViewModel.task,
+                    to: cardViewModel.firstDestination
+                )
+            }
+            Button("Move to \(cardViewModel.secondDestination.title)") {
+                kanbanViewModel.move(
+                    cardViewModel.task,
+                    to: cardViewModel.secondDestination
+                )                
             }
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
