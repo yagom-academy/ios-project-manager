@@ -19,7 +19,7 @@
 		DC3920D52ABDBB40007F68F5 /* NewTODOViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D42ABDBB40007F68F5 /* NewTODOViewController.swift */; };
 		DC39210B2AC1E1E1007F68F5 /* TextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210A2AC1E1E1007F68F5 /* TextModel.swift */; };
 		DC39210E2AC2CE8D007F68F5 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210D2AC2CE8D007F68F5 /* Array+.swift */; };
-		DC3921102AC2CF14007F68F5 /* Dateformatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210F2AC2CF14007F68F5 /* Dateformatter+.swift */; };
+		DC3921102AC2CF14007F68F5 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210F2AC2CF14007F68F5 /* Date+.swift */; };
 		DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +38,7 @@
 		DC3920D42ABDBB40007F68F5 /* NewTODOViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTODOViewController.swift; sourceTree = "<group>"; };
 		DC39210A2AC1E1E1007F68F5 /* TextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModel.swift; sourceTree = "<group>"; };
 		DC39210D2AC2CE8D007F68F5 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
-		DC39210F2AC2CF14007F68F5 /* Dateformatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter+.swift"; sourceTree = "<group>"; };
+		DC39210F2AC2CF14007F68F5 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				DC39210D2AC2CE8D007F68F5 /* Array+.swift */,
-				DC39210F2AC2CF14007F68F5 /* Dateformatter+.swift */,
+				DC39210F2AC2CF14007F68F5 /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -225,7 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC3921102AC2CF14007F68F5 /* Dateformatter+.swift in Sources */,
+				DC3921102AC2CF14007F68F5 /* Date+.swift in Sources */,
 				DC3920CB2ABC79D0007F68F5 /* TableViewModel.swift in Sources */,
 				DC39210E2AC2CE8D007F68F5 /* Array+.swift in Sources */,
 				DC3920C52ABC6905007F68F5 /* TableViewCell.swift in Sources */,

@@ -125,13 +125,13 @@ final class TableViewCell: UITableViewCell {
         bodyLabel.text = textModel.body
         guard let deadline = textModel.deadline else { return }
         
-        let today = Date()
         
-        if today > deadline {
-            deadlineLabel.text = "\(deadline)"
+        
+        if Date().compareToday(with: deadline) {
+            deadlineLabel.text = Date().converString(date: deadline)
             deadlineLabel.textColor = .systemRed
         } else {
-            deadlineLabel.text = "\(deadline)"
+            deadlineLabel.text = Date().converString(date: deadline)
             deadlineLabel.textColor = UIColor.black
         }
     }
