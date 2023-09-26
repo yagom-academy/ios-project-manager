@@ -27,12 +27,8 @@ final class KanbanViewModel: ObservableObject {
         todos.append(task)
     }
     
-    func presentForm() {
-        isFormOn = true
-    }
-    
-    func dismissForm() {
-        isFormOn = false
+    func setFormVisible(_ isVisible: Bool) {
+        isFormOn = isVisible
     }
 }
 

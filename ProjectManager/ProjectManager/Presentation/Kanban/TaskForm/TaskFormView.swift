@@ -40,7 +40,7 @@ struct TaskFormView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {
-                    kanbanViewModel.dismissForm()
+                    kanbanViewModel.setFormVisible(false)
                 }
             }
             
@@ -48,7 +48,7 @@ struct TaskFormView: View {
                 Button("Done") {
                     let task = taskFormViewModel.returnTask()
                     kanbanViewModel.create(task)
-                    kanbanViewModel.dismissForm()
+                    kanbanViewModel.setFormVisible(false)
                 }
                 .disabled(taskFormViewModel.title.isEmpty)
             }

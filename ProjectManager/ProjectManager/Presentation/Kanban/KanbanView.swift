@@ -24,7 +24,7 @@ struct KanbanView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        kanbanViewModel.presentForm()
+                        kanbanViewModel.setFormVisible(true)
                     } label: {
                         Image(systemName: "plus")
                     }
