@@ -29,6 +29,6 @@ final class TaskFormViewModel: ObservableObject {
     }
     
     var task: Task {
-        Task(title: title, content: content, date: date)
+        Task(title: title, content: content, date: date, state: .todo)
     }
 }

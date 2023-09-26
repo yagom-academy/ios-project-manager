@@ -12,4 +12,9 @@ struct Task: Identifiable, Equatable {
     var title: String
     var content: String
     var date: Date
+    var state: TaskState
+}
+
+enum TaskState {
+    case todo, doing, done
 }

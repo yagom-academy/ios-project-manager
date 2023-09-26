@@ -25,13 +25,20 @@ struct CardView: View {
                 .lineLimit(3)
             Text(cardViewModel.date)
                 .font(.footnote)
-                .foregroundColor(
-                    cardViewModel.isOverdued &&
-                    !kanbanViewModel.dones.contains(where: {
-                        $0 == cardViewModel.task
-                    }) ? .red : .primary
-                )
-                
+                .foregroundColor(cardViewModel.isOverdued ? .red : .primary)
+        }
+        .contextMenu {
+            switch cardViewModel.task.state {
+            case .todo:
+                Button("Move to DOING"){ kanbanViewModel.move(cardViewModel.task, to: .doing) }
+                Button("Move to DONE"){ kanbanViewModel.move(cardViewModel.task, to: .done) }
+            case .doing:
+                Button("Move to TODO"){ kanbanViewModel.move(cardViewModel.task, to: .todo) }
+                Button("Move to DONE"){ kanbanViewModel.move(cardViewModel.task, to: .done) }
+            case .done:
+                Button("Move to TODO"){ kanbanViewModel.move(cardViewModel.task, to: .todo) }
+                Button("Move to DOING"){ kanbanViewModel.move(cardViewModel.task, to: .doing) }
+            }
         }
     }
 }

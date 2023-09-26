@@ -22,6 +22,6 @@ final class CardViewModel {
         let calendar = Calendar.current
         let now = Date()
         
-        return calendar.compare(task.date, to: now, toGranularity: .day) == .orderedAscending
+        return calendar.compare(task.date, to: now, toGranularity: .day) == .orderedAscending && task.state != .done
     }
 }
