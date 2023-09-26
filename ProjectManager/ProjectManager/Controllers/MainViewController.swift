@@ -69,6 +69,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let actionSheet = UIAlertController(title: "Selected Cell", message: "선택한 셀", preferredStyle: .actionSheet)
+        
+        let doing = UIAlertAction(title: "Move to Doing", style: .default)
+        let done = UIAlertAction(title: "Move to Done", style: .default)
+        
+        actionSheet.addAction(doing)
+        actionSheet.addAction(done)
+        
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            actionSheet.popoverPresentationController?.sourceView = cell
+            actionSheet.popoverPresentationController?.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+            actionSheet.popoverPresentationController?.permittedArrowDirections = .up
+        }
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width - 10, height: 100)
     }
