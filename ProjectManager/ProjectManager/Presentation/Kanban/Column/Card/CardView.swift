@@ -28,18 +28,15 @@ struct CardView: View {
                 .foregroundColor(cardViewModel.isOverdued ? .red : .primary)
         }
         .contextMenu {
-            Button("Move to \(cardViewModel.firstDestination.title)") {
-                kanbanViewModel.move(
-                    cardViewModel.task,
-                    to: cardViewModel.firstDestination
-                )
+            let firstDestination = cardViewModel.firstDestination
+            let secondDestination = cardViewModel.secondDestination
+                
+            Button("Move to \(firstDestination.title)") {
+                kanbanViewModel.move(cardViewModel.task, to: firstDestination)
             }
-            Button("Move to \(cardViewModel.secondDestination.title)") {
-                kanbanViewModel.move(
-                    cardViewModel.task,
-                    to: cardViewModel.secondDestination
-                )                
-            }
+            Button("Move to \(secondDestination.title)") {
+                kanbanViewModel.move(cardViewModel.task, to: secondDestination)
+            }            
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button("Delete", role: .destructive) {

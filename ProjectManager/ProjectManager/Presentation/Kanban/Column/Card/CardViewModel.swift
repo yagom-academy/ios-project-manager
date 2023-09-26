@@ -34,10 +34,12 @@ final class CardViewModel {
     }
     
     private func destination(of destinationOrder: DestinationOrder) -> TaskState {
-        var states: [TaskState] = [.todo, .doing , .done]
-        guard let index = states.firstIndex(of: task.state) else { return .done }
-        states.remove(at: index)
-        return states[destinationOrder.rawValue]
+        var states: Set<TaskState> = [.todo, .doing , .done]
+        states.remove(task.state)
+        
+        let stateArray = Array(states).sorted { $0.rawValue < $1.rawValue }
+        
+        return stateArray[destinationOrder.rawValue]
     }
     
     enum DestinationOrder: Int {

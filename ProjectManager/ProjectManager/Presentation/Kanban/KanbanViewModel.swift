@@ -38,7 +38,9 @@ final class KanbanViewModel: ObservableObject {
     
     func move(_ task: Task, to state: TaskState) {
         guard let index = tasks.firstIndex(of: task) else { return }
-        tasks[index].state = state
+        withAnimation {
+            tasks[index].state = state
+        }
     }
     
     func delete(_ task: Task) {
