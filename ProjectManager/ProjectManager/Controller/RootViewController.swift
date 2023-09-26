@@ -185,16 +185,18 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
-
+    
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, completionHandler) in
             print("deleteAction")
             //변수가져다 쓰면 weak self 추가하기
+            self.TODO.remove(at: indexPath.row)
+            self.leftTableView.deleteRows(at: [indexPath], with: .left)
             completionHandler(true)
         })
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -207,5 +209,6 @@ extension RootViewController: NewTODOViewControllerDelegate {
     func getTextModel(textModel: TextModel) {
         self.TODO.append(textModel)
         leftTableView.reloadData() // 추가되 항목만 업데이트하거나, 삭제된 항목 하나만 지우는 방법도 있다고 함
+        
     }
 }
