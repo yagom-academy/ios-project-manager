@@ -13,7 +13,7 @@ struct TaskFormView: View {
     
     var body: some View {
         VStack {
-            TextField("제목을 입력하세요", text: $taskFormViewModel.title)
+            TextField("제목을 입력하세요(필수)", text: $taskFormViewModel.title)
                 .shadowBackground()
             
             DatePicker(
