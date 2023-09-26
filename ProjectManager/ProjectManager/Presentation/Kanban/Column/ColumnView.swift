@@ -19,7 +19,7 @@ struct ColumnView: View {
                 }
             } header: {
                 HStack {
-                    Text("\(title)")
+                    Text(title)
                         .font(.title)
                         .foregroundColor(.primary)
                     Text("\(tasks.count)")

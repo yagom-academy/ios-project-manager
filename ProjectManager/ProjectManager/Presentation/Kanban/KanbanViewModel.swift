@@ -13,7 +13,11 @@ final class KanbanViewModel: ObservableObject {
     
     @Published var isFormOn: Bool = false
     
-    init(todos: [Task] = [], doings: [Task] = [], dones: [Task] = []) {
+    init(
+        todos: [Task] = [],
+        doings: [Task] = [],
+        dones: [Task] = []
+    ) {
         self.todos = todos
         self.doings = doings
         self.dones = dones

@@ -17,13 +17,13 @@ struct CardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("\(cardViewModel.task.title)")
+            Text(cardViewModel.task.title)
                 .font(.title3)
                 .lineLimit(1)
-            Text("\(cardViewModel.task.content)")
+            Text(cardViewModel.task.content)
                 .foregroundColor(.secondary)
                 .lineLimit(3)
-            Text("\(cardViewModel.date)")
+            Text(cardViewModel.date)
                 .font(.footnote)
                 .foregroundColor(
                     cardViewModel.isOverdued &&

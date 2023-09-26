@@ -21,9 +21,13 @@ struct TaskFormView: View {
                         .shadow(color: .secondary, radius: 3, x: 2, y: 2)
                 }
             
-            DatePicker("날짜를 입력하세요", selection: $taskFormViewModel.date, displayedComponents: .date)
-                .datePickerStyle(.wheel)
-                .labelsHidden()
+            DatePicker(
+                "날짜를 입력하세요",
+                selection: $taskFormViewModel.date,
+                displayedComponents: .date
+            )
+            .datePickerStyle(.wheel)
+            .labelsHidden()
             
             TextEditor(text: $taskFormViewModel.content)
                 .padding(8)
