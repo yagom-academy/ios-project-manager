@@ -14,12 +14,7 @@ struct TaskFormView: View {
     var body: some View {
         VStack {
             TextField("제목을 입력하세요", text: $taskFormViewModel.title)
-                .padding(8)
-                .background {
-                    Rectangle()
-                        .fill(.background)
-                        .shadow(color: .secondary, radius: 3, x: 2, y: 2)
-                }
+                .shadowBackground()
             
             DatePicker(
                 "날짜를 입력하세요",
@@ -30,12 +25,7 @@ struct TaskFormView: View {
             .labelsHidden()
             
             TextEditor(text: $taskFormViewModel.content)
-                .padding(8)
-                .background {
-                    Rectangle()
-                        .fill(.background)
-                        .shadow(color: .secondary, radius: 3, x: 2, y: 2)
-                }
+                .shadowBackground()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
