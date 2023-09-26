@@ -5,7 +5,7 @@
 //  Created by Max on 2023/09/24.
 //
 
-class Observable<T> {
+final class Observable<T> {
     private var listener: ((T) -> Void)?
     
     var value: T {

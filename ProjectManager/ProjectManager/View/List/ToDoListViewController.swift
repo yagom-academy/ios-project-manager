@@ -1,14 +1,13 @@
 //
-//  ToDoListView.swift
+//  ToDoViewController.swift
 //  ProjectManager
 //
-//  Created by Max on 2023/09/24.
+//  Created by Max on 2023/09/26.
 //
 
 import UIKit
 
-class ToDoListView: UIView {
-    private let viewModel: ViewModelProtocol
+class ChildListViewController: BaseListViewController {
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
     let today = Date().timeIntervalSinceReferenceDate
@@ -41,27 +40,31 @@ class ToDoListView: UIView {
     
     init(_ status: ToDoStatus, viewModel: ViewModelProtocol) {
         self.status = status
-        self.viewModel = viewModel
         self.headerView = ToDoListHeaderView(status)
-        super.init(frame: .init())
-        
-        setupUI()
-        setupTableView()
+        super.init(viewModel)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        setupTableView()
+    }
+
+
     private func setupUI() {
-        self.backgroundColor = .systemBackground
-        self.addSubview(tableView)
+        let safeArea = view.safeAreaLayoutGuide
+        view.backgroundColor = .systemBackground
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            tableView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            tableView.heightAnchor.constraint(equalTo: self.heightAnchor),
-            tableView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            tableView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            tableView.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            tableView.heightAnchor.constraint(equalTo: safeArea.heightAnchor),
+            tableView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            tableView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor)
         ])
     }
     
@@ -77,7 +80,7 @@ class ToDoListView: UIView {
     }
 }
 
-extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
+extension ChildListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         toDoEntities.count
     }
@@ -115,3 +118,4 @@ extension ToDoListView: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [delete])
     }
 }
+
