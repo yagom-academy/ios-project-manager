@@ -14,31 +14,34 @@ struct KanbanView: View {
         self._kanbanViewModel = StateObject(wrappedValue: kanbanViewModel) 
     }
     
-    var body: some View {        
-        NavigationStack {
-            HStack {
-                ColumnView(tasks: kanbanViewModel.todos, title: "TODO")
-                ColumnView(tasks: kanbanViewModel.doings, title: "DOING")
-                ColumnView(tasks: kanbanViewModel.dones, title: "DONE")
-            }
-            .background(.quaternary)
-            .navigationTitle("Project Manager")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        kanbanViewModel.setFormVisible(true)
-                    } label: {
-                        Image(systemName: "plus")
+    var body: some View {
+        GeometryReader { geo in
+            NavigationStack {
+                HStack {
+                    ColumnView(tasks: kanbanViewModel.todos, title: "TODO")
+                    ColumnView(tasks: kanbanViewModel.doings, title: "DOING")
+                    ColumnView(tasks: kanbanViewModel.dones, title: "DONE")
+                }
+                .background(.quaternary)
+                .navigationTitle("Project Manager")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            kanbanViewModel.setFormVisible(true)
+                        } label: {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
             }
-        }        
-        .customAlert(isOn: $kanbanViewModel.isFormOn, title: "Todo") {
-            TaskFormView()
+            .customAlert(isOn: $kanbanViewModel.isFormOn) {
+                TaskFormView(title: "Todo", size: geo.size)
+            }
         }
         .environmentObject(kanbanViewModel)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
