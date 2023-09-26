@@ -49,9 +49,7 @@ struct CoreDataManager {
         try saveContext()
     }
 
-    func saveContext() throws {
-        let context = persistentContainer.viewContext
-    }
+    func saveContext() throws {}
 }
 
 extension CoreDataManager {

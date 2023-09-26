@@ -8,7 +8,7 @@
 import UIKit
 
 class ToDoListView: UIView {
-    private let viewModel: ToDoListViewModel
+    private let viewModel: ViewModelProtocol
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
     let today = Date().timeIntervalSinceReferenceDate
@@ -39,7 +39,7 @@ class ToDoListView: UIView {
         return tableView
     }()
     
-    init(_ status: ToDoStatus, viewModel: ToDoListViewModel) {
+    init(_ status: ToDoStatus, viewModel: ViewModelProtocol) {
         self.status = status
         self.viewModel = viewModel
         self.headerView = ToDoListHeaderView(status)

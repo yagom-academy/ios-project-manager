@@ -7,7 +7,7 @@
 import UIKit
 
 class ToDoListViewController: UIViewController {
-    var viewModel: ToDoListViewModel
+    var viewModel: ViewModelProtocol
     
     private let stackView: UIStackView = {
             let stackView = UIStackView()
@@ -23,8 +23,8 @@ class ToDoListViewController: UIViewController {
         private let doingView: ToDoListView
         private let doneView: ToDoListView
     
-    init(_ dataManager: CoreDataManager) {
-        self.viewModel = ToDoListViewModel(dataManager: dataManager)
+    init(_ viewModel: ViewModelProtocol) {
+        self.viewModel = viewModel
         self.toDoView = ToDoListView(.toDo, viewModel: viewModel)
         self.doingView = ToDoListView(.doing, viewModel: viewModel)
         self.doneView = ToDoListView(.done, viewModel: viewModel)

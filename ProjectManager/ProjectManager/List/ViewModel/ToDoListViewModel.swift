@@ -13,6 +13,7 @@ final class ToDoListViewModel: ViewModelProtocol {
     var doneList: Observable<[ToDo]> = Observable([])
     var errorMessage: Observable<String?> = Observable(nil)
     var error: Observable<CoreDataError?> = Observable(nil)
+    
     let coreDataManager: CoreDataManager
     
     init(dataManager: CoreDataManager) {
@@ -22,7 +23,7 @@ final class ToDoListViewModel: ViewModelProtocol {
         addTestData()
 #endif
     }
-
+    
     func fetchData(_ status: ToDoStatus) {
         do {
             let predicated = NSPredicate(format: "status == %@", status.rawValue)
@@ -87,7 +88,9 @@ final class ToDoListViewModel: ViewModelProtocol {
             handle(error: error)
         }
     }
-    
+}
+
+extension ToDoListViewModel {
     func handle(error: Error) {
         if let coreDataError = error as? CoreDataError {
             self.setError(coreDataError)
