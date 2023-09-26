@@ -18,8 +18,8 @@ struct TaskFormView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ScrollViewReader { proxy in
+        ScrollViewReader { proxy in
+            NavigationStack {
                 ScrollView {
                     VStack {
                         TextField("제목을 입력하세요(필수)", text: $taskFormViewModel.title)
@@ -31,6 +31,7 @@ struct TaskFormView: View {
                         )
                         .datePickerStyle(.wheel)
                         .labelsHidden()
+                        
                                                 
                         TextEditor(text: $taskFormViewModel.content)
                             .focused($textEditorIsFocused)
@@ -40,7 +41,7 @@ struct TaskFormView: View {
                             .onChange(of: textEditorIsFocused) { isFocused in
                                 if isFocused {
                                     withAnimation {
-                                        proxy.scrollTo(textEditor, anchor: .center)
+                                        proxy.scrollTo(textEditor, anchor: .top)
                                     }
                                 } else {
                                     withAnimation {
@@ -48,30 +49,37 @@ struct TaskFormView: View {
                                     }
                                 }
                             }
+                        
+                        if textEditorIsFocused {
+                            VStack {}
+                                .frame(height: 400)
+                        }
+                        
                     }
                     .padding()
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        kanbanViewModel.setFormVisible(false)
+                .ignoresSafeArea(.keyboard, edges: .bottom)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Cancel") {
+                            kanbanViewModel.setFormVisible(false)
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Done") {
+                            let task = taskFormViewModel.task
+                            
+                            kanbanViewModel.create(task)
+                            kanbanViewModel.setFormVisible(false)
+                        }
+                        .disabled(taskFormViewModel.title.isEmpty)
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        let task = taskFormViewModel.task
-                        
-                        kanbanViewModel.create(task)
-                        kanbanViewModel.setFormVisible(false)
-                    }
-                    .disabled(taskFormViewModel.title.isEmpty)
-                }
+                .navigationTitle(taskFormViewModel.formTitle)
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .navigationTitle(taskFormViewModel.formTitle)
-            .navigationBarTitleDisplayMode(.inline)
-            
         }
         .cornerRadius(10)
         .frame(width: taskFormViewModel.formWidth, height: taskFormViewModel.formHeight)
