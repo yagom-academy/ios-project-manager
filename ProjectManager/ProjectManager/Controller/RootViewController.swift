@@ -26,7 +26,7 @@ class RootViewController: UIViewController {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
         titleView.titleLabel.text = "DOING"
-
+        
         return titleView
     }()
     
@@ -68,7 +68,7 @@ class RootViewController: UIViewController {
         tableView.tag = 3
         tableView.backgroundColor = .systemGray5
         tableView.separatorStyle = .none
-
+        
         return tableView
     }()
     
@@ -77,13 +77,13 @@ class RootViewController: UIViewController {
         configureNavigation()
         configureUI()
         configureLayout()
-
+        
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//        getTextModel(
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(true)
+    //        getTextModel(
+    //    }
     
     private func configureUI() {
         view.backgroundColor = .systemGray6
@@ -109,7 +109,7 @@ class RootViewController: UIViewController {
         navigationItem.title = "Project Manager"
         
     }
-
+    
     @objc private func tappedPlusButton() {
         let newTODOViewController: NewTODOViewController = NewTODOViewController()
         newTODOViewController.modalPresentationStyle = .formSheet
@@ -120,30 +120,25 @@ class RootViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-
+    
     
     @objc func longTappedCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
         print("셀이 길게눌림")
-
+        
         guard let cell = gestureRecognizer.view as? UITableViewCell else {
-              return
-          }
+            return
+        }
         
         guard let tableView = cell.superview as? UITableView else {
             return
         }
-        
-
-        
-        
-        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let moveToDOING = UIAlertAction(title: "move to DOING", style: .default) { [weak self] _ in
             
-
+            
             if tableView.tag == 1 {
-
+                
                 guard let indexPath = self?.leftTableView.indexPath(for: cell) else {
                     return
                 }
@@ -158,25 +153,121 @@ class RootViewController: UIViewController {
                     return
                 }
                 
-                if count > 0 {
-                    let indexPath = IndexPath(row: count - 1, section: 0)
-                    self?.centerTableView.insertRows(at: [indexPath], with: .automatic)
-                } else {
-                    let indexPath = IndexPath(row: count, section: 0)
-                    self?.centerTableView.insertRows(at: [indexPath], with: .automatic)
+                
+                let index = IndexPath(row: count - 1, section: 0)
+                self?.centerTableView.insertRows(at: [index], with: .automatic)
+                
+                
+            }
+            if tableView.tag == 3 {
+                guard let indexPath = self?.rightTableView.indexPath(for: cell) else {
+                    return
                 }
+                guard let doingTextModel = self?.DOING[safe: indexPath.row] else {
+                    return
+                }
+                self?.DONE.append(doingTextModel)
+                self?.DOING.remove(at: indexPath.row)
+                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
                 
-            } else if tableView.tag == 2 {
-                
+                guard let count = self?.DONE.count else {
+                    return
+                }
+                let index = IndexPath(row: count - 1, section: 0)
+                self?.rightTableView.insertRows(at: [index], with: .automatic)
             }
         }
         
-        let moveToDONE = UIAlertAction(title: "move to DONE", style: .default) { _ in
-            
+        let moveToDONE = UIAlertAction(title: "move to DONE", style: .default) { [weak self] _ in
+            if tableView.tag == 1 {
+                
+                guard let indexPath = self?.leftTableView.indexPath(for: cell) else {
+                    return
+                }
+                guard let todoTextModel = self?.TODO[safe: indexPath.row] else {
+                    return
+                }
+                self?.DONE.append(todoTextModel)
+                self?.TODO.remove(at: indexPath.row)
+                self?.leftTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                guard let count = self?.DONE.count else {
+                    return
+                }
+                
+                
+                let index = IndexPath(row: count - 1, section: 0)
+                self?.rightTableView.insertRows(at: [index], with: .automatic)
+            }
+            if tableView.tag == 2 {
+                guard let indexPath = self?.centerTableView.indexPath(for: cell) else {
+                    return
+                }
+                guard let doingTextModel = self?.DOING[safe: indexPath.row] else {
+                    return 
+                }
+                self?.DONE.append(doingTextModel)
+                self?.DOING.remove(at: indexPath.row)
+                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                guard let count = self?.DONE.count else {
+                    return
+                }
+                let index = IndexPath(row: count - 1, section: 0)
+                self?.rightTableView.insertRows(at: [index], with: .automatic)
+            }
         }
         
-        alertController.addAction(moveToDOING)
-        alertController.addAction(moveToDONE)
+        let moveToDo = UIAlertAction(title: "move to TODO", style: .default) { [weak self] _ in
+            if tableView.tag == 2 {
+                guard let indexPath = self?.centerTableView.indexPath(for: cell) else {
+                    return
+                }
+                guard let doingTextModel = self?.DOING[safe: indexPath.row] else {
+                    return
+                }
+                self?.TODO.append(doingTextModel)
+                self?.DOING.remove(at: indexPath.row)
+                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                guard let count = self?.TODO.count else {
+                    return
+                }
+                let index = IndexPath(row: count - 1, section: 0)
+                self?.leftTableView.insertRows(at: [index], with: .automatic)
+            }
+            
+            if tableView.tag == 3 {
+                guard let indexPath = self?.rightTableView.indexPath(for: cell) else {
+                    return
+                }
+                guard let doneTextModel = self?.DONE[safe: indexPath.row] else {
+                    return
+                }
+                self?.TODO.append(doneTextModel)
+                self?.DONE.remove(at: indexPath.row)
+                self?.rightTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                guard let count = self?.TODO.count else {
+                    return
+                }
+                let index = IndexPath(row: count - 1, section: 0)
+                self?.leftTableView.insertRows(at: [index], with: .automatic)
+            }
+            
+        }
+        if tableView.tag == 1 {
+            alertController.addAction(moveToDOING)
+            alertController.addAction(moveToDONE)
+        }
+        if tableView.tag == 2 {
+            alertController.addAction(moveToDo)
+            alertController.addAction(moveToDONE)
+        }
+        if tableView.tag == 3 {
+            alertController.addAction(moveToDo)
+            alertController.addAction(moveToDOING)
+        }
         
         if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = view
@@ -187,6 +278,8 @@ class RootViewController: UIViewController {
         present(alertController, animated: true)
     }
     
+    
+    
     private func configureLayout() {
         let viewWidth = view.safeAreaLayoutGuide.layoutFrame.width / 3.0
         
@@ -195,7 +288,7 @@ class RootViewController: UIViewController {
             leftTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             leftTableView.widthAnchor.constraint(equalToConstant: viewWidth),
             leftTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
+            
             
             centerTableView.topAnchor.constraint(equalTo: DOINGTitleView.bottomAnchor, constant: 8),
             centerTableView.leadingAnchor.constraint(equalTo: leftTableView.trailingAnchor),
@@ -293,9 +386,9 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
     
-
+    
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] (action, view, completionHandler) in
             print("deleteAction")
@@ -310,7 +403,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
                 self?.DONE.remove(at: indexPath.row)
                 self?.rightTableView.deleteRows(at: [indexPath], with: .automatic)
             }
-
+            
             completionHandler(true)
         })
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -322,12 +415,9 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 extension RootViewController: NewTODOViewControllerDelegate {
     func getTextModel(textModel: TextModel) {
         self.TODO.append(textModel)
-        if TODO.count > 0 {
-            let indexPath = IndexPath(row: TODO.count - 1, section: 0)
-            leftTableView.insertRows(at: [indexPath], with: .automatic)
-        } else {
-            let indexPath = IndexPath(row: TODO.count, section: 0)
-            leftTableView.insertRows(at: [indexPath], with: .automatic)
-        }
+        
+        let indexPath = IndexPath(row: TODO.count - 1, section: 0)
+        leftTableView.insertRows(at: [indexPath], with: .automatic)
+        
     }
 }
