@@ -18,6 +18,7 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         configureTitle()
         initPlaceHolderForText()
+        configureLayout()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -35,6 +36,19 @@ class SecondViewController: UIViewController {
         descriptionTextView.delegate = self
         descriptionTextView.text = placeHolderForTextView
         descriptionTextView.textColor = .gray
+    }
+    
+    private func configureLayout() {
+        titleTextField.layer.shadowColor = UIColor.gray.cgColor
+        titleTextField.layer.shadowOpacity = 1
+        titleTextField.layer.shadowOffset = CGSize(width: 0, height: 5)
+        titleTextField.layer.shadowRadius = 5
+        titleTextField.layer.masksToBounds = false
+        descriptionTextView.layer.shadowColor = UIColor.gray.cgColor
+        descriptionTextView.layer.shadowOpacity = 1
+        descriptionTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        descriptionTextView.layer.shadowRadius = 5
+        descriptionTextView.layer.masksToBounds = false
     }
     
     @IBAction func didTapEditButton(_ sender: Any) {
