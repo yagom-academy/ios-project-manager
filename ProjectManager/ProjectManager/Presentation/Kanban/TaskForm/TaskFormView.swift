@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TaskFormView: View {
-    @EnvironmentObject var kanbanViewModel: KanbanViewModel
-    @ObservedObject var taskFormViewModel = TaskFormViewModel()
+    @EnvironmentObject private var kanbanViewModel: KanbanViewModel
+    @ObservedObject private var taskFormViewModel = TaskFormViewModel()
     
     var body: some View {
         VStack {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    @EnvironmentObject var kanbanViewModel: KanbanViewModel
+    @EnvironmentObject private var kanbanViewModel: KanbanViewModel
     private let cardViewModel: CardViewModel
     
     init(task: Task) {

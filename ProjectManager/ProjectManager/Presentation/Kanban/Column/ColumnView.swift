@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct ColumnView: View {
-    var tasks: [Task]
-    let title: String
+    private let tasks: [Task]
+    private let title: String
+    
+    init(tasks: [Task], title: String) {
+        self.tasks = tasks
+        self.title = title
+    }
     
     var body: some View {
         List {
