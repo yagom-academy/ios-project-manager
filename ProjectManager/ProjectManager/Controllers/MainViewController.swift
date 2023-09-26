@@ -70,7 +70,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let actionSheet = UIAlertController(title: "Selected Cell", message: "선택한 셀", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let doing = UIAlertAction(title: "Move to Doing", style: .default)
         let done = UIAlertAction(title: "Move to Done", style: .default)
