@@ -38,6 +38,11 @@ final class KanbanViewModel: ObservableObject {
         guard let index = tasks.firstIndex(of: task) else { return }
         tasks[index].state = state
     }
+    
+    func delete(_ task: Task) {
+        guard let index = tasks.firstIndex(of: task) else { return }
+        tasks.remove(at: index)
+    }
 }
 
 extension KanbanViewModel {

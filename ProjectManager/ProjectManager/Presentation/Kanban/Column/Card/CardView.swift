@@ -40,6 +40,11 @@ struct CardView: View {
                 Button("Move to DOING"){ kanbanViewModel.move(cardViewModel.task, to: .doing) }
             }
         }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button("Delete", role: .destructive) {
+                kanbanViewModel.delete(cardViewModel.task)
+            }
+        }
     }
 }
 
