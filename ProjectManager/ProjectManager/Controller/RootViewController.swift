@@ -119,6 +119,33 @@ class RootViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
+
+    
+    @objc func longTappedCell() {
+        print("셀이 길게눌림")
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let moveToDOING = UIAlertAction(title: "move to DOING", style: .default) { _ in
+            
+        }
+        
+        let moveToDONE = UIAlertAction(title: "move to DONE", style: .default) { _ in
+            
+        }
+        
+        alertController.addAction(moveToDOING)
+        alertController.addAction(moveToDONE)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = view
+            popoverController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
+        present(alertController, animated: true)
+    }
+    
     private func configureLayout() {
         let viewWidth = view.safeAreaLayoutGuide.layoutFrame.width / 3.0
         
@@ -181,6 +208,9 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.configureLabel(textModel: todo)
         
+        let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell))
+        cell.addGestureRecognizer(longTappedCell)
+        
         return cell
         
     }
@@ -196,7 +226,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
             print("deleteAction")
             //변수가져다 쓰면 weak self 추가하기
             self.TODO.remove(at: indexPath.row)
-            self.leftTableView.deleteRows(at: [indexPath], with: .left)
+            self.leftTableView.deleteRows(at: [indexPath], with: .automatic)
             completionHandler(true)
         })
         return UISwipeActionsConfiguration(actions: [deleteAction])
