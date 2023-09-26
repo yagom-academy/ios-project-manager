@@ -14,9 +14,14 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     private let placeHolderForTextField = "Title"
     private let placeHolderForTextView = "This is where you type in what to do.\n1000 characters in the limit."
+    
     override func viewDidLoad() {
         configureTitle()
         initPlaceHolderForText()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        self.view.endEditing(true)
     }
 
     private func configureTitle() {
