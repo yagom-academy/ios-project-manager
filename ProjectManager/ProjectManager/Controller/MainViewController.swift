@@ -30,6 +30,18 @@ final class MainViewController: UIViewController {
         
         return tableView
     }()
+
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 12
+        stackView.backgroundColor = .systemGray5
+        
+        return stackView
+    }()
     
     private var tableViewData: [UITableView: [Int: Int]] = [:]
     
@@ -48,47 +60,45 @@ final class MainViewController: UIViewController {
     }
     
     private func configureUI() {
-        view.addSubview(todoTableView)
-        view.addSubview(doingTableView)
-        view.addSubview(doneTableView)
+        stackView.addArrangedSubview(todoTableView)
+        stackView.addArrangedSubview(doingTableView)
+        stackView.addArrangedSubview(doneTableView)
+        
+        view.addSubview(stackView)
     }
     
     private func setUpTableViewLayout() {
         let tableViewWidth = view.bounds.width / 3.0
         
         NSLayoutConstraint.activate([
-            todoTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            todoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            todoTableView.widthAnchor.constraint(equalToConstant: tableViewWidth),
-            todoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            doingTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            doingTableView.leadingAnchor.constraint(equalTo: todoTableView.trailingAnchor),
-            doingTableView.widthAnchor.constraint(equalToConstant: tableViewWidth),
-            doingTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            doneTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            doneTableView.leadingAnchor.constraint(equalTo: doingTableView.trailingAnchor),
-            doneTableView.widthAnchor.constraint(equalToConstant: tableViewWidth),
-            doneTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            doneTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        todoTableView.widthAnchor.constraint(equalToConstant: tableViewWidth).isActive = true
+        doingTableView.widthAnchor.constraint(equalToConstant: tableViewWidth).isActive = true
+        doneTableView.widthAnchor.constraint(equalToConstant: tableViewWidth).isActive = true
     }
     
     private func setUpTableView() {
         todoTableView.dataSource = self
         todoTableView.delegate = self
-        todoTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        todoTableView.register(ListTitleCell.self, forCellReuseIdentifier: "listTitleCell")
+        todoTableView.register(DescriptionCell.self, forCellReuseIdentifier: "descriptionCell")
         tableViewData[todoTableView] = [0:1, 1:2]
         
         doingTableView.dataSource = self
         doingTableView.delegate = self
-        doingTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        doingTableView.register(ListTitleCell.self, forCellReuseIdentifier: "listTitleCell")
+        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: "descriptionCell")
         tableViewData[doingTableView] = [0:1, 1:2]
         
         doneTableView.dataSource = self
         doneTableView.delegate = self
-        doneTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        doneTableView.register(ListTitleCell.self, forCellReuseIdentifier: "listTitleCell")
+        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: "descriptionCell")
         tableViewData[doneTableView] = [0:1, 1:2]
     }
 }
@@ -107,32 +117,49 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
         switch (tableView, indexPath.section) {
         case (todoTableView, 0):
-            cell.textLabel?.text = "TODO"
-            cell.backgroundColor = .systemGray5
+            guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
+            
+            listCell.setModel(title: "TODO", count: 1)
+            listCell.backgroundColor = .systemGray5
+            return listCell
+            
         case (todoTableView, 1):
-            cell.textLabel?.text = "1"
+            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+            
+            descriptionCell.setModel(title: "제목", body: "내용", date: "날짜")
+            return descriptionCell
             
         case (doingTableView, 0):
-            cell.textLabel?.text = "Doing"
-            cell.backgroundColor = .systemGray5
+            guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
+            
+            listCell.setModel(title: "DOING", count: 2)
+            listCell.backgroundColor = .systemGray5
+            return listCell
+            
         case (doingTableView, 1):
-            cell.textLabel?.text = "2"
+            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+            
+            descriptionCell.setModel(title: "제목1", body: "내용1", date: "날짜1")
+            return descriptionCell
             
         case (doneTableView, 0):
-            cell.textLabel?.text = "Done"
-            cell.backgroundColor = .systemGray5
-        case (doneTableView, 1):
-            cell.textLabel?.text = "3"
+            guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
             
-        default:
-            break
-        }
+            listCell.setModel(title: "DONE", count: 3)
+            listCell.backgroundColor = .systemGray5
+            return listCell
+            
+        case (doneTableView, 1):
+            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+            
+            descriptionCell.setModel(title: "제목2", body: "내용2", date: "날짜2")
+            return descriptionCell
         
-        return cell
+        default:
+            return UITableViewCell()
+        }
     }
 }
 
