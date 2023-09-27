@@ -18,7 +18,7 @@ final class CardViewModel {
         return task.date.formatted(date: .numeric, time: .omitted)
     }
 
-    var isOverdued: Bool {
+    var isOverdue: Bool {
         let calendar = Calendar.current
         let now = Date()
         
@@ -34,12 +34,12 @@ final class CardViewModel {
     }
     
     private func destination(of destinationOrder: DestinationOrder) -> TaskState {
-        var states: Set<TaskState> = [.todo, .doing , .done]
+        var states: Set<TaskState> = Set(TaskState.allCases)
         states.remove(task.state)
         
         let stateArray = Array(states).sorted { $0.rawValue < $1.rawValue }
         
-        return stateArray[destinationOrder.rawValue]
+        return stateArray[safe: destinationOrder.rawValue] ?? .todo
     }
     
     enum DestinationOrder: Int {

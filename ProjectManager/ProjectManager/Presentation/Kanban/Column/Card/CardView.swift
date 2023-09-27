@@ -25,7 +25,7 @@ struct CardView: View {
                 .lineLimit(3)
             Text(cardViewModel.date)
                 .font(.footnote)
-                .foregroundColor(cardViewModel.isOverdued ? .red : .primary)
+                .foregroundColor(cardViewModel.isOverdue ? .red : .primary)
         }
         .contextMenu {
             let firstDestination = cardViewModel.firstDestination

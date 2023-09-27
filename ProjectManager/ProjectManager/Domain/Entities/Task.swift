@@ -15,7 +15,7 @@ struct Task: Identifiable, Equatable {
     var state: TaskState
 }
 
-enum TaskState: Int {
+enum TaskState: Int, CaseIterable {
     case todo = 1, doing, done
     
     var title: String {
