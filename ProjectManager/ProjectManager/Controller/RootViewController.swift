@@ -11,7 +11,6 @@ final class RootViewController: UIViewController {
     private var doing: [ProjectManager] = []
     private var done: [ProjectManager] = []
 
-    
     private let todoTitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
@@ -139,7 +138,7 @@ final class RootViewController: UIViewController {
     }
    
     @objc private func tappedPlusButton() {
-        let newTODOViewController: NewTODOViewController = NewTODOViewController(writeMode: .new)
+        let newTODOViewController: TODOViewController = TODOViewController(writeMode: .new, text: ProjectManager(), tableViewTag: TableViewTag.todo.tag)
         newTODOViewController.modalPresentationStyle = .formSheet
         newTODOViewController.delegate = self
         let navigationController: UINavigationController = UINavigationController(rootViewController: newTODOViewController)
@@ -304,7 +303,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //상세보기
+        tappedCell(tableView: tableView, indexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -327,6 +326,30 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
         })
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func tappedCell(tableView: UITableView, indexPath: IndexPath) {
+        var text: ProjectManager?
+        let tableViewTag = tableView.tag
+        switch tableViewTag {
+        case TableViewTag.todo.tag:
+            text = todo[safe: indexPath.item]
+        case TableViewTag.doing.tag:
+            text = doing[safe: indexPath.item]
+        case TableViewTag.done.tag:
+            text = done[safe: indexPath.item]
+        default:
+            return
+        }
+        guard let text = text else {
+            return
+        }
+        
+        let TODOViewController: TODOViewController = TODOViewController(writeMode: .edit, text: text, tableViewTag: tableViewTag)
+        TODOViewController.modalPresentationStyle = .formSheet
+        TODOViewController.delegate = self
+        let navigationController: UINavigationController = UINavigationController(rootViewController: TODOViewController)
+        present(navigationController, animated: true, completion: nil)
     }
     
     func tableViewRowCount(tableView: UITableView) -> Int {
@@ -374,9 +397,16 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension RootViewController: NewTODOViewControllerDelegate {
-    func getText(text: ProjectManager) {
-        self.todo.append(text)
-        let indexPath = IndexPath(row: todo.count - 1, section: 0)
-        todoTableView.insertRows(at: [indexPath], with: .automatic)
+    func getText(text: ProjectManager, writeMode: WriteMode, tableViewTag: Int) {
+        switch writeMode {
+        case .new:
+            self.todo.append(text)
+            let indexPath = IndexPath(row: todo.count - 1, section: 0)
+            todoTableView.insertRows(at: [indexPath], with: .automatic)
+        case .edit:
+            print("")
+        default:
+            return
+        }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  NewTODOViewController.swift
+//  TODOViewController.swift
 //  ProjectManager
 //
 //  Created by idinaloq on 2023/09/22.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-final class NewTODOViewController: UIViewController {
+final class TODOViewController: UIViewController {
     private let datePicker: UIDatePicker = UIDatePicker()
-    private var textModel: ProjectManager = ProjectManager()
+    private var text: ProjectManager
     private var writeMode: WriteMode
+    private let tableViewTag: Int
     var delegate: NewTODOViewControllerDelegate?
 
     
     private let titleTextField: UITextField = {
         let textField: UITextField = UITextField()
         textField.placeholder = "Title"
-        
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .green
         
@@ -27,7 +27,7 @@ final class NewTODOViewController: UIViewController {
     private let bodyTextView: UITextView = {
         let textView: UITextView = UITextView()
         textView.backgroundColor = .brown
-        
+    
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
@@ -39,11 +39,14 @@ final class NewTODOViewController: UIViewController {
         configureUI()
         configureDatePicker()
         configureLayout()
+        configureText(text: text)
         
     }
     
-    init(writeMode: WriteMode) {
+    init(writeMode: WriteMode, text: ProjectManager, tableViewTag: Int) {
         self.writeMode = writeMode
+        self.text = text
+        self.tableViewTag = tableViewTag
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,8 +62,6 @@ final class NewTODOViewController: UIViewController {
         datePicker.timeZone = .autoupdatingCurrent
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.addTarget(self, action: #selector(selectDatePicker), for: .allEvents)
-        
-        
     }
     
     private func configureUI() {
@@ -73,7 +74,6 @@ final class NewTODOViewController: UIViewController {
     }
     
     private func configureNavigation() {
-
         let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedCancelButton))
         let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tappedDoneButton))
         let editButton: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tappedEditButton))
@@ -81,32 +81,57 @@ final class NewTODOViewController: UIViewController {
         switch writeMode {
         case .edit:
             navigationItem.leftBarButtonItem = editButton
+            titleTextField.isEnabled = false
+            bodyTextView.isEditable = false
+            datePicker.isEnabled = false
         case .new:
             navigationItem.leftBarButtonItem = cancelButton
         }
         navigationItem.rightBarButtonItem = doneButton
-        navigationItem.title = "여기에 제목불러오기"
+        navigationItem.title = "TODO"
+    }
+    
+    private func configureText(text: ProjectManager) {
+        titleTextField.text = text.title
+        bodyTextView.text = text.body
+        guard let date = text.deadline else{
+            return
+        }
+        datePicker.date = date
     }
     
     @objc private func tappedEditButton() {
-        //edit버튼누르면 수정할 수 있다는게, 수정 이전에는 아무것도 선택이 안되어야 하는 건가?
+        let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedCancelButton))
+        navigationItem.leftBarButtonItem = cancelButton
+        titleTextField.isEnabled = true
+        bodyTextView.isEditable = true
+        datePicker.isEnabled = true
+        view.layoutIfNeeded()
     }
     
     @objc private func tappedCancelButton() {
-        dismiss(animated: true)
+        if writeMode == .edit {
+            let editButton: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tappedEditButton))
+            navigationItem.leftBarButtonItem = editButton
+            titleTextField.isEnabled = false
+            bodyTextView.isEditable = false
+            datePicker.isEnabled = false
+        } else {
+            dismiss(animated: true)
+        }
     }
     
     @objc private func tappedDoneButton() {
-        if textModel.deadline == nil {
-            textModel.deadline = Date()
+        if text.deadline == nil {
+            text.deadline = Date()
         }
-        delegate?.getText(text: textModel)
+        delegate?.getText(text: text, writeMode: writeMode, tableViewTag: tableViewTag)
         dismiss(animated: true)
     }
     
     @objc private func selectDatePicker() {
-        textModel.deadline = datePicker.date
-        print(textModel.deadline as Any)
+        text.deadline = datePicker.date
+        print(text.deadline as Any)
     }
     
     private func configureLayout() {
@@ -129,22 +154,22 @@ final class NewTODOViewController: UIViewController {
     }
 }
 
-extension NewTODOViewController: UITextFieldDelegate {
+extension TODOViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        textModel.title = textField.text
+        text.title = textField.text
     }
 }
 
 
-extension NewTODOViewController: UITextViewDelegate {
+extension TODOViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        textModel.body = textView.text
+        text.body = textView.text
     }
 
 }
 
 protocol NewTODOViewControllerDelegate: AnyObject {
-    func getText(text: ProjectManager)
+    func getText(text: ProjectManager, writeMode: WriteMode, tableViewTag: Int)
 }
 
 

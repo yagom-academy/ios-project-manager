@@ -39,7 +39,7 @@ final class TableViewCell: UITableViewCell {
         let label: UILabel = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
-        
+        label.textColor = .systemGray
         return label
     }()
     
