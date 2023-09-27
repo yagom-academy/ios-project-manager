@@ -28,7 +28,7 @@ struct TaskFormView: View {
                         titleTextField
                         datePicker
                         contentTextEditor(proxy)
-                        EmptySpaceForKeyboard
+                        emptySpaceForKeyboard                            
                     }
                     .padding()
                 }
@@ -43,12 +43,12 @@ struct TaskFormView: View {
         .frame(width: taskFormViewModel.formWidth, height: taskFormViewModel.formHeight)
     }
     
-    var titleTextField: some View {
+    private var titleTextField: some View {
         TextField("제목을 입력하세요(필수)", text: $taskFormViewModel.title)
             .shadowBackground()
     }
     
-    var datePicker: some View {
+    private var datePicker: some View {
         DatePicker(
             "날짜를 입력하세요",
             selection: $taskFormViewModel.date,
@@ -58,7 +58,7 @@ struct TaskFormView: View {
         .labelsHidden()
     }
     
-    func contentTextEditor(_ proxy: ScrollViewProxy) -> some View {
+    private func contentTextEditor(_ proxy: ScrollViewProxy) -> some View {
         TextEditor(text: $taskFormViewModel.content)
             .focused($textEditorIsFocused)
             .shadowBackground()
@@ -78,14 +78,14 @@ struct TaskFormView: View {
     }
     
     @ViewBuilder
-    var EmptySpaceForKeyboard: some View {
+    private var emptySpaceForKeyboard: some View {
         if keyboard.isVisible {
             Spacer(minLength: keyboard.height)
         }
     }
     
     @ToolbarContentBuilder
-    var toolbarItems: some ToolbarContent {
+    private var toolbarItems: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             Button("Cancel") {
                 kanbanViewModel.setFormVisible(false)

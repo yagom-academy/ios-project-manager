@@ -2,7 +2,7 @@
 //  KeyboardManager.swift
 //  ProjectManager
 //
-//  Created by 김민성 on 2023/09/27.
+//  Created by Minsup & Whales on 2023/09/27.
 //
 
 import SwiftUI
@@ -12,11 +12,10 @@ class KeyboardManager: ObservableObject {
     @Published var height: CGFloat = 0
     @Published var isVisible: Bool = false
 
-    var keyboardShowCancellable: Cancellable?
-    var keyboardHideCancellable: Cancellable?
+    private var cancellables = Set<AnyCancellable>()
 
     init() {
-        keyboardShowCancellable = NotificationCenter.default
+        NotificationCenter.default
             .publisher(for: UIWindow.keyboardWillShowNotification)
             .sink { [weak self] notification in
                 guard let self = self else { return }
@@ -28,8 +27,9 @@ class KeyboardManager: ObservableObject {
                     self.isVisible = true
                 }
             }
+            .store(in: &cancellables)
 
-        keyboardHideCancellable = NotificationCenter.default
+        NotificationCenter.default
             .publisher(for: UIWindow.keyboardWillHideNotification)
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -38,6 +38,7 @@ class KeyboardManager: ObservableObject {
                     self.isVisible = false
                 }
             }
+            .store(in: &cancellables)
     }
 
     func hide() {

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct KanbanView: View {
-    @StateObject private var kanbanViewModel: KanbanViewModel
+    @ObservedObject private var kanbanViewModel: KanbanViewModel
     
     init(kanbanViewModel: KanbanViewModel = KanbanViewModel.mock) {
-        self._kanbanViewModel = StateObject(wrappedValue: kanbanViewModel) 
+        self.kanbanViewModel = kanbanViewModel 
     }
     
     var body: some View {
