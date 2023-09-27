@@ -11,10 +11,12 @@ struct Memo: Identifiable {
     var id = UUID()
     var title: String
     var body: String
-    var deadline: String
+    var deadline: Date
     var category: Category
     
-    enum Category: Int, CustomStringConvertible {
+    static let newMemo = Memo(title: "", body: "", deadline: .now, category: .toDo)
+    
+    enum Category: CustomStringConvertible {
         case toDo
         case doing
         case done
