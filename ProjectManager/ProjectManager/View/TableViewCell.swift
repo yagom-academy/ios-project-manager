@@ -113,7 +113,6 @@ final class TableViewCell: UITableViewCell {
             bodyStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             bodyStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             bodyStackView.bottomAnchor.constraint(equalTo: deadlineStackView.topAnchor, constant: -8),
-            bodyStackView.heightAnchor.constraint(equalToConstant: height),
             
             deadlineStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             deadlineStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),

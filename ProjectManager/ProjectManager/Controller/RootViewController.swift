@@ -325,6 +325,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
             
             completionHandler(true)
         })
+        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
