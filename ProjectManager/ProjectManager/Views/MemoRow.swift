@@ -16,7 +16,7 @@ struct MemoRow: View {
                 .font(.title3)
             Text(memo.body)
                 .foregroundColor(.secondary)
-            Text(memo.deadline)
+            Text(memo.deadline.formatted(date: .numeric, time: .omitted))
         }
     }
 }
