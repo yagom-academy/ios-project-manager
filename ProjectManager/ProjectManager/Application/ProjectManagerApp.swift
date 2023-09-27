@@ -11,12 +11,13 @@ import FirebaseFirestore
 
 @main
 struct ProjectManagerApp: App {
+    
+    @StateObject private var keyboard = KeyboardManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onAppear{
-                    FirebaseApp.configure()
-                }
+            KanbanView()
+                .environmentObject(keyboard)
         }
     }
 }
