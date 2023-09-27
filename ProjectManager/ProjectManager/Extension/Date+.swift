@@ -40,8 +40,5 @@ extension Date {
         case .orderedDescending:
             return true
         }
-        
     }
-    
-    
 }

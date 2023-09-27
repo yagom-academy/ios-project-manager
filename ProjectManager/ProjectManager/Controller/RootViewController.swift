@@ -7,10 +7,10 @@
 import UIKit
 
 final class RootViewController: UIViewController {
-    private var TODO: [ProjectManager] = []
-    private var DOING: [ProjectManager] = []
-    private var DONE: [ProjectManager] = []
-    private var index: IndexPath?
+    private var todo: [ProjectManager] = []
+    private var doing: [ProjectManager] = []
+    private var done: [ProjectManager] = []
+
     
     private let TODOTitleView: UIView = {
         let titleView: TitleView = TitleView()
@@ -39,10 +39,10 @@ final class RootViewController: UIViewController {
         return titleView
     }()
     
-    private let leftTableView: UITableView = {
+    private let todoTableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "leftTableView")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "todoTableView")
         tableView.tag = 1
         tableView.backgroundColor = .systemGray5
         tableView.separatorStyle = .none
@@ -50,10 +50,10 @@ final class RootViewController: UIViewController {
         return tableView
     }()
     
-    private let centerTableView: UITableView = {
+    private let doingTableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "centerTableView")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "doingTableView")
         tableView.tag = 2
         tableView.backgroundColor = .systemGray5
         tableView.separatorStyle = .none
@@ -61,10 +61,10 @@ final class RootViewController: UIViewController {
         return tableView
     }()
     
-    private let rightTableView: UITableView = {
+    private let doneTableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "rightTableView")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: "doneTableView")
         tableView.tag = 3
         tableView.backgroundColor = .systemGray5
         tableView.separatorStyle = .none
@@ -87,18 +87,18 @@ final class RootViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemGray6
-        leftTableView.delegate = self
-        leftTableView.dataSource = self
-        centerTableView.delegate = self
-        centerTableView.dataSource = self
-        rightTableView.delegate = self
-        rightTableView.dataSource = self
+        todoTableView.delegate = self
+        todoTableView.dataSource = self
+        doingTableView.delegate = self
+        doingTableView.dataSource = self
+        doneTableView.delegate = self
+        doneTableView.dataSource = self
         view.addSubview(TODOTitleView)
         view.addSubview(DOINGTitleView)
         view.addSubview(DONETitleView)
-        view.addSubview(leftTableView)
-        view.addSubview(centerTableView)
-        view.addSubview(rightTableView)
+        view.addSubview(todoTableView)
+        view.addSubview(doingTableView)
+        view.addSubview(doneTableView)
         
     }
     
@@ -123,8 +123,6 @@ final class RootViewController: UIViewController {
     
     
     @objc func longTappedCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        print("셀이 길게눌림")
-        
         guard let cell = gestureRecognizer.view as? UITableViewCell else {
             return
         }
@@ -132,127 +130,122 @@ final class RootViewController: UIViewController {
         guard let tableView = cell.superview as? UITableView else {
             return
         }
+        
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let moveToDOING = UIAlertAction(title: "move to DOING", style: .default) { [weak self] _ in
-            
-            
             if tableView.tag == 1 {
-                
-                guard let indexPath = self?.leftTableView.indexPath(for: cell) else {
-                    return
-                }
-                guard let todoTextModel = self?.TODO[safe: indexPath.row] else {
-                    return
-                }
-                self?.DOING.append(todoTextModel)
-                self?.TODO.remove(at: indexPath.row)
-                self?.leftTableView.deleteRows(at: [indexPath], with: .automatic)
-                
-                guard let count = self?.DOING.count else {
+                guard let indexPath = self?.todoTableView.indexPath(for: cell),
+                      let todoTextModel = self?.todo[safe: indexPath.row] else {
                     return
                 }
                 
+                self?.doing.append(todoTextModel)
+                self?.todo.remove(at: indexPath.row)
+                self?.todoTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                guard let count = self?.doing.count else {
+                    return
+                }
                 
                 let index = IndexPath(row: count - 1, section: 0)
-                self?.centerTableView.insertRows(at: [index], with: .automatic)
-                
-                
+                self?.doingTableView.insertRows(at: [index], with: .automatic)
             }
+            
             if tableView.tag == 3 {
-                guard let indexPath = self?.rightTableView.indexPath(for: cell) else {
+                guard let indexPath = self?.doneTableView.indexPath(for: cell),
+                      let doneTextModel = self?.done[safe: indexPath.row] else {
                     return
                 }
-                guard let doingTextModel = self?.DOING[safe: indexPath.row] else {
-                    return
-                }
-                self?.DONE.append(doingTextModel)
-                self?.DOING.remove(at: indexPath.row)
-                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
                 
-                guard let count = self?.DONE.count else {
+                self?.doing.append(doneTextModel)
+                self?.done.remove(at: indexPath.row)
+                self?.doneTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                guard let count = self?.doing.count else {
                     return
                 }
+                
                 let index = IndexPath(row: count - 1, section: 0)
-                self?.rightTableView.insertRows(at: [index], with: .automatic)
+                self?.doingTableView.insertRows(at: [index], with: .automatic)
             }
         }
         
         let moveToDONE = UIAlertAction(title: "move to DONE", style: .default) { [weak self] _ in
             if tableView.tag == 1 {
                 
-                guard let indexPath = self?.leftTableView.indexPath(for: cell) else {
+                guard let indexPath = self?.todoTableView.indexPath(for: cell) else {
                     return
                 }
-                guard let todoTextModel = self?.TODO[safe: indexPath.row] else {
+                guard let todoTextModel = self?.todo[safe: indexPath.row] else {
                     return
                 }
-                self?.DONE.append(todoTextModel)
-                self?.TODO.remove(at: indexPath.row)
-                self?.leftTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.done.append(todoTextModel)
+                self?.todo.remove(at: indexPath.row)
+                self?.todoTableView.deleteRows(at: [indexPath], with: .automatic)
                 
-                guard let count = self?.DONE.count else {
+                guard let count = self?.done.count else {
                     return
                 }
                 
                 
                 let index = IndexPath(row: count - 1, section: 0)
-                self?.rightTableView.insertRows(at: [index], with: .automatic)
+                self?.doneTableView.insertRows(at: [index], with: .automatic)
             }
             if tableView.tag == 2 {
-                guard let indexPath = self?.centerTableView.indexPath(for: cell) else {
+                guard let indexPath = self?.doingTableView.indexPath(for: cell) else {
                     return
                 }
-                guard let doingTextModel = self?.DOING[safe: indexPath.row] else {
+                guard let doingTextModel = self?.doing[safe: indexPath.row] else {
                     return 
                 }
-                self?.DONE.append(doingTextModel)
-                self?.DOING.remove(at: indexPath.row)
-                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.done.append(doingTextModel)
+                self?.doing.remove(at: indexPath.row)
+                self?.doingTableView.deleteRows(at: [indexPath], with: .automatic)
                 
-                guard let count = self?.DONE.count else {
+                guard let count = self?.done.count else {
                     return
                 }
                 let index = IndexPath(row: count - 1, section: 0)
-                self?.rightTableView.insertRows(at: [index], with: .automatic)
+                self?.doneTableView.insertRows(at: [index], with: .automatic)
             }
         }
         
         let moveToDo = UIAlertAction(title: "move to TODO", style: .default) { [weak self] _ in
             if tableView.tag == 2 {
-                guard let indexPath = self?.centerTableView.indexPath(for: cell) else {
+                guard let indexPath = self?.doingTableView.indexPath(for: cell) else {
                     return
                 }
-                guard let doingTextModel = self?.DOING[safe: indexPath.row] else {
+                guard let doingTextModel = self?.doing[safe: indexPath.row] else {
                     return
                 }
-                self?.TODO.append(doingTextModel)
-                self?.DOING.remove(at: indexPath.row)
-                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.todo.append(doingTextModel)
+                self?.doing.remove(at: indexPath.row)
+                self?.doingTableView.deleteRows(at: [indexPath], with: .automatic)
                 
-                guard let count = self?.TODO.count else {
+                guard let count = self?.todo.count else {
                     return
                 }
                 let index = IndexPath(row: count - 1, section: 0)
-                self?.leftTableView.insertRows(at: [index], with: .automatic)
+                self?.todoTableView.insertRows(at: [index], with: .automatic)
             }
             
             if tableView.tag == 3 {
-                guard let indexPath = self?.rightTableView.indexPath(for: cell) else {
+                guard let indexPath = self?.doneTableView.indexPath(for: cell) else {
                     return
                 }
-                guard let doneTextModel = self?.DONE[safe: indexPath.row] else {
+                guard let doneTextModel = self?.done[safe: indexPath.row] else {
                     return
                 }
-                self?.TODO.append(doneTextModel)
-                self?.DONE.remove(at: indexPath.row)
-                self?.rightTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.todo.append(doneTextModel)
+                self?.done.remove(at: indexPath.row)
+                self?.doneTableView.deleteRows(at: [indexPath], with: .automatic)
                 
-                guard let count = self?.TODO.count else {
+                guard let count = self?.todo.count else {
                     return
                 }
                 let index = IndexPath(row: count - 1, section: 0)
-                self?.leftTableView.insertRows(at: [index], with: .automatic)
+                self?.todoTableView.insertRows(at: [index], with: .automatic)
             }
             
         }
@@ -284,36 +277,36 @@ final class RootViewController: UIViewController {
         let viewWidth = view.safeAreaLayoutGuide.layoutFrame.width / 3.0
         
         NSLayoutConstraint.activate([
-            leftTableView.topAnchor.constraint(equalTo: TODOTitleView.bottomAnchor, constant: 8),
-            leftTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            leftTableView.widthAnchor.constraint(equalToConstant: viewWidth),
-            leftTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            todoTableView.topAnchor.constraint(equalTo: TODOTitleView.bottomAnchor, constant: 8),
+            todoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            todoTableView.widthAnchor.constraint(equalToConstant: viewWidth),
+            todoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             
-            centerTableView.topAnchor.constraint(equalTo: DOINGTitleView.bottomAnchor, constant: 8),
-            centerTableView.leadingAnchor.constraint(equalTo: leftTableView.trailingAnchor),
-            centerTableView.widthAnchor.constraint(equalToConstant: viewWidth),
-            centerTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            doingTableView.topAnchor.constraint(equalTo: DOINGTitleView.bottomAnchor, constant: 8),
+            doingTableView.leadingAnchor.constraint(equalTo: todoTableView.trailingAnchor),
+            doingTableView.widthAnchor.constraint(equalToConstant: viewWidth),
+            doingTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            rightTableView.topAnchor.constraint(equalTo: DONETitleView.bottomAnchor, constant: 8),
-            rightTableView.leadingAnchor.constraint(equalTo: centerTableView.trailingAnchor),
-            rightTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            rightTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            doneTableView.topAnchor.constraint(equalTo: DONETitleView.bottomAnchor, constant: 8),
+            doneTableView.leadingAnchor.constraint(equalTo: doingTableView.trailingAnchor),
+            doneTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            doneTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             TODOTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             TODOTitleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             TODOTitleView.widthAnchor.constraint(equalToConstant: viewWidth),
-            TODOTitleView.bottomAnchor.constraint(equalTo: leftTableView.topAnchor),
+            TODOTitleView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
             
             DOINGTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            DOINGTitleView.leadingAnchor.constraint(equalTo: leftTableView.trailingAnchor),
+            DOINGTitleView.leadingAnchor.constraint(equalTo: todoTableView.trailingAnchor),
             DOINGTitleView.widthAnchor.constraint(equalToConstant: viewWidth),
-            DOINGTitleView.bottomAnchor.constraint(equalTo: centerTableView.topAnchor),
+            DOINGTitleView.bottomAnchor.constraint(equalTo: doingTableView.topAnchor),
             
             DONETitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            DONETitleView.leadingAnchor.constraint(equalTo: centerTableView.trailingAnchor),
+            DONETitleView.leadingAnchor.constraint(equalTo: doingTableView.trailingAnchor),
             DONETitleView.widthAnchor.constraint(equalToConstant: viewWidth),
-            DONETitleView.bottomAnchor.constraint(equalTo: rightTableView.topAnchor)
+            DONETitleView.bottomAnchor.constraint(equalTo: doneTableView.topAnchor)
             
         ])
     }
@@ -322,11 +315,11 @@ final class RootViewController: UIViewController {
 extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 1 {
-            return TODO.count
+            return todo.count
         } else if tableView.tag == 2 {
-            return DOING.count
+            return doing.count
         } else if tableView.tag == 3 {
-            return DONE.count
+            return done.count
         }
         return 1
     }
@@ -334,11 +327,11 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView.tag == 1 {
-            guard let cell = leftTableView.dequeueReusableCell(withIdentifier: "leftTableView", for: indexPath) as? TableViewCell else {
+            guard let cell = todoTableView.dequeueReusableCell(withIdentifier: "todoTableView", for: indexPath) as? TableViewCell else {
                 return TableViewCell()
             }
             
-            guard let todo = TODO[safe: indexPath.item] else {
+            guard let todo = todo[safe: indexPath.item] else {
                 return TableViewCell()
             }
             
@@ -349,11 +342,11 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
             
             return cell
         } else if tableView.tag == 2 {
-            guard let cell = centerTableView.dequeueReusableCell(withIdentifier: "centerTableView", for: indexPath) as? TableViewCell else {
+            guard let cell = doingTableView.dequeueReusableCell(withIdentifier: "doingTableView", for: indexPath) as? TableViewCell else {
                 return TableViewCell()
             }
             
-            guard let doing = DOING[safe: indexPath.item] else {
+            guard let doing = doing[safe: indexPath.item] else {
                 return TableViewCell()
             }
             
@@ -364,11 +357,11 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
             
             return cell
         } else if tableView.tag == 3 {
-            guard let cell = rightTableView.dequeueReusableCell(withIdentifier: "rightTableView", for: indexPath) as? TableViewCell else {
+            guard let cell = doneTableView.dequeueReusableCell(withIdentifier: "doneTableView", for: indexPath) as? TableViewCell else {
                 return TableViewCell()
             }
             
-            guard let done = DONE[safe: indexPath.item] else {
+            guard let done = done[safe: indexPath.item] else {
                 return TableViewCell()
             }
             
@@ -395,14 +388,14 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
             print("deleteAction")
             //변수가져다 쓰면 weak self 추가하기
             if tableView.tag == 1 {
-                self?.TODO.remove(at: indexPath.row)
-                self?.leftTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.todo.remove(at: indexPath.row)
+                self?.todoTableView.deleteRows(at: [indexPath], with: .automatic)
             } else if tableView.tag == 2 {
-                self?.DOING.remove(at: indexPath.row)
-                self?.centerTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.doing.remove(at: indexPath.row)
+                self?.doingTableView.deleteRows(at: [indexPath], with: .automatic)
             } else {
-                self?.DONE.remove(at: indexPath.row)
-                self?.rightTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.done.remove(at: indexPath.row)
+                self?.doneTableView.deleteRows(at: [indexPath], with: .automatic)
             }
             
             completionHandler(true)
@@ -415,10 +408,10 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension RootViewController: NewTODOViewControllerDelegate {
     func getTextModel(textModel: ProjectManager) {
-        self.TODO.append(textModel)
+        self.todo.append(textModel)
         
-        let indexPath = IndexPath(row: TODO.count - 1, section: 0)
-        leftTableView.insertRows(at: [indexPath], with: .automatic)
+        let indexPath = IndexPath(row: todo.count - 1, section: 0)
+        todoTableView.insertRows(at: [indexPath], with: .automatic)
         
     }
 }
