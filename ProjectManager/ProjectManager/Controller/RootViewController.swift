@@ -111,7 +111,7 @@ class RootViewController: UIViewController {
     }
     
     @objc private func tappedPlusButton() {
-        let newTODOViewController: NewTODOViewController = NewTODOViewController()
+        let newTODOViewController: NewTODOViewController = NewTODOViewController(isEditMode: false)
         newTODOViewController.modalPresentationStyle = .formSheet
         newTODOViewController.delegate = self
         let navigationController: UINavigationController = UINavigationController(rootViewController: newTODOViewController)
@@ -384,6 +384,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

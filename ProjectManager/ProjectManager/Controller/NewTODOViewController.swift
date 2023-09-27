@@ -10,6 +10,7 @@ import UIKit
 final class NewTODOViewController: UIViewController {
     private let datePicker: UIDatePicker = UIDatePicker()
     private var textModel: TextModel = TextModel()
+    private var isEditMode: Bool
     var delegate: NewTODOViewControllerDelegate?
 
     
@@ -41,6 +42,15 @@ final class NewTODOViewController: UIViewController {
         
     }
     
+    init(isEditMode: Bool) {
+        self.isEditMode = isEditMode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private func configureDatePicker() {
         datePicker.preferredDatePickerStyle = .wheels
@@ -63,11 +73,22 @@ final class NewTODOViewController: UIViewController {
     }
     
     private func configureNavigation() {
+
         let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(tappedCancelButton))
         let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tappedDoneButton))
+        let editButton: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tappedEditButton))
+        
+        if isEditMode {
+            navigationItem.leftBarButtonItem = editButton
+        } else {
+            navigationItem.leftBarButtonItem = cancelButton
+        }
         navigationItem.rightBarButtonItem = doneButton
-        navigationItem.leftBarButtonItem = cancelButton
         navigationItem.title = "여기에 제목불러오기"
+    }
+    
+    @objc private func tappedEditButton() {
+        //edit버튼누르면 수정할 수 있다는게, 수정 이전에는 아무것도 선택이 안되어야 하는 건가?
     }
     
     @objc private func tappedCancelButton() {
