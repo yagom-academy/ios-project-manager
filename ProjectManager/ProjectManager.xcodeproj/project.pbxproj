@@ -15,6 +15,7 @@
 		AC20E4AE2ABD6D460076E80F /* MemoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4AD2ABD6D460076E80F /* MemoRow.swift */; };
 		AC20E4B02ABD6F120076E80F /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4AF2ABD6F120076E80F /* MemoListView.swift */; };
 		AC20E4B22ABD70EB0076E80F /* MemoHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B12ABD70EB0076E80F /* MemoHome.swift */; };
+		AC20E4B62AC455050076E80F /* NewMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B52AC455040076E80F /* NewMemo.swift */; };
 		AC20E4B92AC47F520076E80F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B82AC47F520076E80F /* ColorSet.swift */; };
 		AC6FCE612AB9889100B82DF1 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FCE602AB9889100B82DF1 /* ProjectManagerApp.swift */; };
 		AC6FCE632AB9889100B82DF1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FCE622AB9889100B82DF1 /* ContentView.swift */; };
@@ -31,6 +32,7 @@
 		AC20E4AD2ABD6D460076E80F /* MemoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRow.swift; sourceTree = "<group>"; };
 		AC20E4AF2ABD6F120076E80F /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
 		AC20E4B12ABD70EB0076E80F /* MemoHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoHome.swift; sourceTree = "<group>"; };
+		AC20E4B52AC455040076E80F /* NewMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemo.swift; sourceTree = "<group>"; };
 		AC20E4B82AC47F520076E80F /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		AC6FCE5D2AB9889100B82DF1 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC6FCE602AB9889100B82DF1 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				AC20E4AF2ABD6F120076E80F /* MemoListView.swift */,
 				AC20E4AD2ABD6D460076E80F /* MemoRow.swift */,
 				44DC00C12AC300A000AF3C0E /* MemoDetail.swift */,
+				AC20E4B52AC455040076E80F /* NewMemo.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC20E4B62AC455050076E80F /* NewMemo.swift in Sources */,
 				AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */,
 				44DC00C22AC300A000AF3C0E /* MemoDetail.swift in Sources */,
 				AC20E4B22ABD70EB0076E80F /* MemoHome.swift in Sources */,
