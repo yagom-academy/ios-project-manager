@@ -296,6 +296,39 @@ final class RootViewController: UIViewController {
 
 extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewRowCount(tableView: tableView)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return createCell(tableView: tableView, indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //상세보기
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] (action, view, completionHandler) in
+            if tableView.tag == TableViewTag.todo.tag {
+                self?.todo.remove(at: indexPath.row)
+                self?.todoTableView.deleteRows(at: [indexPath], with: .automatic)
+            } else if tableView.tag == TableViewTag.doing.tag {
+                self?.doing.remove(at: indexPath.row)
+                self?.doingTableView.deleteRows(at: [indexPath], with: .automatic)
+            } else if tableView.tag == TableViewTag.done.tag {
+                self?.done.remove(at: indexPath.row)
+                self?.doneTableView.deleteRows(at: [indexPath], with: .automatic)
+            } else {
+                print("error")
+            }
+            
+            completionHandler(true)
+        })
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func tableViewRowCount(tableView: UITableView) -> Int {
         switch tableView.tag {
         case TableViewTag.todo.tag:
             return todo.count
@@ -306,10 +339,6 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             return 0
         }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return createCell(tableView: tableView, indexPath: indexPath)
     }
     
     func createCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
@@ -340,31 +369,6 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
         cell.addGestureRecognizer(longTappedCell)
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //상세보기
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction: UIContextualAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] (action, view, completionHandler) in
-            if tableView.tag == TableViewTag.todo.tag {
-                self?.todo.remove(at: indexPath.row)
-                self?.todoTableView.deleteRows(at: [indexPath], with: .automatic)
-            } else if tableView.tag == TableViewTag.doing.tag {
-                self?.doing.remove(at: indexPath.row)
-                self?.doingTableView.deleteRows(at: [indexPath], with: .automatic)
-            } else if tableView.tag == TableViewTag.done.tag {
-                self?.done.remove(at: indexPath.row)
-                self?.doneTableView.deleteRows(at: [indexPath], with: .automatic)
-            } else {
-                print("error")
-            }
-            
-            completionHandler(true)
-        })
-        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
