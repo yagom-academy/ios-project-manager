@@ -10,7 +10,7 @@ import UIKit
 final class NewTODOViewController: UIViewController {
     private let datePicker: UIDatePicker = UIDatePicker()
     private var textModel: ProjectManager = ProjectManager()
-    private var isEditMode: Bool
+    private var writeMode: WriteMode
     var delegate: NewTODOViewControllerDelegate?
 
     
@@ -42,8 +42,8 @@ final class NewTODOViewController: UIViewController {
         
     }
     
-    init(isEditMode: Bool) {
-        self.isEditMode = isEditMode
+    init(writeMode: WriteMode) {
+        self.writeMode = writeMode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -78,9 +78,10 @@ final class NewTODOViewController: UIViewController {
         let doneButton: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(tappedDoneButton))
         let editButton: UIBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(tappedEditButton))
         
-        if isEditMode {
+        switch writeMode {
+        case .edit:
             navigationItem.leftBarButtonItem = editButton
-        } else {
+        case .new:
             navigationItem.leftBarButtonItem = cancelButton
         }
         navigationItem.rightBarButtonItem = doneButton
@@ -99,7 +100,7 @@ final class NewTODOViewController: UIViewController {
         if textModel.deadline == nil {
             textModel.deadline = Date()
         }
-        delegate?.getTextModel(textModel: textModel)
+        delegate?.getText(text: textModel)
         dismiss(animated: true)
     }
     
@@ -142,9 +143,8 @@ extension NewTODOViewController: UITextViewDelegate {
 
 }
 
-
 protocol NewTODOViewControllerDelegate: AnyObject {
-    func getTextModel(textModel: ProjectManager)
+    func getText(text: ProjectManager)
 }
 
 

@@ -5,7 +5,7 @@
 //  Created by idinaloq on 2023/09/27.
 //
 
-enum TableViewTag {
+enum TableViewTag: CustomStringConvertible {
     case todo
     case doing
     case done
@@ -18,6 +18,17 @@ enum TableViewTag {
             return 2
         case .done:
             return 3
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .todo:
+            return "todoTableView"
+        case .doing:
+            return "doingTableView"
+        case .done:
+            return "doneTableView"
         }
     }
 }

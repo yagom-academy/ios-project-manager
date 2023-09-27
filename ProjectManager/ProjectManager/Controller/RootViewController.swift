@@ -12,28 +12,28 @@ final class RootViewController: UIViewController {
     private var done: [ProjectManager] = []
 
     
-    private let TODOTitleView: UIView = {
+    private let todoTitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.backgroundColor = .red
+        titleView.backgroundColor = .systemBackground
         titleView.configureTitleLabel(text: "TODO")
         
         return titleView
     }()
     
-    private let DOINGTitleView: UIView = {
+    private let doingTitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.backgroundColor = .red
+        titleView.backgroundColor = .systemBackground
         titleView.configureTitleLabel(text: "DOING")
         
         return titleView
     }()
     
-    private let DONETitleView: UIView = {
+    private let doneTitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.backgroundColor = .red
+        titleView.backgroundColor = .systemBackground
         titleView.configureTitleLabel(text: "DONE")
         
         return titleView
@@ -42,7 +42,7 @@ final class RootViewController: UIViewController {
     private let todoTableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "todoTableView")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewTag.todo.description)
         tableView.tag = TableViewTag.todo.tag
         tableView.backgroundColor = .systemGray5
         tableView.separatorStyle = .none
@@ -53,7 +53,7 @@ final class RootViewController: UIViewController {
     private let doingTableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "doingTableView")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewTag.doing.description)
         tableView.tag = TableViewTag.doing.tag
         tableView.backgroundColor = .systemGray5
         tableView.separatorStyle = .none
@@ -64,7 +64,7 @@ final class RootViewController: UIViewController {
     private let doneTableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "doneTableView")
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewTag.done.description)
         tableView.tag = TableViewTag.done.tag
         tableView.backgroundColor = .systemGray5
         tableView.separatorStyle = .none
@@ -80,6 +80,11 @@ final class RootViewController: UIViewController {
         
     }
     
+    func configureNavigation() {
+        let plusBotton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(tappedPlusButton))
+        navigationItem.rightBarButtonItem = plusBotton
+        navigationItem.title = "Project Manager"
+    }
     private func configureUI() {
         view.backgroundColor = .systemGray6
         todoTableView.delegate = self
@@ -88,35 +93,59 @@ final class RootViewController: UIViewController {
         doingTableView.dataSource = self
         doneTableView.delegate = self
         doneTableView.dataSource = self
-        view.addSubview(TODOTitleView)
-        view.addSubview(DOINGTitleView)
-        view.addSubview(DONETitleView)
+        view.addSubview(todoTitleView)
+        view.addSubview(doingTitleView)
+        view.addSubview(doneTitleView)
         view.addSubview(todoTableView)
         view.addSubview(doingTableView)
         view.addSubview(doneTableView)
-        
     }
     
-    
-    func configureNavigation() {
-        let plusBotton: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .done, target: self, action: #selector(tappedPlusButton))
-        navigationItem.rightBarButtonItem = plusBotton
-        navigationItem.title = "Project Manager"
+    private func configureLayout() {
+        let viewWidth = view.safeAreaLayoutGuide.layoutFrame.width / 3.0
         
+        NSLayoutConstraint.activate([
+            todoTableView.topAnchor.constraint(equalTo: todoTitleView.bottomAnchor, constant: 8),
+            todoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            todoTableView.widthAnchor.constraint(equalToConstant: viewWidth),
+            todoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            doingTableView.topAnchor.constraint(equalTo: doingTitleView.bottomAnchor, constant: 8),
+            doingTableView.leadingAnchor.constraint(equalTo: todoTableView.trailingAnchor),
+            doingTableView.widthAnchor.constraint(equalToConstant: viewWidth),
+            doingTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            doneTableView.topAnchor.constraint(equalTo: doneTitleView.bottomAnchor, constant: 8),
+            doneTableView.leadingAnchor.constraint(equalTo: doingTableView.trailingAnchor),
+            doneTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            doneTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            todoTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            todoTitleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            todoTitleView.widthAnchor.constraint(equalToConstant: viewWidth),
+            todoTitleView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
+            
+            doingTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            doingTitleView.leadingAnchor.constraint(equalTo: todoTableView.trailingAnchor),
+            doingTitleView.widthAnchor.constraint(equalToConstant: viewWidth),
+            doingTitleView.bottomAnchor.constraint(equalTo: doingTableView.topAnchor),
+            
+            doneTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            doneTitleView.leadingAnchor.constraint(equalTo: doingTableView.trailingAnchor),
+            doneTitleView.widthAnchor.constraint(equalToConstant: viewWidth),
+            doneTitleView.bottomAnchor.constraint(equalTo: doneTableView.topAnchor)
+            
+        ])
     }
-    
+   
     @objc private func tappedPlusButton() {
-        let newTODOViewController: NewTODOViewController = NewTODOViewController(isEditMode: false)
+        let newTODOViewController: NewTODOViewController = NewTODOViewController(writeMode: .new)
         newTODOViewController.modalPresentationStyle = .formSheet
         newTODOViewController.delegate = self
         let navigationController: UINavigationController = UINavigationController(rootViewController: newTODOViewController)
-        
-        
         present(navigationController, animated: true, completion: nil)
     }
-    
-    
-    
+
     @objc func longTappedCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
         guard let cell = gestureRecognizer.view as? UITableViewCell else {
             return
@@ -127,7 +156,6 @@ final class RootViewController: UIViewController {
         }
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
         let moveToDo = UIAlertAction(title: "move to TODO", style: .default) { [weak self] _ in
             if tableView.tag == TableViewTag.doing.tag {
                 guard let indexPath = self?.doingTableView.indexPath(for: cell),
@@ -264,44 +292,6 @@ final class RootViewController: UIViewController {
         
         present(alertController, animated: true)
     }
-
-    private func configureLayout() {
-        let viewWidth = view.safeAreaLayoutGuide.layoutFrame.width / 3.0
-        
-        NSLayoutConstraint.activate([
-            todoTableView.topAnchor.constraint(equalTo: TODOTitleView.bottomAnchor, constant: 8),
-            todoTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            todoTableView.widthAnchor.constraint(equalToConstant: viewWidth),
-            todoTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            
-            doingTableView.topAnchor.constraint(equalTo: DOINGTitleView.bottomAnchor, constant: 8),
-            doingTableView.leadingAnchor.constraint(equalTo: todoTableView.trailingAnchor),
-            doingTableView.widthAnchor.constraint(equalToConstant: viewWidth),
-            doingTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            doneTableView.topAnchor.constraint(equalTo: DONETitleView.bottomAnchor, constant: 8),
-            doneTableView.leadingAnchor.constraint(equalTo: doingTableView.trailingAnchor),
-            doneTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            doneTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            TODOTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            TODOTitleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            TODOTitleView.widthAnchor.constraint(equalToConstant: viewWidth),
-            TODOTitleView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
-            
-            DOINGTitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            DOINGTitleView.leadingAnchor.constraint(equalTo: todoTableView.trailingAnchor),
-            DOINGTitleView.widthAnchor.constraint(equalToConstant: viewWidth),
-            DOINGTitleView.bottomAnchor.constraint(equalTo: doingTableView.topAnchor),
-            
-            DONETitleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            DONETitleView.leadingAnchor.constraint(equalTo: doingTableView.trailingAnchor),
-            DONETitleView.widthAnchor.constraint(equalToConstant: viewWidth),
-            DONETitleView.bottomAnchor.constraint(equalTo: doneTableView.topAnchor)
-            
-        ])
-    }
 }
 
 extension RootViewController: UITableViewDataSource, UITableViewDelegate {
@@ -319,49 +309,37 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.tag == TableViewTag.todo.tag {
-            guard let cell = todoTableView.dequeueReusableCell(withIdentifier: "todoTableView", for: indexPath) as? TableViewCell,
-                  let todo = todo[safe: indexPath.item] else {
-                return TableViewCell()
-            }
-            let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
-            cell.configureLabel(text: todo)
-            cell.addGestureRecognizer(longTappedCell)
-            
-            return cell
-        } else if tableView.tag == TableViewTag.doing.tag {
-            guard let cell = doingTableView.dequeueReusableCell(withIdentifier: "doingTableView", for: indexPath) as? TableViewCell else {
-                return TableViewCell()
-            }
-            
-            guard let doing = doing[safe: indexPath.item] else {
-                return TableViewCell()
-            }
-            
-            cell.configureLabel(text: doing)
-            
-            let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
-            cell.addGestureRecognizer(longTappedCell)
-            
-            return cell
-        } else if tableView.tag == TableViewTag.done.tag {
-            guard let cell = doneTableView.dequeueReusableCell(withIdentifier: "doneTableView", for: indexPath) as? TableViewCell else {
-                return TableViewCell()
-            }
-            
-            guard let done = done[safe: indexPath.item] else {
-                return TableViewCell()
-            }
-            
-            cell.configureLabel(text: done)
-            
-            let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
-            cell.addGestureRecognizer(longTappedCell)
-            
-            return cell
-        }
-        return TableViewCell()
+        return createCell(tableView: tableView, indexPath: indexPath)
+    }
+    
+    func createCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        var identifier: String
+        var data: ProjectManager?
         
+        switch tableView.tag {
+        case TableViewTag.todo.tag:
+            identifier = TableViewTag.todo.description
+            data = todo[safe: indexPath.item]
+        case TableViewTag.doing.tag:
+            identifier = TableViewTag.doing.description
+            data = doing[safe: indexPath.item]
+        case TableViewTag.done.tag:
+            identifier = TableViewTag.done.description
+            data = done[safe: indexPath.item]
+        default:
+            return TableViewCell()
+        }
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? TableViewCell,
+              let data = data else {
+            return TableViewCell()
+        }
+        
+        let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
+        cell.configureLabel(text: data)
+        cell.addGestureRecognizer(longTappedCell)
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -391,8 +369,8 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension RootViewController: NewTODOViewControllerDelegate {
-    func getTextModel(textModel: ProjectManager) {
-        self.todo.append(textModel)
+    func getText(text: ProjectManager) {
+        self.todo.append(text)
         let indexPath = IndexPath(row: todo.count - 1, section: 0)
         todoTableView.insertRows(at: [indexPath], with: .automatic)
     }

@@ -20,6 +20,7 @@
 		DC39210E2AC2CE8D007F68F5 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210D2AC2CE8D007F68F5 /* Array+.swift */; };
 		DC3921102AC2CF14007F68F5 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210F2AC2CF14007F68F5 /* Date+.swift */; };
 		DC3921152AC3D60C007F68F5 /* TableViewTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3921142AC3D60C007F68F5 /* TableViewTag.swift */; };
+		DC3921172AC408F7007F68F5 /* WriteMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3921162AC408F7007F68F5 /* WriteMode.swift */; };
 		DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		DC39210D2AC2CE8D007F68F5 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		DC39210F2AC2CF14007F68F5 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		DC3921142AC3D60C007F68F5 /* TableViewTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewTag.swift; sourceTree = "<group>"; };
+		DC3921162AC408F7007F68F5 /* WriteMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMode.swift; sourceTree = "<group>"; };
 		DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				DC3921142AC3D60C007F68F5 /* TableViewTag.swift */,
+				DC3921162AC408F7007F68F5 /* WriteMode.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				DC3920C52ABC6905007F68F5 /* TableViewCell.swift in Sources */,
 				DC3920D52ABDBB40007F68F5 /* NewTODOViewController.swift in Sources */,
 				DC3921152AC3D60C007F68F5 /* TableViewTag.swift in Sources */,
+				DC3921172AC408F7007F68F5 /* WriteMode.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* RootViewController.swift in Sources */,
 				DC3920D12ABD8E59007F68F5 /* TitleView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
