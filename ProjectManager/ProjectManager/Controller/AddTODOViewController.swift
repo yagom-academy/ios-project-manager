@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddTodoDelegate: AnyObject {
+    func didAddTodoItem(title: String, body: String, date: Date)
+}
+
 final class AddTODOViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -39,6 +43,8 @@ final class AddTODOViewController: UIViewController {
         
         return datePicker
     }()
+    
+    weak var delegate: AddTodoDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +70,7 @@ final class AddTODOViewController: UIViewController {
     }
     
     @objc private func doneButton() {
+        setUpItemText()
         dismiss(animated: true)
     }
     
@@ -92,6 +99,16 @@ final class AddTODOViewController: UIViewController {
             bodyTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -4),
             bodyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -4)
         ])
+    }
+    
+    private func setUpItemText() {
+        let date = datePicker.date
+        guard let titleText = titleTextField.text,
+              let bodyText = bodyTextView.text else {
+            return
+        }
+        
+        delegate?.didAddTodoItem(title: titleText, body: bodyText, date: date)
     }
 }
 

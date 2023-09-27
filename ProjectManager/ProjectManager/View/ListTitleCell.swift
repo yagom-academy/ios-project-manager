@@ -48,7 +48,6 @@ final class ListTitleCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 4),
             
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 4),

@@ -44,6 +44,7 @@ final class MainViewController: UIViewController {
     }()
     
     private var tableViewData: [UITableView: [Int: Int]] = [:]
+    private var todoItems = [ProjectManager]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +80,7 @@ final class MainViewController: UIViewController {
         let backgroundView = UIView(frame: view.bounds)
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         addTODOView.view.sendSubviewToBack(backgroundView)
+        addTODOView.delegate = self
     
         present(navigationController, animated: true)
     }
@@ -119,11 +121,26 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let rowInSection = tableViewData[tableView]?[section] {
-            return rowInSection
-        }
+        switch (tableView, section) {
+        case (todoTableView, 0):
+            return 1
         
-        return 0
+        case (todoTableView, 1):
+            return todoItems.count
+            
+        case (doingTableView, 0):
+            return 1
+        case (doingTableView, 1):
+          return 2
+            
+        case (doneTableView, 0):
+            return 1
+        case (doneTableView, 1):
+          return 2
+            
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,14 +148,15 @@ extension MainViewController: UITableViewDataSource {
         case (todoTableView, 0):
             guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
             
-            listCell.setModel(title: "TODO", count: 1)
+            listCell.setModel(title: "TODO", count: todoItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
             
         case (todoTableView, 1):
             guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
             
-            descriptionCell.setModel(title: "제목", body: "내용", date: "날짜")
+            let todoItem = todoItems[indexPath.row]
+            descriptionCell.setModel(title: todoItem.title, body: todoItem.body, date: todoItem.date)
             return descriptionCell
             
         case (doingTableView, 0):
@@ -151,7 +169,6 @@ extension MainViewController: UITableViewDataSource {
         case (doingTableView, 1):
             guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
             
-            descriptionCell.setModel(title: "제목1", body: "내용1", date: "날짜1")
             return descriptionCell
             
         case (doneTableView, 0):
@@ -164,7 +181,6 @@ extension MainViewController: UITableViewDataSource {
         case (doneTableView, 1):
             guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
             
-            descriptionCell.setModel(title: "제목2", body: "내용2", date: "날짜2")
             return descriptionCell
             
         default:
@@ -175,4 +191,12 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDelegate {
     
+}
+
+extension MainViewController: AddTodoDelegate {
+    func didAddTodoItem(title: String, body: String, date: Date) {
+        DataManager.shared.addTodoItem(title: title, body: body, date: date)
+        todoItems = DataManager.shared.leadTodoItem()
+        todoTableView.reloadData()
+    }
 }

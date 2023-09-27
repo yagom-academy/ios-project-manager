@@ -72,9 +72,13 @@ final class DescriptionCell: UITableViewCell {
         ])
     }
     
-    func setModel(title: String, body: String, date: String) {
+    func setModel(title: String, body: String, date: Date) {
         titleLabel.text = title
         bodyLabel.text = body
-        dateLabel.text = date
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        dateLabel.text = dateString
     }
 }
