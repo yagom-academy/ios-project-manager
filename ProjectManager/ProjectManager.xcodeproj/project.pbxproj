@@ -69,6 +69,29 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		63C5ECBB2AC45243003904C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				63C5ECBF2AC465BD003904C4 /* CoreDataManager */,
+				63C5ECBE2AC45277003904C4 /* Entity */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		63C5ECBE2AC45277003904C4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		63C5ECBF2AC465BD003904C4 /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreDataManager;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +111,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				63C5ECBB2AC45243003904C4 /* Model */,
 				63C5ECB22AC1944F003904C4 /* App */,
 				63C5ECB32AC19459003904C4 /* Controller */,
 				63C5ECB42AC19464003904C4 /* View */,

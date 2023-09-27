@@ -2,7 +2,7 @@
 //  DescriptionCell.swift
 //  ProjectManager
 //
-//  Created by 1 on 2023/09/26.
+//  Created by Hemg on 2023/09/26.
 //
 
 import UIKit
@@ -59,12 +59,15 @@ final class DescriptionCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
             
             bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             bodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            bodyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
             
             dateLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 4),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
     }
