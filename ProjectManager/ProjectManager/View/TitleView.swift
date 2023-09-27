@@ -8,9 +8,8 @@
 import UIKit
 
 final class TitleView: UIView {
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label: UILabel = UILabel()
-        label.text = "타이틀"
         label.font = UIFont.systemFont(ofSize: 32)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -48,5 +47,9 @@ final class TitleView: UIView {
             titleStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             titleStackView.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    func configureTitleLabel(text: String) {
+        titleLabel.text = text
     }
 }

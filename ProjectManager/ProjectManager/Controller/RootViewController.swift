@@ -6,17 +6,17 @@
 
 import UIKit
 
-class RootViewController: UIViewController {
-    private var TODO: [TextModel] = []
-    private var DOING: [TextModel] = []
-    private var DONE: [TextModel] = []
+final class RootViewController: UIViewController {
+    private var TODO: [ProjectManager] = []
+    private var DOING: [ProjectManager] = []
+    private var DONE: [ProjectManager] = []
     private var index: IndexPath?
     
     private let TODOTitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
-        titleView.titleLabel.text = "TODO"
+        titleView.configureTitleLabel(text: "TODO")
         
         return titleView
     }()
@@ -25,7 +25,7 @@ class RootViewController: UIViewController {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
-        titleView.titleLabel.text = "DOING"
+        titleView.configureTitleLabel(text: "DOING")
         
         return titleView
     }()
@@ -34,7 +34,7 @@ class RootViewController: UIViewController {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.backgroundColor = .red
-        titleView.titleLabel.text = "DONE"
+        titleView.configureTitleLabel(text: "DONE")
         
         return titleView
     }()
@@ -342,7 +342,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
                 return TableViewCell()
             }
             
-            cell.configureLabel(textModel: todo)
+            cell.configureLabel(text: todo)
             
             let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
             cell.addGestureRecognizer(longTappedCell)
@@ -357,7 +357,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
                 return TableViewCell()
             }
             
-            cell.configureLabel(textModel: doing)
+            cell.configureLabel(text: doing)
             
             let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
             cell.addGestureRecognizer(longTappedCell)
@@ -372,7 +372,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
                 return TableViewCell()
             }
             
-            cell.configureLabel(textModel: done)
+            cell.configureLabel(text: done)
             
             let longTappedCell = UILongPressGestureRecognizer(target: self, action: #selector(longTappedCell(_:)))
             cell.addGestureRecognizer(longTappedCell)
@@ -414,7 +414,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension RootViewController: NewTODOViewControllerDelegate {
-    func getTextModel(textModel: TextModel) {
+    func getTextModel(textModel: ProjectManager) {
         self.TODO.append(textModel)
         
         let indexPath = IndexPath(row: TODO.count - 1, section: 0)

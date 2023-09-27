@@ -13,11 +13,10 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		DC3920C52ABC6905007F68F5 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920C42ABC6905007F68F5 /* TableViewCell.swift */; };
-		DC3920CB2ABC79D0007F68F5 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920CA2ABC79D0007F68F5 /* TableViewModel.swift */; };
 		DC3920D12ABD8E59007F68F5 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D02ABD8E59007F68F5 /* TitleView.swift */; };
 		DC3920D32ABDB417007F68F5 /* SeparateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D22ABDB417007F68F5 /* SeparateView.swift */; };
 		DC3920D52ABDBB40007F68F5 /* NewTODOViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3920D42ABDBB40007F68F5 /* NewTODOViewController.swift */; };
-		DC39210B2AC1E1E1007F68F5 /* TextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210A2AC1E1E1007F68F5 /* TextModel.swift */; };
+		DC39210B2AC1E1E1007F68F5 /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210A2AC1E1E1007F68F5 /* ProjectManager.swift */; };
 		DC39210E2AC2CE8D007F68F5 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210D2AC2CE8D007F68F5 /* Array+.swift */; };
 		DC3921102AC2CF14007F68F5 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC39210F2AC2CF14007F68F5 /* Date+.swift */; };
 		DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */; };
@@ -32,11 +31,10 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC3920C42ABC6905007F68F5 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		DC3920CA2ABC79D0007F68F5 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		DC3920D02ABD8E59007F68F5 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		DC3920D22ABDB417007F68F5 /* SeparateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparateView.swift; sourceTree = "<group>"; };
 		DC3920D42ABDBB40007F68F5 /* NewTODOViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTODOViewController.swift; sourceTree = "<group>"; };
-		DC39210A2AC1E1E1007F68F5 /* TextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModel.swift; sourceTree = "<group>"; };
+		DC39210A2AC1E1E1007F68F5 /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		DC39210D2AC2CE8D007F68F5 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		DC39210F2AC2CF14007F68F5 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		DC72D3952ABB0F51003A3EE9 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
@@ -77,9 +75,9 @@
 				DC72D38E2ABB0242003A3EE9 /* Resource */,
 				DC72D38B2ABB0228003A3EE9 /* Model */,
 				DC72D38C2ABB022E003A3EE9 /* View */,
-				DC72D38D2ABB0234003A3EE9 /* ViewModel */,
 				DC3920C32ABC65F2007F68F5 /* Controller */,
 				DC39210C2AC2CE71007F68F5 /* Extension */,
+				DC3921112AC3C248007F68F5 /* Enum */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -102,10 +100,17 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		DC3921112AC3C248007F68F5 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		DC72D38B2ABB0228003A3EE9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DC39210A2AC1E1E1007F68F5 /* TextModel.swift */,
+				DC39210A2AC1E1E1007F68F5 /* ProjectManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -119,14 +124,6 @@
 				DC3920C42ABC6905007F68F5 /* TableViewCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		DC72D38D2ABB0234003A3EE9 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				DC3920CA2ABC79D0007F68F5 /* TableViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DC72D38E2ABB0242003A3EE9 /* Resource */ = {
@@ -226,14 +223,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC3921102AC2CF14007F68F5 /* Date+.swift in Sources */,
-				DC3920CB2ABC79D0007F68F5 /* TableViewModel.swift in Sources */,
 				DC39210E2AC2CE8D007F68F5 /* Array+.swift in Sources */,
 				DC3920C52ABC6905007F68F5 /* TableViewCell.swift in Sources */,
 				DC3920D52ABDBB40007F68F5 /* NewTODOViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* RootViewController.swift in Sources */,
 				DC3920D12ABD8E59007F68F5 /* TitleView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				DC39210B2AC1E1E1007F68F5 /* TextModel.swift in Sources */,
+				DC39210B2AC1E1E1007F68F5 /* ProjectManager.swift in Sources */,
 				DC3920D32ABDB417007F68F5 /* SeparateView.swift in Sources */,
 				DC72D3962ABB0F51003A3EE9 /* SQLiteManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

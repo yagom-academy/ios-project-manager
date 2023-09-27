@@ -9,7 +9,7 @@ import UIKit
 
 final class NewTODOViewController: UIViewController {
     private let datePicker: UIDatePicker = UIDatePicker()
-    private var textModel: TextModel = TextModel()
+    private var textModel: ProjectManager = ProjectManager()
     private var isEditMode: Bool
     var delegate: NewTODOViewControllerDelegate?
 
@@ -144,7 +144,7 @@ extension NewTODOViewController: UITextViewDelegate {
 
 
 protocol NewTODOViewControllerDelegate: AnyObject {
-    func getTextModel(textModel: TextModel)
+    func getTextModel(textModel: ProjectManager)
 }
 
 

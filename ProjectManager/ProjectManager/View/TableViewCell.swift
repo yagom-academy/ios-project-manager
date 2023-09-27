@@ -14,6 +14,7 @@ final class TableViewCell: UITableViewCell {
         label.numberOfLines = 1
         label.text = " "
         label.font = UIFont.systemFont(ofSize: 8)
+        
         return label
     }()
     
@@ -96,7 +97,7 @@ final class TableViewCell: UITableViewCell {
     }
     
     private func configureLayout() {
-        let height = contentView.frame.height / 3.0
+        let height: CGFloat = contentView.frame.height / 3.0
         
         NSLayoutConstraint.activate([
             borderStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -108,7 +109,7 @@ final class TableViewCell: UITableViewCell {
             titleStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             titleStackView.bottomAnchor.constraint(equalTo: bodyStackView.topAnchor, constant: -8),
             titleStackView.heightAnchor.constraint(equalToConstant: height),
-    
+            
             bodyStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             bodyStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             bodyStackView.bottomAnchor.constraint(equalTo: deadlineStackView.topAnchor, constant: -8),
@@ -120,20 +121,18 @@ final class TableViewCell: UITableViewCell {
             deadlineStackView.heightAnchor.constraint(equalToConstant: height)
         ])
     }
-    func configureLabel(textModel: TextModel) {
-        titleLabel.text = textModel.title
-        bodyLabel.text = textModel.body
-        guard let deadline = textModel.deadline else { return }
+    
+    func configureLabel(text: ProjectManager) {
+        titleLabel.text = text.title
+        bodyLabel.text = text.body
         
-        
-        
-        if Date().compareToday(with: deadline) {
-            deadlineLabel.text = Date().converString(date: deadline)
-            deadlineLabel.textColor = .systemRed
-        } else {
-            deadlineLabel.text = Date().converString(date: deadline)
-            deadlineLabel.textColor = UIColor.black
+        guard let deadline = text.deadline else {
+            return
         }
+        
+        let isDeadlineOver: Bool = Date().compareToday(with: deadline)
+        deadlineLabel.text = Date().converString(date: deadline)
+        deadlineLabel.textColor = isDeadlineOver ? .red : .black
     }
     
     override func prepareForReuse() {
@@ -144,6 +143,4 @@ final class TableViewCell: UITableViewCell {
         deadlineLabel.text = nil
         deadlineLabel.textColor = UIColor.black
     }
-    
-
 }
