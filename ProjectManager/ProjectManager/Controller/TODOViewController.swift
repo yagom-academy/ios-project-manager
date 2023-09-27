@@ -12,6 +12,7 @@ final class TODOViewController: UIViewController {
     private var text: ProjectManager
     private var writeMode: WriteMode
     private let tableViewTag: Int
+    private let indexPath: IndexPath?
     var delegate: NewTODOViewControllerDelegate?
 
     
@@ -43,10 +44,11 @@ final class TODOViewController: UIViewController {
         
     }
     
-    init(writeMode: WriteMode, text: ProjectManager, tableViewTag: Int) {
+    init(writeMode: WriteMode, text: ProjectManager, tableViewTag: Int, indexPath: IndexPath?) {
         self.writeMode = writeMode
         self.text = text
         self.tableViewTag = tableViewTag
+        self.indexPath = indexPath
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -125,7 +127,7 @@ final class TODOViewController: UIViewController {
         if text.deadline == nil {
             text.deadline = Date()
         }
-        delegate?.getText(text: text, writeMode: writeMode, tableViewTag: tableViewTag)
+        delegate?.getText(text: text, writeMode: writeMode, tableViewTag: tableViewTag, indexPath: indexPath)
         dismiss(animated: true)
     }
     
@@ -169,7 +171,7 @@ extension TODOViewController: UITextViewDelegate {
 }
 
 protocol NewTODOViewControllerDelegate: AnyObject {
-    func getText(text: ProjectManager, writeMode: WriteMode, tableViewTag: Int)
+    func getText(text: ProjectManager, writeMode: WriteMode, tableViewTag: Int, indexPath: IndexPath?)
 }
 
 

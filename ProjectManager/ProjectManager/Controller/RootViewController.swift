@@ -10,7 +10,7 @@ final class RootViewController: UIViewController {
     private var todo: [ProjectManager] = []
     private var doing: [ProjectManager] = []
     private var done: [ProjectManager] = []
-
+    
     private let todoTitleView: UIView = {
         let titleView: TitleView = TitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
@@ -136,15 +136,15 @@ final class RootViewController: UIViewController {
             
         ])
     }
-   
+    
     @objc private func tappedPlusButton() {
-        let newTODOViewController: TODOViewController = TODOViewController(writeMode: .new, text: ProjectManager(), tableViewTag: TableViewTag.todo.tag)
+        let newTODOViewController: TODOViewController = TODOViewController(writeMode: .new, text: ProjectManager(), tableViewTag: TableViewTag.todo.tag, indexPath: nil)
         newTODOViewController.modalPresentationStyle = .formSheet
         newTODOViewController.delegate = self
         let navigationController: UINavigationController = UINavigationController(rootViewController: newTODOViewController)
         present(navigationController, animated: true, completion: nil)
     }
-
+    
     @objc func longTappedCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
         guard let cell = gestureRecognizer.view as? UITableViewCell else {
             return
@@ -161,15 +161,15 @@ final class RootViewController: UIViewController {
                       let doingText = self?.doing[safe: indexPath.row] else {
                     return
                 }
-
+                
                 self?.todo.append(doingText)
                 self?.doing.remove(at: indexPath.row)
                 self?.doingTableView.deleteRows(at: [indexPath], with: .automatic)
-
+                
                 guard let count = self?.todo.count else {
                     return
                 }
-
+                
                 let index = IndexPath(row: count - 1, section: 0)
                 self?.todoTableView.insertRows(at: [index], with: .automatic)
             }
@@ -253,7 +253,7 @@ final class RootViewController: UIViewController {
             if tableView.tag == TableViewTag.doing.tag {
                 guard let indexPath = self?.doingTableView.indexPath(for: cell),
                       let doingText = self?.doing[safe: indexPath.row] else {
-                    return 
+                    return
                 }
                 
                 self?.done.append(doingText)
@@ -345,7 +345,7 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        let TODOViewController: TODOViewController = TODOViewController(writeMode: .edit, text: text, tableViewTag: tableViewTag)
+        let TODOViewController: TODOViewController = TODOViewController(writeMode: .edit, text: text, tableViewTag: tableViewTag, indexPath: indexPath)
         TODOViewController.modalPresentationStyle = .formSheet
         TODOViewController.delegate = self
         let navigationController: UINavigationController = UINavigationController(rootViewController: TODOViewController)
@@ -397,16 +397,29 @@ extension RootViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension RootViewController: NewTODOViewControllerDelegate {
-    func getText(text: ProjectManager, writeMode: WriteMode, tableViewTag: Int) {
+    func getText(text: ProjectManager, writeMode: WriteMode, tableViewTag: Int, indexPath: IndexPath?) {
         switch writeMode {
         case .new:
-            self.todo.append(text)
+            todo.append(text)
             let indexPath = IndexPath(row: todo.count - 1, section: 0)
             todoTableView.insertRows(at: [indexPath], with: .automatic)
         case .edit:
-            print("")
-        default:
-            return
+            guard let indexPath = indexPath else {
+                return
+            }
+            
+            if tableViewTag == TableViewTag.todo.tag {
+                todo[indexPath.row] = text
+                todoTableView.reloadRows(at: [indexPath], with: .automatic)
+            } else if tableViewTag == TableViewTag.doing.tag {
+                doing[indexPath.row] = text
+                doingTableView.reloadRows(at: [indexPath], with: .automatic)
+            } else if tableViewTag == TableViewTag.done.tag {
+                done[indexPath.row] = text
+                doneTableView.reloadRows(at: [indexPath], with: .automatic)
+            } else {
+                print("return")
+            }
         }
     }
 }
