@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28913B732AC5666D00E626F7 /* TodoDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913B722AC5666D00E626F7 /* TodoDateFormatter.swift */; };
+		28913B762AC5950E00E626F7 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913B752AC5950E00E626F7 /* Array+.swift */; };
 		28CA66E52AC0F72600FFD7A9 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E42AC0F72600FFD7A9 /* ListCell.swift */; };
 		28CA66E72AC0FE3100FFD7A9 /* ListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */; };
 		28CA66EB2AC1805300FFD7A9 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66EA2AC1805300FFD7A9 /* ListViewModel.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		28913B722AC5666D00E626F7 /* TodoDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDateFormatter.swift; sourceTree = "<group>"; };
+		28913B752AC5950E00E626F7 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		28CA66E42AC0F72600FFD7A9 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeader.swift; sourceTree = "<group>"; };
 		28CA66EA2AC1805300FFD7A9 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28913B742AC594EE00E626F7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				28913B752AC5950E00E626F7 /* Array+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		2897D3752AC05F8400662BAA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 		28CA66F02AC1A02C00FFD7A9 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				28913B742AC594EE00E626F7 /* Extension */,
 				28CA66F12AC1A08600FFD7A9 /* Reusable.swift */,
 				28913B722AC5666D00E626F7 /* TodoDateFormatter.swift */,
 			);
@@ -208,6 +219,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				28CA66E72AC0FE3100FFD7A9 /* ListHeader.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				28913B762AC5950E00E626F7 /* Array+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
