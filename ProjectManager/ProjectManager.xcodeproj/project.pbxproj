@@ -11,6 +11,7 @@
 		450F8F802ABA9E98009D1B14 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */; };
 		450F8F822ABACCAE009D1B14 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F812ABACCAE009D1B14 /* Project.swift */; };
 		450F8F842ABACF7A009D1B14 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F832ABACF7A009D1B14 /* ProjectTableViewCell.swift */; };
+		453839582AC311E60027BAF9 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453839572AC311E60027BAF9 /* Calendar+.swift */; };
 		4549D7572AB953EA005EA4D7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4549D7562AB953EA005EA4D7 /* FirebaseAnalytics */; };
 		459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -25,6 +26,7 @@
 		450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		450F8F812ABACCAE009D1B14 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		450F8F832ABACF7A009D1B14 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
+		453839572AC311E60027BAF9 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
 		4549D7542AB94FE7005EA4D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 		450F8F612ABA7FF5009D1B14 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				453839572AC311E60027BAF9 /* Calendar+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -174,27 +177,14 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		450F8F872ABADF27009D1B14 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Network;
 			sourceTree = "<group>";
 		};
-		4519DC7A2ABD134F00EF65E3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				450F8F872ABADF27009D1B14 /* Network */,
 			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		4519DC7B2ABD172A00EF65E3 /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				4519DC7C2ABD179800EF65E3 /* ProjectRepositoryError.swift */,
-			);
-			path = Error;
 			sourceTree = "<group>";
 		};
 		459D1BB22ABC2B6900D80E1A /* ProjectDetail */ = {
@@ -244,8 +234,6 @@
 				450F8F5E2ABA7F57009D1B14 /* Application */,
 				450F8F662ABA81D1009D1B14 /* Domain */,
 				450F8F622ABA8017009D1B14 /* Presentation */,
-				4519DC7A2ABD134F00EF65E3 /* Data */,
-				4519DC7B2ABD172A00EF65E3 /* Error */,
 				450F8F5F2ABA7F7E009D1B14 /* Utils */,
 				450F8F602ABA7FDA009D1B14 /* Resources */,
 			);
@@ -356,6 +344,7 @@
 				450F8F7E2ABA9E8A009D1B14 /* ProjectListViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				453839582AC311E60027BAF9 /* Calendar+.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				450F8F822ABACCAE009D1B14 /* Project.swift in Sources */,
 				459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */,
