@@ -84,12 +84,11 @@ extension ListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier) as? ListCell,
-              let todoList = listViewModel.todoList
+              let todoList = listViewModel.todoList,
+              let todo = todoList[safe: indexPath.row]
         else {
             return UITableViewCell()
         }
-        
-        let todo = todoList[indexPath.row]
         
         cell.setUpContent(todo)
         
