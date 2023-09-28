@@ -80,5 +80,10 @@ final class DescriptionCell: UITableViewCell {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
         dateLabel.text = dateString
+        
+        let currentDate = Date()
+        if currentDate > date {
+            dateLabel.textColor = .red
+        }
     }
 }

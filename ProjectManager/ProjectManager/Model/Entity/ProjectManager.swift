@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectManager {
+struct ProjectManager: Equatable {
     let title: String
     let body: String
     let date: Date

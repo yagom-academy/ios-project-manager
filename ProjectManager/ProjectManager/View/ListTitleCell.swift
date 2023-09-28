@@ -12,6 +12,7 @@ final class ListTitleCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
         
         return label
     }()
@@ -20,6 +21,7 @@ final class ListTitleCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 3
         
         return label
     }()
