@@ -18,6 +18,7 @@
 		453839582AC311E60027BAF9 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453839572AC311E60027BAF9 /* Calendar+.swift */; };
 		4549D7572AB953EA005EA4D7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4549D7562AB953EA005EA4D7 /* FirebaseAnalytics */; };
 		459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */; };
+		45C202E42AC5164D004882DC /* ProjectTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C202E32AC5164D004882DC /* ProjectTableViewCellViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -37,6 +38,7 @@
 		453839572AC311E60027BAF9 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
 		4549D7542AB94FE7005EA4D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
+		45C202E32AC5164D004882DC /* ProjectTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				4519DC802ABD21E600EF65E3 /* ProjectListViewModel.swift */,
+				45C202E32AC5164D004882DC /* ProjectTableViewCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				450F8F822ABACCAE009D1B14 /* Project.swift in Sources */,
 				459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */,
 				4519DC7F2ABD19A400EF65E3 /* MainViewModel.swift in Sources */,
+				45C202E42AC5164D004882DC /* ProjectTableViewCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
