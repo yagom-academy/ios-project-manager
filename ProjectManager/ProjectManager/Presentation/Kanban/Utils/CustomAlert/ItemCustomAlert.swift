@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ItemCustomAlert<Alert: View, T>: ViewModifier {
+    @EnvironmentObject var keyboard: KeyboardManager
     @Binding var item: T?
     let alertView: Alert
     func body(content: Content) -> some View {
@@ -24,7 +25,11 @@ struct ItemCustomAlert<Alert: View, T>: ViewModifier {
         Color.black.opacity(0.5)
             .ignoresSafeArea()
             .onTapGesture {
-                item = nil
+                if keyboard.isVisible {
+                    keyboard.hide()
+                } else {
+                    item = nil
+                }
             }
     }
 }
