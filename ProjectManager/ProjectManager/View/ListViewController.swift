@@ -61,7 +61,7 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listViewModel.countTodo()
+        return listViewModel.todoList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,9 +69,9 @@ extension ListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let todo = listViewModel.getTodo(index: indexPath.row)
+        let todo = listViewModel.todoList[indexPath.row]
         
-        cell.setUpViewModel(ListCellViewModel(todo: todo))
+        cell.setUpContent(todo)
         
         return cell
     }

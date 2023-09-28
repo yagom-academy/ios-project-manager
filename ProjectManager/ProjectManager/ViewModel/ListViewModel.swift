@@ -8,12 +8,7 @@
 import Foundation
 
 final class ListViewModel {
-    // ListViewController에서 ListCell의 ListCellViewModel로 전달하게될 모델의 배열
-    private var todoList: [Todo] {
-        didSet {
-            count = String(todoList.count)
-        }
-    }
+    var todoList: [Todo]
     
     // ListHeader의 contentAmountLabel와 바인딩할 변수
     var count: String {
@@ -35,15 +30,6 @@ final class ListViewModel {
         ]
         
         count = String(todoList.count)
-    }
-    
-    // ListViewController에서 ListCell의 ListCellViewModel로 전달하기 위해 인덱스로 찾아 리턴
-    func getTodo(index: Int) -> Todo {
-        return todoList[index]
-    }
-    
-    func countTodo() -> Int {
-        return todoList.count
     }
     
     func bindCount(_ handler: @escaping (ListViewModel) -> Void) {
