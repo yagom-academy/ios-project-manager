@@ -19,9 +19,10 @@ struct MemoListView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Rectangle()
                             .fill(ColorSet.background)
+                            .frame(height: 10)
                             .overlay(
                                 Rectangle()
-                                    .frame(width: nil, height: 3, alignment: .top)
+                                    .frame(width: nil, height: 3)
                                     .foregroundColor(ColorSet.border),
                                 alignment: .top
                             )
