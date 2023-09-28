@@ -77,11 +77,20 @@ extension DefaultProjectListViewModel {
     func viewDidLoad() { }
     
     func handleLongPressGesture(target: UITableView, location: CGPoint) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
         guard let indexPath = target.indexPathForRow(at: location) else {
             return
         }
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.modalPresentationStyle = .popover
+        alert.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+        alert.popoverPresentationController?.sourceView = target
+        alert.popoverPresentationController?.sourceRect = CGRect(
+            x: location.x,
+            y: location.y,
+            width: 0,
+            height: 0
+        )
         
         let allProjectStates = State.allCases
         allProjectStates
@@ -100,17 +109,6 @@ extension DefaultProjectListViewModel {
                 
                 alert.addAction(action)
         }
-        
-        alert.modalPresentationStyle = .popover
-        alert.popoverPresentationController?.sourceView = target
-        alert.popoverPresentationController?.sourceRect = CGRect(
-            x: location.x,
-            y: location.y,
-            width: 0,
-            height: 0
-        )
-
-        alert.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         
         actions.showPopAlert(alert)
     }
