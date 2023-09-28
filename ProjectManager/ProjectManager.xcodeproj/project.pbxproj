@@ -23,6 +23,7 @@
 		45C202E62AC51AB4004882DC /* CircleCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C202E52AC51AB4004882DC /* CircleCountLabel.swift */; };
 		45CE2DA62AC258A3005B0152 /* AddProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE2DA52AC258A3005B0152 /* AddProjectViewController.swift */; };
 		45CE2DA82AC258B7005B0152 /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE2DA72AC258B7005B0152 /* EditProjectViewController.swift */; };
+		45DF8AB32ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DF8AB22ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -47,6 +48,7 @@
 		45C202E52AC51AB4004882DC /* CircleCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCountLabel.swift; sourceTree = "<group>"; };
 		45CE2DA52AC258A3005B0152 /* AddProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectViewController.swift; sourceTree = "<group>"; };
 		45CE2DA72AC258B7005B0152 /* EditProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
+		45DF8AB22ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerCoordinator.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		450F8F712ABA9737009D1B14 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
+				45DF8AB22ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				452784202AC01575003B2468 /* CurrentDateFormatManager.swift in Sources */,
 				453839582AC311E60027BAF9 /* Calendar+.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				45DF8AB32ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift in Sources */,
 				4519DC782ABC630D00EF65E3 /* ProjectUseCase.swift in Sources */,
 				450F8F822ABACCAE009D1B14 /* Project.swift in Sources */,
 				45C202E62AC51AB4004882DC /* CircleCountLabel.swift in Sources */,
