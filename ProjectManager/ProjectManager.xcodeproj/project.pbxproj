@@ -11,6 +11,7 @@
 		450F8F802ABA9E98009D1B14 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */; };
 		450F8F822ABACCAE009D1B14 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F812ABACCAE009D1B14 /* Project.swift */; };
 		450F8F842ABACF7A009D1B14 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F8F832ABACF7A009D1B14 /* ProjectTableViewCell.swift */; };
+		4519DC782ABC630D00EF65E3 /* ProjectUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4519DC772ABC630D00EF65E3 /* ProjectUseCase.swift */; };
 		452784202AC01575003B2468 /* CurrentDateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4527841F2AC01575003B2468 /* CurrentDateFormatManager.swift */; };
 		453839582AC311E60027BAF9 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453839572AC311E60027BAF9 /* Calendar+.swift */; };
 		4549D7572AB953EA005EA4D7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4549D7562AB953EA005EA4D7 /* FirebaseAnalytics */; };
@@ -27,6 +28,7 @@
 		450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		450F8F812ABACCAE009D1B14 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		450F8F832ABACF7A009D1B14 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
+		4519DC772ABC630D00EF65E3 /* ProjectUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUseCase.swift; sourceTree = "<group>"; };
 		4527841F2AC01575003B2468 /* CurrentDateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateFormatManager.swift; sourceTree = "<group>"; };
 		453839572AC311E60027BAF9 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
 		4549D7542AB94FE7005EA4D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		450F8F852ABADF14009D1B14 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				4519DC772ABC630D00EF65E3 /* ProjectUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				452784202AC01575003B2468 /* CurrentDateFormatManager.swift in Sources */,
 				453839582AC311E60027BAF9 /* Calendar+.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				4519DC782ABC630D00EF65E3 /* ProjectUseCase.swift in Sources */,
 				450F8F822ABACCAE009D1B14 /* Project.swift in Sources */,
 				459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */,
 			);
