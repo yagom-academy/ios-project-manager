@@ -15,6 +15,7 @@ final class ManagerCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 8
+        stackView.distribution = .equalSpacing
         
         return stackView
     }()
@@ -52,6 +53,8 @@ final class ManagerCell: UITableViewCell {
     }
     
     private func setUI() {
+        separatorInset = UIEdgeInsets.zero
+        
         addSubview(stackView)
         
         stackView.addArrangedSubview(titleLabel)
