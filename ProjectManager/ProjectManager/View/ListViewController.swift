@@ -24,6 +24,24 @@ final class ListViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        setUpViewDidLoadNotification()
+        setUpBindings()
+    }
+    
+    // viewDidLoad 시점을 뷰모델에 알려 데이터를 로드할 수 있도록 함
+    private func setUpViewDidLoadNotification() {
+        NotificationCenter.default
+            .post(
+                name: NSNotification.Name("ListViewControllerViewDidLoad"),
+                object: nil
+            )
+    }
+    
+    // listViewModel의 todoList가 바뀌면 테이블뷰를 업데이트
+    private func setUpBindings() {
+        listViewModel.bindTodoList { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
 }
 
@@ -61,15 +79,17 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listViewModel.todoList.count
+        return listViewModel.todoList?.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier) as? ListCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.identifier) as? ListCell,
+              let todoList = listViewModel.todoList
+        else {
             return UITableViewCell()
         }
         
-        let todo = listViewModel.todoList[indexPath.row]
+        let todo = todoList[indexPath.row]
         
         cell.setUpContent(todo)
         
