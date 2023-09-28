@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProjectDetailViewController: UIViewController {
+class ProjectDetailViewController: UIViewController {
     
     // MARK: - Private ProPerty
     private let stackView: UIStackView = {
@@ -21,7 +21,7 @@ final class ProjectDetailViewController: UIViewController {
         return stackView
     }()
     
-    private let textField: UITextField = {
+    let textField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .bezel
         textField.placeholder = "Title"
@@ -29,14 +29,15 @@ final class ProjectDetailViewController: UIViewController {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
         
         return datePicker
     }()
     
-    private let textView: UITextView = {
+    let textView: UITextView = {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .body)
         textView.layer.borderWidth = 2
@@ -45,8 +46,11 @@ final class ProjectDetailViewController: UIViewController {
         return textView
     }()
     
+    let viewModel: ProjectDetailViewModel
+    
     // MARK: - Life Cycle
-    init() {
+    init(viewModel: ProjectDetailViewModel) {
+        self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -55,10 +59,17 @@ final class ProjectDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - View event
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
+    }
+    
+    @objc func tapDoneButton() {
+        viewModel.tapDoneButton(title: textField.text, body: textView.text, date: datePicker.date)
+        
+        dismiss(animated: true)
     }
 }
 
@@ -72,11 +83,12 @@ extension ProjectDetailViewController {
     }
     
     private func configureNavigation() {
-        navigationItem.title = "TODO"
-        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tapDoneButton))
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .systemFill
         
+        navigationItem.title = viewModel.navigationTitle
+        navigationItem.rightBarButtonItem = doneButton
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
