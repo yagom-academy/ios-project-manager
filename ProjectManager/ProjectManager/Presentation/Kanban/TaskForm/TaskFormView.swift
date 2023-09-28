@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct TaskFormView: View {    
+struct TaskFormView<ViewModel: TaskFormProtocol>: View {    
     @EnvironmentObject private var kanbanViewModel: KanbanViewModel
     @EnvironmentObject private var keyboard: KeyboardManager
     
-    @ObservedObject private var taskFormViewModel: TaskFormViewModel    
+    @ObservedObject private var taskFormViewModel: ViewModel
     
     @FocusState private var textEditorIsFocused: Bool
     @Namespace private var textEditor
     
-    init(title: String, size: CGSize) {
-        self.taskFormViewModel = TaskFormViewModel(formTitle: title, formSize: size)
+    init(viewModel: ViewModel) {
+        self.taskFormViewModel = viewModel        
     }
     
     var body: some View {
@@ -30,14 +30,21 @@ struct TaskFormView: View {
                         contentTextEditor(proxy)
                         emptySpaceForKeyboard                            
                     }
+                    .disabled(!taskFormViewModel.isEditable)
                     .padding()
                 }
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar { toolbarItems }
             .navigationTitle(taskFormViewModel.formTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                if taskFormViewModel.formMode == .create {
+                    createToolbarItems
+                } else {
+                    editToolbarItems
+                }
+            }
         }
         .cornerRadius(10)
         .frame(width: taskFormViewModel.formWidth, height: taskFormViewModel.formHeight)
@@ -85,7 +92,7 @@ struct TaskFormView: View {
     }
     
     @ToolbarContentBuilder
-    private var toolbarItems: some ToolbarContent {
+    private var createToolbarItems: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             Button("Cancel") {
                 kanbanViewModel.setFormVisible(false)
@@ -102,10 +109,32 @@ struct TaskFormView: View {
             .disabled(taskFormViewModel.title.isEmpty)
         }
     }
+    
+    @ToolbarContentBuilder
+    private var editToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button("Edit") {
+                taskFormViewModel.isEditable = true
+            }
+        }
+        
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button("Done") {
+                let task = taskFormViewModel.task
+                
+                kanbanViewModel.update(newTask: task)
+                kanbanViewModel.setFormVisible(nil)
+            }
+        }
+    }
 }
 
 struct TaskAddView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskFormView(title: "Todo", size: CGSize(width: 500, height: 600))
+        TaskFormView(
+            viewModel: TaskCreator(
+                formSize: CGSize(width: 500, height: 600)
+            )
+        )
     }
 }

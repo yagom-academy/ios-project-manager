@@ -1,44 +1,45 @@
 //
-//  CustomAlert.swift
+//  ItemCustomAlert.swift
 //  ProjectManager
 //
-//  Created by Minsup & Whales on 2023/09/21.
+//  Created by Minsup & Whales on 2023/09/29.
 //
 
 import SwiftUI
 
-struct CustomAlert<Alert: View>: ViewModifier {
-    @Binding var isOn: Bool
+struct ItemCustomAlert<Alert: View, T>: ViewModifier {
+    @Binding var item: T?
     let alertView: Alert
     func body(content: Content) -> some View {
         ZStack {
             content
-            if isOn {
+            if item != nil {
                 bluredBackground
-                alertView                    
+                alertView
             }
-        }        
+        }
     }
     
     var bluredBackground: some View {
         Color.black.opacity(0.5)
             .ignoresSafeArea()
             .onTapGesture {
-                isOn = false
+                item = nil
             }
     }
 }
 
 extension View {
-    func customAlert<Alert: View>(
-        isOn: Binding<Bool>,
+    func customAlert<Alert: View, T>(
+        item: Binding<T?>,
         alertView: @escaping () -> Alert
     ) -> some View {
         modifier(
-            CustomAlert(
-                isOn: isOn,
+            ItemCustomAlert(
+                item: item,
                 alertView: alertView()
             )
         )
     }
 }
+

@@ -23,21 +23,25 @@ struct ColumnView: View {
                     CardView(task: task)
                 }
             } header: {
-                HStack {
-                    Text(title)
-                        .font(.title)
-                        .foregroundColor(.primary)
-                    Text("\(tasks.count)")
-                        .foregroundColor(.white)
-                        .bold()
-                        .padding(6)
-                        .background {
-                            Circle().fill(.black)
-                        }
-                }
+                columnInfo
             }
         }
         .listStyle(.grouped)
+    }
+    
+    var columnInfo: some View {
+        HStack {
+            Text(title)
+                .font(.title)
+                .foregroundColor(.primary)
+            Text("\(tasks.count)")
+                .foregroundColor(.white)
+                .bold()
+                .padding(6)
+                .background {
+                    Circle().fill(.black)
+                }
+        }
     }
 }
 

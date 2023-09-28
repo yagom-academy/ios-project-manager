@@ -37,7 +37,17 @@ struct KanbanView: View {
                 }
             }
             .customAlert(isOn: $kanbanViewModel.isFormOn) {
-                TaskFormView(title: "Todo", size: geo.size)
+                TaskFormView(
+                    viewModel:TaskCreator(formSize: geo.size)
+                )
+            }
+            .customAlert(item: $kanbanViewModel.selectedTask) {
+                TaskFormView(
+                    viewModel: TaskEditor(
+                        task: kanbanViewModel.selectedTask ?? Task(),
+                        formSize: geo.size
+                    )
+                )
             }
         }
         .environmentObject(kanbanViewModel)

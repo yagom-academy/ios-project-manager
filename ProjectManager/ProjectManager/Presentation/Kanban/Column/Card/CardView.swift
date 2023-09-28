@@ -43,6 +43,9 @@ struct CardView: View {
                 kanbanViewModel.delete(cardViewModel.task)
             }
         }
+        .onTapGesture {
+            kanbanViewModel.setFormVisible(cardViewModel.task)
+        }
     }
 }
 
