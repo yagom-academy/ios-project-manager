@@ -92,8 +92,8 @@ extension ProjectTableViewCell {
     }
     
     private func configureView() {
-        self.backgroundColor = .clear
-        self.selectionStyle = .none
+        backgroundColor = .clear
+        selectionStyle = .none
         
         contentView.addSubview(stackView)
         contentView.backgroundColor = .systemBackground

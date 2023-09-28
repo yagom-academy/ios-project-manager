@@ -52,13 +52,17 @@ final class DefaultProjectListViewModel: ProjectListViewModel {
     }
     
     private func setupBindings() {
-        projectUseCase.readProjects().sink { projects in
-            let targetProjects = projects.filter {
+        projectUseCase.readProjects().sink { [weak self] readProjects in
+            guard let self else {
+                return
+            }
+            
+            let targetProjects = readProjects.filter {
                 $0.state == self.state
             }
             
-            self.projects = targetProjects
-            self.projectCount = targetProjects.count
+            projects = targetProjects
+            projectCount = targetProjects.count
         }.store(in: &cancellables)
     }
     
