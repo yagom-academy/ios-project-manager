@@ -66,6 +66,7 @@
 		450F8F5F2ABA7F7E009D1B14 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				45C202E72AC549CB004882DC /* Managers */,
 				450F8F612ABA7FF5009D1B14 /* Extensions */,
 			);
 			path = Utils;
