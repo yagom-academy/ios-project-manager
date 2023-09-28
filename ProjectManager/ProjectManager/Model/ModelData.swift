@@ -7,17 +7,8 @@
 
 import Foundation
 
-var testMemo: [Memo] = [
-    Memo(title: "title1", body: "body1", deadline: .now, category: .toDo),
-    Memo(title: "title2", body: "body2", deadline: .now, category: .toDo),
-    Memo(title: "title3", body: "body3", deadline: .now, category: .doing),
-    Memo(title: "title4", body: "body4", deadline: .now, category: .done),
-    Memo(title: "title5", body: "body5", deadline: .now, category: .done),
-    Memo(title: "title6", body: "body6", deadline: .now, category: .toDo)
-]
-
 final class ModelData: ObservableObject {
-    @Published var memos: [Memo] = testMemo
+    @Published var memos: [Memo] = memoExample
     
     var toDoList: [Memo] {
         memos.filter { $0.category == .toDo }
@@ -31,3 +22,30 @@ final class ModelData: ObservableObject {
         memos.filter { $0.category == .done }
     }
 }
+
+var memoExample: [Memo] = [
+    Memo(title: "저녁 재료 주문하기🍅",
+         body: "- 파스타면\n- 베이컨\n- 토마토\n- 치즈\n- 생크림",
+         deadline: Calendar.current.date(byAdding: .day, value: 0, to: .now) ?? .now,
+         category: .toDo),
+    Memo(title: "STEP2-1 PR 보내기💻",
+         body: "문제점 수정 후 PR 작성",
+         deadline: Calendar.current.date(byAdding: .day, value: 1, to: .now) ?? .now,
+         category: .toDo),
+    Memo(title: "11월까지 돈 모으기!💵",
+         body: "일주일에 만원씩 모아보자",
+         deadline: Calendar.current.date(byAdding: .day, value: 40, to: .now) ?? .now,
+         category: .doing),
+    Memo(title: "STEP1 PR 보내기📮",
+         body: "기술 스텍 선정 및 firebase 설치",
+         deadline: Calendar.current.date(byAdding: .day, value: -7, to: .now) ?? .now,
+         category: .done),
+    Memo(title: "친구 생일 선물 고르기🎁",
+         body: "뭐 좋아하려나...🤔",
+         deadline: Calendar.current.date(byAdding: .day, value: -10, to: .now) ?? .now,
+         category: .done),
+    Memo(title: "TIL 작성하기📝",
+         body: "Swift Concurrency 정리해야돼에엥",
+         deadline: Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now,
+         category: .toDo)
+]
