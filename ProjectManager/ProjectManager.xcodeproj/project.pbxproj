@@ -15,6 +15,7 @@
 		4519DC7F2ABD19A400EF65E3 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4519DC7E2ABD19A400EF65E3 /* MainViewModel.swift */; };
 		4519DC812ABD21E600EF65E3 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4519DC802ABD21E600EF65E3 /* ProjectListViewModel.swift */; };
 		452784202AC01575003B2468 /* CurrentDateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4527841F2AC01575003B2468 /* CurrentDateFormatManager.swift */; };
+		452784222AC01BE5003B2468 /* ProjectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452784212AC01BE5003B2468 /* ProjectDetailViewModel.swift */; };
 		453839582AC311E60027BAF9 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453839572AC311E60027BAF9 /* Calendar+.swift */; };
 		4549D7572AB953EA005EA4D7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4549D7562AB953EA005EA4D7 /* FirebaseAnalytics */; };
 		459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */; };
@@ -36,6 +37,7 @@
 		4519DC7E2ABD19A400EF65E3 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4519DC802ABD21E600EF65E3 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
 		4527841F2AC01575003B2468 /* CurrentDateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateFormatManager.swift; sourceTree = "<group>"; };
+		452784212AC01BE5003B2468 /* ProjectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewModel.swift; sourceTree = "<group>"; };
 		453839572AC311E60027BAF9 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
 		4549D7542AB94FE7005EA4D7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
@@ -194,23 +196,26 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-			isa = PBXGroup;
-			children = (
-			);
-			sourceTree = "<group>";
-		};
-			isa = PBXGroup;
-			children = (
-			);
-			sourceTree = "<group>";
-		};
 		459D1BB22ABC2B6900D80E1A /* ProjectDetail */ = {
 			isa = PBXGroup;
 			children = (
 				459D1BB42ABC2BB700D80E1A /* ViewModel */,
-				459D1BB32ABC2BB000D80E1A /* View */,
 			);
 			path = ProjectDetail;
+			sourceTree = "<group>";
+		};
+			isa = PBXGroup;
+			children = (
+			);
+			sourceTree = "<group>";
+		};
+		459D1BB42ABC2BB700D80E1A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				459D1BB32ABC2BB000D80E1A /* View */,
+				452784212AC01BE5003B2468 /* ProjectDetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		459D1BB32ABC2BB000D80E1A /* View */ = {
@@ -221,16 +226,15 @@
 				4527841F2AC01575003B2468 /* CurrentDateFormatManager.swift */,
 			);
 			path = View;
+			path = Managers;
 			sourceTree = "<group>";
 		};
-		459D1BB42ABC2BB700D80E1A /* ViewModel */ = {
 		45C202E82AC54A28004882DC /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				450F8F7F2ABA9E98009D1B14 /* HeaderView.swift */,
 				45C202E52AC51AB4004882DC /* CircleCountLabel.swift */,
 			);
-			path = ViewModel;
 			path = Component;
 			sourceTree = "<group>";
 		};
@@ -365,6 +369,7 @@
 				450F8F802ABA9E98009D1B14 /* HeaderView.swift in Sources */,
 				450F8F842ABACF7A009D1B14 /* ProjectTableViewCell.swift in Sources */,
 				450F8F7E2ABA9E8A009D1B14 /* ProjectListViewController.swift in Sources */,
+				452784222AC01BE5003B2468 /* ProjectDetailViewModel.swift in Sources */,
 				4519DC812ABD21E600EF65E3 /* ProjectListViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
