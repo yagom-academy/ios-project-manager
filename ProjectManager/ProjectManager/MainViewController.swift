@@ -42,8 +42,20 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNavigationItem()
         setTableViews()
         setUI()
+    }
+    
+    private func setNavigationItem() {
+        navigationItem.title = "Project Manager"
+        
+        let addAction = UIAction { _ in
+            // TODO: + 버튼 터치 시 동작 작성
+            print("touch addAction")
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)
     }
     
     private func setTableViews() {
