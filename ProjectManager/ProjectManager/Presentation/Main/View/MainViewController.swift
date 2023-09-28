@@ -21,15 +21,19 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
+    private let viewModel: MainViewModel
+    
     private let toDoListViewController: ProjectListViewController
     private let doingListViewController: ProjectListViewController
     private let doneListViewController: ProjectListViewController
     
     // MARK: - Life Cycle
-    init(toDoListViewController: ProjectListViewController,
+    init(viewModel: MainViewModel,
+         toDoListViewController: ProjectListViewController,
          doingListViewController: ProjectListViewController,
          doneListViewController: ProjectListViewController
     ) {
+        self.viewModel = viewModel
         self.toDoListViewController = toDoListViewController
         self.doingListViewController = doingListViewController
         self.doneListViewController = doneListViewController
@@ -41,10 +45,15 @@ final class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - View event
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
+    }
+    
+    @objc private func tapAddButton() {
+        viewModel.tapAddButton()
     }
 }
 
@@ -58,13 +67,12 @@ extension MainViewController {
     }
     
     private func configureNavigation() {
-        navigationItem.title = "ProjectManager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tapAddButton))
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .systemFill
 
-        navigationController?.navigationBar.standardAppearance = appearance
+        navigationItem.title = viewModel.navigationTitle
+        navigationItem.rightBarButtonItem = addButton
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
