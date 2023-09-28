@@ -69,6 +69,20 @@ final class ProjectTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: - Interface
+extension ProjectTableViewCell {
+    func setupViewModel(_ viewModel: ProjectTableViewCellViewModel) {
+        setupBindings(viewModel)
+    }
+    
+    private func setupBindings(_ viewModel: ProjectTableViewCellViewModel) {
+        titleLabel.text = viewModel.title
+        bodyLabel.text = viewModel.body
+        deadlineLabel.text = viewModel.deadline
+        deadlineLabel.textColor = viewModel.deadlineColor
+    }
+}
+
 // MARK: - Configure UI
 extension ProjectTableViewCell {
     private func configureUI() {
