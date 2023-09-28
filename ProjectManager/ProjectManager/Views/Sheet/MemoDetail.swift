@@ -22,28 +22,9 @@ struct MemoDetail: View {
                 Color.white
                 
                 VStack {
-                    Rectangle()
-                        .frame(height: 50)
-                        .foregroundColor(.white)
-                        .shadow(radius: 5, x: 0, y: 5)
-                        .overlay(
-                            TextField("Title", text: $modelData.memos[memoIndex].title)
-                                .padding(20)
-                        )
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
-                    
-                    DatePicker("deadline", selection: $modelData.memos[memoIndex].deadline, displayedComponents: .date)
-                        .labelsHidden()
-                        .datePickerStyle(.wheel)
-                    
-                    Rectangle()
-                        .foregroundColor(.white)
-                        .shadow(radius: 5, x: 0, y: 5)
-                        .overlay(
-                            TextEditor(text: $modelData.memos[memoIndex].body)
-                                .padding(20)
-                        )
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                    TitleTextField(content: $modelData.memos[memoIndex].title)
+                    DeadlinePicker(date: $modelData.memos[memoIndex].deadline)
+                    BodyTextField(content: $modelData.memos[memoIndex].body)
                 }
                 .navigationTitle(memo.category.description)
                 .navigationBarTitleDisplayMode(.inline)

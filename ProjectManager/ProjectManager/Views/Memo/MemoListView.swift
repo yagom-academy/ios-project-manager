@@ -17,15 +17,7 @@ struct MemoListView: View {
             Section {
                 ForEach(memos) { memo in
                     VStack(alignment: .leading, spacing: 2) {
-                        Rectangle()
-                            .fill(ColorSet.background)
-                            .frame(height: 10)
-                            .overlay(
-                                Rectangle()
-                                    .frame(width: nil, height: 3)
-                                    .foregroundColor(ColorSet.border),
-                                alignment: .top
-                            )
+                        HorizontalDivider()
                         
                         MemoRow(memo: memo)
                             .swipeActions {
@@ -48,14 +40,7 @@ struct MemoListView: View {
                     MemoDetail(memo: memo)
                 }
             } header: {
-                HStack {
-                    Text(category.description)
-                    Image(systemName: "\(memos.count).circle.fill")
-                    Spacer()
-                }
-                .font(.largeTitle)
-                .foregroundColor(.primary)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                ListHeader(category: category.description, memoCount: memos.count)
             }
         }
         .listStyle(.grouped)
