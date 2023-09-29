@@ -203,15 +203,12 @@ extension MainViewController: AlertActionCreator {
                 case todoTableView:
                     alertController.addAction(createMoveToDoingAction(selectedCell))
                     alertController.addAction(createMoveToDoneAction(selectedCell))
-                    
                 case doingTableView:
                     alertController.addAction(createMoveToTodoAction(selectedCell))
                     alertController.addAction(createMoveToDoneAction(selectedCell))
-                    
                 case doneTableView:
                     alertController.addAction(createMoveToTodoAction(selectedCell))
                     alertController.addAction(createMoveToDoingAction(selectedCell))
-                    
                 default:
                     break
                 }
@@ -238,74 +235,52 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (tableView, section) {
-        case (todoTableView, 0):
+        case (todoTableView, 0), (doingTableView, 0), (doneTableView, 0):
             return 1
-            
         case (todoTableView, 1):
             return todoItems.count
-            
-        case (doingTableView, 0):
-            return 1
         case (doingTableView, 1):
             return doingItems.count
-            
-        case (doneTableView, 0):
-            return 1
         case (doneTableView, 1):
             return doneItems.count
-            
         default:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let listCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listTitleCell, for: indexPath) as? ListTitleCell else { return UITableViewCell() }
+        
+        guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.descriptionCell, for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+        
         switch (tableView, indexPath.section) {
         case (todoTableView, 0):
-            guard let listCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listTitleCell, for: indexPath) as? ListTitleCell else { return UITableViewCell() }
-            
-            listCell.setModel(title: "TODO", count: todoItems.count)
+            listCell.setModel(title: CellTitleNamespace.todo, count: todoItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
-            
         case (todoTableView, 1):
-            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.descriptionCell, for: indexPath) as? DescriptionCell else { return UITableViewCell() }
-            
             let todoItem = todoItems[indexPath.row]
             descriptionCell.setModel(title: todoItem.title, body: todoItem.body, date: todoItem.date)
             descriptionCell.isUserInteractionEnabled = true
             return descriptionCell
-            
         case (doingTableView, 0):
-            guard let listCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listTitleCell, for: indexPath) as? ListTitleCell else { return UITableViewCell() }
-            
-            listCell.setModel(title: "DOING", count: doingItems.count)
+            listCell.setModel(title: CellTitleNamespace.doing, count: doingItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
-            
         case (doingTableView, 1):
-            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.descriptionCell, for: indexPath) as? DescriptionCell else { return UITableViewCell() }
-            
             let doingItem = doingItems[indexPath.row]
             descriptionCell.setModel(title: doingItem.title, body: doingItem.body, date: doingItem.date)
             descriptionCell.isUserInteractionEnabled = true
             return descriptionCell
-            
         case (doneTableView, 0):
-            guard let listCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listTitleCell, for: indexPath) as? ListTitleCell else { return UITableViewCell() }
-            
-            listCell.setModel(title: "DONE", count: doneItems.count)
+            listCell.setModel(title: CellTitleNamespace.done, count: doneItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
-            
         case (doneTableView, 1):
-            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.descriptionCell, for: indexPath) as? DescriptionCell else { return UITableViewCell() }
-            
             let doneItem = doneItems[indexPath.row]
             descriptionCell.setModel(title: doneItem.title, body: doneItem.body, date: doneItem.date)
             descriptionCell.isUserInteractionEnabled = true
             return descriptionCell
-            
         default:
             return UITableViewCell()
         }
@@ -350,11 +325,11 @@ extension MainViewController: AddTodoDelegate, ItemUpdatable {
     func didEditTodoItem(title: String, body: String, date: Date, index: Int) {
         switch index {
         case 0..<todoItems.count:
-            todoItems = updateItemInArray(todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
+            todoItems = updateItems(todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
         case 0..<doingItems.count:
-            doingItems = updateItemInArray(doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
+            doingItems = updateItems(doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
         default:
-            doneItems = updateItemInArray(doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
+            doneItems = updateItems(doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
         }
     }
 }
