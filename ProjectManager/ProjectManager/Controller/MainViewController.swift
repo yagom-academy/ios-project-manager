@@ -89,20 +89,20 @@ final class MainViewController: UIViewController {
     private func setUpTableView() {
         todoTableView.dataSource = self
         todoTableView.delegate = self
-        todoTableView.register(ListTitleCell.self, forCellReuseIdentifier: "listTitleCell")
-        todoTableView.register(DescriptionCell.self, forCellReuseIdentifier: "descriptionCell")
+        todoTableView.register(ListTitleCell.self, forCellReuseIdentifier: ReuseIdentifier.listTitleCell)
+        todoTableView.register(DescriptionCell.self, forCellReuseIdentifier: ReuseIdentifier.descriptionCell)
         tableViewData[todoTableView] = [0:1, 1:2]
         
         doingTableView.dataSource = self
         doingTableView.delegate = self
-        doingTableView.register(ListTitleCell.self, forCellReuseIdentifier: "listTitleCell")
-        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: "descriptionCell")
+        doingTableView.register(ListTitleCell.self, forCellReuseIdentifier: ReuseIdentifier.listTitleCell)
+        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: ReuseIdentifier.descriptionCell)
         tableViewData[doingTableView] = [0:1, 1:2]
         
         doneTableView.dataSource = self
         doneTableView.delegate = self
-        doneTableView.register(ListTitleCell.self, forCellReuseIdentifier: "listTitleCell")
-        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: "descriptionCell")
+        doneTableView.register(ListTitleCell.self, forCellReuseIdentifier: ReuseIdentifier.listTitleCell)
+        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: ReuseIdentifier.descriptionCell)
         tableViewData[doneTableView] = [0:1, 1:2]
     }
 }
@@ -196,30 +196,30 @@ extension MainViewController {
                 
                 switch tableView {
                 case todoTableView:
-                    let moveToDoingAction = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
+                    let moveToDoingAction = UIAlertAction(title: AlertNamespace.moveToDoing, style: .default) { [weak self] _ in
                         self?.moveToDoing(selectedCell)
                     }
-                    let moveToDoneAction = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
+                    let moveToDoneAction = UIAlertAction(title: AlertNamespace.moveToDone, style: .default) { [weak self] _ in
                         self?.moveToDone(selectedCell)
                     }
                     alertController.addAction(moveToDoingAction)
                     alertController.addAction(moveToDoneAction)
                     
                 case doingTableView:
-                    let moveToTodoAction = UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
+                    let moveToTodoAction = UIAlertAction(title: AlertNamespace.moveToTodo, style: .default) { [weak self] _ in
                         self?.moveToTodo(selectedCell)
                     }
-                    let moveToDoneAction = UIAlertAction(title: "Move to DONE", style: .default) { [weak self] _ in
+                    let moveToDoneAction = UIAlertAction(title: AlertNamespace.moveToDone, style: .default) { [weak self] _ in
                         self?.moveToDone(selectedCell)
                     }
                     alertController.addAction(moveToTodoAction)
                     alertController.addAction(moveToDoneAction)
                     
                 case doneTableView:
-                    let moveToTodoAction = UIAlertAction(title: "Move to TODO", style: .default) { [weak self] _ in
+                    let moveToTodoAction = UIAlertAction(title: AlertNamespace.moveToTodo, style: .default) { [weak self] _ in
                         self?.moveToTodo(selectedCell)
                     }
-                    let moveToDoingAction = UIAlertAction(title: "Move to DOING", style: .default) { [weak self] _ in
+                    let moveToDoingAction = UIAlertAction(title: AlertNamespace.moveToDoing, style: .default) { [weak self] _ in
                         self?.moveToDoing(selectedCell)
                     }
                     alertController.addAction(moveToTodoAction)
@@ -275,14 +275,14 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (tableView, indexPath.section) {
         case (todoTableView, 0):
-            guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
+            guard let listCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listTitleCell, for: indexPath) as? ListTitleCell else { return UITableViewCell() }
             
             listCell.setModel(title: "TODO", count: todoItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
             
         case (todoTableView, 1):
-            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.descriptionCell, for: indexPath) as? DescriptionCell else { return UITableViewCell() }
             
             let todoItem = todoItems[indexPath.row]
             descriptionCell.setModel(title: todoItem.title, body: todoItem.body, date: todoItem.date)
@@ -290,14 +290,14 @@ extension MainViewController: UITableViewDataSource {
             return descriptionCell
             
         case (doingTableView, 0):
-            guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
+            guard let listCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listTitleCell, for: indexPath) as? ListTitleCell else { return UITableViewCell() }
             
             listCell.setModel(title: "DOING", count: doingItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
             
         case (doingTableView, 1):
-            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.descriptionCell, for: indexPath) as? DescriptionCell else { return UITableViewCell() }
             
             let doingItem = doingItems[indexPath.row]
             descriptionCell.setModel(title: doingItem.title, body: doingItem.body, date: doingItem.date)
@@ -305,14 +305,14 @@ extension MainViewController: UITableViewDataSource {
             return descriptionCell
             
         case (doneTableView, 0):
-            guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
+            guard let listCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listTitleCell, for: indexPath) as? ListTitleCell else { return UITableViewCell() }
             
             listCell.setModel(title: "DONE", count: doneItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
             
         case (doneTableView, 1):
-            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.descriptionCell, for: indexPath) as? DescriptionCell else { return UITableViewCell() }
             
             let doneItem = doneItems[indexPath.row]
             descriptionCell.setModel(title: doneItem.title, body: doneItem.body, date: doneItem.date)
@@ -329,6 +329,8 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard indexPath.section == 1 else { return }
         var selectedTodoData: ProjectManager
         
         switch tableView {
