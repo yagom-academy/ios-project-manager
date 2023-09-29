@@ -47,16 +47,19 @@ final class AddTodoViewController: UIViewController {
     
     weak var delegate: AddTodoDelegate?
     private var todoItems: ProjectManager?
+    private let dataManager: DataManagerProtocol
     private var isNew: Bool
     
-    init() {
+    init(dataManager: DataManagerProtocol) {
+        self.dataManager = dataManager
         self.isNew = true
         super.init(nibName: nil, bundle: nil)
     }
     
-    init(todoItems: ProjectManager?) {
+    init(todoItems: ProjectManager?, dataManager: DataManagerProtocol) {
         self.isNew = false
         self.todoItems = todoItems
+        self.dataManager = dataManager
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -7,17 +7,15 @@
 
 import Foundation
 
-final class DataManager {
-    static let shared = DataManager()
+protocol DataManagerProtocol {
+    func addTodoItem(title: String, body: String, date: Date)
+}
+
+final class DataManager: DataManagerProtocol {
     private var todoItems = [ProjectManager]()
-    private init() {}
     
     func addTodoItem(title: String, body: String, date: Date) {
-        let newItem =  ProjectManager(title: title, body: body, date: date)
+        let newItem = ProjectManager(title: title, body: body, date: date)
         todoItems.append(newItem)
-    }
-    
-    func leadTodoItem() -> [ProjectManager] {
-        return todoItems
     }
 }

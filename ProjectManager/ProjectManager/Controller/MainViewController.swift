@@ -47,6 +47,16 @@ final class MainViewController: UIViewController {
     private var todoItems = [ProjectManager]()
     private var doingItems = [ProjectManager]()
     private var doneItems = [ProjectManager]()
+    private let dataManager: DataManagerProtocol
+    
+    init(dataManager: DataManagerProtocol) {
+        self.dataManager = dataManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,7 +175,7 @@ extension MainViewController {
     }
     
     @objc private func addButton() {
-        let addTODOView = AddTodoViewController()
+        let addTODOView = AddTodoViewController(dataManager: dataManager)
         let navigationController = UINavigationController(rootViewController: addTODOView)
         let backgroundView = UIView(frame: view.bounds)
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -344,7 +354,7 @@ extension MainViewController: UITableViewDelegate {
             return
         }
         
-        let addTodoView = AddTodoViewController(todoItems: selectedTodoData)
+        let addTodoView = AddTodoViewController(todoItems: selectedTodoData, dataManager: dataManager)
         let navigationController = UINavigationController(rootViewController: addTodoView)
         
         addTodoView.delegate = self
@@ -354,7 +364,7 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: AddTodoDelegate {
     func didAddTodoItem(title: String, body: String, date: Date) {
-        DataManager.shared.addTodoItem(title: title, body: body, date: date)
+        dataManager.addTodoItem(title: title, body: body, date: date)
         let newTodoItem = ProjectManager(title: title, body: body, date: date)
         todoItems.append(newTodoItem)
         todoTableView.reloadData()
