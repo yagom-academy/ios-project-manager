@@ -14,6 +14,8 @@
 		63C5ECCD2AC46F83003904C4 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C5ECCC2AC46F83003904C4 /* DataManager.swift */; };
 		63CC81602AC6AA5B00E6355F /* ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC815F2AC6AA5B00E6355F /* ReuseIdentifier.swift */; };
 		63CC81622AC6AB8200E6355F /* AlertNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC81612AC6AB8200E6355F /* AlertNamespace.swift */; };
+		63CC81682AC6C1D200E6355F /* AlertActionCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC81672AC6C1D200E6355F /* AlertActionCreatable.swift */; };
+		63CC816A2AC6C99F00E6355F /* ConfigurableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CC81692AC6C99F00E6355F /* ConfigurableTableView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -29,6 +31,8 @@
 		63C5ECCC2AC46F83003904C4 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		63CC815F2AC6AA5B00E6355F /* ReuseIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifier.swift; sourceTree = "<group>"; };
 		63CC81612AC6AB8200E6355F /* AlertNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNamespace.swift; sourceTree = "<group>"; };
+		63CC81672AC6C1D200E6355F /* AlertActionCreatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertActionCreatable.swift; sourceTree = "<group>"; };
+		63CC81692AC6C99F00E6355F /* ConfigurableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableTableView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 		63C5ECBB2AC45243003904C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				63CC81662AC6C1C800E6355F /* Protocol */,
 				63CC815E2AC6AA3600E6355F /* Namespace */,
 				63C5ECCB2AC46F4E003904C4 /* DataManager */,
 				63C5ECBE2AC45277003904C4 /* Entity */,
@@ -110,6 +115,15 @@
 				63CC81612AC6AB8200E6355F /* AlertNamespace.swift */,
 			);
 			path = Namespace;
+			sourceTree = "<group>";
+		};
+		63CC81662AC6C1C800E6355F /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				63CC81672AC6C1D200E6355F /* AlertActionCreatable.swift */,
+				63CC81692AC6C99F00E6355F /* ConfigurableTableView.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -210,10 +224,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63CC81682AC6C1D200E6355F /* AlertActionCreatable.swift in Sources */,
 				63C5ECCA2AC46CDB003904C4 /* ProjectManager.swift in Sources */,
 				63C5ECCD2AC46F83003904C4 /* DataManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				63C5ECB62AC1949A003904C4 /* ListTitleCell.swift in Sources */,
+				63CC816A2AC6C99F00E6355F /* ConfigurableTableView.swift in Sources */,
 				63C5ECBA2AC2FE9A003904C4 /* AddTodoViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

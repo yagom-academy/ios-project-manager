@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, ConfigurableTableView {
     private let todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,6 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private var tableViewData: [UITableView: [Int: Int]] = [:]
     private var todoItems = [ProjectManager]()
     private var doingItems = [ProjectManager]()
     private var doneItems = [ProjectManager]()
@@ -97,28 +96,38 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTableView() {
-        todoTableView.dataSource = self
-        todoTableView.delegate = self
-        todoTableView.register(ListTitleCell.self, forCellReuseIdentifier: ReuseIdentifier.listTitleCell)
-        todoTableView.register(DescriptionCell.self, forCellReuseIdentifier: ReuseIdentifier.descriptionCell)
-        tableViewData[todoTableView] = [0:1, 1:2]
-        
-        doingTableView.dataSource = self
-        doingTableView.delegate = self
-        doingTableView.register(ListTitleCell.self, forCellReuseIdentifier: ReuseIdentifier.listTitleCell)
-        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: ReuseIdentifier.descriptionCell)
-        tableViewData[doingTableView] = [0:1, 1:2]
-        
-        doneTableView.dataSource = self
-        doneTableView.delegate = self
-        doneTableView.register(ListTitleCell.self, forCellReuseIdentifier: ReuseIdentifier.listTitleCell)
-        doneTableView.register(DescriptionCell.self, forCellReuseIdentifier: ReuseIdentifier.descriptionCell)
-        tableViewData[doneTableView] = [0:1, 1:2]
+        configureTableView(todoTableView)
+        configureTableView(doingTableView)
+        configureTableView(doneTableView)
     }
 }
 
 // MARK: Action
-extension MainViewController {
+extension MainViewController: AlertActionCreator {
+    private func setUpTableViewReloadData() {
+        todoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
+    }
+    
+    func createMoveToTodoAction(_ selectedCell: ProjectManager) -> UIAlertAction {
+        return UIAlertAction(title: AlertNamespace.moveToTodo, style: .default) { [weak self] _ in
+            self?.moveToTodo(selectedCell)
+        }
+    }
+    
+    func createMoveToDoingAction(_ selectedCell: ProjectManager) -> UIAlertAction {
+        return UIAlertAction(title: AlertNamespace.moveToDoing, style: .default) { [weak self] _ in
+            self?.moveToDoing(selectedCell)
+        }
+    }
+    
+    func createMoveToDoneAction(_ selectedCell: ProjectManager) -> UIAlertAction {
+        return UIAlertAction(title: AlertNamespace.moveToDone, style: .default) { [weak self] _ in
+            self?.moveToDone(selectedCell)
+        }
+    }
+    
     private func moveToDoing(_ item: ProjectManager) {
         if let index = todoItems.firstIndex(where: { $0 == item }) {
             todoItems.remove(at: index)
@@ -127,9 +136,7 @@ extension MainViewController {
         }
         
         doingItems.append(item)
-        todoTableView.reloadData()
-        doingTableView.reloadData()
-        doneTableView.reloadData()
+        setUpTableViewReloadData()
     }
     
     private func moveToDone(_ item: ProjectManager) {
@@ -140,9 +147,7 @@ extension MainViewController {
         }
         
         doneItems.append(item)
-        todoTableView.reloadData()
-        doingTableView.reloadData()
-        doneTableView.reloadData()
+        setUpTableViewReloadData()
     }
     
     private func moveToTodo(_ item: ProjectManager) {
@@ -153,9 +158,7 @@ extension MainViewController {
         }
         
         todoItems.append(item)
-        todoTableView.reloadData()
-        doingTableView.reloadData()
-        doneTableView.reloadData()
+        setUpTableViewReloadData()
     }
     
     private func addPressGesture(to tableViews: [UITableView]) {
@@ -164,14 +167,6 @@ extension MainViewController {
             longPressGestureRecognizer.cancelsTouchesInView = true
             tableView.addGestureRecognizer(longPressGestureRecognizer)
         }
-    }
-    
-    private func updateItem(in items: inout [ProjectManager], at index: Int, with title: String, body: String, date: Date, tableView: UITableView) {
-        guard index < items.count else { return }
-        items[index].title = title
-        items[index].body = body
-        items[index].date = date
-        tableView.reloadData()
     }
     
     @objc private func addButton() {
@@ -206,34 +201,16 @@ extension MainViewController {
                 
                 switch tableView {
                 case todoTableView:
-                    let moveToDoingAction = UIAlertAction(title: AlertNamespace.moveToDoing, style: .default) { [weak self] _ in
-                        self?.moveToDoing(selectedCell)
-                    }
-                    let moveToDoneAction = UIAlertAction(title: AlertNamespace.moveToDone, style: .default) { [weak self] _ in
-                        self?.moveToDone(selectedCell)
-                    }
-                    alertController.addAction(moveToDoingAction)
-                    alertController.addAction(moveToDoneAction)
+                    alertController.addAction(createMoveToDoingAction(selectedCell))
+                    alertController.addAction(createMoveToDoneAction(selectedCell))
                     
                 case doingTableView:
-                    let moveToTodoAction = UIAlertAction(title: AlertNamespace.moveToTodo, style: .default) { [weak self] _ in
-                        self?.moveToTodo(selectedCell)
-                    }
-                    let moveToDoneAction = UIAlertAction(title: AlertNamespace.moveToDone, style: .default) { [weak self] _ in
-                        self?.moveToDone(selectedCell)
-                    }
-                    alertController.addAction(moveToTodoAction)
-                    alertController.addAction(moveToDoneAction)
+                    alertController.addAction(createMoveToTodoAction(selectedCell))
+                    alertController.addAction(createMoveToDoneAction(selectedCell))
                     
                 case doneTableView:
-                    let moveToTodoAction = UIAlertAction(title: AlertNamespace.moveToTodo, style: .default) { [weak self] _ in
-                        self?.moveToTodo(selectedCell)
-                    }
-                    let moveToDoingAction = UIAlertAction(title: AlertNamespace.moveToDoing, style: .default) { [weak self] _ in
-                        self?.moveToDoing(selectedCell)
-                    }
-                    alertController.addAction(moveToTodoAction)
-                    alertController.addAction(moveToDoingAction)
+                    alertController.addAction(createMoveToTodoAction(selectedCell))
+                    alertController.addAction(createMoveToDoingAction(selectedCell))
                     
                 default:
                     break
