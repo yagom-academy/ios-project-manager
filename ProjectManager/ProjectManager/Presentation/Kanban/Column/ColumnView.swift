@@ -21,6 +21,9 @@ struct ColumnView: View {
             Section {
                 ForEach(tasks) { task in
                     CardView(task: task)
+                        .alignmentGuide(.listRowSeparatorLeading) {
+                            -$0.width
+                        }
                 }
             } header: {
                 columnInfo
