@@ -1,5 +1,5 @@
 //
-//  AddTODOViewController.swift
+//  AddTodoViewController.swift
 //  ProjectManager
 //
 //  Created by Hemg on 2023/09/26.
@@ -9,9 +9,10 @@ import UIKit
 
 protocol AddTodoDelegate: AnyObject {
     func didAddTodoItem(title: String, body: String, date: Date)
+    func didEditTodoItem(title: String, body: String, date: Date, index: Int)
 }
 
-final class AddTODOViewController: UIViewController {
+final class AddTodoViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +46,24 @@ final class AddTODOViewController: UIViewController {
     }()
     
     weak var delegate: AddTodoDelegate?
-
+    private var todoItems: ProjectManager?
+    private var isNew: Bool
+    
+    init() {
+        self.isNew = true
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(todoItems: ProjectManager?) {
+        self.isNew = false
+        self.todoItems = todoItems
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +71,7 @@ final class AddTODOViewController: UIViewController {
         setUpBarButtonItem()
         configureUI()
         setUpViewLayout()
+        setUpItemValues()
     }
     
     private func setUpViewController() {
@@ -65,8 +84,21 @@ final class AddTODOViewController: UIViewController {
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButton))
         navigationItem.rightBarButtonItem = doneButton
         
-        let cancel = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelButton))
-        navigationItem.leftBarButtonItem = cancel
+        if isNew == true {
+            let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelButton))
+            navigationItem.leftBarButtonItem = cancelButton
+        } else {
+            let editButton = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
+            navigationItem.leftBarButtonItem = editButton
+        }
+    }
+    
+    private func setUpItemValues() {
+        if let todoItems = todoItems {
+            titleTextField.text = todoItems.title
+            bodyTextView.text = todoItems.body
+            datePicker.date = todoItems.date
+        }
     }
     
     @objc private func doneButton() {
@@ -78,12 +110,17 @@ final class AddTODOViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @objc private func editButton() {
+        setUpItemText()
+        dismiss(animated: true)
+    }
+    
     private func configureUI() {
         view.addSubview(titleTextField)
         view.addSubview(bodyTextView)
         view.addSubview(datePicker)
     }
-
+    
     private func setUpViewLayout() {
         NSLayoutConstraint.activate([
             titleTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -102,17 +139,26 @@ final class AddTODOViewController: UIViewController {
     }
     
     private func setUpItemText() {
-        let date = datePicker.date
-        guard let titleText = titleTextField.text,
-              let bodyText = bodyTextView.text else {
-            return
+        if isNew == false {
+            let date = datePicker.date
+            guard let titleText = titleTextField.text,
+                  let bodyText = bodyTextView.text else { return }
+            todoItems?.title = titleText
+            todoItems?.body = bodyText
+            todoItems?.date = date
+            
+            delegate?.didEditTodoItem(title: titleText, body: bodyText, date: date, index: 0)
+        } else {
+            let date = datePicker.date
+            guard let titleText = titleTextField.text,
+                  let bodyText = bodyTextView.text else { return }
+            
+            delegate?.didAddTodoItem(title: titleText, body: bodyText, date: date)
         }
-        
-        delegate?.didAddTodoItem(title: titleText, body: bodyText, date: date)
     }
 }
 
-extension AddTODOViewController: UITextViewDelegate {
+extension AddTodoViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "여기는 할일 내용 입력하는 곳입니다." {
             textView.text = ""

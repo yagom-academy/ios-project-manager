@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProjectManager: Equatable {
-    let title: String
-    let body: String
-    let date: Date
+    var title: String
+    var body: String
+    var date: Date
 }
