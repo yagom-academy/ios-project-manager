@@ -339,7 +339,7 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-extension MainViewController: AddTodoDelegate {
+extension MainViewController: AddTodoDelegate, ItemUpdatable {
     func didAddTodoItem(title: String, body: String, date: Date) {
         dataManager.addTodoItem(title: title, body: body, date: date)
         let newTodoItem = ProjectManager(title: title, body: body, date: date)
@@ -350,20 +350,11 @@ extension MainViewController: AddTodoDelegate {
     func didEditTodoItem(title: String, body: String, date: Date, index: Int) {
         switch index {
         case 0..<todoItems.count:
-            todoItems[index].title = title
-            todoItems[index].body = body
-            todoItems[index].date = date
-            todoTableView.reloadData()
+            todoItems = updateItemInArray(todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
         case 0..<doingItems.count:
-            doingItems[index].title = title
-            doingItems[index].body = body
-            doingItems[index].date = date
-            doingTableView.reloadData()
+            doingItems = updateItemInArray(doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
         default:
-            doneItems[index].title = title
-            doneItems[index].body = body
-            doneItems[index].date = date
-            doneTableView.reloadData()
+            doneItems = updateItemInArray(doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
         }
     }
 }
