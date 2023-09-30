@@ -62,8 +62,13 @@ final class ListHeader: UIView {
 // MARK: - Configure UI
 extension ListHeader {
     private func configureUI() {
+        setUpView()
         addSubviews()
         setUpConstraints()
+    }
+    
+    private func setUpView() {
+        backgroundColor = .systemGray6
     }
     
     private func addSubviews() {
