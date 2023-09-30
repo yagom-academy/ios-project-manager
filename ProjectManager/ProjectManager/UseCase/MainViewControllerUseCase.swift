@@ -12,12 +12,20 @@ protocol MainViewControllerUseCase {
     var doingItems: [ProjectManager] { get set }
     var doneItems: [ProjectManager] { get set }
     func updateItems(_ items: [ProjectManager]?, title: String, body: String, date: Date, index: Int, tableView: UITableView) -> [ProjectManager]
+    func configureTableView(_ tableView: UITableView, dataSourceAndDelegate: UITableViewDataSource & UITableViewDelegate)
 }
 
 final class MainViewControllerUseCaseImplementation: MainViewControllerUseCase {
     var todoItems = [ProjectManager]()
     var doingItems = [ProjectManager]()
     var doneItems = [ProjectManager]()
+    
+    func configureTableView(_ tableView: UITableView, dataSourceAndDelegate: UITableViewDataSource & UITableViewDelegate) {
+        tableView.dataSource = dataSourceAndDelegate
+        tableView.delegate = dataSourceAndDelegate
+        tableView.register(ListTitleCell.self, forCellReuseIdentifier: ReuseIdentifier.listTitleCell)
+        tableView.register(DescriptionCell.self, forCellReuseIdentifier: ReuseIdentifier.descriptionCell)
+    }
     
     func updateItems(_ items: [ProjectManager]?, title: String, body: String, date: Date, index: Int, tableView: UITableView) -> [ProjectManager] {
         guard var mutableItems = items,

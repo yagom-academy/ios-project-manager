@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class MainViewController: UIViewController, ConfigurableTableView {
+final class MainViewController: UIViewController {
     private let todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,9 +95,9 @@ final class MainViewController: UIViewController, ConfigurableTableView {
     }
     
     private func setUpTableView() {
-        configureTableView(todoTableView)
-        configureTableView(doingTableView)
-        configureTableView(doneTableView)
+        useCase.configureTableView(todoTableView, dataSourceAndDelegate: self)
+        useCase.configureTableView(doingTableView, dataSourceAndDelegate: self)
+        useCase.configureTableView(doneTableView, dataSourceAndDelegate: self)
     }
 }
 
