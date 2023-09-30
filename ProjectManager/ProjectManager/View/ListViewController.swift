@@ -43,13 +43,34 @@ final class ListViewController: UIViewController {
             self?.tableView.reloadData()
         }
     }
+    
+    @objc
+    private func addTodo() {
+        
+    }
 }
 
 // MARK: - Configure UI
 extension ListViewController {
     private func configureUI() {
+        setUpView()
+        setUpNavigation()
         addSubviews()
         setUpTableViewConstraints()
+    }
+    
+    private func setUpView() {
+        view.backgroundColor = .systemBackground
+    }
+    
+    private func setUpNavigation() {
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "plus"),
+            style: .plain,
+            target: self,
+            action: #selector(addTodo)
+        )
     }
     
     private func addSubviews() {
