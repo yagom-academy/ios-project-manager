@@ -10,6 +10,7 @@
 		28913B732AC5666D00E626F7 /* TodoDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913B722AC5666D00E626F7 /* TodoDateFormatter.swift */; };
 		28913B762AC5950E00E626F7 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913B752AC5950E00E626F7 /* Array+.swift */; };
 		28913B7A2AC5AC9A00E626F7 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28913B782AC5AC9A00E626F7 /* ToDo.xcdatamodeld */; };
+		28913B7C2AC5AD1300E626F7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913B7B2AC5AD1300E626F7 /* Category.swift */; };
 		28913B7F2AC8033000E626F7 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913B7D2AC8033000E626F7 /* ToDo+CoreDataClass.swift */; };
 		28913B802AC8033000E626F7 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28913B7E2AC8033000E626F7 /* ToDo+CoreDataProperties.swift */; };
 		28CA66E52AC0F72600FFD7A9 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E42AC0F72600FFD7A9 /* ListCell.swift */; };
@@ -28,6 +29,7 @@
 		28913B722AC5666D00E626F7 /* TodoDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDateFormatter.swift; sourceTree = "<group>"; };
 		28913B752AC5950E00E626F7 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		28913B792AC5AC9A00E626F7 /* ToDoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoModel.xcdatamodel; sourceTree = "<group>"; };
+		28913B7B2AC5AD1300E626F7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		28913B7D2AC8033000E626F7 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ToDo+CoreDataClass.swift"; path = "ProjectManager/Model/ToDo/ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		28913B7E2AC8033000E626F7 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ToDo+CoreDataProperties.swift"; path = "ProjectManager/Model/ToDo/ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		28CA66E42AC0F72600FFD7A9 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				28913B782AC5AC9A00E626F7 /* ToDo.xcdatamodeld */,
+				28913B7B2AC5AD1300E626F7 /* Category.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				28913B7A2AC5AC9A00E626F7 /* ToDo.xcdatamodeld in Sources */,
 				28913B762AC5950E00E626F7 /* Array+.swift in Sources */,
+				28913B7C2AC5AD1300E626F7 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
