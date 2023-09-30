@@ -43,15 +43,12 @@ final class MainViewController: UIViewController, ConfigurableTableView {
         return stackView
     }()
     
-    private var todoItems = [ProjectManager]()
-    private var doingItems = [ProjectManager]()
-    private var doneItems = [ProjectManager]()
     private let dataManager: DataManagerProtocol
-    private let usecase: MainViewControllerUseCase
+    private var useCase: MainViewControllerUseCase
     
-    init(dataManager: DataManagerProtocol, usecase: MainViewControllerUseCase) {
+    init(dataManager: DataManagerProtocol, useCase: MainViewControllerUseCase) {
         self.dataManager = dataManager
-        self.usecase = usecase
+        self.useCase = useCase
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -98,7 +95,7 @@ final class MainViewController: UIViewController, ConfigurableTableView {
     }
     
     private func setUpTableView() {
-        usecase.configureTableView(todoTableView)
+        configureTableView(todoTableView)
         configureTableView(doingTableView)
         configureTableView(doneTableView)
     }
@@ -131,35 +128,35 @@ extension MainViewController: AlertActionCreator {
     }
     
     private func moveToDoing(_ item: ProjectManager) {
-        if let index = todoItems.firstIndex(where: { $0 == item }) {
-            todoItems.remove(at: index)
-        } else if let index = doneItems.firstIndex(where: { $0 == item }) {
-            doneItems.remove(at: index)
+        if let index = useCase.todoItems.firstIndex(where: { $0 == item }) {
+            useCase.todoItems.remove(at: index)
+        } else if let index = useCase.doneItems.firstIndex(where: { $0 == item }) {
+            useCase.doneItems.remove(at: index)
         }
         
-        doingItems.append(item)
+        useCase.doingItems.append(item)
         setUpTableViewReloadData()
     }
     
     private func moveToDone(_ item: ProjectManager) {
-        if let index = todoItems.firstIndex(where: { $0 == item }) {
-            todoItems.remove(at: index)
-        } else if let index = doingItems.firstIndex(where: { $0 == item }) {
-            doingItems.remove(at: index)
+        if let index = useCase.todoItems.firstIndex(where: { $0 == item }) {
+            useCase.todoItems.remove(at: index)
+        } else if let index = useCase.doingItems.firstIndex(where: { $0 == item }) {
+            useCase.doingItems.remove(at: index)
         }
         
-        doneItems.append(item)
+        useCase.doneItems.append(item)
         setUpTableViewReloadData()
     }
     
     private func moveToTodo(_ item: ProjectManager) {
-        if let index = doingItems.firstIndex(where: { $0 == item }) {
-            doingItems.remove(at: index)
-        } else if let index = doneItems.firstIndex(where: { $0 == item }) {
-            doneItems.remove(at: index)
+        if let index = useCase.doingItems.firstIndex(where: { $0 == item }) {
+            useCase.doingItems.remove(at: index)
+        } else if let index = useCase.doneItems.firstIndex(where: { $0 == item }) {
+            useCase.doneItems.remove(at: index)
         }
         
-        todoItems.append(item)
+        useCase.todoItems.append(item)
         setUpTableViewReloadData()
     }
     
@@ -190,11 +187,11 @@ extension MainViewController: AlertActionCreator {
                 let selectedCell: ProjectManager
                 switch (tableView, indexPath.section) {
                 case (todoTableView, 1):
-                    selectedCell = todoItems[indexPath.row]
+                    selectedCell = useCase.todoItems[indexPath.row]
                 case (doingTableView, 1):
-                    selectedCell = doingItems[indexPath.row]
+                    selectedCell = useCase.doingItems[indexPath.row]
                 case (doneTableView, 1):
-                    selectedCell = doneItems[indexPath.row]
+                    selectedCell = useCase.doneItems[indexPath.row]
                 default:
                     return
                 }
@@ -240,11 +237,11 @@ extension MainViewController: UITableViewDataSource {
         case (todoTableView, 0), (doingTableView, 0), (doneTableView, 0):
             return 1
         case (todoTableView, 1):
-            return todoItems.count
+            return useCase.todoItems.count
         case (doingTableView, 1):
-            return doingItems.count
+            return useCase.doingItems.count
         case (doneTableView, 1):
-            return doneItems.count
+            return useCase.doneItems.count
         default:
             return 0
         }
@@ -257,29 +254,29 @@ extension MainViewController: UITableViewDataSource {
         
         switch (tableView, indexPath.section) {
         case (todoTableView, 0):
-            listCell.setModel(title: CellTitleNamespace.todo, count: todoItems.count)
+            listCell.setModel(title: CellTitleNamespace.todo, count: useCase.todoItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
         case (todoTableView, 1):
-            let todoItem = todoItems[indexPath.row]
+            let todoItem = useCase.todoItems[indexPath.row]
             descriptionCell.setModel(title: todoItem.title, body: todoItem.body, date: todoItem.date)
             descriptionCell.isUserInteractionEnabled = true
             return descriptionCell
         case (doingTableView, 0):
-            listCell.setModel(title: CellTitleNamespace.doing, count: doingItems.count)
+            listCell.setModel(title: CellTitleNamespace.doing, count: useCase.doingItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
         case (doingTableView, 1):
-            let doingItem = doingItems[indexPath.row]
+            let doingItem = useCase.doingItems[indexPath.row]
             descriptionCell.setModel(title: doingItem.title, body: doingItem.body, date: doingItem.date)
             descriptionCell.isUserInteractionEnabled = true
             return descriptionCell
         case (doneTableView, 0):
-            listCell.setModel(title: CellTitleNamespace.done, count: doneItems.count)
+            listCell.setModel(title: CellTitleNamespace.done, count: useCase.doneItems.count)
             listCell.backgroundColor = .systemGray5
             return listCell
         case (doneTableView, 1):
-            let doneItem = doneItems[indexPath.row]
+            let doneItem = useCase.doneItems[indexPath.row]
             descriptionCell.setModel(title: doneItem.title, body: doneItem.body, date: doneItem.date)
             descriptionCell.isUserInteractionEnabled = true
             return descriptionCell
@@ -299,11 +296,11 @@ extension MainViewController: UITableViewDelegate {
         
         switch tableView {
         case todoTableView:
-            selectedTodoData = todoItems[indexPath.row]
+            selectedTodoData = useCase.todoItems[indexPath.row]
         case doingTableView:
-            selectedTodoData = doingItems[indexPath.row]
+            selectedTodoData = useCase.doingItems[indexPath.row]
         case doneTableView:
-            selectedTodoData = doneItems[indexPath.row]
+            selectedTodoData = useCase.doneItems[indexPath.row]
         default:
             return
         }
@@ -320,18 +317,18 @@ extension MainViewController: AddTodoDelegate {
     func didAddTodoItem(title: String, body: String, date: Date) {
         dataManager.addTodoItem(title: title, body: body, date: date)
         let newTodoItem = ProjectManager(title: title, body: body, date: date)
-        todoItems.append(newTodoItem)
+        useCase.todoItems.append(newTodoItem)
         todoTableView.reloadData()
     }
     
     func didEditTodoItem(title: String, body: String, date: Date, index: Int) {
         switch index {
-        case 0..<todoItems.count:
-            todoItems = usecase.updateItems(todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
-        case 0..<doingItems.count:
-            doingItems = usecase.updateItems(doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
+        case 0..<useCase.todoItems.count:
+            useCase.todoItems = useCase.updateItems(useCase.todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
+        case 0..<useCase.doingItems.count:
+            useCase.doingItems = useCase.updateItems(useCase.doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
         default:
-            doneItems = usecase.updateItems(doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
+            useCase.doneItems = useCase.updateItems(useCase.doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
         }
     }
 }
