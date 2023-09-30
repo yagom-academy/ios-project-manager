@@ -1,17 +1,17 @@
 //
-//  ItemUpdatable.swift
+//  MainViewControllerUseCase.swift
 //  ProjectManager
 //
-//  Created by Hemg on 2023/09/29.
+//  Created by Hemg on 2023/09/30.
 //
 
 import UIKit
 
-protocol ItemUpdatable {
+protocol MainViewControllerUseCase {
     func updateItems(_ items: [ProjectManager]?, title: String, body: String, date: Date, index: Int, tableView: UITableView) -> [ProjectManager]
 }
 
-extension ItemUpdatable {
+final class MainViewControllerUseCaseImplementation: MainViewControllerUseCase {
     func updateItems(_ items: [ProjectManager]?, title: String, body: String, date: Date, index: Int, tableView: UITableView) -> [ProjectManager] {
         guard var mutableItems = items,
               index >= 0 && index < mutableItems.count else {

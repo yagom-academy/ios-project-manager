@@ -47,9 +47,11 @@ final class MainViewController: UIViewController, ConfigurableTableView {
     private var doingItems = [ProjectManager]()
     private var doneItems = [ProjectManager]()
     private let dataManager: DataManagerProtocol
+    private let usecase: MainViewControllerUseCase
     
-    init(dataManager: DataManagerProtocol) {
+    init(dataManager: DataManagerProtocol, usecase: MainViewControllerUseCase) {
         self.dataManager = dataManager
+        self.usecase = usecase
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,7 +98,7 @@ final class MainViewController: UIViewController, ConfigurableTableView {
     }
     
     private func setUpTableView() {
-        configureTableView(todoTableView)
+        usecase.configureTableView(todoTableView)
         configureTableView(doingTableView)
         configureTableView(doneTableView)
     }
@@ -314,7 +316,7 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-extension MainViewController: AddTodoDelegate, ItemUpdatable {
+extension MainViewController: AddTodoDelegate {
     func didAddTodoItem(title: String, body: String, date: Date) {
         dataManager.addTodoItem(title: title, body: body, date: date)
         let newTodoItem = ProjectManager(title: title, body: body, date: date)
@@ -325,11 +327,11 @@ extension MainViewController: AddTodoDelegate, ItemUpdatable {
     func didEditTodoItem(title: String, body: String, date: Date, index: Int) {
         switch index {
         case 0..<todoItems.count:
-            todoItems = updateItems(todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
+            todoItems = usecase.updateItems(todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
         case 0..<doingItems.count:
-            doingItems = updateItems(doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
+            doingItems = usecase.updateItems(doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
         default:
-            doneItems = updateItems(doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
+            doneItems = usecase.updateItems(doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
         }
     }
 }
