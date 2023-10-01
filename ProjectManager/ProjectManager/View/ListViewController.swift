@@ -125,5 +125,7 @@ extension ListViewController: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 extension ListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
 }
