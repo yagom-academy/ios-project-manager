@@ -34,7 +34,7 @@ final class ToDoDetailViewController: UIViewController {
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        button.addAction(doneAction(), for: .touchUpInside)
+        button.addAction(doneAction(), for: .touchUpInside)// todo를 업데이트하고 뷰모델에 알림 전송 후 dismiss
         
         return button
     }()
@@ -129,16 +129,18 @@ final class ToDoDetailViewController: UIViewController {
         bodyTextView.delegate = self
     }
     
+    // 추가 버튼으로 새로 만들어졌을 때는 Cancel, 기존에 있던 todo일 때는 Edit 기능 수행
     private func setUpLeftButton(isNew: Bool) {
         if isNew {
             leftButton.setTitle("Cancel", for: .normal)
-            leftButton.addAction(dismissAction(), for: .touchUpInside)
+            leftButton.addAction(dismissAction(), for: .touchUpInside)// 저장 없이 dismiss만 수행
         } else {
             leftButton.setTitle("Edit", for: .normal)
-            leftButton.addAction(enableEditContentAction(), for: .touchUpInside)
+            leftButton.addAction(enableEditContentAction(), for: .touchUpInside)// 유저와 상호작용이 가능하도록 하고 배경색 변경
         }
     }
     
+    // todo를 업데이트하고 뷰모델에 알림 전송 후 dismiss
     private func doneAction() -> UIAction {
         return UIAction { [weak self] _ in
             self?.updateToDo()
@@ -152,13 +154,14 @@ final class ToDoDetailViewController: UIViewController {
             self?.dismiss(animated: true)
         }
     }
-    
+    // 저장 없이 dismiss만 수행
     private func dismissAction() -> UIAction {
         return UIAction { [weak self] _ in
             self?.dismiss(animated: true)
         }
     }
     
+    // 유저와 상호작용이 가능하도록 하고 배경색 변경
     private func enableEditContentAction() -> UIAction {
         return UIAction { [weak self] _ in
             [self?.titleTextField, self?.datePicker, self?.bodyTextView].forEach {
@@ -168,6 +171,7 @@ final class ToDoDetailViewController: UIViewController {
         }
     }
     
+    // 기존의 todo일 경우 유저와 상호작용 불가능하고 배경색은 회색
     private func setUpEditableContent(isNew: Bool) {
         if isNew == false {
             [titleTextField, datePicker, bodyTextView].forEach {
