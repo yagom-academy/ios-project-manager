@@ -46,7 +46,9 @@ final class ListViewController: UIViewController {
     
     @objc
     private func addTodo() {
+        let detailViewController = ToDoDetailViewController(isNew: true)
         
+        present(detailViewController, animated: true)
     }
 }
 
