@@ -102,62 +102,29 @@ final class MainViewController: UIViewController {
 }
 
 // MARK: Action
-extension MainViewController: AlertActionCreator {
+extension MainViewController {
     private func setUpTableViewReloadData() {
         todoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
     }
     
-    func createMoveToTodoAction(_ selectedCell: ProjectManager) -> UIAlertAction {
-        return UIAlertAction(title: AlertNamespace.moveToTodo, style: .default) { [weak self] _ in
-            self?.moveToTodo(selectedCell)
+    private func performMoveToState(_ item: ProjectManager, state: TitleItem) {
+        switch state {
+        case .todo:
+            useCase.moveToTodo(item)
+        case .doing:
+            useCase.moveToDoing(item)
+        case .done:
+            useCase.moveToDone(item)
         }
-    }
-    
-    func createMoveToDoingAction(_ selectedCell: ProjectManager) -> UIAlertAction {
-        return UIAlertAction(title: AlertNamespace.moveToDoing, style: .default) { [weak self] _ in
-            self?.moveToDoing(selectedCell)
-        }
-    }
-    
-    func createMoveToDoneAction(_ selectedCell: ProjectManager) -> UIAlertAction {
-        return UIAlertAction(title: AlertNamespace.moveToDone, style: .default) { [weak self] _ in
-            self?.moveToDone(selectedCell)
-        }
-    }
-    
-    private func moveToDoing(_ item: ProjectManager) {
-        if let index = useCase.todoItems.firstIndex(where: { $0 == item }) {
-            useCase.todoItems.remove(at: index)
-        } else if let index = useCase.doneItems.firstIndex(where: { $0 == item }) {
-            useCase.doneItems.remove(at: index)
-        }
-        
-        useCase.doingItems.append(item)
         setUpTableViewReloadData()
     }
     
-    private func moveToDone(_ item: ProjectManager) {
-        if let index = useCase.todoItems.firstIndex(where: { $0 == item }) {
-            useCase.todoItems.remove(at: index)
-        } else if let index = useCase.doingItems.firstIndex(where: { $0 == item }) {
-            useCase.doingItems.remove(at: index)
+    private func createMoveToStateAction(_ selectedCell: ProjectManager, state: TitleItem) -> UIAlertAction {
+        return UIAlertAction(title: state.title, style: .default) { [weak self] _ in
+            self?.performMoveToState(selectedCell, state: state)
         }
-        
-        useCase.doneItems.append(item)
-        setUpTableViewReloadData()
-    }
-    
-    private func moveToTodo(_ item: ProjectManager) {
-        if let index = useCase.doingItems.firstIndex(where: { $0 == item }) {
-            useCase.doingItems.remove(at: index)
-        } else if let index = useCase.doneItems.firstIndex(where: { $0 == item }) {
-            useCase.doneItems.remove(at: index)
-        }
-        
-        useCase.todoItems.append(item)
-        setUpTableViewReloadData()
     }
     
     private func addPressGesture(to tableViews: [UITableView]) {
@@ -200,14 +167,14 @@ extension MainViewController: AlertActionCreator {
                 
                 switch tableView {
                 case todoTableView:
-                    alertController.addAction(createMoveToDoingAction(selectedCell))
-                    alertController.addAction(createMoveToDoneAction(selectedCell))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .doing))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .done))
                 case doingTableView:
-                    alertController.addAction(createMoveToTodoAction(selectedCell))
-                    alertController.addAction(createMoveToDoneAction(selectedCell))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .todo))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .done))
                 case doneTableView:
-                    alertController.addAction(createMoveToTodoAction(selectedCell))
-                    alertController.addAction(createMoveToDoingAction(selectedCell))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .todo))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .doing))
                 default:
                     break
                 }
