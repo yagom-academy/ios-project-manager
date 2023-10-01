@@ -187,15 +187,15 @@ final class MainViewController: UIViewController {
     private func setTableViews() {
         todoTableView.dataSource = self
         todoTableView.delegate = self
-        todoTableView.register(ManagerCell.self, forCellReuseIdentifier: ManagerCell.identifier)
+        todoTableView.register(WorkCell.self, forCellReuseIdentifier: WorkCell.identifier)
         
         doingTableView.dataSource = self
         doingTableView.delegate = self
-        doingTableView.register(ManagerCell.self, forCellReuseIdentifier: ManagerCell.identifier)
+        doingTableView.register(WorkCell.self, forCellReuseIdentifier: WorkCell.identifier)
 
         doneTableView.dataSource = self
         doneTableView.delegate = self
-        doneTableView.register(ManagerCell.self, forCellReuseIdentifier: ManagerCell.identifier)
+        doneTableView.register(WorkCell.self, forCellReuseIdentifier: WorkCell.identifier)
     }
 
     private func setUI() {
@@ -266,7 +266,7 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ManagerCell.identifier, for: indexPath) as? ManagerCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WorkCell.identifier, for: indexPath) as? WorkCell else {
             return UITableViewCell()
         }
         

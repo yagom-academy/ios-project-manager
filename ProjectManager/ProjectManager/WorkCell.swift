@@ -1,5 +1,5 @@
 //
-//  ManagerCell.swift
+//  WorkCell.swift
 //  ProjectManager
 //
 //  Created by BMO on 2023/09/25.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class ManagerCell: UITableViewCell {
-    static let identifier: String = "ManagerCell"
+final class WorkCell: UITableViewCell {
+    static let identifier: String = "WorkCell"
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
