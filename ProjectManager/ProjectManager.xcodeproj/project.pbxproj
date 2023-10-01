@@ -18,7 +18,6 @@
 		28CA66E52AC0F72600FFD7A9 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E42AC0F72600FFD7A9 /* ListCell.swift */; };
 		28CA66E72AC0FE3100FFD7A9 /* ListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */; };
 		28CA66EB2AC1805300FFD7A9 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66EA2AC1805300FFD7A9 /* ListViewModel.swift */; };
-		28CA66ED2AC1808E00FFD7A9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66EC2AC1808E00FFD7A9 /* Todo.swift */; };
 		28CA66F22AC1A08600FFD7A9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66F12AC1A08600FFD7A9 /* Reusable.swift */; };
 		28DBCB962AC9292C00DFC58E /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DBCB952AC9292C00DFC58E /* InsetTextField.swift */; };
 		28DBCB982AC94A5F00DFC58E /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DBCB972AC94A5F00DFC58E /* UIFont+.swift */; };
@@ -41,7 +40,6 @@
 		28CA66E42AC0F72600FFD7A9 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeader.swift; sourceTree = "<group>"; };
 		28CA66EA2AC1805300FFD7A9 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
-		28CA66EC2AC1808E00FFD7A9 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		28CA66F12AC1A08600FFD7A9 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		28DBCB952AC9292C00DFC58E /* InsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
 		28DBCB972AC94A5F00DFC58E /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				28913B772AC5AC3100E626F7 /* ToDo */,
-				28CA66EC2AC1808E00FFD7A9 /* Todo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -245,7 +242,6 @@
 				28913B732AC5666D00E626F7 /* TodoDateFormatter.swift in Sources */,
 				28913B852AC83ACE00E626F7 /* ToDoDetailViewController.swift in Sources */,
 				28913B832AC8114F00E626F7 /* DataManager.swift in Sources */,
-				28CA66ED2AC1808E00FFD7A9 /* Todo.swift in Sources */,
 				28DBCB962AC9292C00DFC58E /* InsetTextField.swift in Sources */,
 				28CA66E52AC0F72600FFD7A9 /* ListCell.swift in Sources */,
 				28913B802AC8033000E626F7 /* ToDo+CoreDataProperties.swift in Sources */,
