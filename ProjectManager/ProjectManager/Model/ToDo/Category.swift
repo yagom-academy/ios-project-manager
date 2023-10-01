@@ -6,7 +6,7 @@
 //
 
 enum Category: String {
-    case todo = "todo"
-    case doing = "doing"
-    case done = "done"
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
 }
