@@ -45,10 +45,12 @@ final class MainViewController: UIViewController {
     
     private let dataManager: DataManagerProtocol
     private var useCase: MainViewControllerUseCase
+    private let viewModel: MainViewModel
     
-    init(dataManager: DataManagerProtocol, useCase: MainViewControllerUseCase) {
+    init(dataManager: DataManagerProtocol, useCase: MainViewControllerUseCase, viewModel: MainViewModel) {
         self.dataManager = dataManager
         self.useCase = useCase
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -95,69 +97,25 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTableView() {
-        useCase.configureTableView(todoTableView, dataSourceAndDelegate: self)
-        useCase.configureTableView(doingTableView, dataSourceAndDelegate: self)
-        useCase.configureTableView(doneTableView, dataSourceAndDelegate: self)
+        viewModel.configureTableView(todoTableView, dataSourceAndDelegate: self)
+        viewModel.configureTableView(doingTableView, dataSourceAndDelegate: self)
+        viewModel.configureTableView(doneTableView, dataSourceAndDelegate: self)
     }
 }
 
 // MARK: Action
-extension MainViewController: AlertActionCreator {
+extension MainViewController {
     private func setUpTableViewReloadData() {
         todoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
     }
     
-    func createMoveToTodoAction(_ selectedCell: ProjectManager) -> UIAlertAction {
-        return UIAlertAction(title: AlertNamespace.moveToTodo, style: .default) { [weak self] _ in
-            self?.moveToTodo(selectedCell)
+    private func createMoveToStateAction(_ selectedCell: ProjectManager, state: TitleItem) -> UIAlertAction {
+        return UIAlertAction(title: state.title, style: .default) { [weak self] _ in
+            self?.viewModel.performMoveToState(selectedCell, state: state)
+            self?.setUpTableViewReloadData()
         }
-    }
-    
-    func createMoveToDoingAction(_ selectedCell: ProjectManager) -> UIAlertAction {
-        return UIAlertAction(title: AlertNamespace.moveToDoing, style: .default) { [weak self] _ in
-            self?.moveToDoing(selectedCell)
-        }
-    }
-    
-    func createMoveToDoneAction(_ selectedCell: ProjectManager) -> UIAlertAction {
-        return UIAlertAction(title: AlertNamespace.moveToDone, style: .default) { [weak self] _ in
-            self?.moveToDone(selectedCell)
-        }
-    }
-    
-    private func moveToDoing(_ item: ProjectManager) {
-        if let index = useCase.todoItems.firstIndex(where: { $0 == item }) {
-            useCase.todoItems.remove(at: index)
-        } else if let index = useCase.doneItems.firstIndex(where: { $0 == item }) {
-            useCase.doneItems.remove(at: index)
-        }
-        
-        useCase.doingItems.append(item)
-        setUpTableViewReloadData()
-    }
-    
-    private func moveToDone(_ item: ProjectManager) {
-        if let index = useCase.todoItems.firstIndex(where: { $0 == item }) {
-            useCase.todoItems.remove(at: index)
-        } else if let index = useCase.doingItems.firstIndex(where: { $0 == item }) {
-            useCase.doingItems.remove(at: index)
-        }
-        
-        useCase.doneItems.append(item)
-        setUpTableViewReloadData()
-    }
-    
-    private func moveToTodo(_ item: ProjectManager) {
-        if let index = useCase.doingItems.firstIndex(where: { $0 == item }) {
-            useCase.doingItems.remove(at: index)
-        } else if let index = useCase.doneItems.firstIndex(where: { $0 == item }) {
-            useCase.doneItems.remove(at: index)
-        }
-        
-        useCase.todoItems.append(item)
-        setUpTableViewReloadData()
     }
     
     private func addPressGesture(to tableViews: [UITableView]) {
@@ -200,14 +158,14 @@ extension MainViewController: AlertActionCreator {
                 
                 switch tableView {
                 case todoTableView:
-                    alertController.addAction(createMoveToDoingAction(selectedCell))
-                    alertController.addAction(createMoveToDoneAction(selectedCell))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .doing))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .done))
                 case doingTableView:
-                    alertController.addAction(createMoveToTodoAction(selectedCell))
-                    alertController.addAction(createMoveToDoneAction(selectedCell))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .todo))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .done))
                 case doneTableView:
-                    alertController.addAction(createMoveToTodoAction(selectedCell))
-                    alertController.addAction(createMoveToDoingAction(selectedCell))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .todo))
+                    alertController.addAction(createMoveToStateAction(selectedCell, state: .doing))
                 default:
                     break
                 }
@@ -324,11 +282,14 @@ extension MainViewController: AddTodoDelegate {
     func didEditTodoItem(title: String, body: String, date: Date, index: Int) {
         switch index {
         case 0..<useCase.todoItems.count:
-            useCase.todoItems = useCase.updateItems(useCase.todoItems, title: title, body: body, date: date, index: index, tableView: todoTableView)
+            useCase.todoItems = useCase.updateItems(useCase.todoItems, title: title, body: body, date: date, index: index)
+            todoTableView.reloadData()
         case 0..<useCase.doingItems.count:
-            useCase.doingItems = useCase.updateItems(useCase.doingItems, title: title, body: body, date: date, index: index, tableView: doingTableView)
+            useCase.doingItems = useCase.updateItems(useCase.doingItems, title: title, body: body, date: date, index: index)
+            doingTableView.reloadData()
         default:
-            useCase.doneItems = useCase.updateItems(useCase.doneItems, title: title, body: body, date: date, index: index, tableView: doneTableView)
+            useCase.doneItems = useCase.updateItems(useCase.doneItems, title: title, body: body, date: date, index: index)
+            doingTableView.reloadData()
         }
     }
 }

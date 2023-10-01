@@ -15,9 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let dataManager: DataManagerProtocol = DataManager()
         let useCase: MainViewControllerUseCase = MainViewControllerUseCaseImplementation()
+        let viewModel = MainViewModel(useCase: useCase)
         
         window = UIWindow(windowScene: windowScene)
-        let mainViewController = MainViewController(dataManager: dataManager, useCase: useCase)
+        let mainViewController = MainViewController(dataManager: dataManager, useCase: useCase, viewModel: viewModel)
         let navigationController = UINavigationController(rootViewController: mainViewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
