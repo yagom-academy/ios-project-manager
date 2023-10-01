@@ -10,8 +10,9 @@ import UIKit
 final class ListHeader: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.font = UIFont.preferredFont(for: .largeTitle, weight: .semibold)
         label.text = "TODO"
+        label.adjustsFontForContentSizeCategory = true
         
         return label
     }()
@@ -21,6 +22,7 @@ final class ListHeader: UIView {
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.textColor = .white
         label.textAlignment = .center
+        label.adjustsFontForContentSizeCategory = true
         label.layer.backgroundColor = UIColor.black.cgColor
         label.layer.cornerRadius = 20
         

@@ -10,7 +10,8 @@ import UIKit
 final class ListCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.font = UIFont.preferredFont(for: .title3, weight: .semibold)
+        label.adjustsFontForContentSizeCategory = true
         
         return label
     }()
@@ -20,6 +21,7 @@ final class ListCell: UITableViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .systemGray3
         label.numberOfLines = 3
+        label.adjustsFontForContentSizeCategory = true
         
         return label
     }()
@@ -27,6 +29,7 @@ final class ListCell: UITableViewCell {
     private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .callout)
+        label.adjustsFontForContentSizeCategory = true
         
         return label
     }()

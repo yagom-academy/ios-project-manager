@@ -65,6 +65,10 @@ extension ListViewController {
     
     private func setUpNavigation() {
         navigationItem.title = "Project Manager"
+        navigationController?.navigationBar
+            .titleTextAttributes = [
+                NSAttributedString.Key.font : UIFont.preferredFont(for: .title3, weight: .bold)
+            ]
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "plus"),
             style: .plain,
