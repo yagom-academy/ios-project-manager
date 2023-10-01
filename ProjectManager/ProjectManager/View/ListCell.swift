@@ -64,12 +64,13 @@ final class ListCell: UITableViewCell {
             )
     }
     
-    func setUpContent(_ todo: Todo) {
+    func setUpContent(_ todo: ToDo) {
         titleLabel.text = todo.title
-        descriptionLabel.text = todo.description
+        descriptionLabel.text = todo.body
         deadlineLabel.text = TodoDateFormatter.string(
-            from: todo.deadline,
-            format: DateFormat.todo)
+            from: todo.deadline ?? Date(),
+            format: DateFormat.todo
+        )
     }
 }
 

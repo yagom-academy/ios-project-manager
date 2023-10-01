@@ -34,7 +34,7 @@ final class ToDoDetailViewController: UIViewController {
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        button.addAction(dismissAction(), for: .touchUpInside)
+        button.addAction(doneAction(), for: .touchUpInside)
         
         return button
     }()
@@ -106,13 +106,19 @@ final class ToDoDetailViewController: UIViewController {
         return view
     }()
     
-    init(isNew: Bool) {
+    private let todo: ToDo
+    
+    init(isNew: Bool, todo: ToDo) {
+        self.todo = todo
+        
         super.init(nibName: nil, bundle: nil)
         
         configureUI()
         setUpDelegates()
         setUpLeftButton(isNew: isNew)
         setUpEditableContent(isNew: isNew)
+        setUpToDoDetailView(todo)
+        setUpTitle(todo: todo)
     }
     
     required init?(coder: NSCoder) {
@@ -133,9 +139,23 @@ final class ToDoDetailViewController: UIViewController {
         }
     }
     
+    private func doneAction() -> UIAction {
+        return UIAction { [weak self] _ in
+            self?.updateToDo()
+
+            NotificationCenter.default
+                .post(
+                    name: NSNotification.Name("ToDoDetailDone"),
+                    object: nil
+                )
+            
+            self?.dismiss(animated: true)
+        }
+    }
+    
     private func dismissAction() -> UIAction {
-        return UIAction { _ in
-            self.dismiss(animated: true)
+        return UIAction { [weak self] _ in
+            self?.dismiss(animated: true)
         }
     }
     
@@ -155,6 +175,22 @@ final class ToDoDetailViewController: UIViewController {
                 $0.backgroundColor = .systemGray6
             }
         }
+    }
+    
+    private func setUpToDoDetailView(_ todo: ToDo) {
+        titleTextField.text = todo.title
+        datePicker.date = todo.deadline ?? Date()
+        bodyTextView.text = todo.body
+    }
+    
+    private func setUpTitle(todo: ToDo) {
+        titleLabel.text = todo.category
+    }
+    
+    private func updateToDo() {
+        todo.title = titleTextField.text
+        todo.deadline = datePicker.date
+        todo.body = bodyTextView.text
     }
 }
 

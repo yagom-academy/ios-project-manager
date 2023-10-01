@@ -46,7 +46,8 @@ final class ListViewController: UIViewController {
     
     @objc
     private func addTodo() {
-        let detailViewController = ToDoDetailViewController(isNew: true)
+        let todo = listViewModel.dataManager.createToDo(category: .todo)
+        let detailViewController = ToDoDetailViewController(isNew: true, todo: todo)
         
         present(detailViewController, animated: true)
     }
@@ -127,5 +128,13 @@ extension ListViewController: UITableViewDataSource {
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        guard let todo = listViewModel.todoList?[safe: indexPath.row] else {
+            return
+        }
+        
+        let detailViewController = ToDoDetailViewController(isNew: false, todo: todo)
+        
+        present(detailViewController, animated: true)
     }
 }

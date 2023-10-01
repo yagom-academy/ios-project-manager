@@ -8,10 +8,14 @@
 import Foundation
 
 final class ListViewModel {
+    let dataManager = DataManager()
+    
     // Model이 변경되면 ListViewController의 테이블뷰를 업데이트
-    var todoList: [Todo]? {
+    // ListHeader에 표시되는 count도 업데이트
+    var todoList: [ToDo]? {
         didSet {
             bindTodoList?()
+            count = String(todoList?.count ?? 0)
         }
     }
     
@@ -35,6 +39,7 @@ final class ListViewModel {
     }
     
     // ListViewController의 viewDidLoad 시점을 받아 모델을 로드할 수 있도록 함
+    // ToDoDetailViewController의 Done 시점을 받아 dataManager에서 저장 수행
     private func setUpNotifications() {
         NotificationCenter.default
             .addObserver(
@@ -43,18 +48,26 @@ final class ListViewModel {
                 name: NSNotification.Name("ListViewControllerViewDidLoad"),
                 object: nil
             )
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(saveTodo),
+                name: NSNotification.Name("ToDoDetailDone"),
+                object: nil
+            )
     }
     
+    // ListViewController의 viewDidLoad 시점을 받아 모델을 로드할 수 있도록 함
     @objc
     private func loadTodoList() {
-        todoList = [
-            Todo(title: "1", description: "111", deadline: Date()),
-            Todo(title: "2", description: "222", deadline: Date()),
-            Todo(title: "3", description: "333", deadline: Date()),
-            Todo(title: "4", description: "444", deadline: Date()),
-            Todo(title: "5", description: "555", deadline: Date()),
-            Todo(title: "6", description: "666", deadline: Date())
-        ]
+        todoList = dataManager.fetchToDoList()
+    }
+    
+    // ToDoDetailViewController의 Done 시점을 받아 dataManager에서 저장 수행
+    @objc
+    private func saveTodo() {
+        dataManager.saveContext()
+        loadTodoList()
     }
     
     func bindCount(_ handler: @escaping (ListViewModel) -> Void) {
