@@ -14,6 +14,8 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var bodyTextView: UITextView!
     private let placeHolderForTextField = "Title"
     private let placeHolderForTextView = "This is where you type in what to do.\n1000 characters in the limit."
+    let coreDataManager = CoreDataManager.shared
+    private let entity: Entity? = nil
     
     override func viewDidLoad() {
         configureTitle()
@@ -21,10 +23,25 @@ class SecondViewController: UIViewController {
         configureLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        guard let title = titleTextField.text, !title.isEmpty, title != placeHolderForTextField else {
+            return
+        }
+    
+        guard let body = bodyTextView.text, !body.isEmpty, body != placeHolderForTextView else {
+            return
+        }
+        
+        coreDataManager.createEntity(title: title, body: body)
+    }
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.view.endEditing(true)
     }
-
+    
     private func configureTitle() {
         self.navigationItem.title = "TODO"
     }

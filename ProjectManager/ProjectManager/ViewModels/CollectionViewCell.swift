@@ -18,9 +18,9 @@ class CollectionViewCell: UICollectionViewCell {
         
     }
 
-    func configureLabels() {
-        titleLabel.text = "Title"
-        bodyLabel.text = "Description"
+    func configureLabels(entity: Entity) {
+        titleLabel.text = entity.title
+        bodyLabel.text = entity.body
         durationLabel.text = "Duration"
         durationLabel.textColor = .red
     }

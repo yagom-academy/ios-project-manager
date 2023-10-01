@@ -2,7 +2,7 @@
 //  ProjectManager - ViewController.swift
 //  Created by Jusbug.
 //  Copyright © yagom. All rights reserved.
-// 
+//
 
 import UIKit
 
@@ -11,12 +11,14 @@ class MainViewController: UIViewController {
     @IBOutlet weak var todoCollectionView: UICollectionView!
     @IBOutlet weak var doingCollectionView: UICollectionView!
     @IBOutlet weak var doneCollectionView: UICollectionView!
+    let coreDataManager = CoreDataManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTitle()
         initDelegateAndDataSource()
         registerNib()
+        callGetAllEntity()
     }
     
     private func registerNib() {
@@ -36,6 +38,14 @@ class MainViewController: UIViewController {
         doneCollectionView.dataSource = self
         doneCollectionView.delegate = self
     }
+    
+    private func callGetAllEntity() {
+        coreDataManager.getAllEntity()
+        DispatchQueue.main.async {
+            self.todoCollectionView.reloadData()
+        }
+    }
+    
     private func configureTitle() {
         self.navigationItem.title = "Project Manager"
     }
@@ -58,13 +68,22 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        
+        if collectionView == todoCollectionView {
+            return self.coreDataManager.entities.count
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        cell.configureLabels()
+        let entity: Entity = self.coreDataManager.entities[indexPath.row]
+        
+        if collectionView == todoCollectionView {
+            cell.configureLabels(entity: entity)
+        }
         
         return cell
     }
