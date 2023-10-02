@@ -21,11 +21,11 @@ final class CoreDataManager {
         }
     }
     
-    func createEntity(title: String, body: String) {
+    func createEntity(title: String, body: String, duration: Date) {
         let newEntity = Entity(context: context)
         newEntity.title = title
         newEntity.body = body
-        newEntity.duration = Date()
+        newEntity.duration = duration
         
         saveToContext()
         getAllEntity()
@@ -39,10 +39,10 @@ final class CoreDataManager {
         }
     }
     
-    func updateEntity(entity: Entity, newTitle: String, newBody: String) {
+    func updateEntity(entity: Entity, newTitle: String, newBody: String, newDuration: Date) {
         entity.title = newTitle
         entity.body = newBody
-        entity.duration = Date()
+        entity.duration = newDuration
         
         saveToContext()
     }

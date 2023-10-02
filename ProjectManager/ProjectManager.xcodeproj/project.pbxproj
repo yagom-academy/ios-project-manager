@@ -13,6 +13,7 @@
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		D0293F532ACAB3CE00505749 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0293F522ACAB3CE00505749 /* DateFormatManager.swift */; };
 		D06DA8E52AC2BA9F00314499 /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D06DA8E32AC2BA9F00314499 /* Todo.xcdatamodeld */; };
 		D06DA8E82AC2BB0D00314499 /* Entity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DA8E62AC2BB0D00314499 /* Entity+CoreDataClass.swift */; };
 		D06DA8E92AC2BB0D00314499 /* Entity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DA8E72AC2BB0D00314499 /* Entity+CoreDataProperties.swift */; };
@@ -33,6 +34,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0293F522ACAB3CE00505749 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		D06DA8E42AC2BA9F00314499 /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
 		D06DA8E62AC2BB0D00314499 /* Entity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D06DA8E72AC2BB0D00314499 /* Entity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				D0CED7762ABEAB570081ABE2 /* CollectionViewCell.swift */,
 				D09389A72AC20FC5008A8304 /* CollectionReusableView.swift */,
+				D0293F522ACAB3CE00505749 /* DateFormatManager.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D06DA8E92AC2BB0D00314499 /* Entity+CoreDataProperties.swift in Sources */,
 				D0CED7782ABEAB570081ABE2 /* CollectionViewCell.swift in Sources */,
+				D0293F532ACAB3CE00505749 /* DateFormatManager.swift in Sources */,
 				D09389A92AC20FC5008A8304 /* CollectionReusableView.swift in Sources */,
 				D0CED7812ABEB18D0081ABE2 /* SecondViewController.swift in Sources */,
 				D06DA8E82AC2BB0D00314499 /* Entity+CoreDataClass.swift in Sources */,

@@ -19,9 +19,12 @@ class CollectionViewCell: UICollectionViewCell {
     }
 
     func configureLabels(entity: Entity) {
+        guard let date = entity.duration else { return }
+        let formattedDate = DateFormatManager.formatDate(date: date)
+        
         titleLabel.text = entity.title
         bodyLabel.text = entity.body
-        durationLabel.text = "Duration"
+        durationLabel.text = formattedDate
         durationLabel.textColor = .red
     }
 }

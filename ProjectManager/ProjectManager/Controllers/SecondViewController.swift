@@ -34,9 +34,9 @@ class SecondViewController: UIViewController {
             return
         }
         
-        coreDataManager.createEntity(title: title, body: body)
+        let date = datePicker.date
+        coreDataManager.createEntity(title: title, body: body, duration: date)
     }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.view.endEditing(true)
