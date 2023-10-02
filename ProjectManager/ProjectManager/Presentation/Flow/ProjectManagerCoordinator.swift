@@ -41,18 +41,10 @@ final class ProjectManagerCoordinator {
         presenter.setViewControllers([mainViewController], animated: true)
     }
     
-    private func showEditProject(project: Project?) {
+    private func showProjectDetail(project: Project?) {
         let projectDetailViewModel = DefaultProjectDetailViewModel(projectUseCase: projectUseCase, project: project)
-        let editProjectViewController = EditProjectViewController(viewModel: projectDetailViewModel)
+        let editProjectViewController = ProjectDetailViewController(viewModel: projectDetailViewModel)
         let detailViewController = UINavigationController(rootViewController: editProjectViewController)
-        
-        presenter.present(detailViewController, animated: true)
-    }
-    
-    private func showAddProject() {
-        let projectDetailViewModel = DefaultProjectDetailViewModel(projectUseCase: projectUseCase, project: nil)
-        let addProjectViewController = AddProjectViewController(viewModel: projectDetailViewModel)
-        let detailViewController = UINavigationController(rootViewController: addProjectViewController)
         
         presenter.present(detailViewController, animated: true)
     }
@@ -62,11 +54,11 @@ final class ProjectManagerCoordinator {
     }
     
     private func makeMainViewModelActions() -> MainViewModelActions {
-        return MainViewModelActions(showAddProject: showAddProject)
+        return MainViewModelActions(showProjectDetail: showProjectDetail)
     }
     
     private func makeProjectListViewModelActions() -> ProjectListViewModelAction {
-        return ProjectListViewModelAction(showEditProject: showEditProject,
+        return ProjectListViewModelAction(showProjectDetail: showProjectDetail,
                                           showPopAlert: showAlert)
     }
     

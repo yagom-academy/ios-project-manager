@@ -20,6 +20,7 @@ protocol ProjectDetailViewModelOutput {
     var title: String? { get }
     var body: String? { get }
     var deadlineDate: Date { get }
+    var hasProject: Bool { get }
     var isEditingPublisher: Published<Bool>.Publisher { get }
 }
 
@@ -31,7 +32,7 @@ final class DefaultProjectDetailViewModel: ProjectDetailViewModel {
     private let projectUseCase: ProjectUseCase
     private var project: Project?
     
-    @Published private var isEditing: Bool = false
+    @Published private var isEditing: Bool
     
     // MARK: - Life Cycle
     init(projectUseCase: ProjectUseCase,
@@ -39,6 +40,7 @@ final class DefaultProjectDetailViewModel: ProjectDetailViewModel {
     ) {
         self.projectUseCase = projectUseCase
         self.project = project
+        self.isEditing = project == nil ? true : false
     }
     
     // OUTPUT
@@ -50,6 +52,9 @@ final class DefaultProjectDetailViewModel: ProjectDetailViewModel {
         }
         
         return deadlineDate
+    }
+    var hasProject: Bool {
+        return project == nil ? false : true
     }
     var isEditingPublisher: Published<Bool>.Publisher { $isEditing }
     var navigationTitle: String { project?.state.rawValue ?? "TODO" }

@@ -21,8 +21,6 @@
 		459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */; };
 		45C202E42AC5164D004882DC /* ProjectTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C202E32AC5164D004882DC /* ProjectTableViewCellViewModel.swift */; };
 		45C202E62AC51AB4004882DC /* CircleCountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C202E52AC51AB4004882DC /* CircleCountLabel.swift */; };
-		45CE2DA62AC258A3005B0152 /* AddProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE2DA52AC258A3005B0152 /* AddProjectViewController.swift */; };
-		45CE2DA82AC258B7005B0152 /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE2DA72AC258B7005B0152 /* EditProjectViewController.swift */; };
 		45DF8AB32ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DF8AB22ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -46,8 +44,6 @@
 		459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		45C202E32AC5164D004882DC /* ProjectTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		45C202E52AC51AB4004882DC /* CircleCountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleCountLabel.swift; sourceTree = "<group>"; };
-		45CE2DA52AC258A3005B0152 /* AddProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectViewController.swift; sourceTree = "<group>"; };
-		45CE2DA72AC258B7005B0152 /* EditProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
 		45DF8AB22ABDAB1800EB5C88 /* ProjectManagerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerCoordinator.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -216,8 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				459D1BB52ABC2BD400D80E1A /* ProjectDetailViewController.swift */,
-				45CE2DA72AC258B7005B0152 /* EditProjectViewController.swift */,
-				45CE2DA52AC258A3005B0152 /* AddProjectViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -379,11 +373,9 @@
 				450F8F842ABACF7A009D1B14 /* ProjectTableViewCell.swift in Sources */,
 				450F8F7E2ABA9E8A009D1B14 /* ProjectListViewController.swift in Sources */,
 				452784222AC01BE5003B2468 /* ProjectDetailViewModel.swift in Sources */,
-				45CE2DA82AC258B7005B0152 /* EditProjectViewController.swift in Sources */,
 				4519DC812ABD21E600EF65E3 /* ProjectListViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				45CE2DA62AC258A3005B0152 /* AddProjectViewController.swift in Sources */,
 				452784202AC01575003B2468 /* CurrentDateFormatManager.swift in Sources */,
 				453839582AC311E60027BAF9 /* Calendar+.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

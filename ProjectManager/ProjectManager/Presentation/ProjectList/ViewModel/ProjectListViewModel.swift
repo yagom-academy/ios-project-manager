@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 struct ProjectListViewModelAction {
-    let showEditProject: (Project?) -> Void
+    let showProjectDetail: (Project?) -> Void
     let showPopAlert: (UIAlertController) -> Void
 }
 
@@ -118,6 +118,6 @@ extension DefaultProjectListViewModel {
     }
     
     func selectItem(at index: Int) {
-        actions.showEditProject(projects[index])
+        actions.showProjectDetail(projects[index])
     }
 }

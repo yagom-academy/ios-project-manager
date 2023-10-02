@@ -8,7 +8,7 @@
 import UIKit
 
 struct MainViewModelActions {
-    let showAddProject: () -> Void
+    let showProjectDetail: (Project?) -> Void
 }
 
 protocol MainViewModelInput {
@@ -45,6 +45,6 @@ extension DefaultMainViewModel {
     func viewDidLoad() { }
     
     func tapAddButton() {
-        actions.showAddProject()
+        actions.showProjectDetail(nil)
     }
 }

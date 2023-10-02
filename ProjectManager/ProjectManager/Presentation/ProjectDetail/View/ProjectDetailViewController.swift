@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Combine
 
-class ProjectDetailViewController: UIViewController {
+final class ProjectDetailViewController: UIViewController {
     
     // MARK: - Private ProPerty
     private let stackView: UIStackView = {
@@ -21,7 +22,7 @@ class ProjectDetailViewController: UIViewController {
         return stackView
     }()
     
-    let textField: UITextField = {
+    private let textField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .bezel
         textField.placeholder = "Title"
@@ -29,7 +30,7 @@ class ProjectDetailViewController: UIViewController {
         return textField
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -37,7 +38,7 @@ class ProjectDetailViewController: UIViewController {
         return datePicker
     }()
     
-    let textView: UITextView = {
+    private let textView: UITextView = {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .body)
         textView.layer.borderWidth = 2
@@ -46,7 +47,9 @@ class ProjectDetailViewController: UIViewController {
         return textView
     }()
     
-    let viewModel: ProjectDetailViewModel
+    private let viewModel: ProjectDetailViewModel
+    
+    private var cancellables: [AnyCancellable] = []
     
     // MARK: - Life Cycle
     init(viewModel: ProjectDetailViewModel) {
@@ -64,12 +67,36 @@ class ProjectDetailViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        setupBindings()
     }
     
-    @objc func tapDoneButton() {
+    @objc private func tapDoneButton() {
         viewModel.tapDoneButton(title: textField.text, body: textView.text, date: datePicker.date)
         
         dismiss(animated: true)
+    }
+    
+    @objc private func tapCancelButton() {
+        dismiss(animated: true)
+    }
+    
+    @objc private func tapEditButton() {
+        viewModel.tapEditButton()
+    }
+    
+    // MARK: - Data Binding
+    private func setupBindings() {
+        textField.text = viewModel.title
+        textView.text = viewModel.body
+        datePicker.date = viewModel.deadlineDate
+        
+        viewModel.isEditingPublisher.sink { [weak self] isEditing in
+            guard let self else {
+                return
+            }
+            
+            self.configureViewObjectInput(isEditing)
+        }.store(in: &cancellables)
     }
 }
 
@@ -84,11 +111,15 @@ extension ProjectDetailViewController {
     
     private func configureNavigation() {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tapDoneButton))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(tapCancelButton))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(tapEditButton))
+        
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .systemFill
         
         navigationItem.title = viewModel.navigationTitle
         navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = viewModel.hasProject ? editButton : cancelButton
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
@@ -112,5 +143,11 @@ extension ProjectDetailViewController {
             stackView.topAnchor.constraint(equalTo: safe.topAnchor, constant: 16),
             stackView.bottomAnchor.constraint(equalTo: safe.bottomAnchor, constant: -16)
         ])
+    }
+    
+    private func configureViewObjectInput(_ isInput: Bool) {
+        textField.isEnabled = isInput
+        textView.isEditable = isInput
+        datePicker.isEnabled = isInput
     }
 }
