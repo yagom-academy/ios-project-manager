@@ -9,6 +9,7 @@ import Foundation
 
 protocol DataManagerProtocol {
     func addTodoItem(title: String, body: String, date: Date)
+    func deleteTodoItem(_ item: ProjectManager)
 }
 
 final class DataManager: DataManagerProtocol {
@@ -17,5 +18,11 @@ final class DataManager: DataManagerProtocol {
     func addTodoItem(title: String, body: String, date: Date) {
         let newItem = ProjectManager(title: title, body: body, date: date)
         todoItems.append(newItem)
+    }
+    
+    func deleteTodoItem(_ item: ProjectManager) {
+        if let index = todoItems.firstIndex(where: { $0 == item }) {
+            todoItems.remove(at: index)
+        }
     }
 }

@@ -269,6 +269,34 @@ extension MainViewController: UITableViewDelegate {
         addTodoView.delegate = self
         present(navigationController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .normal, title: "Delete") { [weak self] (_, _, completionHandler) in
+            guard let self else { return }
+            guard indexPath.section == 1 else { return }
+            var deletedItem: ProjectManager?
+            switch tableView {
+            case self.todoTableView:
+                deletedItem = self.useCase.todoItems.remove(at: indexPath.row)
+            case self.doingTableView:
+                deletedItem = self.useCase.doingItems.remove(at: indexPath.row)
+            case self.doneTableView:
+                deletedItem = self.useCase.doneItems.remove(at: indexPath.row)
+            default:
+                return
+            }
+            
+            guard let deletedItem = deletedItem else { return }
+            self.dataManager.deleteTodoItem(deletedItem)
+            tableView.reloadData()
+            completionHandler(true)
+        }
+        
+        delete.backgroundColor = .systemRed
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
 
 extension MainViewController: AddTodoDelegate {
