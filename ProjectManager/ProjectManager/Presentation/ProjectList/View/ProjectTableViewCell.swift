@@ -35,7 +35,7 @@ final class ProjectTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         
         return label
     }()
