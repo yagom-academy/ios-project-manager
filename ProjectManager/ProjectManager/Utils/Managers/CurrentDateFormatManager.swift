@@ -16,8 +16,8 @@ struct CurrentDateFormatManager {
     private let dateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
-        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy. MM. dd")
         dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateStyle = .medium
         
         return dateFormatter
     }()
