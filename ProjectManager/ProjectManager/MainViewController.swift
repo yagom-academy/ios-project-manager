@@ -7,7 +7,9 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    let todoList: [String] = ["todo1", "todo2", "todo3", "todo4", "todo5"]
+    private var workViewModel = WorkViewModel()
+    
+    var todoList: [Work] = []
     let doingList: [String] = ["doing1", "doing2", "doing3", "doing4"]
     let doneList: [String] = ["done1", "done2", "done3", "done4", "done5", "done6"]
     
@@ -168,6 +170,10 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Closure를 이용하는 경우 최초 데이터 바인딩을 위한 추가 작업이 필요
+//        todoList = workViewModel.works.value
+        setBindings()
+        
         setNavigationItem()
         setTableViews()
         setUI()
@@ -178,6 +184,7 @@ final class MainViewController: UIViewController {
         
         let addAction = UIAction { _ in
             // TODO: + 버튼 터치 시 동작 작성
+            
             print("touch addAction")
         }
         
@@ -240,7 +247,7 @@ final class MainViewController: UIViewController {
         ])
     }
     
-    func createDivider() -> UIView {
+    private func createDivider() -> UIView {
         let divider: UIView = {
             let view = UIView()
             view.backgroundColor = .systemGray4
@@ -251,6 +258,21 @@ final class MainViewController: UIViewController {
         }()
 
         return divider
+    }
+    
+    private func setBindings() {
+        // Closure를 이용하는 방법
+//        workViewModel.didChangeWorks = { [weak self] workViewModel in
+//            self?.todoList = workViewModel.works
+//            self?.todoTableView.reloadData()
+//        }
+        
+        // Observable을 이용하는 방법
+        workViewModel.works.bind { [weak self] works in
+            guard let works else { return }
+            self?.todoList = works
+            self?.todoCountLabel.text = works.count.description
+        }
     }
 }
 
@@ -271,9 +293,8 @@ extension MainViewController: UITableViewDataSource {
         }
         
         if tableView == todoTableView {
-            let title = "\(todoList[indexPath.row])의 제목"
-            let description = "\(todoList[indexPath.row]) 의 내용입니다."
-            cell.config(title: title, description: description, deadline: Date())
+            let todo = todoList[indexPath.row]
+            cell.config(title: todo.title, description: todo.description, deadline: todo.deadline)
         } else if tableView == doingTableView {
             let title = "\(doneList[indexPath.row])의 제목"
             let description = "\(doneList[indexPath.row]) 의 내용입니다."
@@ -294,9 +315,15 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complition in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, complition in
             // TODO: 테이블뷰 셀 제거 로직 작성
             print("delete tableView row")
+            
+            // todoList 임시 코드
+            guard let self else { return }
+            self.todoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            workViewModel.updateWorks(self.todoList)
             
             complition(true)
         }
