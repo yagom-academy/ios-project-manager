@@ -152,7 +152,13 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? CollectionReusableView else { return UICollectionReusableView()}
             
-            headerView.configureHeaderLabel()
+            if collectionView == todoCollectionView {
+                headerView.headerLabel.text = "TODO"
+            } else if collectionView == doingCollectionView {
+                headerView.headerLabel.text = "DOING"
+            } else if collectionView == doneCollectionView {
+                headerView.headerLabel.text = "DONE"
+            }
             
             return headerView
         } else {

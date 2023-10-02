@@ -14,12 +14,4 @@ class CollectionReusableView: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-    func configureHeaderLabel() {
-        if let headerLabel = headerLabel {
-            headerLabel.text = "TODO"
-        } else {
-            // headerLabel이 nil인 경우에 대한 처리
-        }
-    }
 }
