@@ -5,7 +5,7 @@
 //  Created by BMO on 2023/10/01.
 //
 
-class Observable<T> {
+final class Observable<T> {
     private var listener: ((T?) -> Void)?
     
     var value: T? {
