@@ -125,6 +125,12 @@ final class ToDoDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        doneToDoDetail()
+    }
+    
     private func setUpDelegates() {
         bodyTextView.delegate = self
     }
@@ -143,14 +149,7 @@ final class ToDoDetailViewController: UIViewController {
     // todo를 업데이트하고 뷰모델에 알림 전송 후 dismiss
     private func doneAction() -> UIAction {
         return UIAction { [weak self] _ in
-            self?.updateToDo()
-
-            NotificationCenter.default
-                .post(
-                    name: NSNotification.Name("ToDoDetailDone"),
-                    object: nil
-                )
-            
+            self?.doneToDoDetail()
             self?.dismiss(animated: true)
         }
     }
@@ -195,6 +194,19 @@ final class ToDoDetailViewController: UIViewController {
         todo.title = titleTextField.text
         todo.deadline = datePicker.date
         todo.body = bodyTextView.text
+    }
+    
+    private func postToDoDetailDone() {
+        NotificationCenter.default
+            .post(
+                name: NSNotification.Name("ToDoDetailDone"),
+                object: nil
+            )
+    }
+    
+    private func doneToDoDetail() {
+        updateToDo()
+        postToDoDetailDone()
     }
 }
 
