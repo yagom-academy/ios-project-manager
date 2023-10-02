@@ -107,13 +107,25 @@ extension MainViewController: UICollectionViewDataSource {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let doing = UIAlertAction(title: "Move to Doing", style: .default) { [weak self] action in
-
+            guard let self = self else { return }
+            
+            let entity = self.coreDataManager.entities[indexPath.row]
+            coreDataManager.deleteEntity(entity: entity)
+            updateTodoColletionView()
+            
         }
         
         let done = UIAlertAction(title: "Move to Done", style: .default)
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
+            guard let self = self else { return }
+            let entity = self.coreDataManager.entities[indexPath.row]
+            coreDataManager.deleteEntity(entity: entity)
+            updateTodoColletionView()
+        }
         
         actionSheet.addAction(doing)
         actionSheet.addAction(done)
+        actionSheet.addAction(delete)
         
         if let cell = collectionView.cellForItem(at: indexPath) {
             actionSheet.popoverPresentationController?.sourceView = cell
