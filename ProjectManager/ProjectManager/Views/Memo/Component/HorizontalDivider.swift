@@ -10,14 +10,8 @@ import SwiftUI
 struct HorizontalDivider: View {
     var body: some View {
         Rectangle()
-            .fill(ColorSet.background)
-            .frame(height: 10)
-            .overlay(
-                Rectangle()
-                    .frame(width: nil, height: 3)
-                    .foregroundColor(ColorSet.border),
-                alignment: .top
-            )
+            .frame(width: nil, height: 1.5)
+            .foregroundColor(ColorSet.border)
     }
 }
 

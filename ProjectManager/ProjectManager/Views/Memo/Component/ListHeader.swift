@@ -12,14 +12,19 @@ struct ListHeader: View {
     var memoCount: Int
     
     var body: some View {
-        HStack {
-            Text(category)
-            Image(systemName: "\(memoCount).circle.fill")
-            Spacer()
+        VStack(spacing: 0) {
+            HStack {
+                Text(category)
+                Image(systemName: "\(memoCount).circle.fill")
+                Spacer()
+            }
+            .font(.largeTitle)
+            .foregroundColor(.primary)
+            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 0))
+            
+            HorizontalDivider()
         }
-        .font(.largeTitle)
-        .foregroundColor(.primary)
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+        .listRowInsets(EdgeInsets())
     }
 }
 

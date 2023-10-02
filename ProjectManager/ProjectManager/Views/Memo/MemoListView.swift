@@ -17,7 +17,7 @@ struct MemoListView: View {
             Section {
                 ForEach(memos) { memo in
                     VStack(alignment: .leading, spacing: 2) {
-                        HorizontalDivider()
+                        HorizontalSpacing()
                         
                         MemoRow(memo: memo)
                             .swipeActions {
@@ -28,6 +28,8 @@ struct MemoListView: View {
                                 }
                             }
                             .padding()
+                        
+                        HorizontalDivider()
                     }
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets())
