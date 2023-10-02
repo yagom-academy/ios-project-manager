@@ -16,7 +16,7 @@ class SecondViewController: UIViewController {
     private let placeHolderForTextView = "This is where you type in what to do.\n1000 characters in the limit."
     let coreDataManager = CoreDataManager.shared
     private let entity: Entity? = nil
-    
+
     override func viewDidLoad() {
         configureTitle()
         initPlaceHolderForText()
@@ -73,7 +73,8 @@ class SecondViewController: UIViewController {
     }
     
     @IBAction func didTapDoneButton(_ sender: Any) {
-        
+        NotificationCenter.default.post(name: NSNotification.Name("createdTodo"), object: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

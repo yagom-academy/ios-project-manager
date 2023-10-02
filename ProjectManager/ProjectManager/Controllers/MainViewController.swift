@@ -18,7 +18,16 @@ class MainViewController: UIViewController {
         configureTitle()
         initDelegateAndDataSource()
         registerNib()
-        callGetAllEntity()
+        updateTodoColletionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTodoColletionView()
+    }
+    
+    private func notificationForUpdate() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveNotification), name: NSNotification.Name("createdTodo"), object:  nil)
     }
     
     private func registerNib() {
@@ -39,10 +48,15 @@ class MainViewController: UIViewController {
         doneCollectionView.delegate = self
     }
     
-    private func callGetAllEntity() {
+    @objc func didReceiveNotification() {
+        updateTodoColletionView()
+    }
+    
+    func updateTodoColletionView() {
         coreDataManager.getAllEntity()
         DispatchQueue.main.async {
             self.todoCollectionView.reloadData()
+            self.doingCollectionView.reloadData()
         }
     }
     
@@ -66,9 +80,8 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         if collectionView == todoCollectionView {
             return self.coreDataManager.entities.count
         } else {
@@ -87,11 +100,16 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         return cell
     }
-    
+}
+
+extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let doing = UIAlertAction(title: "Move to Doing", style: .default)
+        let doing = UIAlertAction(title: "Move to Doing", style: .default) { [weak self] action in
+
+        }
+        
         let done = UIAlertAction(title: "Move to Done", style: .default)
         
         actionSheet.addAction(doing)
@@ -105,7 +123,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         present(actionSheet, animated: true, completion: nil)
     }
-    
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width - 10, height: 100)
     }

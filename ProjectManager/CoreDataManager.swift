@@ -52,4 +52,15 @@ final class CoreDataManager {
         
         saveToContext()
     }
+    
+    func moveItem(from sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        // 선택한 아이템을 가져옴
+        let itemToMove = entities.remove(at: sourceIndexPath.item)
+
+        // 새로운 위치에 아이템을 삽입
+        entities.insert(itemToMove, at: destinationIndexPath.item)
+
+        // 변경 내용을 저장
+        saveToContext()
+    }
 }

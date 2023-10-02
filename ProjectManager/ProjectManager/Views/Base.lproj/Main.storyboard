@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AG1-bX-5ko">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AG1-bX-5ko">
     <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -90,7 +91,7 @@
             <objects>
                 <viewController storyboardIdentifier="secondViewController" id="51J-16-KUh" customClass="SecondViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kH3-L1-pX9">
-                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bsb-Br-bkv">
@@ -132,8 +133,7 @@
                             <constraint firstItem="HXc-f4-rM0" firstAttribute="top" secondItem="LYS-fA-Tas" secondAttribute="bottom" constant="15" id="NTg-hw-hgb"/>
                             <constraint firstItem="HXc-f4-rM0" firstAttribute="trailing" secondItem="kH3-L1-pX9" secondAttribute="trailingMargin" id="WTZ-UO-g0e"/>
                             <constraint firstItem="LYS-fA-Tas" firstAttribute="top" secondItem="bsb-Br-bkv" secondAttribute="bottom" constant="41" id="aiS-mf-qbJ"/>
-                            <constraint firstItem="HXc-f4-rM0" firstAttribute="leading" secondItem="bsb-Br-bkv" secondAttribute="leading" id="e5o-FT-YVI"/>
-                            <constraint firstItem="HXc-f4-rM0" firstAttribute="trailing" secondItem="bsb-Br-bkv" secondAttribute="trailing" id="kPC-2w-kFy"/>
+                            <constraint firstItem="bsb-Br-bkv" firstAttribute="leading" secondItem="HXc-f4-rM0" secondAttribute="leading" id="b67-mP-1Xj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TODO" id="uZd-L3-PTj">
@@ -143,10 +143,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Edit"/>
+                                <connections>
+                                    <action selector="didTapEditButton:" destination="51J-16-KUh" eventType="touchUpInside" id="KrL-NA-0Ck"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="didTapEditButton:" destination="51J-16-KUh" id="bQQ-gV-6f0"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="FaT-rl-b8X">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5Km-Cp-HRP">
@@ -154,10 +154,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Done"/>
+                                <connections>
+                                    <action selector="didTapDoneButton:" destination="51J-16-KUh" eventType="touchUpInside" id="1oS-uu-o0P"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="didTapDoneButton:" destination="51J-16-KUh" id="zIT-Ia-ntr"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -209,7 +209,7 @@
     </scenes>
     <resources>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
