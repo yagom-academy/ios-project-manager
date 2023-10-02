@@ -16,24 +16,24 @@ protocol ProjectUseCase {
 final class DefaultProjectUseCase: ProjectUseCase {
     
     // MARK: - Private Property
-    @Published private var projectRepository: [Project] = []
+    @Published private var projects: [Project] = []
     
     // MARK: - Project CRUD
     func readProjects() -> Published<[Project]>.Publisher {
-        return $projectRepository
+        return $projects
     }
     
     func storeProject(_ project: Project) {
-        if let index = projectRepository.firstIndex(where: { $0.id == project.id }) {
-            projectRepository[index] = project
+        if let index = projects.firstIndex(where: { $0.id == project.id }) {
+            projects[index] = project
         } else {
-            projectRepository.append(project)
+            projects.append(project)
         }
     }
     
     func deleteProject(_ project: Project) {
-        if let index = projectRepository.firstIndex(where: { $0.id == project.id }) {
-            projectRepository.remove(at: index)
+        if let index = projects.firstIndex(where: { $0.id == project.id }) {
+            projects.remove(at: index)
         }
     }
 }
