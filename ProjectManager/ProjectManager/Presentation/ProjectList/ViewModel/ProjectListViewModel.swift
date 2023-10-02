@@ -61,8 +61,8 @@ final class DefaultProjectListViewModel: ProjectListViewModel {
                 $0.state == self.state
             }
             
-            projects = targetProjects
-            projectCount = targetProjects.count
+            self.projects = targetProjects
+            self.projectCount = targetProjects.count
         }.store(in: &cancellables)
     }
     
@@ -101,10 +101,10 @@ extension DefaultProjectListViewModel {
                         return
                     }
                     
-                    var targetProject = projects[indexPath.row]
+                    var targetProject = self.projects[indexPath.row]
                     targetProject.state = state
                     
-                    projectUseCase.storeProject(targetProject)
+                    self.projectUseCase.storeProject(targetProject)
                 }
                 
                 alert.addAction(action)

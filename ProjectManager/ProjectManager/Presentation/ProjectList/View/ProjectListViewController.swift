@@ -79,7 +79,7 @@ final class ProjectListViewController: UIViewController {
             var snapShot = NSDiffableDataSourceSnapshot<Section, Project>()
             snapShot.appendSections([.main])
             snapShot.appendItems(projects)
-            dataSource.apply(snapShot)
+            self.dataSource.apply(snapShot)
         }.store(in: &cancellables)
         
         viewModel.projectCountPublisher.sink { [weak self] count in
@@ -87,7 +87,7 @@ final class ProjectListViewController: UIViewController {
                 return
             }
             
-            configureHeaderView(count: count)
+            self.configureHeaderView(count: count)
         }.store(in: &cancellables)
     }
 }
@@ -104,7 +104,7 @@ extension ProjectListViewController: UITableViewDelegate {
                 return
             }
             
-            viewModel.deleteItem(at: indexPath.row)
+            self.viewModel.deleteItem(at: indexPath.row)
             success(true)
         }
         

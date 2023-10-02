@@ -49,7 +49,7 @@ final class EditProjectViewController: ProjectDetailViewController {
                 return
             }
             
-            configureViewObjectInput(isEditing)
+            self.configureViewObjectInput(isEditing)
         }.store(in: &cancellables)
     }
 }
