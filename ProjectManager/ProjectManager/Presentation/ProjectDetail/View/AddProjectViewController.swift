@@ -25,10 +25,6 @@ final class AddProjectViewController: ProjectDetailViewController {
         configureUI()
     }
     
-    override func tapDoneButton() {
-        super.tapDoneButton()
-    }
-    
     @objc private func tapCancelButton() {
         dismiss(animated: true)
     }

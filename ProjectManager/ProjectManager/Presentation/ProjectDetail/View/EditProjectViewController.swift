@@ -30,10 +30,6 @@ final class EditProjectViewController: ProjectDetailViewController {
         setupBindings()
     }
     
-    override func tapDoneButton() {        
-        super.tapDoneButton()
-    }
-    
     @objc private func tapEditButton() {
         viewModel.tapEditButton()
     }
