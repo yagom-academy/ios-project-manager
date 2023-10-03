@@ -57,7 +57,6 @@ class MainViewController: UIViewController {
     @objc func didReceiveNotification() {
         updateTodoColletionView()
         coreDataManager.getAllEntity()
-        print("Received")
     }
     
     func updateTodoColletionView() {
@@ -189,7 +188,6 @@ extension MainViewController: UICollectionViewDataSource {
             )
             actionSheet.popoverPresentationController?.permittedArrowDirections = indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 ? .down : .up
         }
-        
         
         present(actionSheet, animated: true, completion: nil)
     }
