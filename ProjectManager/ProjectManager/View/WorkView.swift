@@ -13,10 +13,10 @@ enum WorkType: String {
     case done = "DONE"
 }
 
-class WorkView: UIView {
-    let workType: WorkType
-    let workViewModel = WorkViewModel()
-    var works: [Work] = []
+final class WorkView: UIView {
+    private let workType: WorkType
+    private let workViewModel = WorkViewModel()
+    private var works: [Work] = []
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
