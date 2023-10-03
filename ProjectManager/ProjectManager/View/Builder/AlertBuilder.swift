@@ -13,7 +13,7 @@ final class AlertBuilder {
     private var controllerMessage: String = ""
     private var alertActions: [UIAlertAction] = []
     
-    init(viewController: UIViewController, prefferedStyle: UIAlertController.Style) {
+    init(prefferedStyle: UIAlertController.Style) {
         self.alertController = UIAlertController(title: nil, message: nil, preferredStyle: prefferedStyle)
     }
     

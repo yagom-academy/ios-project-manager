@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ToDoListChildViewController: UIViewController {
+final class ToDoListChildViewController: UIViewController {
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
     private let viewModel: ToDoListChildViewModel
@@ -61,16 +61,11 @@ class ToDoListChildViewController: UIViewController {
         tableView.delegate = self
         tableView.register(ToDoListTableViewCell.self, forCellReuseIdentifier: status.rawValue)
     }
-    
-    func reloadTableView() {
-        tableView.reloadData()
-        headerView.setupTotalCount(viewModel.entityList.value.count)
-    }
 }
 
 extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.entityList.value.count
+        viewModel.entityList.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -82,7 +77,7 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
                                                        for: indexPath) as?
                 ToDoListTableViewCell else { return UITableViewCell() }
         
-        let toDoEntity = viewModel.entityList.value[indexPath.row]
+        let toDoEntity = viewModel.entityList[indexPath.row]
         let isDone = toDoEntity.status == ToDoStatus.done.rawValue
         let isPast = floor(today/86400) > floor(toDoEntity.dueDate.timeIntervalSinceReferenceDate/86400) && !isDone
         let date = dateFormatter.string(from: toDoEntity.dueDate)
@@ -96,7 +91,7 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->
     UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "") { (_, _, success: @escaping (Bool) -> Void) in
-            let selectedEntity = self.viewModel.entityList.value[indexPath.row]
+            let selectedEntity = self.viewModel.entityList[indexPath.row]
             self.viewModel.deleteData(selectedEntity)
         }
         
@@ -109,15 +104,29 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension ToDoListChildViewController {
     private func setupBinding() {
-        viewModel.entityList.bind { [weak self] _ in
-            guard let self else { return }
-            self.reloadTableView()
+        viewModel.action.bind { [weak self] action in
+            guard let self,
+                  let action else { return }
+            
+            switch action.type {
+            case .create:
+                let index = self.viewModel.entityList.count - 1
+                self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            case .update:
+                self.tableView.reloadData()
+            case .delete:
+                guard let indexInformation = action.extraInformation.filter({ $0.key == "index" }).first,
+                      let index = indexInformation.value as? Int else { return }
+                self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            }
+            
+            self.headerView.setupTotalCount(viewModel.entityList.count)
         }
         
-        viewModel.error.bind { [weak self] _ in
+        viewModel.error.bind { [weak self] error in
             guard let self,
-                  let error = viewModel.error.value else { return }
-            let alertBuilder = AlertBuilder(viewController: self, prefferedStyle: .alert)
+                  let error else { return }
+            let alertBuilder = AlertBuilder(prefferedStyle: .alert)
             alertBuilder.setControllerTitle(title: error.alertTitle)
             alertBuilder.setControllerMessage(message: error.alertMessage)
             alertBuilder.addAction(.confirm)

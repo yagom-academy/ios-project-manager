@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ToDoListBaseViewController: UIViewController {
+final class ToDoListBaseViewController: UIViewController {
     private let viewModel: ToDoListBaseViewModel
     
     private let stackView: UIStackView = {
@@ -36,7 +36,7 @@ class ToDoListBaseViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        readData()
+        viewModel.fetchAllData()
     }
     
     override func viewDidLoad() {
@@ -50,7 +50,7 @@ class ToDoListBaseViewController: UIViewController {
     
     private func addChildren() {
         ToDoStatus.allCases.forEach { status in
-            let childViewModel = viewModel.addChildModel(status: status)
+            let childViewModel = viewModel.addChild(status)
             let childViewController = ToDoListChildViewController(status,
                                                               viewModel: childViewModel,
                                                               dateFormatter: dateFormatter)
@@ -81,19 +81,27 @@ class ToDoListBaseViewController: UIViewController {
     
     private func setupNavigationBar() {
         self.title = "Project Manager"
-        let addToDo = UIAction(image: UIImage(systemName: "plus")) { _ in }
+        let addToDo = UIAction(image: UIImage(systemName: "plus")) { [weak self] _ in
+#if DEBUG
+            let testValue: [KeywordArgument] = [
+                KeywordArgument(key: "id", value: UUID()),
+                KeywordArgument(key: "title", value: "추가 테스트"),
+                KeywordArgument(key: "body", value: "테스트용입니다"),
+                KeywordArgument(key: "dueDate", value: Date()),
+                KeywordArgument(key: "modifiedAt", value: Date()),
+                KeywordArgument(key: "status", value: ToDoStatus.toDo.rawValue)
+            ]
+            self?.viewModel.createData(values: testValue)
+#endif
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(primaryAction: addToDo)
     }
     
-    private func readData() {
-        viewModel.fetchData()
-    }
-    
     private func setupBinding() {
-        viewModel.error.bind { [weak self] _ in
+        viewModel.error.bind { [weak self] error in
             guard let self,
-                  let error = viewModel.error.value else { return }
-            let alertBuilder = AlertBuilder(viewController: self, prefferedStyle: .alert)
+                  let error else { return }
+            let alertBuilder = AlertBuilder(prefferedStyle: .alert)
             alertBuilder.setControllerTitle(title: error.alertTitle)
             alertBuilder.setControllerMessage(message: error.alertMessage)
             alertBuilder.addAction(.confirm)

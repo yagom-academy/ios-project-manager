@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ToDoListHeaderView: UIView {
+final class ToDoListHeaderView: UIView {
     private let status: ToDoStatus
     
     private let headerTitleLabel: UILabel = {

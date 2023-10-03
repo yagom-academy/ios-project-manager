@@ -19,7 +19,7 @@ extension ToDo {
     @NSManaged public var title: String
     @NSManaged public var dueDate: Date
     @NSManaged public var body: String
-    @NSManaged public var createdAt: Date
+    @NSManaged public var modifiedAt: Date
     @NSManaged public var status: String
 
 }
