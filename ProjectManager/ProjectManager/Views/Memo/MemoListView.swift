@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct MemoListView: View {
-    
     @State private var currentMemo: Memo? = nil
-    var memos: [Memo]
-    var category: Memo.Category
+    private var memos: [Memo]
+    private var category: Memo.Category
+    
+    init(memos: [Memo], category: Memo.Category) {
+        self.memos = memos
+        self.category = category
+    }
 
     var body: some View {
         VStack(spacing: 0) {

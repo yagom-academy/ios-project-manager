@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewMemo: View {
-    @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject private var modelData: ModelData
     @State private var memo: Memo = Memo.newMemo
         
     var body: some View {

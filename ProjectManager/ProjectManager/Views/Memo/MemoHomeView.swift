@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoHomeView: View {
-    @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject private var modelData: ModelData
     @State private var showDetail: Bool = false
     
     var body: some View {

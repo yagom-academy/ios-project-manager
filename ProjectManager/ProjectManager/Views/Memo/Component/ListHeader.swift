@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct ListHeader: View {
-    var category: String
-    var memoCount: Int
+    private var category: String
+    private var memoCount: Int
+    
+    init(category: String, memoCount: Int) {
+        self.category = category
+        self.memoCount = memoCount
+    }
     
     var body: some View {
         VStack(spacing: 0) {

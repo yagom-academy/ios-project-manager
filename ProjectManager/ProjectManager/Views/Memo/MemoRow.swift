@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct MemoRow: View {
-    var memo: Memo
+    private var memo: Memo
+    
+    init(memo: Memo) {
+        self.memo = memo
+    }
     
     var body: some View {
         VStack(alignment: .leading) {

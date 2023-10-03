@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct MemoDetail: View {
-    @EnvironmentObject var modelData: ModelData
-    var memo: Memo
+    @EnvironmentObject private var modelData: ModelData
+    private let memo: Memo
     
-    var memoIndex: Int {
+    private var memoIndex: Int {
         modelData.memos.firstIndex(where: { $0.id == memo.id })!
+    }
+    
+    init(memo: Memo) {
+        self.memo = memo
     }
     
     var body: some View {
