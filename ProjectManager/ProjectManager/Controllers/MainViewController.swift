@@ -174,9 +174,12 @@ extension MainViewController: UICollectionViewDataSource {
             alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.done, from: todoItem)
             alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: todoItem)
         case doingCollectionView:
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.todo, from: doingItem)
             alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.done, from: doingItem)
             alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doingItem)
         case doneCollectionView:
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.todo, from: doneItem)
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.doing, from: doneItem)
             alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doneItem)
         default:
             break
