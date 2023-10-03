@@ -7,6 +7,9 @@
 import SwiftUI
 
 final class KanbanViewModel: ObservableObject {
+    
+    private let taskUseCases: TaskUseCases
+
     @Published var tasks: [Task]
     @Published var isFormOn: Bool = false
     @Published var selectedTask: Task? = nil
@@ -23,23 +26,35 @@ final class KanbanViewModel: ObservableObject {
         return tasks.filter { $0.state == .done }
     }
     
-    init(tasks: [Task] = []) {
+    init(useCase taskUseCases: TaskUseCases) {
+        self.taskUseCases = taskUseCases
+        self.tasks = taskUseCases.fetchTasks()
+    }
+    
+    // Mock 객체를 위한 initializer
+    init(tasks: [Task]) {
+        self.taskUseCases = TaskUseCases(taskRepository: RealmTaskRepository())
         self.tasks = tasks
-        self.tasks.sort { $0.date < $1.date }
     }
     
     func create(_ task: Task) {        
-        tasks.append(task)
-        tasks.sort { $0.date < $1.date }
+        taskUseCases.createTask(task)
+        fetchAll()
     }
     
     func update(newTask: Task) {
-        guard let index = tasks.firstIndex(where: { task in
-            task.id == newTask.id
-        }) else { return }
-        tasks[index].title = newTask.title
-        tasks[index].content = newTask.content
-        tasks[index].date = newTask.date
+        taskUseCases.updateTask(id: newTask.id, new: newTask)
+        fetchAll()
+    }
+    
+    func move(_ task: Task, to state: TaskState) {
+        taskUseCases.moveTask(task: task, to: state)
+        fetchAll()
+    }
+    
+    func delete(_ task: Task) {
+        taskUseCases.deleteTask(task)
+        fetchAll()
     }
     
     func setFormVisible(_ isVisible: Bool) {
@@ -50,23 +65,16 @@ final class KanbanViewModel: ObservableObject {
         selectedTask = task
     }
     
-    func move(_ task: Task, to state: TaskState) {
-        guard let index = tasks.firstIndex(of: task) else { return }
+    private func fetchAll() {
         withAnimation {
-            tasks[index].state = state
-        }
-    }
-    
-    func delete(_ task: Task) {
-        guard let index = tasks.firstIndex(of: task) else { return }
-        tasks.remove(at: index)
+            self.tasks = taskUseCases.fetchTasks()
+        }        
     }
 }
 
 extension KanbanViewModel {
     
     static let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now)!
-    
     static let mock = KanbanViewModel(
         tasks: [
             Task(title: "탁구하기🏓", content: "삶이 있는 한 희망은 있다", date: yesterday, state: .todo),

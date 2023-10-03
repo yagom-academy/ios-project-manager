@@ -12,12 +12,12 @@ import FirebaseFirestore
 @main
 struct ProjectManagerApp: App {
     
-    @StateObject private var keyboard = KeyboardManager()
+    @StateObject private var keyboard = DIContainer.keyboard
     
     var body: some Scene {
         WindowGroup {
-            KanbanView()
-                .environmentObject(keyboard)
+            KanbanView(kanbanViewModel: DIContainer.kanbanViewModel)
+                .environmentObject(keyboard)                
         }
     }
 }

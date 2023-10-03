@@ -10,7 +10,7 @@ import SwiftUI
 struct KanbanView: View {
     @ObservedObject private var kanbanViewModel: KanbanViewModel
     
-    init(kanbanViewModel: KanbanViewModel = KanbanViewModel.mock) {
+    init(kanbanViewModel: KanbanViewModel) {
         self.kanbanViewModel = kanbanViewModel 
     }
     

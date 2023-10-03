@@ -132,7 +132,7 @@ struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {
 struct TaskAddView_Previews: PreviewProvider {
     static var previews: some View {
         TaskFormView(
-            viewModel: TaskCreateViewModel(
+            TaskCreateViewModel(
                 formSize: CGSize(width: 500, height: 600)
             )
         )

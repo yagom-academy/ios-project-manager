@@ -14,6 +14,11 @@
 		1F223ACD2ABAE76500EDB1E9 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */; };
 		1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */; };
 		1F3A6CA42ACC09F700EC9234 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */; };
+		1F3A6CB22ACC506E00EC9234 /* RealmTaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB12ACC506E00EC9234 /* RealmTaskObject.swift */; };
+		1F3A6CB42ACC508100EC9234 /* RealmTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB32ACC508100EC9234 /* RealmTaskRepository.swift */; };
+		1F3A6CB72ACC541400EC9234 /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB62ACC541400EC9234 /* TaskRepository.swift */; };
+		1F3A6CB92ACC588400EC9234 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB82ACC588400EC9234 /* Mapper.swift */; };
+		1F3A6CBB2ACC6E4F00EC9234 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CBA2ACC6E4F00EC9234 /* DIContainer.swift */; };
 		1F4D8D252ABD890A00B5FB6E /* ColumnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8D242ABD890A00B5FB6E /* ColumnViewModel.swift */; };
 		1F4D8D282ABD8A8200B5FB6E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8D272ABD8A8200B5FB6E /* CardView.swift */; };
 		1F4D8D2A2ABD8AA300B5FB6E /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8D292ABD8AA300B5FB6E /* CardViewModel.swift */; };
@@ -42,6 +47,11 @@
 		1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
+		1F3A6CB12ACC506E00EC9234 /* RealmTaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskObject.swift; sourceTree = "<group>"; };
+		1F3A6CB32ACC508100EC9234 /* RealmTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskRepository.swift; sourceTree = "<group>"; };
+		1F3A6CB62ACC541400EC9234 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
+		1F3A6CB82ACC588400EC9234 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		1F3A6CBA2ACC6E4F00EC9234 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		1F4D8D242ABD890A00B5FB6E /* ColumnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewModel.swift; sourceTree = "<group>"; };
 		1F4D8D272ABD8A8200B5FB6E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1F4D8D292ABD8AA300B5FB6E /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
@@ -79,6 +89,7 @@
 		1F223AB52ABAC17000EDB1E9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				1F3A6CB52ACC53AC00EC9234 /* Repositories */,
 				1F223AB82ABAC1BF00EDB1E9 /* UseCases */,
 				1F223AB72ABAC1B600EDB1E9 /* Entities */,
 			);
@@ -124,8 +135,35 @@
 			isa = PBXGroup;
 			children = (
 				1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */,
+				1F3A6CBA2ACC6E4F00EC9234 /* DIContainer.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		1F3A6CAF2ACC4EED00EC9234 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1F3A6CB02ACC4EFC00EC9234 /* LocalDatabase */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		1F3A6CB02ACC4EFC00EC9234 /* LocalDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				1F3A6CB12ACC506E00EC9234 /* RealmTaskObject.swift */,
+				1F3A6CB32ACC508100EC9234 /* RealmTaskRepository.swift */,
+				1F3A6CB82ACC588400EC9234 /* Mapper.swift */,
+			);
+			path = LocalDatabase;
+			sourceTree = "<group>";
+		};
+		1F3A6CB52ACC53AC00EC9234 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				1F3A6CB62ACC541400EC9234 /* TaskRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		1F4926152ABB53D3002663A4 /* Utils */ = {
@@ -200,6 +238,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				1F3A6CAF2ACC4EED00EC9234 /* Data */,
 				1F34D9352AB92F8F0061A6E1 /* Application */,
 				1F223ABD2ABAC28C00EDB1E9 /* Presentation */,
 				1F223AB52ABAC17000EDB1E9 /* Domain */,
@@ -299,11 +338,16 @@
 				1FD252B82AC5DC5800ECA6F7 /* TaskFormProtocol.swift in Sources */,
 				1F4D8D252ABD890A00B5FB6E /* ColumnViewModel.swift in Sources */,
 				1F223ACD2ABAE76500EDB1E9 /* TaskFormView.swift in Sources */,
+				1F3A6CB22ACC506E00EC9234 /* RealmTaskObject.swift in Sources */,
 				3C314ED92ABACE3F001BDF45 /* ColumnView.swift in Sources */,
 				1F223AC32ABAC3F200EDB1E9 /* KanbanView.swift in Sources */,
 				1F4D8D2A2ABD8AA300B5FB6E /* CardViewModel.swift in Sources */,
+				1F3A6CBB2ACC6E4F00EC9234 /* DIContainer.swift in Sources */,
 				1F223ABA2ABAC21600EDB1E9 /* Task.swift in Sources */,
+				1F3A6CB42ACC508100EC9234 /* RealmTaskRepository.swift in Sources */,
+				1F3A6CB72ACC541400EC9234 /* TaskRepository.swift in Sources */,
 				1F99DF182AC4387900B84B11 /* SafeIndex.swift in Sources */,
+				1F3A6CB92ACC588400EC9234 /* Mapper.swift in Sources */,
 				3C60CD902AC272A9005F9783 /* ShadowBackground.swift in Sources */,
 				1F4D8D282ABD8A8200B5FB6E /* CardView.swift in Sources */,
 				1F8A93E12AC32B5200FB8770 /* KeyboardManager.swift in Sources */,
