@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ListCollectionViewCell: UICollectionViewListCell, ReuseIdentifiable {
+final class ListCollectionViewCell: UICollectionViewListCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         
