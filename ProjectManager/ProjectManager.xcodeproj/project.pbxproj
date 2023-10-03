@@ -25,7 +25,6 @@
 		AC20E4B92AC47F520076E80F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B82AC47F520076E80F /* ColorSet.swift */; };
 		AC23046F2ACA5C9300663591 /* HorizontalSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC23046E2ACA5C9300663591 /* HorizontalSpacing.swift */; };
 		AC6FCE612AB9889100B82DF1 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FCE602AB9889100B82DF1 /* ProjectManagerApp.swift */; };
-		AC6FCE632AB9889100B82DF1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FCE622AB9889100B82DF1 /* ContentView.swift */; };
 		AC6FCE652AB9889200B82DF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6FCE642AB9889200B82DF1 /* Assets.xcassets */; };
 		AC6FCE682AB9889200B82DF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */; };
 		AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75E9C12ABAD8C000493121 /* AppDelegate.swift */; };
@@ -50,7 +49,6 @@
 		AC23046E2ACA5C9300663591 /* HorizontalSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSpacing.swift; sourceTree = "<group>"; };
 		AC6FCE5D2AB9889100B82DF1 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC6FCE602AB9889100B82DF1 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
-		AC6FCE622AB9889100B82DF1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC6FCE642AB9889200B82DF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC75E9C12ABAD8C000493121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 		ACE4DF732ABD311F0085835D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AC6FCE622AB9889100B82DF1 /* ContentView.swift */,
 				44FC5B662AC55E010092E412 /* Memo */,
 				44FC5B672AC55E880092E412 /* Sheet */,
 			);
@@ -289,7 +286,6 @@
 				44FC5B612AC559670092E412 /* TitleTextField.swift in Sources */,
 				44FC5B652AC55C9B0092E412 /* DeadlinePicker.swift in Sources */,
 				AC20E4B92AC47F520076E80F /* ColorSet.swift in Sources */,
-				AC6FCE632AB9889100B82DF1 /* ContentView.swift in Sources */,
 				AC20E4AA2ABD67F60076E80F /* ModelData.swift in Sources */,
 				AC6FCE612AB9889100B82DF1 /* ProjectManagerApp.swift in Sources */,
 				AC20E4A82ABD67600076E80F /* Memo.swift in Sources */,
