@@ -20,7 +20,7 @@
 		AC20E4AA2ABD67F60076E80F /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4A92ABD67F60076E80F /* ModelData.swift */; };
 		AC20E4AE2ABD6D460076E80F /* MemoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4AD2ABD6D460076E80F /* MemoRow.swift */; };
 		AC20E4B02ABD6F120076E80F /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4AF2ABD6F120076E80F /* MemoListView.swift */; };
-		AC20E4B22ABD70EB0076E80F /* MemoHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B12ABD70EB0076E80F /* MemoHome.swift */; };
+		AC20E4B22ABD70EB0076E80F /* MemoHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B12ABD70EB0076E80F /* MemoHomeView.swift */; };
 		AC20E4B62AC455050076E80F /* NewMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B52AC455040076E80F /* NewMemo.swift */; };
 		AC20E4B92AC47F520076E80F /* ColorSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC20E4B82AC47F520076E80F /* ColorSet.swift */; };
 		AC23046F2ACA5C9300663591 /* HorizontalSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC23046E2ACA5C9300663591 /* HorizontalSpacing.swift */; };
@@ -43,7 +43,7 @@
 		AC20E4A92ABD67F60076E80F /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		AC20E4AD2ABD6D460076E80F /* MemoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRow.swift; sourceTree = "<group>"; };
 		AC20E4AF2ABD6F120076E80F /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
-		AC20E4B12ABD70EB0076E80F /* MemoHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoHome.swift; sourceTree = "<group>"; };
+		AC20E4B12ABD70EB0076E80F /* MemoHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoHomeView.swift; sourceTree = "<group>"; };
 		AC20E4B52AC455040076E80F /* NewMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemo.swift; sourceTree = "<group>"; };
 		AC20E4B82AC47F520076E80F /* ColorSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSet.swift; sourceTree = "<group>"; };
 		AC23046E2ACA5C9300663591 /* HorizontalSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSpacing.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 		44FC5B662AC55E010092E412 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
-				AC20E4B12ABD70EB0076E80F /* MemoHome.swift */,
+				AC20E4B12ABD70EB0076E80F /* MemoHomeView.swift */,
 				AC20E4AF2ABD6F120076E80F /* MemoListView.swift */,
 				AC20E4AD2ABD6D460076E80F /* MemoRow.swift */,
 				44FC5B692AC55F890092E412 /* Component */,
@@ -278,7 +278,7 @@
 				AC20E4B62AC455050076E80F /* NewMemo.swift in Sources */,
 				AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */,
 				44DC00C22AC300A000AF3C0E /* MemoDetail.swift in Sources */,
-				AC20E4B22ABD70EB0076E80F /* MemoHome.swift in Sources */,
+				AC20E4B22ABD70EB0076E80F /* MemoHomeView.swift in Sources */,
 				AC20E4B02ABD6F120076E80F /* MemoListView.swift in Sources */,
 				44FC5B6B2AC560380092E412 /* HorizontalDivider.swift in Sources */,
 				AC20E4AE2ABD6D460076E80F /* MemoRow.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  MemoHome.swift
+//  MemoHomeView.swift
 //  ProjectManager
 //
 //  Created by Mary & Dasan on 2023/09/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MemoHome: View {
+struct MemoHomeView: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showDetail: Bool = false
     
@@ -44,7 +44,7 @@ struct MemoHome: View {
 
 struct MemoHome_Previews: PreviewProvider {
     static var previews: some View {
-        MemoHome()
+        MemoHomeView()
             .environmentObject(ModelData())
     }
 }

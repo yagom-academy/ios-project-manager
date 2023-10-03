@@ -14,7 +14,7 @@ struct ProjectManagerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MemoHome()
+            MemoHomeView()
                 .environmentObject(modelData)
         }
     }
