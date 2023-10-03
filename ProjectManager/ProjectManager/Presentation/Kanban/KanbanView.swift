@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct KanbanView: View {
-    @StateObject private var kanbanViewModel: KanbanViewModel
+    @ObservedObject private var kanbanViewModel: KanbanViewModel
     
     init(kanbanViewModel: KanbanViewModel = KanbanViewModel.mock) {
-        self._kanbanViewModel = StateObject(wrappedValue: kanbanViewModel) 
+        self.kanbanViewModel = kanbanViewModel 
     }
     
     var body: some View {
@@ -37,7 +37,15 @@ struct KanbanView: View {
                 }
             }
             .customAlert(isOn: $kanbanViewModel.isFormOn) {
-                TaskFormView(title: "Todo", size: geo.size)
+                TaskFormView(TaskCreateViewModel(formSize: geo.size))
+            }
+            .customAlert(item: $kanbanViewModel.selectedTask) {
+                TaskFormView(
+                    TaskEditViewModel(
+                        task: kanbanViewModel.selectedTask ?? Task(),
+                        formSize: geo.size
+                    )
+                )
             }
         }
         .environmentObject(kanbanViewModel)

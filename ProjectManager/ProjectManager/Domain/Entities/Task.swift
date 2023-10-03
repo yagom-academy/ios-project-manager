@@ -8,14 +8,28 @@
 import Foundation
 
 struct Task: Identifiable, Equatable {
-    let id = UUID()
+    let id: UUID
     var title: String
     var content: String
     var date: Date
     var state: TaskState
+    
+    init(
+        id: UUID = UUID(),
+        title: String = "",
+        content: String = "",
+        date: Date = .now,
+        state: TaskState = .todo
+    ) {
+        self.id = id
+        self.title = title
+        self.content = content
+        self.date = date
+        self.state = state
+    }
 }
 
-enum TaskState: Int {
+enum TaskState: Int, CaseIterable {
     case todo = 1, doing, done
     
     var title: String {

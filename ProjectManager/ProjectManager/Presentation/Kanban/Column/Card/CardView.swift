@@ -16,17 +16,22 @@ struct CardView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(cardViewModel.task.title)
-                .font(.title3)
-                .lineLimit(1)
-            Text(cardViewModel.task.content)
-                .foregroundColor(.secondary)
-                .lineLimit(3)
-            Text(cardViewModel.date)
-                .font(.footnote)
-                .foregroundColor(cardViewModel.isOverdued ? .red : .primary)
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(cardViewModel.task.title)
+                    .font(.title3)
+                    .lineLimit(1)
+                Text(cardViewModel.task.content)
+                    .foregroundColor(.secondary)
+                    .lineLimit(3)
+                Text(cardViewModel.date)
+                    .font(.footnote)
+                    .foregroundColor(cardViewModel.isOverdue ? .red : .primary)
+            }
+            Spacer()
         }
+        .contentShape(Rectangle())
+        .padding(.init(top: 10, leading: 20, bottom: 10, trailing: 0))
         .contextMenu {
             let firstDestination = cardViewModel.firstDestination
             let secondDestination = cardViewModel.secondDestination
@@ -42,6 +47,9 @@ struct CardView: View {
             Button("Delete", role: .destructive) {
                 kanbanViewModel.delete(cardViewModel.task)
             }
+        }
+        .onTapGesture {
+            kanbanViewModel.setFormVisible(cardViewModel.task)
         }
     }
 }
