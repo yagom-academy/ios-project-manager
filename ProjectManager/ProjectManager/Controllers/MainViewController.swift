@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
         initDelegateAndDataSource()
         registerNib()
         updateTodoColletionView()
+        notificationForUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +51,8 @@ class MainViewController: UIViewController {
     
     @objc func didReceiveNotification() {
         updateTodoColletionView()
+        coreDataManager.getAllEntity()
+        print("Received")
     }
     
     func updateTodoColletionView() {
@@ -129,9 +132,15 @@ extension MainViewController: UICollectionViewDataSource {
         
         if let cell = collectionView.cellForItem(at: indexPath) {
             actionSheet.popoverPresentationController?.sourceView = cell
-            actionSheet.popoverPresentationController?.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
-            actionSheet.popoverPresentationController?.permittedArrowDirections = .up
+            actionSheet.popoverPresentationController?.sourceRect = CGRect(
+                x: cell.bounds.midX,
+                y: cell.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            actionSheet.popoverPresentationController?.permittedArrowDirections = indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 ? .down : .up
         }
+        
         
         present(actionSheet, animated: true, completion: nil)
     }
