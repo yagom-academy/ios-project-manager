@@ -42,6 +42,8 @@ final class ListViewController: UIViewController {
     
     private let listKind: ListKind
     
+    private var taskList: [Task] = []
+    
     init(listKind: ListKind) {
         self.listKind = listKind
         
@@ -86,8 +88,10 @@ extension ListViewController {
     func setUpDiffableDataSourceSanpShot(taskList: [Task] = []) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         
+        self.taskList = taskList
         snapShot.appendSections([.main])
         snapShot.appendItems(taskList)
+        snapShot.reloadSections([.main])
         diffableDataSource?.apply(snapShot)
     }
     
@@ -108,9 +112,8 @@ extension ListViewController {
     private func setUpDiffableDataSourceHeader() {
         let headerRegistration = UICollectionView.SupplementaryRegistration<ListCollectionHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, elementKind, indexPath in
             guard let self = self else { return }
-            guard let taskList = self.diffableDataSource?.snapshot().itemIdentifiers else { return }
             
-            headerView.setUpContents(title: self.listKind.rawValue, taskCount: "\(taskList.count)")
+            headerView.setUpContents(title: self.listKind.rawValue, taskCount: "\(self.taskList.count)")
         }
         
         diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in

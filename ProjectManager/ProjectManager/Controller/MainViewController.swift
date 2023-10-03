@@ -10,6 +10,11 @@ final class MainViewController: UIViewController {
     private let todoListViewController = ListViewController(listKind: .todo)
     private let doingListViewController = ListViewController(listKind: .doing)
     private let doneListViewController = ListViewController(listKind: .done)
+    private var taskList: [Task] = [] {
+        didSet {
+            reloadTaskListViewControllers()
+        }
+    }
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -58,13 +63,45 @@ final class MainViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = .init(systemItem: .add, primaryAction: rightAddButtonAction)
     }
+    
+    private func reloadTaskListViewControllers() {
+        var todoList = [Task]()
+        var doingList = [Task]()
+        var doneList = [Task]()
+        
+        for task in taskList {
+            switch task.listKind {
+            case .todo:
+                todoList.append(task)
+            case .doing:
+                doingList.append(task)
+            case .done:
+                doneList.append(task)
+            }
+        }
+        
+        todoListViewController.setUpDiffableDataSourceSanpShot(taskList: todoList)
+        doingListViewController.setUpDiffableDataSourceSanpShot(taskList: doingList)
+        doneListViewController.setUpDiffableDataSourceSanpShot(taskList: doneList)
+    }
 }
 
+// MARK: - Button Action
 extension MainViewController {
     private func didTappedRightAddButton() {
-        let taskViewController = TaskViewController()
+        let newTask = Task(title: "", description: "", deadline: "")
+        let taskViewController = TaskViewController(task: newTask)
         let navigationController = UINavigationController(rootViewController: taskViewController)
         
+        taskViewController.delegate = self
+        navigationController.modalPresentationStyle = .formSheet
         present(navigationController, animated: true)
+    }
+}
+
+// MARK: - TaskViewController Delegate
+extension MainViewController: TaskViewControllerDelegate {
+    func didTappedRightDoneButton(task: Task) {
+        taskList.append(task)
     }
 }
