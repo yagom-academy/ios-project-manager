@@ -93,15 +93,15 @@ class MainViewController: UIViewController {
         self.present(secondVC, animated: true, completion: nil)
     }
     
-    private func alertActionForMove(sheet: UIAlertController, indexPath: IndexPath, to: String, from: [Entity]) {
-        let action = UIAlertAction(title: "Move to \(to)", style: .default) { [weak self] action in
+    private func alertActionForMove(sheet: UIAlertController, indexPath: IndexPath, to: Status, from: [Entity]) {
+        let action = UIAlertAction(title: "Move to \(to.rawValue)", style: .default) { [weak self] action in
             guard let self = self else { return }
             let entity = from[indexPath.row]
             guard let title = entity.title, let body = entity.body, let duration = entity.duration else {
                 return
             }
             
-            self.coreDataManager.createEntity(title: title, body: body, duration: duration, status: .doing)
+            self.coreDataManager.createEntity(title: title, body: body, duration: duration, status: to)
             self.coreDataManager.deleteEntity(entity: entity)
             self.updateTodoColletionView()
         }
@@ -166,11 +166,11 @@ extension MainViewController: UICollectionViewDataSource {
         
         switch collectionView {
         case todoCollectionView:
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: "doing", from: todoItem)
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: "done", from: todoItem)
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.doing, from: todoItem)
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.done, from: todoItem)
             alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: todoItem)
         case doingCollectionView:
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: "done", from: todoItem)
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.done, from: doingItem)
             alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doingItem)
         case doneCollectionView:
             alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doneItem)
