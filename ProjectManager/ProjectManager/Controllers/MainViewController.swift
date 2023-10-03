@@ -65,6 +65,7 @@ class MainViewController: UIViewController {
         DispatchQueue.main.async {
             self.todoCollectionView.reloadData()
             self.doingCollectionView.reloadData()
+            self.doneCollectionView.reloadData()
         }
     }
     
@@ -91,6 +92,34 @@ class MainViewController: UIViewController {
         }
         
         self.present(secondVC, animated: true, completion: nil)
+    }
+    
+    private func alertActionForMove(sheet: UIAlertController, indexPath: IndexPath, to: String, from: [Entity]) {
+        let action = UIAlertAction(title: "Move to \(to)", style: .default) { [weak self] action in
+            guard let self = self else { return }
+            let entity = from[indexPath.row]
+            guard let title = entity.title, let body = entity.body, let duration = entity.duration else {
+                return
+            }
+            
+            self.coreDataManager.createEntity(title: title, body: body, duration: duration, status: .doing)
+            self.coreDataManager.deleteEntity(entity: entity)
+            self.updateTodoColletionView()
+        }
+        
+        sheet.addAction(action)
+    }
+    
+    private func alertActionForDelete(sheet: UIAlertController, indexPath: IndexPath, from: [Entity]) {
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
+            guard let self = self else { return }
+            let entity = from[indexPath.row]
+            
+            self.coreDataManager.deleteEntity(entity: entity)
+            self.updateTodoColletionView()
+        }
+        
+        sheet.addAction(delete)
     }
 }
 
@@ -136,36 +165,19 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let doing = UIAlertAction(title: "Move to Doing", style: .default) { [weak self] action in
-            guard let self = self else { return }
-            
-            // 선택된 아이템을 가져온다
-            let entity = todoItem[indexPath.row]
-            
-            // 해당 아이템의 요소들을 바인딩 처리
-            guard let title = entity.title, let body = entity.body, let duration = entity.duration else { return }
-            
-            // 해당 아이템을 가져와 doing으로 생성
-            self.coreDataManager.createEntity(title: title, body: body, duration: duration, status: .doing)
-
-            //
-            coreDataManager.deleteEntity(entity: entity)
-            
-            updateTodoColletionView()
+        switch collectionView {
+        case todoCollectionView:
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: "doing", from: todoItem)
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: "done", from: todoItem)
+            alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: todoItem)
+        case doingCollectionView:
+            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: "done", from: todoItem)
+            alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doingItem)
+        case doneCollectionView:
+            alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doneItem)
+        default:
+            break
         }
-        
-        let done = UIAlertAction(title: "Move to Done", style: .default)
-        
-        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
-            guard let self = self else { return }
-            let entity = self.coreDataManager.entities[indexPath.row]
-            coreDataManager.deleteEntity(entity: entity)
-            updateTodoColletionView()
-        }
-        
-        actionSheet.addAction(doing)
-        actionSheet.addAction(done)
-        actionSheet.addAction(delete)
         
         if let cell = collectionView.cellForItem(at: indexPath) {
             actionSheet.popoverPresentationController?.sourceView = cell
@@ -198,12 +210,15 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         if kind == UICollectionView.elementKindSectionHeader {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? CollectionReusableView else { return UICollectionReusableView()}
             
-            if collectionView == todoCollectionView {
+            switch collectionView {
+            case todoCollectionView:
                 headerView.headerLabel.text = "TODO"
-            } else if collectionView == doingCollectionView {
+            case doingCollectionView:
                 headerView.headerLabel.text = "DOING"
-            } else if collectionView == doneCollectionView {
+            case doneCollectionView:
                 headerView.headerLabel.text = "DONE"
+            default:
+                break
             }
             
             return headerView
