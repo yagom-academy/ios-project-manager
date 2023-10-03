@@ -21,6 +21,7 @@
 		28CA66F22AC1A08600FFD7A9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CA66F12AC1A08600FFD7A9 /* Reusable.swift */; };
 		28DBCB962AC9292C00DFC58E /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DBCB952AC9292C00DFC58E /* InsetTextField.swift */; };
 		28DBCB982AC94A5F00DFC58E /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DBCB972AC94A5F00DFC58E /* UIFont+.swift */; };
+		28DBCB9A2ACAD19500DFC58E /* ToDoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DBCB992ACAD19500DFC58E /* ToDoDetailViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ListViewController.swift */; };
@@ -33,8 +34,8 @@
 		28913B752AC5950E00E626F7 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		28913B792AC5AC9A00E626F7 /* ToDoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoModel.xcdatamodel; sourceTree = "<group>"; };
 		28913B7B2AC5AD1300E626F7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		28913B7D2AC8033000E626F7 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ToDo+CoreDataClass.swift"; path = "ProjectManager/Model/ToDo/ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		28913B7E2AC8033000E626F7 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ToDo+CoreDataProperties.swift"; path = "ProjectManager/Model/ToDo/ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		28913B7D2AC8033000E626F7 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		28913B7E2AC8033000E626F7 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		28913B822AC8114F00E626F7 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		28913B842AC83ACE00E626F7 /* ToDoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailViewController.swift; sourceTree = "<group>"; };
 		28CA66E42AC0F72600FFD7A9 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -43,6 +44,7 @@
 		28CA66F12AC1A08600FFD7A9 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		28DBCB952AC9292C00DFC58E /* InsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
 		28DBCB972AC94A5F00DFC58E /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		28DBCB992ACAD19500DFC58E /* ToDoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				28913B782AC5AC9A00E626F7 /* ToDo.xcdatamodeld */,
+				28913B7D2AC8033000E626F7 /* ToDo+CoreDataClass.swift */,
+				28913B7E2AC8033000E626F7 /* ToDo+CoreDataProperties.swift */,
 				28913B7B2AC5AD1300E626F7 /* Category.swift */,
 				28913B822AC8114F00E626F7 /* DataManager.swift */,
 			);
@@ -86,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				28CA66EA2AC1805300FFD7A9 /* ListViewModel.swift */,
+				28DBCB992ACAD19500DFC58E /* ToDoDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -141,8 +146,6 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
-				28913B7D2AC8033000E626F7 /* ToDo+CoreDataClass.swift */,
-				28913B7E2AC8033000E626F7 /* ToDo+CoreDataProperties.swift */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
@@ -248,6 +251,7 @@
 				28CA66F22AC1A08600FFD7A9 /* Reusable.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
 				28CA66EB2AC1805300FFD7A9 /* ListViewModel.swift in Sources */,
+				28DBCB9A2ACAD19500DFC58E /* ToDoDetailViewModel.swift in Sources */,
 				28DBCB982AC94A5F00DFC58E /* UIFont+.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				28CA66E72AC0FE3100FFD7A9 /* ListHeader.swift in Sources */,
