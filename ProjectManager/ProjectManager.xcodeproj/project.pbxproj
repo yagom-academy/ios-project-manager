@@ -174,27 +174,11 @@
 			isa = PBXGroup;
 			children = (
 				1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */,
-				1FD252B62AC5DC4300ECA6F7 /* Implementaion */,
-				1FD252B52AC5DC3B00ECA6F7 /* Interface */,
-			);
-			path = TaskForm;
-			sourceTree = "<group>";
-		};
-		1FD252B52AC5DC3B00ECA6F7 /* Interface */ = {
-			isa = PBXGroup;
-			children = (
 				1FD252B72AC5DC5800ECA6F7 /* TaskFormProtocol.swift */,
-			);
-			path = Interface;
-			sourceTree = "<group>";
-		};
-		1FD252B62AC5DC4300ECA6F7 /* Implementaion */ = {
-			isa = PBXGroup;
-			children = (
 				1FD252B92AC5DDDD00ECA6F7 /* TaskCreateViewModel.swift */,
 				1FD252BB2AC5DDE800ECA6F7 /* TaskEditViewModel.swift */,
 			);
-			path = Implementaion;
+			path = TaskForm;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
