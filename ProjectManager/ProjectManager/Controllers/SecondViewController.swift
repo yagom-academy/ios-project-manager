@@ -35,7 +35,7 @@ class SecondViewController: UIViewController {
         }
         
         let date = datePicker.date
-        coreDataManager.createEntity(title: title, body: body, duration: date)
+        coreDataManager.createEntity(title: title, body: body, duration: date, status: Status.todo)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){

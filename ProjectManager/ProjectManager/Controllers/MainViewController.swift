@@ -12,6 +12,9 @@ class MainViewController: UIViewController {
     @IBOutlet weak var doingCollectionView: UICollectionView!
     @IBOutlet weak var doneCollectionView: UICollectionView!
     let coreDataManager = CoreDataManager.shared
+    var todoItem: [Entity] = []
+    var doingItem: [Entity] = []
+    var doneItem: [Entity] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +23,13 @@ class MainViewController: UIViewController {
         registerNib()
         updateTodoColletionView()
         notificationForUpdate()
+        filterItemsByStatus()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateTodoColletionView()
+        filterItemsByStatus()
     }
     
     private func notificationForUpdate() {
@@ -63,6 +68,12 @@ class MainViewController: UIViewController {
         }
     }
     
+    private func filterItemsByStatus() {
+        todoItem = coreDataManager.entities.filter { $0.status == Status.todo.rawValue }
+        doingItem = coreDataManager.entities.filter { $0.status == Status.doing.rawValue }
+        doneItem = coreDataManager.entities.filter { $0.status == Status.done.rawValue }
+    }
+    
     private func configureTitle() {
         self.navigationItem.title = "Project Manager"
     }
@@ -85,9 +96,14 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == todoCollectionView {
-            return self.coreDataManager.entities.count
-        } else {
+        switch collectionView {
+        case todoCollectionView:
+            return todoItem.count
+        case doingCollectionView:
+            return doingItem.count
+        case doneCollectionView:
+            return doneItem.count
+        default:
             return 0
         }
     }
@@ -95,9 +111,20 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else { return UICollectionViewCell() }
         
-        let entity: Entity = self.coreDataManager.entities[indexPath.row]
+        var entity: Entity?
         
-        if collectionView == todoCollectionView {
+        switch collectionView {
+        case todoCollectionView:
+            entity = todoItem[indexPath.row]
+        case doingCollectionView:
+            entity = doingItem[indexPath.row]
+        case doneCollectionView:
+            entity = doneItem[indexPath.row]
+        default:
+            break
+        }
+        
+        if let entity = entity {
             cell.configureLabels(entity: entity)
         }
         
@@ -112,13 +139,23 @@ extension MainViewController: UICollectionViewDataSource {
         let doing = UIAlertAction(title: "Move to Doing", style: .default) { [weak self] action in
             guard let self = self else { return }
             
-            let entity = self.coreDataManager.entities[indexPath.row]
-            coreDataManager.deleteEntity(entity: entity)
-            updateTodoColletionView()
+            // 선택된 아이템을 가져온다
+            let entity = todoItem[indexPath.row]
             
+            // 해당 아이템의 요소들을 바인딩 처리
+            guard let title = entity.title, let body = entity.body, let duration = entity.duration else { return }
+            
+            // 해당 아이템을 가져와 doing으로 생성
+            self.coreDataManager.createEntity(title: title, body: body, duration: duration, status: .doing)
+
+            //
+            coreDataManager.deleteEntity(entity: entity)
+            
+            updateTodoColletionView()
         }
         
         let done = UIAlertAction(title: "Move to Done", style: .default)
+        
         let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
             guard let self = self else { return }
             let entity = self.coreDataManager.entities[indexPath.row]

@@ -21,11 +21,12 @@ final class CoreDataManager {
         }
     }
     
-    func createEntity(title: String, body: String, duration: Date) {
+    func createEntity(title: String, body: String, duration: Date, status: Status) {
         let newEntity = Entity(context: context)
         newEntity.title = title
         newEntity.body = body
         newEntity.duration = duration
+        newEntity.status = status.rawValue
         
         saveToContext()
         getAllEntity()
