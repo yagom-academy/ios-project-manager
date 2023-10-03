@@ -17,7 +17,7 @@ struct MemoHomeView: View {
                 ColorSet.navigationBarBackground.edgesIgnoringSafeArea(.all)
                 ColorSet.backgroundBetweenLists
                 
-                HStack {
+                HStack(spacing: 4) {
                     MemoListView(memos: modelData.toDoList, category: .toDo)
                     MemoListView(memos: modelData.doingList, category: .doing)
                     MemoListView(memos: modelData.doneList, category: .done)

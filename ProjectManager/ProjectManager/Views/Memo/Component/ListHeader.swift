@@ -25,6 +25,7 @@ struct ListHeader: View {
             HorizontalDivider()
         }
         .listRowInsets(EdgeInsets())
+        .background(ColorSet.background)
     }
 }
 

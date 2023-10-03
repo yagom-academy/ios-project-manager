@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct MemoListView: View {
+    
     @State private var currentMemo: Memo? = nil
     var memos: [Memo]
     var category: Memo.Category
 
     var body: some View {
-        List {
-            Section {
+        VStack(spacing: 0) {
+            ListHeader(category: category.description, memoCount: memos.count)
+            
+            List {
                 ForEach(memos) { memo in
                     VStack(alignment: .leading, spacing: 2) {
                         HorizontalSpacing()
@@ -41,11 +44,10 @@ struct MemoListView: View {
                 .sheet(item: $currentMemo) { memo in
                     MemoDetail(memo: memo)
                 }
-            } header: {
-                ListHeader(category: category.description, memoCount: memos.count)
             }
+            .background(ColorSet.background)
+            .listStyle(.plain)
         }
-        .listStyle(.grouped)
     }
 }
 
