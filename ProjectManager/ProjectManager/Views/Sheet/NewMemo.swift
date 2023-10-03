@@ -13,32 +13,28 @@ struct NewMemo: View {
         
     var body: some View {
         NavigationView {
-            ZStack {
-                ColorSet.navigationBarBackground.edgesIgnoringSafeArea(.all)
-                Color.white
-                
-                VStack {
-                    TitleTextField(content: $memo.title)
-                    DeadlinePicker(date: $memo.deadline)
-                    BodyTextField(content: $memo.body)
-                }
-                .navigationTitle(memo.category.description)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(
-                    leading:
-                        Button {
-                            
-                        } label: {
-                            Text("Cancel")
-                        },
-                    trailing:
-                        Button {
-                            
-                        } label: {
-                            Text("Done")
-                        }
-                )
+            VStack {
+                TitleTextField(content: $memo.title)
+                DeadlinePicker(date: $memo.deadline)
+                BodyTextField(content: $memo.body)
             }
+            .sheetBackground()
+            .navigationTitle(memo.category.description)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                leading:
+                    Button {
+                        
+                    } label: {
+                        Text("Cancel")
+                    },
+                trailing:
+                    Button {
+                        
+                    } label: {
+                        Text("Done")
+                    }
+            )
         }
         .navigationViewStyle(.stack)
     }

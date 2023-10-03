@@ -17,32 +17,28 @@ struct MemoDetail: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                ColorSet.navigationBarBackground.edgesIgnoringSafeArea(.all)
-                Color.white
-                
-                VStack {
-                    TitleTextField(content: $modelData.memos[memoIndex].title)
-                    DeadlinePicker(date: $modelData.memos[memoIndex].deadline)
-                    BodyTextField(content: $modelData.memos[memoIndex].body)
-                }
-                .navigationTitle(memo.category.description)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(
-                    leading:
-                        Button {
-                            
-                        } label: {
-                            Text("Edit")
-                        },
-                    trailing:
-                        Button {
-                            
-                        } label: {
-                            Text("Done")
-                        }
-                )
+            VStack {
+                TitleTextField(content: $modelData.memos[memoIndex].title)
+                DeadlinePicker(date: $modelData.memos[memoIndex].deadline)
+                BodyTextField(content: $modelData.memos[memoIndex].body)
             }
+            .sheetBackground()
+            .navigationTitle(memo.category.description)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                leading:
+                    Button {
+                        
+                    } label: {
+                        Text("Edit")
+                    },
+                trailing:
+                    Button {
+                        
+                    } label: {
+                        Text("Done")
+                    }
+            )
         }
         .navigationViewStyle(.stack)
     }
