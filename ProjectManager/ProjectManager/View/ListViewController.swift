@@ -46,8 +46,8 @@ final class ListViewController: UIViewController {
     
     @objc
     private func addTodo() {
-        let todo = listViewModel.dataManager.createToDo(category: .todo)
-        let detailViewController = ToDoDetailViewController(isNew: true, todo: todo)
+        let viewModel = ToDoDetailViewModel(dataManager: listViewModel.dataManager)
+        let detailViewController = ToDoDetailViewController(viewModel: viewModel)
         
         present(detailViewController, animated: true)
     }
@@ -133,7 +133,11 @@ extension ListViewController: UITableViewDelegate {
             return
         }
         
-        let detailViewController = ToDoDetailViewController(isNew: false, todo: todo)
+        let viewModel = ToDoDetailViewModel(
+            todo: todo,
+            dataManager: listViewModel.dataManager
+        )
+        let detailViewController = ToDoDetailViewController(viewModel: viewModel)
         
         present(detailViewController, animated: true)
     }

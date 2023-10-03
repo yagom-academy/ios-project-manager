@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class ToDoDetailViewController: UIViewController {
     // MARK: - Title Bar property
@@ -34,7 +35,7 @@ final class ToDoDetailViewController: UIViewController {
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        button.addAction(doneAction(), for: .touchUpInside)// todo를 업데이트하고 뷰모델에 알림 전송 후 dismiss
+        button.addAction(dismissAction(), for: .touchUpInside)
         
         return button
     }()
@@ -106,19 +107,18 @@ final class ToDoDetailViewController: UIViewController {
         return view
     }()
     
-    private let todo: ToDo
+    private let viewModel: ToDoDetailViewModel
+    private var cancellables = Set<AnyCancellable>()
     
-    init(isNew: Bool, todo: ToDo) {
-        self.todo = todo
+    init(viewModel: ToDoDetailViewModel) {
+        self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
         
         configureUI()
         setUpDelegates()
-        setUpLeftButton(isNew: isNew)
-        setUpEditableContent(isNew: isNew)
-        setUpToDoDetailView(todo)
-        setUpTitle(todo: todo)
+        setUpLeftButton(isNew: viewModel.isEnableEdit)
+        setUpBindings()
     }
     
     required init?(coder: NSCoder) {
@@ -128,7 +128,7 @@ final class ToDoDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        doneToDoDetail()
+        postToDoDetailViewWillDisappear()
     }
     
     private func setUpDelegates() {
@@ -139,74 +139,40 @@ final class ToDoDetailViewController: UIViewController {
     private func setUpLeftButton(isNew: Bool) {
         if isNew {
             leftButton.setTitle("Cancel", for: .normal)
-            leftButton.addAction(dismissAction(), for: .touchUpInside)// 저장 없이 dismiss만 수행
+            leftButton.addAction(dismissAction(), for: .touchUpInside) // TODO: 저장 없이 닫을 수 있도록 기능 추가
         } else {
             leftButton.setTitle("Edit", for: .normal)
             leftButton.addAction(enableEditContentAction(), for: .touchUpInside)// 유저와 상호작용이 가능하도록 하고 배경색 변경
         }
     }
-    
-    // todo를 업데이트하고 뷰모델에 알림 전송 후 dismiss
-    private func doneAction() -> UIAction {
-        return UIAction { [weak self] _ in
-            self?.doneToDoDetail()
-            self?.dismiss(animated: true)
-        }
-    }
-    // 저장 없이 dismiss만 수행
+
     private func dismissAction() -> UIAction {
         return UIAction { [weak self] _ in
             self?.dismiss(animated: true)
         }
     }
     
-    // 유저와 상호작용이 가능하도록 하고 배경색 변경
+    // 유저와 상호작용이 가능하도록 하고 배경색 변경할 수 있도록 뷰 모델에 알림
     private func enableEditContentAction() -> UIAction {
         return UIAction { [weak self] _ in
-            [self?.titleTextField, self?.datePicker, self?.bodyTextView].forEach {
-                $0?.isUserInteractionEnabled = true
-                $0?.backgroundColor = .systemBackground
-            }
+            self?.postEditButtonAction()
         }
     }
     
-    // 기존의 todo일 경우 유저와 상호작용 불가능하고 배경색은 회색
-    private func setUpEditableContent(isNew: Bool) {
-        if isNew == false {
-            [titleTextField, datePicker, bodyTextView].forEach {
-                $0.isUserInteractionEnabled = false
-                $0.backgroundColor = .systemGray6
-            }
-        }
-    }
-    
-    private func setUpToDoDetailView(_ todo: ToDo) {
-        titleTextField.text = todo.title
-        datePicker.date = todo.deadline ?? Date()
-        bodyTextView.text = todo.body
-    }
-    
-    private func setUpTitle(todo: ToDo) {
-        titleLabel.text = todo.category
-    }
-    
-    private func updateToDo() {
-        todo.title = titleTextField.text
-        todo.deadline = datePicker.date
-        todo.body = bodyTextView.text
-    }
-    
-    private func postToDoDetailDone() {
+    private func postEditButtonAction() {
         NotificationCenter.default
             .post(
-                name: NSNotification.Name("ToDoDetailDone"),
+                name: NSNotification.Name("editButtonAction"),
                 object: nil
             )
     }
-    
-    private func doneToDoDetail() {
-        updateToDo()
-        postToDoDetailDone()
+
+    private func postToDoDetailViewWillDisappear() {
+        NotificationCenter.default
+            .post(
+                name: NSNotification.Name("ToDoDetailViewWillDisappear"),
+                object: nil
+            )
     }
 }
 
@@ -299,5 +265,45 @@ extension ToDoDetailViewController: UITextViewDelegate {
         let newLength = originalText.count + text.count - range.length
         
         return newLength <= 1000
+    }
+}
+
+// MARK: - Combine
+extension ToDoDetailViewController {
+    private func setUpBindings() {
+        bindViewModelToView()
+        bindViewToViewModel()
+    }
+    
+    private func bindViewToViewModel() {
+        titleTextField.publisher(for: \.text)
+            .assign(to: \.title, on: viewModel)
+            .store(in: &cancellables)
+        datePicker.publisher(for: \.date)
+            .assign(to: \.deadline, on: viewModel)
+            .store(in: &cancellables)
+        bodyTextView.publisher(for: \.text)
+            .assign(to: \.body, on: viewModel)
+            .store(in: &cancellables)
+    }
+    
+    private func bindViewModelToView() {
+        viewModel.todoSubject
+            .sink(receiveValue: { [weak self] in
+                self?.titleLabel.text = $0.category
+                self?.titleTextField.text = $0.title
+                self?.datePicker.date = $0.deadline ?? Date()
+                self?.bodyTextView.text = $0.body
+            })
+            .store(in: &cancellables)
+
+        [titleTextField, datePicker, bodyTextView].forEach {
+            viewModel.$isEnableEdit
+                .assign(to: \.isUserInteractionEnabled, on: $0)
+                .store(in: &cancellables)
+            viewModel.$background
+                .assign(to: \.backgroundColor, on: $0)
+                .store(in: &cancellables)
+        }
     }
 }

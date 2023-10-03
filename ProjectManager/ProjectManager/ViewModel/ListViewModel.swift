@@ -38,9 +38,8 @@ final class ListViewModel {
         setUpNotifications()
     }
     
-    // ListViewController의 viewDidLoad 시점을 받아 모델을 로드할 수 있도록 함
-    // ToDoDetailViewController의 Done 시점을 받아 dataManager에서 저장 수행
     private func setUpNotifications() {
+        // viewDidLoad 시점을 받아 모델을 로드할 수 있도록 함
         NotificationCenter.default
             .addObserver(
                 self,
@@ -48,26 +47,19 @@ final class ListViewModel {
                 name: NSNotification.Name("ListViewControllerViewDidLoad"),
                 object: nil
             )
+        // dataManager에서 저장이 이루어졌을 때 모델을 다시 로드
         NotificationCenter.default
             .addObserver(
                 self,
-                selector: #selector(saveTodo),
-                name: NSNotification.Name("ToDoDetailDone"),
+                selector: #selector(loadTodoList),
+                name: NSNotification.Name("CalledSaveContext"),
                 object: nil
             )
     }
     
-    // ListViewController의 viewDidLoad 시점을 받아 모델을 로드할 수 있도록 함
     @objc
     private func loadTodoList() {
         todoList = dataManager.fetchToDoList()
-    }
-    
-    // ToDoDetailViewController의 Done 시점을 받아 dataManager에서 저장 수행
-    @objc
-    private func saveTodo() {
-        dataManager.saveContext()
-        loadTodoList()
     }
     
     func bindCount(_ handler: @escaping (ListViewModel) -> Void) {
