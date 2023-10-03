@@ -55,11 +55,32 @@ final class ListViewModel {
                 name: NSNotification.Name("CalledSaveContext"),
                 object: nil
             )
+        // 스와이프로 삭제 시 index를 받아 해당 ToDo를 삭제
+        NotificationCenter.default
+            .addObserver(
+                self,
+                selector: #selector(deleteToDo),
+                name: NSNotification.Name("SwipeDelete"),
+                object: nil
+            )
     }
     
     @objc
     private func loadTodoList() {
         todoList = dataManager.fetchToDoList()
+    }
+    
+    @objc
+    private func deleteToDo(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let index = userInfo["index"] as? Int,
+              let todo = todoList?[safe: index]
+        else {
+            return
+        }
+        
+        dataManager.deleteItem(todo)
+        loadTodoList()
     }
     
     func bindCount(_ handler: @escaping (ListViewModel) -> Void) {

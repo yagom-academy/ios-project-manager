@@ -141,4 +141,17 @@ extension ListViewController: UITableViewDelegate {
         
         present(detailViewController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+            NotificationCenter.default
+                .post(
+                    name: NSNotification.Name("SwipeDelete"),
+                    object: nil,
+                    userInfo: ["index" : indexPath.row]
+                )
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
