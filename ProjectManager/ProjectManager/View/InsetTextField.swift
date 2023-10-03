@@ -19,13 +19,6 @@ final class InsetTextField: UITextField {
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        let editingInsets = UIEdgeInsets(
-            top: inset.top,
-            left: inset.left,
-            bottom: inset.bottom,
-            right: inset.right
-        )
-        
-        return bounds.inset(by: editingInsets)
+        return bounds.inset(by: inset)
     }
 }
