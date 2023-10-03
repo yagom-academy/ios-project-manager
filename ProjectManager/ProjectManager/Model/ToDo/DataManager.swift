@@ -55,6 +55,7 @@ final class DataManager {
         
         do {
             try viewContext.save()
+            postCalledSaveContext()
         } catch let error as NSError {
             print("Unresolved error: \(error), \(error.userInfo)")
         }
@@ -62,5 +63,13 @@ final class DataManager {
     
     func deleteItem(_ todo: ToDo) {
         viewContext.delete(todo)
+    }
+    
+    private func postCalledSaveContext() {
+        NotificationCenter.default
+            .post(
+                name: NSNotification.Name("CalledSaveContext"),
+                object: nil
+            )
     }
 }
