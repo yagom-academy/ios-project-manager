@@ -7,14 +7,8 @@
 
 import UIKit
 
-enum WorkType: String {
-    case todo = "TODO"
-    case doing = "DOING"
-    case done = "DONE"
-}
-
 final class WorkView: UIView {
-    private let workType: WorkType
+    private let workStatus: Work.Status
     private let workViewModel = WorkViewModel()
     private var works: [Work] = []
     
@@ -68,8 +62,8 @@ final class WorkView: UIView {
         return tableView
     }()
     
-    init(workType: WorkType) {
-        self.workType = workType
+    init(workStatus: Work.Status) {
+        self.workStatus = workStatus
         
         super.init(frame: .init())
         
@@ -85,7 +79,7 @@ final class WorkView: UIView {
     }
     
     private func setUI() {
-        titleLabel.text = workType.rawValue
+        titleLabel.text = workStatus.rawValue
         
         addSubview(stackView)
         stackView.addArrangedSubview(titleSatckView)

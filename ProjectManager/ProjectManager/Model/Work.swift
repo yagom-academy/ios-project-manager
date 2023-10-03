@@ -11,4 +11,10 @@ struct Work {
     let title: String
     let description: String
     let deadline: Date
+    
+    enum Status: String {
+        case todo = "TODO"
+        case doing = "DOING"
+        case done = "DONE"
+    }
 }

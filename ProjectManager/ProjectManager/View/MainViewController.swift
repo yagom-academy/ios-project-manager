@@ -12,9 +12,9 @@ final class MainViewController: UIViewController {
     private let doneView: WorkView
     
     init() {
-        self.todoView = WorkView(workType: .todo)
-        self.doingView = WorkView(workType: .doing)
-        self.doneView = WorkView(workType: .done)
+        self.todoView = WorkView(workStatus: .todo)
+        self.doingView = WorkView(workStatus: .doing)
+        self.doneView = WorkView(workStatus: .done)
         
         super.init(nibName: nil, bundle: nil)
     }
