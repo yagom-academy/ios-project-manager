@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class TaskCreator: TaskFormProtocol {
+final class TaskCreateViewModel: TaskFormProtocol {
     @Published var title: String = ""
     @Published var content: String = ""
     @Published var date: Date = .now

@@ -37,13 +37,11 @@ struct KanbanView: View {
                 }
             }
             .customAlert(isOn: $kanbanViewModel.isFormOn) {
-                TaskFormView(
-                    viewModel:TaskCreator(formSize: geo.size)
-                )
+                TaskFormView(TaskCreateViewModel(formSize: geo.size))
             }
             .customAlert(item: $kanbanViewModel.selectedTask) {
                 TaskFormView(
-                    viewModel: TaskEditor(
+                    TaskEditViewModel(
                         task: kanbanViewModel.selectedTask ?? Task(),
                         formSize: geo.size
                     )

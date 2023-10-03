@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct TaskFormView<ViewModel: TaskFormProtocol>: View {    
+struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {    
     @EnvironmentObject private var kanbanViewModel: KanbanViewModel
     @EnvironmentObject private var keyboard: KeyboardManager
     
-    @ObservedObject private var taskFormViewModel: ViewModel
+    @ObservedObject private var taskFormViewModel: TaskFormViewModel
     
     @FocusState private var textEditorIsFocused: Bool
     @Namespace private var textEditor
     
-    init(viewModel: ViewModel) {
+    init(_ viewModel: TaskFormViewModel) {
         self.taskFormViewModel = viewModel        
     }
     
@@ -132,7 +132,7 @@ struct TaskFormView<ViewModel: TaskFormProtocol>: View {
 struct TaskAddView_Previews: PreviewProvider {
     static var previews: some View {
         TaskFormView(
-            viewModel: TaskCreator(
+            viewModel: TaskCreateViewModel(
                 formSize: CGSize(width: 500, height: 600)
             )
         )

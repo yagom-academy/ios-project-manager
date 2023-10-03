@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class TaskEditor: TaskFormProtocol {
+final class TaskEditViewModel: TaskFormProtocol {
     @Published var title: String
     @Published var content: String
     @Published var date: Date
