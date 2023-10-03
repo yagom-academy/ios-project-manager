@@ -93,7 +93,6 @@
 		2897D3762AC05F8D00662BAA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F0925F51E1D0094C4CF /* ListViewController.swift */,
 				28CA66E62AC0FE3100FFD7A9 /* ListHeader.swift */,
 				28CA66E42AC0F72600FFD7A9 /* ListCell.swift */,
@@ -123,6 +122,7 @@
 		2897D3792AC05FBE00662BAA /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 			);
 			path = Resource;
