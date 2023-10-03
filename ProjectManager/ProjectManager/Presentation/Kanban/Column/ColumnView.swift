@@ -33,7 +33,7 @@ struct ColumnView: View {
         .listStyle(.grouped)
     }
     
-    var columnInfo: some View {
+    private var columnInfo: some View {
         HStack {
             Text(title)
                 .font(.title)
