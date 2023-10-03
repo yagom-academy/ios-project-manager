@@ -2,7 +2,7 @@
 //  Entity+CoreDataProperties.swift
 //  ProjectManager
 //
-//  Created by 박종화 on 2023/09/26.
+//  Created by Jusbug on 2023/09/26.
 //
 //
 

@@ -2,7 +2,7 @@
 //  CoreDataManager.swift
 //  ProjectManager
 //
-//  Created by 박종화 on 2023/09/27.
+//  Created by Jusbug on 2023/09/27.
 //
 
 import UIKit

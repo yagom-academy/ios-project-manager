@@ -2,7 +2,7 @@
 //  Status.swift
 //  ProjectManager
 //
-//  Created by 박종화 on 2023/10/03.
+//  Created by Jusbug on 2023/10/03.
 //
 
 enum Status: String {

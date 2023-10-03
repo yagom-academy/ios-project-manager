@@ -154,6 +154,10 @@ extension MainViewController: UICollectionViewDelegate {
         
         if let entity = entity {
             cell.configureLabels(entity: entity)
+            
+            if collectionView != doneCollectionView {
+                cell.configureDurationTextColor(entity: entity)
+            }
         }
         
         return cell

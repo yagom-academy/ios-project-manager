@@ -2,7 +2,7 @@
 //  CollectionViewCell.swift
 //  ProjectManager
 //
-//  Created by 박종화 on 2023/09/23.
+//  Created by Jusbug on 2023/09/23.
 //
 
 import UIKit
@@ -25,6 +25,16 @@ class CollectionViewCell: UICollectionViewCell {
         titleLabel.text = entity.title
         bodyLabel.text = entity.body
         durationLabel.text = formattedDate
-        durationLabel.textColor = .red
+    }
+    
+    func configureDurationTextColor(entity: Entity) {
+        guard let date = entity.duration else { return }
+        let currentDate = Date()
+        
+        if date < currentDate {
+            durationLabel.textColor = .red
+        } else {
+            durationLabel.textColor = .black
+        }
     }
 }
