@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct KanbanView: View {
-    @ObservedObject private var kanbanViewModel: KanbanViewModel
-    
-    init(kanbanViewModel: KanbanViewModel) {
-        self.kanbanViewModel = kanbanViewModel 
-    }
+    @EnvironmentObject private var kanbanViewModel: KanbanViewModel
     
     var body: some View {
         GeometryReader { geo in
@@ -26,7 +22,16 @@ struct KanbanView: View {
                 .navigationTitle("Project Manager")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarBackground(.visible, for: .navigationBar)
-                .toolbar {
+                .toolbar {                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("History") {
+                            kanbanViewModel.setHistoryVisible(true)
+                        }
+                        .popover(isPresented: $kanbanViewModel.isHistoryOn) {
+                            HistoryView(superSize: geo.size)
+                        }
+                    }
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
                             kanbanViewModel.setFormVisible(true)
@@ -54,7 +59,9 @@ struct KanbanView: View {
 }
 
 struct KanbanView_Previews: PreviewProvider {
+    @StateObject static private var kanbanViewModel = KanbanViewModel.mock
     static var previews: some View {
-        KanbanView(kanbanViewModel: KanbanViewModel.mock)
+        KanbanView()
+            .environmentObject(kanbanViewModel)
     }
 }

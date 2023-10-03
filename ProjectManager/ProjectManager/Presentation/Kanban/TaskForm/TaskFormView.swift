@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {    
     @EnvironmentObject private var kanbanViewModel: KanbanViewModel
+    @EnvironmentObject private var historyViewModel: HistoryViewModel
     @EnvironmentObject private var keyboard: KeyboardManager
     
     @ObservedObject private var taskFormViewModel: TaskFormViewModel
@@ -104,6 +105,9 @@ struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {
                 let task = taskFormViewModel.task
                 
                 kanbanViewModel.create(task)
+                
+                historyViewModel.save(type: .added, task: task)
+                
                 kanbanViewModel.setFormVisible(false)
             }
             .disabled(taskFormViewModel.title.isEmpty)

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CardView: View {
     @EnvironmentObject private var kanbanViewModel: KanbanViewModel
-    private let cardViewModel: CardViewModel
+    @EnvironmentObject private var historyViewModel: HistoryViewModel
+    @ObservedObject private var cardViewModel: CardViewModel
     
     init(task: Task) {
         self.cardViewModel = CardViewModel(task: task)
@@ -37,14 +38,24 @@ struct CardView: View {
             let secondDestination = cardViewModel.secondDestination
                 
             Button("Move to \(firstDestination.title)") {
+                historyViewModel.save(
+                    type: .moved(destination: firstDestination),
+                    task: cardViewModel.task)
+                
                 kanbanViewModel.move(cardViewModel.task, to: firstDestination)
             }
             Button("Move to \(secondDestination.title)") {
+                historyViewModel.save(
+                    type: .moved(destination: secondDestination),
+                    task: cardViewModel.task
+                )
+                
                 kanbanViewModel.move(cardViewModel.task, to: secondDestination)
-            }            
+            }
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button("Delete", role: .destructive) {
+                historyViewModel.save(type: .removed, task: cardViewModel.task)
                 kanbanViewModel.delete(cardViewModel.task)
             }
         }

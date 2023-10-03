@@ -13,6 +13,12 @@ final class KanbanViewModel: ObservableObject {
     @Published var tasks: [Task]
     @Published var isFormOn: Bool = false
     @Published var selectedTask: Task? = nil
+    @Published var isHistoryOn: Bool = false
+    
+    init(useCases taskUseCases: TaskUseCases) {
+        self.taskUseCases = taskUseCases
+        self.tasks = taskUseCases.fetchTasks()
+    }
     
     var todos: [Task] {
         return tasks.filter { $0.state == .todo }
@@ -24,11 +30,6 @@ final class KanbanViewModel: ObservableObject {
     
     var dones: [Task] {
         return tasks.filter { $0.state == .done }
-    }
-    
-    init(useCase taskUseCases: TaskUseCases) {
-        self.taskUseCases = taskUseCases
-        self.tasks = taskUseCases.fetchTasks()
     }
     
     // Mock 객체를 위한 initializer
@@ -63,6 +64,10 @@ final class KanbanViewModel: ObservableObject {
     
     func setFormVisible(_ task: Task?) {
         selectedTask = task
+    }
+    
+    func setHistoryVisible(_ isVisible: Bool) {
+        isHistoryOn = isVisible
     }
     
     private func fetchAll() {

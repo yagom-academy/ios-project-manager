@@ -7,7 +7,10 @@
 
 import Foundation
 
-final class CardViewModel {
+final class CardViewModel: ObservableObject {
+    
+    @Published var isPopOver: Bool = false
+    
     let task: Task
     
     init(task: Task) {
