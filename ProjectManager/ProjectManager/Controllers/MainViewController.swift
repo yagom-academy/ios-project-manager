@@ -59,7 +59,7 @@ class MainViewController: UIViewController {
         coreDataManager.getAllEntity()
     }
     
-    func updateTodoColletionView() {
+    private func updateTodoColletionView() {
         coreDataManager.getAllEntity()
         DispatchQueue.main.async {
             self.todoCollectionView.reloadData()

@@ -10,6 +10,7 @@ import Foundation
 struct DateFormatManager {
     static let customDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "koKR")
         dateFormatter.dateFormat = "YYYY. MM. dd."
         
         return dateFormatter
