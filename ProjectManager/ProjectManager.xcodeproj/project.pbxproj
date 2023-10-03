@@ -79,16 +79,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BA6463612AC043CE0080E80D /* Model */ = {
+		BA6463612AC043CE0080E80D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				BA6463622AC043D30080E80D /* CoreData */,
-				BA6463672AC044D70080E80D /* ToDoStatus.swift */,
-				BA6463692AC045380080E80D /* Observable.swift */,
-				BA6463802AC289680080E80D /* KeywordArgument.swift */,
-				BAD471D72ACBA4820021323A /* Action.swift */,
 			);
-			path = Model;
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		BA6463622AC043D30080E80D /* CoreData */ = {
@@ -96,8 +92,6 @@
 			children = (
 				BA64635D2AC043680080E80D /* ToDo+CoreDataClass.swift */,
 				BA64635E2AC043680080E80D /* ToDo+CoreDataProperties.swift */,
-				BA6463632AC043F50080E80D /* CoreDataManager.swift */,
-				BA6463652AC0440E0080E80D /* CoreDataError.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -159,8 +153,6 @@
 		BA6463842AC2A3610080E80D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BA6463762AC04FDA0080E80D /* Builder */,
-				BAD471D42ACBA2B80021323A /* Protocol */,
 				BA6463702AC04AAB0080E80D /* ListView */,
 			);
 			path = View;
@@ -173,6 +165,46 @@
 				BAD471D52ACBA2CB0021323A /* ToDoListBaseViewModelDelegate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		BAD471D92ACBC3A80021323A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BAD471D42ACBA2B80021323A /* Protocol */,
+				BA6463762AC04FDA0080E80D /* Builder */,
+				BAD471DD2ACBC5220021323A /* Manager */,
+				BAD471DC2ACBC5080021323A /* Error */,
+				BA6463672AC044D70080E80D /* ToDoStatus.swift */,
+				BA6463692AC045380080E80D /* Observable.swift */,
+				BA6463802AC289680080E80D /* KeywordArgument.swift */,
+				BAD471D72ACBA4820021323A /* Action.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		BAD471DA2ACBC4550021323A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		BAD471DC2ACBC5080021323A /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				BA6463652AC0440E0080E80D /* CoreDataError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		BAD471DD2ACBC5220021323A /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				BA6463632AC043F50080E80D /* CoreDataManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -195,12 +227,12 @@
 			isa = PBXGroup;
 			children = (
 				BA6463712AC04AC50080E80D /* App */,
-				BA6463612AC043CE0080E80D /* Model */,
+				BA6463612AC043CE0080E80D /* Entity */,
+				BAD471D92ACBC3A80021323A /* Utility */,
 				BA6463842AC2A3610080E80D /* View */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				BAD471DA2ACBC4550021323A /* Resource */,
 				BA6463562AC042A90080E80D /* ToDo.xcdatamodeld */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
