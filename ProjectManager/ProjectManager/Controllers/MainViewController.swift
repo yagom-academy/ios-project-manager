@@ -211,14 +211,14 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         
         if kind == UICollectionView.elementKindSectionHeader {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? CollectionReusableView else { return UICollectionReusableView()}
-            
+                        
             switch collectionView {
             case todoCollectionView:
-                headerView.headerLabel.text = "TODO"
+                headerView.configureTitle(title: "TODO", entity: todoItem)
             case doingCollectionView:
-                headerView.headerLabel.text = "DOING"
+                headerView.configureTitle(title: "DOING", entity: doingItem)
             case doneCollectionView:
-                headerView.headerLabel.text = "DONE"
+                headerView.configureTitle(title: "DONE", entity: doneItem)
             default:
                 break
             }

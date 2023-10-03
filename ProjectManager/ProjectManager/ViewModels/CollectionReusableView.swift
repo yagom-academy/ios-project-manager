@@ -14,4 +14,10 @@ class CollectionReusableView: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    func configureTitle(title: String, entity: [Entity]) {
+        let count = String(entity.count)
+        
+        headerLabel.text = "\(title) \(count)"
+    }
 }
