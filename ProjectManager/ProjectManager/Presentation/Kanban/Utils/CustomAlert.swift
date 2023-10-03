@@ -1,20 +1,32 @@
 //
-//  IsOnCustomAlert.swift
+//  CustomAlert.swift
 //  ProjectManager
 //
-//  Created by Minsup & Whales on 2023/09/29.
+//  Created by 김민성 on 2023/10/03.
 //
 
 import SwiftUI
 
-struct IsOnCustomAlert<Alert: View>: ViewModifier {
+struct CustomAlert<Alert: View, T>: ViewModifier {
     @EnvironmentObject var keyboard: KeyboardManager
+    @Binding var item: T?
     @Binding var isOn: Bool
     let alertView: Alert
+    
+    init(
+        item: Binding<T?> = .constant(nil),
+        isOn: Binding<Bool> = .constant(false),
+        alertView: Alert
+    ) {
+        self._item = item
+        self._isOn = isOn
+        self.alertView = alertView
+    }
+    
     func body(content: Content) -> some View {
         ZStack {
             content
-            if isOn {
+            if isOn || item != nil {
                 bluredBackground
                 alertView
             }
@@ -29,8 +41,23 @@ struct IsOnCustomAlert<Alert: View>: ViewModifier {
                     keyboard.hide()
                 } else {
                     isOn = false
+                    item = nil
                 }
             }
+    }
+}
+
+extension View {
+    func customAlert<Alert: View, T>(
+        item: Binding<T?>,
+        alertView: @escaping () -> Alert
+    ) -> some View {
+        modifier(
+            CustomAlert(
+                item: item,
+                alertView: alertView()
+            )
+        )
     }
 }
 
@@ -40,10 +67,11 @@ extension View {
         alertView: @escaping () -> Alert
     ) -> some View {
         modifier(
-            IsOnCustomAlert(
+            CustomAlert<Alert, Any>(
                 isOn: isOn,
                 alertView: alertView()
             )
         )
     }
 }
+

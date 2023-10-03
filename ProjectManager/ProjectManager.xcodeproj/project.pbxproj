@@ -13,6 +13,7 @@
 		1F223AC52ABAC40100EDB1E9 /* KanbanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */; };
 		1F223ACD2ABAE76500EDB1E9 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */; };
 		1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */; };
+		1F3A6CA42ACC09F700EC9234 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */; };
 		1F4D8D252ABD890A00B5FB6E /* ColumnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8D242ABD890A00B5FB6E /* ColumnViewModel.swift */; };
 		1F4D8D282ABD8A8200B5FB6E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8D272ABD8A8200B5FB6E /* CardView.swift */; };
 		1F4D8D2A2ABD8AA300B5FB6E /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8D292ABD8AA300B5FB6E /* CardViewModel.swift */; };
@@ -21,8 +22,6 @@
 		1FD252B82AC5DC5800ECA6F7 /* TaskFormProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD252B72AC5DC5800ECA6F7 /* TaskFormProtocol.swift */; };
 		1FD252BA2AC5DDDD00ECA6F7 /* TaskCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD252B92AC5DDDD00ECA6F7 /* TaskCreator.swift */; };
 		1FD252BC2AC5DDE800ECA6F7 /* TaskEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD252BB2AC5DDE800ECA6F7 /* TaskEditor.swift */; };
-		1FD252BF2AC5E75000ECA6F7 /* IsOnCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD252BE2AC5E75000ECA6F7 /* IsOnCustomAlert.swift */; };
-		1FD252C12AC5E75D00ECA6F7 /* ItemCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD252C02AC5E75D00ECA6F7 /* ItemCustomAlert.swift */; };
 		3C314EC32AB99D39001BDF45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3C314EC22AB99D39001BDF45 /* Realm */; };
 		3C314EC52AB99D39001BDF45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C314EC42AB99D39001BDF45 /* RealmSwift */; };
 		3C314EC82AB99FA9001BDF45 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C314EC72AB99FA9001BDF45 /* FirebaseFirestore */; };
@@ -42,6 +41,7 @@
 		1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanViewModel.swift; sourceTree = "<group>"; };
 		1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
+		1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		1F4D8D242ABD890A00B5FB6E /* ColumnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnViewModel.swift; sourceTree = "<group>"; };
 		1F4D8D272ABD8A8200B5FB6E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1F4D8D292ABD8AA300B5FB6E /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
@@ -50,8 +50,6 @@
 		1FD252B72AC5DC5800ECA6F7 /* TaskFormProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormProtocol.swift; sourceTree = "<group>"; };
 		1FD252B92AC5DDDD00ECA6F7 /* TaskCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreator.swift; sourceTree = "<group>"; };
 		1FD252BB2AC5DDE800ECA6F7 /* TaskEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditor.swift; sourceTree = "<group>"; };
-		1FD252BE2AC5E75000ECA6F7 /* IsOnCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsOnCustomAlert.swift; sourceTree = "<group>"; };
-		1FD252C02AC5E75D00ECA6F7 /* ItemCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCustomAlert.swift; sourceTree = "<group>"; };
 		3C314ECD2AB9A526001BDF45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3C314ED82ABACE3F001BDF45 /* ColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
 		3C60CD8F2AC272A8005F9783 /* ShadowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowBackground.swift; sourceTree = "<group>"; };
@@ -133,10 +131,10 @@
 		1F4926152ABB53D3002663A4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				1FD252BD2AC5E71E00ECA6F7 /* CustomAlert */,
 				3C60CD8F2AC272A8005F9783 /* ShadowBackground.swift */,
 				1F8A93E02AC32B5200FB8770 /* KeyboardManager.swift */,
 				1F99DF172AC4387900B84B11 /* SafeIndex.swift */,
+				1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -197,15 +195,6 @@
 				1FD252BB2AC5DDE800ECA6F7 /* TaskEditor.swift */,
 			);
 			path = Implementaion;
-			sourceTree = "<group>";
-		};
-		1FD252BD2AC5E71E00ECA6F7 /* CustomAlert */ = {
-			isa = PBXGroup;
-			children = (
-				1FD252BE2AC5E75000ECA6F7 /* IsOnCustomAlert.swift */,
-				1FD252C02AC5E75D00ECA6F7 /* ItemCustomAlert.swift */,
-			);
-			path = CustomAlert;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -320,7 +309,7 @@
 			files = (
 				1F223AC52ABAC40100EDB1E9 /* KanbanViewModel.swift in Sources */,
 				1FD252BC2AC5DDE800ECA6F7 /* TaskEditor.swift in Sources */,
-				1FD252BF2AC5E75000ECA6F7 /* IsOnCustomAlert.swift in Sources */,
+				1F3A6CA42ACC09F700EC9234 /* CustomAlert.swift in Sources */,
 				1F223ABC2ABAC28000EDB1E9 /* TaskUseCases.swift in Sources */,
 				1FD252BA2AC5DDDD00ECA6F7 /* TaskCreator.swift in Sources */,
 				1FD252B82AC5DC5800ECA6F7 /* TaskFormProtocol.swift in Sources */,
@@ -332,7 +321,6 @@
 				1F223ABA2ABAC21600EDB1E9 /* Task.swift in Sources */,
 				1F99DF182AC4387900B84B11 /* SafeIndex.swift in Sources */,
 				3C60CD902AC272A9005F9783 /* ShadowBackground.swift in Sources */,
-				1FD252C12AC5E75D00ECA6F7 /* ItemCustomAlert.swift in Sources */,
 				1F4D8D282ABD8A8200B5FB6E /* CardView.swift in Sources */,
 				1F8A93E12AC32B5200FB8770 /* KeyboardManager.swift in Sources */,
 				1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */,
