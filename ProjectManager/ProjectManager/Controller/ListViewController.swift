@@ -2,12 +2,22 @@
 //  ListViewController.swift
 //  ProjectManager
 //
-//  Created by karen on 2023/10/03.
+//  Created by Karen, Zion on 2023/10/03.
 //
 
 import UIKit
 
+enum ListKind: String {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
+}
+
 final class ListViewController: UIViewController {
+    enum Section {
+        case main
+    }
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: listLayout)
         
@@ -28,12 +38,29 @@ final class ListViewController: UIViewController {
         }
     }()
     
+    private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Task>?
+    
+    private let listKind: ListKind
+    
+    init(listKind: ListKind) {
+        self.listKind = listKind
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         setUpConstraints()
         setUpViewController()
+        setUpDiffableDataSource()
+        setUpDiffableDataSourceHeader()
+        setUpDiffableDataSourceSanpShot()
     }
     
     private func configureUI() {
@@ -51,5 +78,43 @@ final class ListViewController: UIViewController {
     
     private func setUpViewController() {
         view.backgroundColor = .systemBackground
+    }
+}
+
+// MARK: - Diffable DataSource
+extension ListViewController {
+    func setUpDiffableDataSourceSanpShot(taskList: [Task] = []) {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
+        
+        snapShot.appendSections([.main])
+        snapShot.appendItems(taskList)
+        diffableDataSource?.apply(snapShot)
+    }
+    
+    private func setUpDiffableDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { cell, indexPath, task in
+            cell.setUpContents(title: task.title,
+                               description: task.description,
+                               deadline: task.deadline)
+        }
+        
+        diffableDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, task in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
+                                                                for: indexPath,
+                                                                item: task)
+        })
+    }
+    
+    private func setUpDiffableDataSourceHeader() {
+        let headerRegistration = UICollectionView.SupplementaryRegistration<ListCollectionHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, elementKind, indexPath in
+            guard let self = self else { return }
+            guard let taskList = self.diffableDataSource?.snapshot().itemIdentifiers else { return }
+            
+            headerView.setUpContents(title: self.listKind.rawValue, taskCount: "\(taskList.count)")
+        }
+        
+        diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+        }
     }
 }
