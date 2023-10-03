@@ -1,0 +1,16 @@
+//
+//  ReuseIdentifiable.swift
+//  ProjectManager
+//
+//  Created by Hyungmin Lee on 2023/10/03.
+//
+
+protocol ReuseIdentifiable {
+    static var reuseIdentifier: String { get }
+}
+
+extension ReuseIdentifiable {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
