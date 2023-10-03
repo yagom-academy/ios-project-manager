@@ -127,7 +127,7 @@ extension MainViewController {
     }
     
     @objc private func addButton() {
-        let addTODOView = AddTodoViewController(dataManager: dataManager)
+        let addTODOView = AddTodoViewController()
         let navigationController = UINavigationController(rootViewController: addTODOView)
         let backgroundView = UIView(frame: view.bounds)
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -263,7 +263,7 @@ extension MainViewController: UITableViewDelegate {
             return
         }
         
-        let addTodoView = AddTodoViewController(todoItems: selectedTodoData, dataManager: dataManager)
+        let addTodoView = AddTodoViewController(todoItems: selectedTodoData)
         let navigationController = UINavigationController(rootViewController: addTodoView)
         
         addTodoView.delegate = self
@@ -315,9 +315,11 @@ extension MainViewController: AddTodoDelegate {
         case 0..<useCase.doingItems.count:
             useCase.doingItems = useCase.updateItems(useCase.doingItems, title: title, body: body, date: date, index: index)
             doingTableView.reloadData()
-        default:
+        case 0..<useCase.doneItems.count:
             useCase.doneItems = useCase.updateItems(useCase.doneItems, title: title, body: body, date: date, index: index)
-            doingTableView.reloadData()
+            doneTableView.reloadData()
+        default:
+            return
         }
     }
 }
