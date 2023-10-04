@@ -120,6 +120,16 @@ class MainViewController: UIViewController {
         
         sheet.addAction(delete)
     }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            guard let todoIndexPath = todoCollectionView.indexPathForItem(at: gestureRecognizer.location(in: todoCollectionView)) else {
+                return
+            }
+                        
+            print("Todo Long Pressed")
+        }
+    }
 }
 
 extension MainViewController: UICollectionViewDelegate {
@@ -159,6 +169,9 @@ extension MainViewController: UICollectionViewDelegate {
                 cell.configureDurationTextColor(entity: entity)
             }
         }
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        cell.addGestureRecognizer(longPressRecognizer)
         
         return cell
     }
