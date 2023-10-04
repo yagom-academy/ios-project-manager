@@ -8,9 +8,9 @@
 import FirebaseCore
 import FirebaseFirestore
 
-final class FireStoreTaskRepository: TaskRepository {
+final class RemoteTaskRepository: TaskRepository {
 
-    let firebase: Firestore
+    private let firebase: Firestore
     
     init() {
         FirebaseApp.configure()

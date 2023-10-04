@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HistoryView: View {
-    @EnvironmentObject private var historyViewModel: HistoryViewModel
+    @EnvironmentObject private var historyManager: HistoryManager
     let superSize: CGSize
     
     init(superSize: CGSize) {
@@ -18,7 +18,7 @@ struct HistoryView: View {
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                ForEach(historyViewModel.historyList) { history in
+                ForEach(historyManager.historyList) { history in
                     card(history)
                 }
             }

@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CloudButton: View {
-    @EnvironmentObject private var loginViewModel: LoginViewModel
+    @EnvironmentObject private var userManager: UserManager
     @State private var isConnectedInformationOn: Bool = false
     
     var body: some View {
         Group {
-            if loginViewModel.isConnectedRemoteServer {
+            if userManager.user != nil {
                 Button {
                     isConnectedInformationOn = true
                 } label: {
@@ -22,22 +22,21 @@ struct CloudButton: View {
                 .popover(isPresented: $isConnectedInformationOn) {
                     VStack(spacing: 10) {
                         HStack {
-                            Text(loginViewModel.email)
+                            Text(userManager.user?.email ?? "")
                                 .foregroundColor(.accentColor)
                             Text(" 계정으로 클라우드에 안전하게 보관중입니다.")
                         }
                         
                         Button("로그아웃") {
-                            loginViewModel.logout()
+                            userManager.logout()
                         }
                         .buttonStyle(.borderedProminent)
                     }
-                    
                     .padding()
                 }
             } else {
                 Button {
-                    loginViewModel.openRegisterAlert()
+                    userManager.isRegisterFormOn = true
                 } label: {
                     Image(systemName: "icloud.slash")
                         .foregroundColor(.secondary)

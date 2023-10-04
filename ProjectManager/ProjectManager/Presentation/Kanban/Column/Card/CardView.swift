@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct CardView: View {
+    @EnvironmentObject private var taskManager: TaskManager
+    @EnvironmentObject private var historyManager: HistoryManager
     @EnvironmentObject private var kanbanViewModel: KanbanViewModel
-    @EnvironmentObject private var historyViewModel: HistoryViewModel
-    @ObservedObject private var cardViewModel: CardViewModel
+    
+    private let cardViewModel: CardViewModel
     
     init(task: Task) {
         self.cardViewModel = CardViewModel(task: task)
@@ -38,25 +40,25 @@ struct CardView: View {
             let secondDestination = cardViewModel.secondDestination
                 
             Button("Move to \(firstDestination.title)") {
-                historyViewModel.save(
+                historyManager.save(
                     type: .moved(destination: firstDestination),
                     task: cardViewModel.task)
                 
-                kanbanViewModel.move(cardViewModel.task, to: firstDestination)
+                taskManager.move(cardViewModel.task, to: firstDestination)
             }
             Button("Move to \(secondDestination.title)") {
-                historyViewModel.save(
+                historyManager.save(
                     type: .moved(destination: secondDestination),
                     task: cardViewModel.task
                 )
                 
-                kanbanViewModel.move(cardViewModel.task, to: secondDestination)
+                taskManager.move(cardViewModel.task, to: secondDestination)
             }
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button("Delete", role: .destructive) {
-                historyViewModel.save(type: .removed, task: cardViewModel.task)
-                kanbanViewModel.delete(cardViewModel.task)
+                historyManager.save(type: .removed, task: cardViewModel.task)
+                taskManager.delete(cardViewModel.task)
             }
         }
         .onTapGesture {
@@ -67,6 +69,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(task: KanbanViewModel.mock.todos[0])
+        CardView(task: TaskManager.mock.tasks[0])
     }
 }

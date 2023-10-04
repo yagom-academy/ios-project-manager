@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension RealmTaskObject {
+extension TaskObject {
     func toDomain() -> Task {
         Task(
             id: self.id,
@@ -20,8 +20,8 @@ extension RealmTaskObject {
 }
 
 extension Task {
-    func toObject() -> RealmTaskObject {
-        RealmTaskObject(
+    func toObject() -> TaskObject {
+        TaskObject(
             id: self.id,
             title: self.title,
             content: self.content,

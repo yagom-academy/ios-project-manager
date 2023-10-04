@@ -9,9 +9,9 @@ import Foundation
 
 struct User {
     let id: UUID
-    var email: String?
+    var email: String
     
-    init(id: UUID = .init(), email: String? = nil) {
+    init(id: UUID = .init(), email: String) {
         self.id = id
         self.email = email
     }

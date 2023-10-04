@@ -11,39 +11,25 @@ final class UserUseCases {
     
     private let userRepository: UserRepository
     
+    
     init(userRepository: UserRepository) {
-        self.userRepository = userRepository
+        self.userRepository = userRepository       
     }
     
     func checkFirstLaunch() -> Bool {
-        let user = getUser()
-        
-        if user != nil {
-            return false
-        } else {
-            let user = User()
-            userRepository.save(user)
-            
-            return true
-        }
+        userRepository.isFirstLaunch
     }
     
-    func getUser() -> User? {
-        userRepository.fetchUser()
+    func fetchUser() -> User? {
+        return userRepository.fetchUser()
     }
     
     func registerEmail(_ email: String) {
-        guard var user = getUser() else {
-            let user = User(email: email)
-            userRepository.save(user)
-            return
-        }
-        
-        user.email = email        
-        userRepository.update(id: user.id, new: user)
+        let user = User(email: email)
+        userRepository.login(user)
     }
     
-    func logout(_ user: User) {
-        userRepository.logout(user)
+    func logout() {
+        userRepository.logout()
     }
 }

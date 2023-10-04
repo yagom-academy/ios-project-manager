@@ -8,9 +8,9 @@
 import Foundation
 import RealmSwift
 
-final class RealmTaskRepository: TaskRepository {
+final class LocalTaskRepository: TaskRepository {
     
-    let realm: Realm = {
+    private let realm: Realm = {
         do {
             return try Realm()
         } catch {
@@ -19,7 +19,7 @@ final class RealmTaskRepository: TaskRepository {
     }()
     
     func fetchAll() -> [Task] {
-        let taskObjects = realm.objects(RealmTaskObject.self).sorted(by: \.date)
+        let taskObjects = realm.objects(TaskObject.self).sorted(by: \.date)
         let tasks = Array(taskObjects).map{ $0.toDomain() }
         
         return tasks
@@ -33,7 +33,7 @@ final class RealmTaskRepository: TaskRepository {
     
     func update(id: UUID, new task: Task) {
         try? realm.write {
-            let taskObject = realm.object(ofType: RealmTaskObject.self, forPrimaryKey: id)
+            let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: id)
             taskObject?.title = task.title
             taskObject?.content = task.content
             taskObject?.date = task.date
@@ -42,7 +42,7 @@ final class RealmTaskRepository: TaskRepository {
     }
     
     func delete(task: Task) {
-        if let taskObject = realm.object(ofType: RealmTaskObject.self, forPrimaryKey: task.id) {
+        if let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) {
             try? realm.write {
                 realm.delete(taskObject)
             }
@@ -50,7 +50,7 @@ final class RealmTaskRepository: TaskRepository {
     }
     
     func fetch(id: UUID) -> Task? {
-        let taskObject = realm.object(ofType: RealmTaskObject.self, forPrimaryKey: id)
+        let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: id)
         return taskObject?.toDomain()
     }
 }

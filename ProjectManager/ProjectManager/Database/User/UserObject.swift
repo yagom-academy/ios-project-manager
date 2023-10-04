@@ -8,11 +8,11 @@
 import Foundation
 import RealmSwift
 
-final class RealmUserObject: Object {
+final class UserObject: Object {
     @Persisted(primaryKey: true) var id: UUID
-    @Persisted var email: String?
+    @Persisted var email: String
     
-    convenience init(id: UUID = UUID(), email: String? = nil) {
+    convenience init(id: UUID = UUID(), email: String) {
         self.init()
         self.id = id
         self.email = email

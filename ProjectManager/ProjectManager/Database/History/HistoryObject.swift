@@ -1,32 +1,27 @@
 //
-//  RealmTaskObject.swift
+//  RealmHistoryObject.swift
 //  ProjectManager
 //
-//  Created by 김민성 on 2023/10/03.
+//  Created by 김민성 on 2023/10/04.
 //
 
 import Foundation
 import RealmSwift
 
-final class RealmTaskObject: Object {
+final class HistoryObject: Object {
     @Persisted(primaryKey: true) var id: UUID
     @Persisted var title: String
-    @Persisted var content: String
     @Persisted var date: Date
-    @Persisted var state: Int8
     
     convenience init(
         id: UUID,
         title: String,
-        content: String,
-        date: Date,
-        state: Int8
+        date: Date
     ) {
         self.init()
         self.id = id
         self.title = title
-        self.content = content
         self.date = date
-        self.state = state
     }
 }
+

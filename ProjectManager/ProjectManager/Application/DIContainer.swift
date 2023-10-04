@@ -8,38 +8,37 @@
 import Foundation
 
 final class DIContainer {
-    
-    static let appState: AppState = {
-        let repository = RealmUserRepository()
-        let useCases = UserUseCases(userRepository: repository)
-        
-        return AppState(userUseCases: useCases)
-    }()
-    
     static let keyboard = KeyboardManager()
     
-    static let kanbanViewModel: KanbanViewModel = {
-        let localRepository = RealmTaskRepository()
-        let remoteRepository = FireStoreTaskRepository()
-        let useCases = TaskUseCases(
-            appState: appState,
+    static private let sharedUserRepository = LocalUserRepository()
+    
+    static let taskManager: TaskManager = {
+        let localRepository = LocalTaskRepository()
+        let remoteRepository = RemoteTaskRepository()
+        
+        let taskUseCases = TaskUseCases(
             localRepository: localRepository,
-            remoteRepository: remoteRepository
+            remoteRepository: remoteRepository,
+            userRepository: sharedUserRepository
         )
-        let viewModel = KanbanViewModel(useCases: useCases)
         
-        return viewModel
+       return TaskManager(taskUseCases: taskUseCases)
     }()
     
-    static let historyViewModel: HistoryViewModel = {
-        let repository = RealmHistoryRepository()
+    static let userManager: UserManager = {
+        let useCases = UserUseCases(
+            userRepository: sharedUserRepository
+        )
+        
+        return UserManager(userUseCases: useCases)
+    }()
+    
+    static let historyManager: HistoryManager = {
+        let repository = LocalHistoryRepository()
         let useCases = HistoryUseCases(historyRepository: repository)
-        let viewModel = HistoryViewModel(useCases: useCases)
         
-        return viewModel
+        return HistoryManager(historyUseCases: useCases)
     }()
     
-    static let loginViewModel: LoginViewModel = {
-        return LoginViewModel(appState: appState)        
-    }()
+    
 }

@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension RealmUserObject {
+extension UserObject {
     func toDomain() -> User {
         User(id: self.id, email: self.email)
     }
 }
 
 extension User {
-    func toObject() -> RealmUserObject {
-        RealmUserObject(id: self.id, email: self.email)
+    func toObject() -> UserObject {
+        UserObject(id: self.id, email: self.email)
     }
 }

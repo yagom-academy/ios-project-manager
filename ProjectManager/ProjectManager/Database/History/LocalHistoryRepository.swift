@@ -8,9 +8,9 @@
 import Foundation
 import RealmSwift
 
-final class RealmHistoryRepository: HistoryRepository {
+final class LocalHistoryRepository: HistoryRepository {
     
-    let realm: Realm = {
+    private let realm: Realm = {
         do {
             return try Realm()
         } catch {
@@ -19,7 +19,7 @@ final class RealmHistoryRepository: HistoryRepository {
     }()
     
     func fetchAll() -> [History] {
-        let historyObjects = realm.objects(RealmHistoryObject.self).sorted(by: \.date, ascending: false)
+        let historyObjects = realm.objects(HistoryObject.self).sorted(by: \.date, ascending: false)
         let historyList = Array(historyObjects).map { $0.toDomain() }
         
         return historyList

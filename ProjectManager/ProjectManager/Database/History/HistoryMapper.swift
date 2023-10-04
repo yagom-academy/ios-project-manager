@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension RealmHistoryObject {
+extension HistoryObject {
     func toDomain() -> History {
         History(
             id: self.id,
@@ -18,8 +18,8 @@ extension RealmHistoryObject {
 }
 
 extension History {
-    func toObject() -> RealmHistoryObject {
-        RealmHistoryObject(
+    func toObject() -> HistoryObject {
+        HistoryObject(
             id: self.id,
             title: self.title,
             date: self.date

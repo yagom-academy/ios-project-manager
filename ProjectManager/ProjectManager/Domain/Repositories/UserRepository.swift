@@ -9,7 +9,8 @@ import Foundation
 
 protocol UserRepository {
     func fetchUser() -> User?
-    func save(_ user: User)
-    func update(id: UUID, new user: User)
-    func logout(_ user: User)
+    func login(_ user: User)
+    func logout()
+    
+    var isFirstLaunch: Bool { get }
 }

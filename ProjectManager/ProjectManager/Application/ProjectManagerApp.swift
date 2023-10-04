@@ -11,19 +11,18 @@ import FirebaseFirestore
 
 @main
 struct ProjectManagerApp: App {
-    
     @StateObject private var keyboard = DIContainer.keyboard
-    @StateObject private var kanbanViewModel = DIContainer.kanbanViewModel
-    @StateObject private var historyViewModel = DIContainer.historyViewModel    
-    @StateObject private var loginViewModel = DIContainer.loginViewModel
+    @StateObject private var taskManager = DIContainer.taskManager
+    @StateObject private var historyManager = DIContainer.historyManager
+    @StateObject private var userManager = DIContainer.userManager
     
     var body: some Scene {
         WindowGroup {
             KanbanView()
                 .environmentObject(keyboard)
-                .environmentObject(kanbanViewModel)
-                .environmentObject(historyViewModel)
-                .environmentObject(loginViewModel)
+                .environmentObject(taskManager)
+                .environmentObject(historyManager)
+                .environmentObject(userManager)
         }
     }
 }

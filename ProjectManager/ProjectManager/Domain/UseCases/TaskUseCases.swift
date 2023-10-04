@@ -8,24 +8,24 @@
 import Foundation
 
 final class TaskUseCases {
-    private let appState: AppState
     private let localTaskRepository: TaskRepository
     private let remoteTaskRepositoty: TaskRepository
+    private let userRepository: UserRepository
     
     init(
-        appState: AppState,
         localRepository: TaskRepository,
-        remoteRepository: TaskRepository
+        remoteRepository: TaskRepository,
+        userRepository: UserRepository
     ) {
-        self.appState = appState
         self.localTaskRepository = localRepository
         self.remoteTaskRepositoty = remoteRepository
+        self.userRepository = userRepository
     }
     
     func fetchTasks() -> [Task] {
         let tasksFromLocal = localTaskRepository.fetchAll()
         
-        if tasksFromLocal.isEmpty && appState.isConnectedRemoteServer {
+        if userRepository.isFirstLaunch {
             return remoteTaskRepositoty.fetchAll()
         } else {
             return tasksFromLocal
@@ -35,7 +35,7 @@ final class TaskUseCases {
     func createTask(_ task: Task) {
         localTaskRepository.save(task)
         
-        if appState.isConnectedRemoteServer {
+        if userRepository.fetchUser() != nil {
             remoteTaskRepositoty.save(task)
         }
     }
@@ -43,7 +43,7 @@ final class TaskUseCases {
     func updateTask(id: UUID, new task: Task) {
         localTaskRepository.update(id: id, new: task)
         
-        if appState.isConnectedRemoteServer {
+        if userRepository.fetchUser() != nil {
             remoteTaskRepositoty.update(id: id, new: task)
         }
     }
@@ -51,7 +51,7 @@ final class TaskUseCases {
     func deleteTask(_ task: Task) {
         localTaskRepository.delete(task: task)
         
-        if appState.isConnectedRemoteServer {
+        if userRepository.fetchUser() != nil {
             remoteTaskRepositoty.delete(task: task)
         }
     }
@@ -61,7 +61,7 @@ final class TaskUseCases {
         copiedTask.state = taskState
         localTaskRepository.update(id: task.id, new: copiedTask)
         
-        if appState.isConnectedRemoteServer {
+        if userRepository.fetchUser() != nil {
             remoteTaskRepositoty.update(id: task.id, new: copiedTask)
         }
     }
