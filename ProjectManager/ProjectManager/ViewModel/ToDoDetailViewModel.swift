@@ -21,7 +21,7 @@ final class ToDoDetailViewModel {
     // 뷰에서 데이터 받는 용(뷰의 인풋)
     var title: String?
     var deadline: Date = .init()
-    var body: String?
+    var body: String = .init()
     
     // ToDo를 새로 만드는 경우
     init(dataManager: DataManager) {

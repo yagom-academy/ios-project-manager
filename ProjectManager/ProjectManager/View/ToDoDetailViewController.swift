@@ -119,6 +119,7 @@ final class ToDoDetailViewController: UIViewController {
         setUpDelegates()
         setUpLeftButton(isNew: viewModel.isEnableEdit)
         setUpBindings()
+        setUpDatePickerBinding()
     }
     
     required init?(coder: NSCoder) {
@@ -144,6 +145,15 @@ final class ToDoDetailViewController: UIViewController {
             leftButton.setTitle("Edit", for: .normal)
             leftButton.addAction(enableEditContentAction(), for: .touchUpInside)// 유저와 상호작용이 가능하도록 하고 배경색 변경
         }
+    }
+    
+    // datePicker의 값이 변경될 때마다 뷰 모델에 데이터를 보낼 수 있도록 타겟 추가
+    private func setUpDatePickerBinding() {
+        datePicker.addTarget(
+            self,
+            action: #selector(bindDatePicker),
+            for: .valueChanged
+        )
     }
 
     private func dismissAction() -> UIAction {
@@ -279,11 +289,18 @@ extension ToDoDetailViewController {
         titleTextField.publisher(for: \.text)
             .assign(to: \.title, on: viewModel)
             .store(in: &cancellables)
+        bindDatePicker()
+        bodyTextView.textPublisher
+            .assign(to: \.body, on: viewModel)
+            .store(in: &cancellables)
+    }
+    
+    // 최초 실행 시 한 번만 값을 보내기 때문에 값이 변경 될 때마다 값을 보낼 수 있도록
+    // datePicker.addTarget의 selector로 사용
+    @objc
+    private func bindDatePicker() {
         datePicker.publisher(for: \.date)
             .assign(to: \.deadline, on: viewModel)
-            .store(in: &cancellables)
-        bodyTextView.publisher(for: \.text)
-            .assign(to: \.body, on: viewModel)
             .store(in: &cancellables)
     }
     
