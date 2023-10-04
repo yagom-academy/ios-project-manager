@@ -71,7 +71,7 @@ class MainViewController: UIViewController {
     private func filterItemsByStatus() {
         todoItem = coreDataManager.entities.filter { $0.status == Status.todo.rawValue }
         doingItem = coreDataManager.entities.filter { $0.status == Status.doing.rawValue }
-        doneItem = coreDataManager.entities.filter { $0.status == Status.done.rawValue }
+        doneItem = coreDataManager.entities.filter  { $0.status == Status.done.rawValue }
     }
     
     private func configureTitle() {
@@ -123,11 +123,47 @@ class MainViewController: UIViewController {
     
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
-            guard let todoIndexPath = todoCollectionView.indexPathForItem(at: gestureRecognizer.location(in: todoCollectionView)) else {
+            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let collectionView: UICollectionView
+            let indexPath: IndexPath
+            
+            if let indexPathTodo = todoCollectionView.indexPathForItem(at: gestureRecognizer.location(in: todoCollectionView)) {
+                collectionView = todoCollectionView
+                indexPath = indexPathTodo
+                
+                alertActionForMove(sheet: actionSheet, indexPath: indexPathTodo, to: Status.doing, from: todoItem)
+                alertActionForMove(sheet: actionSheet, indexPath: indexPathTodo, to: Status.done, from: todoItem)
+                alertActionForDelete(sheet: actionSheet, indexPath: indexPathTodo, from: todoItem)
+            } else if let indexPathDoing = doingCollectionView.indexPathForItem(at: gestureRecognizer.location(in: doingCollectionView)) {
+                collectionView = doingCollectionView
+                indexPath = indexPathDoing
+                
+                alertActionForMove(sheet: actionSheet, indexPath: indexPathDoing, to: Status.todo, from: doingItem)
+                alertActionForMove(sheet: actionSheet, indexPath: indexPathDoing, to: Status.done, from: doingItem)
+                alertActionForDelete(sheet: actionSheet, indexPath: indexPathDoing, from: doingItem)
+            } else if let indexPathDone = doneCollectionView.indexPathForItem(at: gestureRecognizer.location(in: doneCollectionView)) {
+                collectionView = doneCollectionView
+                indexPath = indexPathDone
+                
+                alertActionForMove(sheet: actionSheet, indexPath: indexPathDone, to: Status.todo, from: doneItem)
+                alertActionForMove(sheet: actionSheet, indexPath: indexPathDone, to: Status.doing, from: doneItem)
+                alertActionForDelete(sheet: actionSheet, indexPath: indexPathDone, from: doneItem)
+            } else {
                 return
             }
-                        
-            print("Todo Long Pressed")
+            
+            if let cell = collectionView.cellForItem(at: indexPath) {
+                actionSheet.popoverPresentationController?.sourceView = cell
+                actionSheet.popoverPresentationController?.sourceRect = CGRect(
+                    x: cell.bounds.midX,
+                    y: cell.bounds.midY,
+                    width: 0,
+                    height: 0
+                )
+                actionSheet.popoverPresentationController?.permittedArrowDirections = indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 ? .down : .up
+            }
+            
+            present(actionSheet, animated: true, completion: nil)
         }
     }
 }
@@ -179,37 +215,7 @@ extension MainViewController: UICollectionViewDelegate {
 
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        switch collectionView {
-        case todoCollectionView:
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.doing, from: todoItem)
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.done, from: todoItem)
-            alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: todoItem)
-        case doingCollectionView:
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.todo, from: doingItem)
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.done, from: doingItem)
-            alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doingItem)
-        case doneCollectionView:
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.todo, from: doneItem)
-            alertActionForMove(sheet: actionSheet, indexPath: indexPath, to: Status.doing, from: doneItem)
-            alertActionForDelete(sheet: actionSheet, indexPath: indexPath, from: doneItem)
-        default:
-            break
-        }
-        
-        if let cell = collectionView.cellForItem(at: indexPath) {
-            actionSheet.popoverPresentationController?.sourceView = cell
-            actionSheet.popoverPresentationController?.sourceRect = CGRect(
-                x: cell.bounds.midX,
-                y: cell.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            actionSheet.popoverPresentationController?.permittedArrowDirections = indexPath.row == collectionView.numberOfItems(inSection: indexPath.section) - 1 ? .down : .up
-        }
-        
-        present(actionSheet, animated: true, completion: nil)
     }
 }
 
@@ -227,7 +233,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         
         if kind == UICollectionView.elementKindSectionHeader {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? CollectionReusableView else { return UICollectionReusableView()}
-                        
+            
             switch collectionView {
             case todoCollectionView:
                 headerView.configureTitle(title: "TODO", entity: todoItem)
