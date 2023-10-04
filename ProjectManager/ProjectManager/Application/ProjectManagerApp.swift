@@ -15,6 +15,7 @@ struct ProjectManagerApp: App {
     @StateObject private var keyboard = DIContainer.keyboard
     @StateObject private var kanbanViewModel = DIContainer.kanbanViewModel
     @StateObject private var historyViewModel = DIContainer.historyViewModel    
+    @StateObject private var loginViewModel = DIContainer.loginViewModel
     
     var body: some Scene {
         WindowGroup {
@@ -22,6 +23,7 @@ struct ProjectManagerApp: App {
                 .environmentObject(keyboard)
                 .environmentObject(kanbanViewModel)
                 .environmentObject(historyViewModel)
+                .environmentObject(loginViewModel)
         }
     }
 }

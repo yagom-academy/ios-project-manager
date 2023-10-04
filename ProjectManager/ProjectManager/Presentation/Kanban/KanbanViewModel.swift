@@ -34,8 +34,18 @@ final class KanbanViewModel: ObservableObject {
     
     // Mock 객체를 위한 initializer
     init(tasks: [Task]) {
-        self.taskUseCases = TaskUseCases(taskRepository: RealmTaskRepository())
+        self.taskUseCases = TaskUseCases(
+            appState: DIContainer.appState,
+            localRepository: RealmTaskRepository(),
+            remoteRepository: FireStoreTaskRepository()
+        )
         self.tasks = tasks
+    }
+    
+    func fetchAll() {
+        withAnimation {
+            self.tasks = taskUseCases.fetchTasks()
+        }
     }
     
     func create(_ task: Task) {        
@@ -68,12 +78,6 @@ final class KanbanViewModel: ObservableObject {
     
     func setHistoryVisible(_ isVisible: Bool) {
         isHistoryOn = isVisible
-    }
-    
-    private func fetchAll() {
-        withAnimation {
-            self.tasks = taskUseCases.fetchTasks()
-        }        
     }
 }
 

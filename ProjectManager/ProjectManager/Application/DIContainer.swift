@@ -9,11 +9,23 @@ import Foundation
 
 final class DIContainer {
     
+    static let appState: AppState = {
+        let repository = RealmUserRepository()
+        let useCases = UserUseCases(userRepository: repository)
+        
+        return AppState(userUseCases: useCases)
+    }()
+    
     static let keyboard = KeyboardManager()
     
     static let kanbanViewModel: KanbanViewModel = {
-        let repository = RealmTaskRepository()
-        let useCases = TaskUseCases(taskRepository: repository)
+        let localRepository = RealmTaskRepository()
+        let remoteRepository = FireStoreTaskRepository()
+        let useCases = TaskUseCases(
+            appState: appState,
+            localRepository: localRepository,
+            remoteRepository: remoteRepository
+        )
         let viewModel = KanbanViewModel(useCases: useCases)
         
         return viewModel
@@ -25,5 +37,9 @@ final class DIContainer {
         let viewModel = HistoryViewModel(useCases: useCases)
         
         return viewModel
+    }()
+    
+    static let loginViewModel: LoginViewModel = {
+        return LoginViewModel(appState: appState)        
     }()
 }

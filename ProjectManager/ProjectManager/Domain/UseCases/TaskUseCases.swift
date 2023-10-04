@@ -8,31 +8,61 @@
 import Foundation
 
 final class TaskUseCases {
-    private let taskRepository: TaskRepository
+    private let appState: AppState
+    private let localTaskRepository: TaskRepository
+    private let remoteTaskRepositoty: TaskRepository
     
-    init(taskRepository: TaskRepository) {
-        self.taskRepository = taskRepository
+    init(
+        appState: AppState,
+        localRepository: TaskRepository,
+        remoteRepository: TaskRepository
+    ) {
+        self.appState = appState
+        self.localTaskRepository = localRepository
+        self.remoteTaskRepositoty = remoteRepository
     }
     
     func fetchTasks() -> [Task] {
-        taskRepository.fetchAll()
+        let tasksFromLocal = localTaskRepository.fetchAll()
+        
+        if tasksFromLocal.isEmpty && appState.isConnectedRemoteServer {
+            return remoteTaskRepositoty.fetchAll()
+        } else {
+            return tasksFromLocal
+        }
     }
     
     func createTask(_ task: Task) {
-        taskRepository.save(task)
+        localTaskRepository.save(task)
+        
+        if appState.isConnectedRemoteServer {
+            remoteTaskRepositoty.save(task)
+        }
     }
     
     func updateTask(id: UUID, new task: Task) {
-        taskRepository.update(id: id, new: task)
+        localTaskRepository.update(id: id, new: task)
+        
+        if appState.isConnectedRemoteServer {
+            remoteTaskRepositoty.update(id: id, new: task)
+        }
     }
     
     func deleteTask(_ task: Task) {
-        taskRepository.delete(task: task)
+        localTaskRepository.delete(task: task)
+        
+        if appState.isConnectedRemoteServer {
+            remoteTaskRepositoty.delete(task: task)
+        }
     }
     
     func moveTask(task: Task, to taskState: TaskState) {
         var copiedTask = task
         copiedTask.state = taskState
-        taskRepository.update(id: task.id, new: copiedTask)
+        localTaskRepository.update(id: task.id, new: copiedTask)
+        
+        if appState.isConnectedRemoteServer {
+            remoteTaskRepositoty.update(id: task.id, new: copiedTask)
+        }
     }
 }

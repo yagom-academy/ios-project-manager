@@ -17,6 +17,7 @@ class KeyboardManager: ObservableObject {
     init() {
         NotificationCenter.default
             .publisher(for: UIWindow.keyboardWillShowNotification)
+            .receive(on: RunLoop.main)
             .sink { [weak self] notification in
                 guard let self = self else { return }
 
@@ -31,6 +32,7 @@ class KeyboardManager: ObservableObject {
 
         NotificationCenter.default
             .publisher(for: UIWindow.keyboardWillHideNotification)
+            .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 withAnimation {

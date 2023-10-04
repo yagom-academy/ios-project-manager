@@ -12,6 +12,18 @@
 		1F223AC32ABAC3F200EDB1E9 /* KanbanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223AC22ABAC3F200EDB1E9 /* KanbanView.swift */; };
 		1F223AC52ABAC40100EDB1E9 /* KanbanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */; };
 		1F223ACD2ABAE76500EDB1E9 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */; };
+		1F2CDE662ACD0904001EE965 /* FireStoreTaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE652ACD0904001EE965 /* FireStoreTaskObject.swift */; };
+		1F2CDE682ACD0920001EE965 /* FireStoreTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE672ACD0920001EE965 /* FireStoreTaskRepository.swift */; };
+		1F2CDE6D2ACD12EA001EE965 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE6C2ACD12EA001EE965 /* LoginViewModel.swift */; };
+		1F2CDE702ACD12FB001EE965 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE6F2ACD12FB001EE965 /* LoginView.swift */; };
+		1F2CDE732ACD2196001EE965 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE722ACD2196001EE965 /* User.swift */; };
+		1F2CDE752ACD2254001EE965 /* UserUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE742ACD2254001EE965 /* UserUseCases.swift */; };
+		1F2CDE772ACD2274001EE965 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE762ACD2274001EE965 /* UserRepository.swift */; };
+		1F2CDE7A2ACD2699001EE965 /* RealmUserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE792ACD2699001EE965 /* RealmUserObject.swift */; };
+		1F2CDE7C2ACD2740001EE965 /* RealmUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE7B2ACD2740001EE965 /* RealmUserRepository.swift */; };
+		1F2CDE7E2ACD276B001EE965 /* UserMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE7D2ACD276B001EE965 /* UserMapper.swift */; };
+		1F2CDE812ACD3069001EE965 /* CloudButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE802ACD3069001EE965 /* CloudButton.swift */; };
+		1F2CDE832ACD4125001EE965 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE822ACD4125001EE965 /* AppState.swift */; };
 		1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */; };
 		1F3A6CA42ACC09F700EC9234 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */; };
 		1F3A6CB22ACC506E00EC9234 /* RealmTaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB12ACC506E00EC9234 /* RealmTaskObject.swift */; };
@@ -53,6 +65,18 @@
 		1F223AC22ABAC3F200EDB1E9 /* KanbanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanView.swift; sourceTree = "<group>"; };
 		1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanViewModel.swift; sourceTree = "<group>"; };
 		1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
+		1F2CDE652ACD0904001EE965 /* FireStoreTaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTaskObject.swift; sourceTree = "<group>"; };
+		1F2CDE672ACD0920001EE965 /* FireStoreTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTaskRepository.swift; sourceTree = "<group>"; };
+		1F2CDE6C2ACD12EA001EE965 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		1F2CDE6F2ACD12FB001EE965 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		1F2CDE722ACD2196001EE965 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1F2CDE742ACD2254001EE965 /* UserUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCases.swift; sourceTree = "<group>"; };
+		1F2CDE762ACD2274001EE965 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		1F2CDE792ACD2699001EE965 /* RealmUserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUserObject.swift; sourceTree = "<group>"; };
+		1F2CDE7B2ACD2740001EE965 /* RealmUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUserRepository.swift; sourceTree = "<group>"; };
+		1F2CDE7D2ACD276B001EE965 /* UserMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMapper.swift; sourceTree = "<group>"; };
+		1F2CDE802ACD3069001EE965 /* CloudButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudButton.swift; sourceTree = "<group>"; };
+		1F2CDE822ACD4125001EE965 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		1F3A6CB12ACC506E00EC9234 /* RealmTaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskObject.swift; sourceTree = "<group>"; };
@@ -117,6 +141,7 @@
 			children = (
 				1F223AB92ABAC21600EDB1E9 /* Task.swift */,
 				1F3A6CC12ACC865700EC9234 /* History.swift */,
+				1F2CDE722ACD2196001EE965 /* User.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -126,6 +151,7 @@
 			children = (
 				1F223ABB2ABAC28000EDB1E9 /* TaskUseCases.swift */,
 				1F3A6CC32ACC8E1F00EC9234 /* HistoryUseCases.swift */,
+				1F2CDE742ACD2254001EE965 /* UserUseCases.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -133,9 +159,67 @@
 		1F223ABD2ABAC28C00EDB1E9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1F2CDE7F2ACD3037001EE965 /* Cloud */,
+				1F4926152ABB53D3002663A4 /* Utils */,
+				1F2CDE6B2ACD12CB001EE965 /* Login */,
+				1F4D8D2B2ABD8B2F00B5FB6E /* TaskForm */,
+				1F3A6CBC2ACC85A400EC9234 /* History */,
 				1F4D8D222ABD87AF00B5FB6E /* Kanban */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		1F2CDE632ACD0819001EE965 /* FireStore */ = {
+			isa = PBXGroup;
+			children = (
+				1F2CDE652ACD0904001EE965 /* FireStoreTaskObject.swift */,
+				1F2CDE672ACD0920001EE965 /* FireStoreTaskRepository.swift */,
+			);
+			path = FireStore;
+			sourceTree = "<group>";
+		};
+		1F2CDE642ACD0823001EE965 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				1F3A6CB12ACC506E00EC9234 /* RealmTaskObject.swift */,
+				1F3A6CB32ACC508100EC9234 /* RealmTaskRepository.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		1F2CDE692ACD093C001EE965 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				1F3A6CB82ACC588400EC9234 /* TaskMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		1F2CDE6B2ACD12CB001EE965 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1F2CDE6F2ACD12FB001EE965 /* LoginView.swift */,
+				1F2CDE6C2ACD12EA001EE965 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1F2CDE782ACD24E3001EE965 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				1F2CDE792ACD2699001EE965 /* RealmUserObject.swift */,
+				1F2CDE7B2ACD2740001EE965 /* RealmUserRepository.swift */,
+				1F2CDE7D2ACD276B001EE965 /* UserMapper.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		1F2CDE7F2ACD3037001EE965 /* Cloud */ = {
+			isa = PBXGroup;
+			children = (
+				1F2CDE802ACD3069001EE965 /* CloudButton.swift */,
+			);
+			path = Cloud;
 			sourceTree = "<group>";
 		};
 		1F34D9342AB92ED90061A6E1 /* Resources */ = {
@@ -154,6 +238,7 @@
 			children = (
 				1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */,
 				1F3A6CBA2ACC6E4F00EC9234 /* DIContainer.swift */,
+				1F2CDE822ACD4125001EE965 /* AppState.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -161,18 +246,19 @@
 		1F3A6CAF2ACC4EED00EC9234 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				1F3A6CB02ACC4EFC00EC9234 /* LocalDatabase */,
+				1F3A6CB02ACC4EFC00EC9234 /* Database */,
 			);
 			path = Data;
 			sourceTree = "<group>";
 		};
-		1F3A6CB02ACC4EFC00EC9234 /* LocalDatabase */ = {
+		1F3A6CB02ACC4EFC00EC9234 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				1F2CDE782ACD24E3001EE965 /* User */,
 				1F3A6CC62ACC8E5E00EC9234 /* History */,
 				1F3A6CC52ACC8E5200EC9234 /* Task */,
 			);
-			path = LocalDatabase;
+			path = Database;
 			sourceTree = "<group>";
 		};
 		1F3A6CB52ACC53AC00EC9234 /* Repositories */ = {
@@ -180,6 +266,7 @@
 			children = (
 				1F3A6CB62ACC541400EC9234 /* TaskRepository.swift */,
 				1F3A6CCB2ACC8F4500EC9234 /* HistoryRepository.swift */,
+				1F2CDE762ACD2274001EE965 /* UserRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -196,9 +283,9 @@
 		1F3A6CC52ACC8E5200EC9234 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				1F3A6CB12ACC506E00EC9234 /* RealmTaskObject.swift */,
-				1F3A6CB32ACC508100EC9234 /* RealmTaskRepository.swift */,
-				1F3A6CB82ACC588400EC9234 /* TaskMapper.swift */,
+				1F2CDE692ACD093C001EE965 /* Mapper */,
+				1F2CDE632ACD0819001EE965 /* FireStore */,
+				1F2CDE642ACD0823001EE965 /* Realm */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -227,11 +314,8 @@
 		1F4D8D222ABD87AF00B5FB6E /* Kanban */ = {
 			isa = PBXGroup;
 			children = (
-				1F4926152ABB53D3002663A4 /* Utils */,
 				1F223AC22ABAC3F200EDB1E9 /* KanbanView.swift */,
 				1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */,
-				1F3A6CBC2ACC85A400EC9234 /* History */,
-				1F4D8D2B2ABD8B2F00B5FB6E /* TaskForm */,
 				1F4D8D232ABD881400B5FB6E /* Column */,
 			);
 			path = Kanban;
@@ -286,10 +370,10 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				1F3A6CAF2ACC4EED00EC9234 /* Data */,
 				1F34D9352AB92F8F0061A6E1 /* Application */,
 				1F223ABD2ABAC28C00EDB1E9 /* Presentation */,
 				1F223AB52ABAC17000EDB1E9 /* Domain */,
+				1F3A6CAF2ACC4EED00EC9234 /* Data */,
 				1F34D9342AB92ED90061A6E1 /* Resources */,
 			);
 			path = ProjectManager;
@@ -380,33 +464,45 @@
 			files = (
 				1F223AC52ABAC40100EDB1E9 /* KanbanViewModel.swift in Sources */,
 				1FD252BC2AC5DDE800ECA6F7 /* TaskEditViewModel.swift in Sources */,
+				1F2CDE6D2ACD12EA001EE965 /* LoginViewModel.swift in Sources */,
 				1F3A6CA42ACC09F700EC9234 /* CustomAlert.swift in Sources */,
 				1F223ABC2ABAC28000EDB1E9 /* TaskUseCases.swift in Sources */,
 				1FD252BA2AC5DDDD00ECA6F7 /* TaskCreateViewModel.swift in Sources */,
 				1F3A6CCE2ACC90F500EC9234 /* HistoryMapper.swift in Sources */,
 				1F3A6CC82ACC8E7000EC9234 /* RealmHistoryObject.swift in Sources */,
+				1F2CDE752ACD2254001EE965 /* UserUseCases.swift in Sources */,
+				1F2CDE832ACD4125001EE965 /* AppState.swift in Sources */,
 				1FD252B82AC5DC5800ECA6F7 /* TaskFormProtocol.swift in Sources */,
 				1F3A6CBE2ACC85BC00EC9234 /* HistoryView.swift in Sources */,
+				1F2CDE702ACD12FB001EE965 /* LoginView.swift in Sources */,
 				1F3A6CC02ACC85D000EC9234 /* HistoryViewModel.swift in Sources */,
 				1F3A6CCC2ACC8F4500EC9234 /* HistoryRepository.swift in Sources */,
+				1F2CDE772ACD2274001EE965 /* UserRepository.swift in Sources */,
+				1F2CDE732ACD2196001EE965 /* User.swift in Sources */,
 				1F4D8D252ABD890A00B5FB6E /* ColumnViewModel.swift in Sources */,
 				1F3A6CC22ACC865700EC9234 /* History.swift in Sources */,
 				1F223ACD2ABAE76500EDB1E9 /* TaskFormView.swift in Sources */,
 				1F3A6CB22ACC506E00EC9234 /* RealmTaskObject.swift in Sources */,
+				1F2CDE812ACD3069001EE965 /* CloudButton.swift in Sources */,
 				3C314ED92ABACE3F001BDF45 /* ColumnView.swift in Sources */,
 				1F223AC32ABAC3F200EDB1E9 /* KanbanView.swift in Sources */,
 				1F4D8D2A2ABD8AA300B5FB6E /* CardViewModel.swift in Sources */,
+				1F2CDE7A2ACD2699001EE965 /* RealmUserObject.swift in Sources */,
 				1F3A6CBB2ACC6E4F00EC9234 /* DIContainer.swift in Sources */,
 				1F223ABA2ABAC21600EDB1E9 /* Task.swift in Sources */,
 				1F3A6CB42ACC508100EC9234 /* RealmTaskRepository.swift in Sources */,
+				1F2CDE7C2ACD2740001EE965 /* RealmUserRepository.swift in Sources */,
 				1F3A6CB72ACC541400EC9234 /* TaskRepository.swift in Sources */,
 				1F99DF182AC4387900B84B11 /* SafeIndex.swift in Sources */,
 				1F3A6CB92ACC588400EC9234 /* TaskMapper.swift in Sources */,
+				1F2CDE7E2ACD276B001EE965 /* UserMapper.swift in Sources */,
 				1F3A6CCA2ACC8F2400EC9234 /* RealmHistoryRepository.swift in Sources */,
 				3C60CD902AC272A9005F9783 /* ShadowBackground.swift in Sources */,
 				1F3A6CC42ACC8E1F00EC9234 /* HistoryUseCases.swift in Sources */,
+				1F2CDE662ACD0904001EE965 /* FireStoreTaskObject.swift in Sources */,
 				1F4D8D282ABD8A8200B5FB6E /* CardView.swift in Sources */,
 				1F8A93E12AC32B5200FB8770 /* KeyboardManager.swift in Sources */,
+				1F2CDE682ACD0920001EE965 /* FireStoreTaskRepository.swift in Sources */,
 				1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
