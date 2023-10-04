@@ -285,6 +285,7 @@ extension ToDoDetailViewController {
         bindViewToViewModel()
     }
     
+    // 뷰에서 입력 받은 데이터를 뷰 모델로 보냄
     private func bindViewToViewModel() {
         titleTextField.publisher(for: \.text)
             .assign(to: \.title, on: viewModel)
@@ -304,6 +305,7 @@ extension ToDoDetailViewController {
             .store(in: &cancellables)
     }
     
+    // 뷰 모델의 데이터를 받아 뷰에 적용
     private func bindViewModelToView() {
         viewModel.todoSubject
             .sink(receiveValue: { [weak self] in
