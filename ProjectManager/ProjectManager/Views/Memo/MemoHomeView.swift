@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MemoHomeView: View {
-    @EnvironmentObject private var modelData: ModelData
     @State private var showDetail: Bool = false
     
     var body: some View {
@@ -18,9 +17,9 @@ struct MemoHomeView: View {
                 ColorSet.backgroundBetweenLists
                 
                 HStack(spacing: 4) {
-                    MemoListView(memos: modelData.toDoList, category: .toDo)
-                    MemoListView(memos: modelData.doingList, category: .doing)
-                    MemoListView(memos: modelData.doneList, category: .done)
+                    ForEach(Memo.Category.allCases, id: \.description) {
+                        MemoListView(category: $0)
+                    }
                 }
                 .clipped()
                 .navigationBarTitle("Project Manager")
@@ -45,6 +44,5 @@ struct MemoHomeView: View {
 struct MemoHome_Previews: PreviewProvider {
     static var previews: some View {
         MemoHomeView()
-            .environmentObject(ModelData())
     }
 }

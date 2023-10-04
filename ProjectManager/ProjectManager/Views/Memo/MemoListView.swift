@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct MemoListView: View {
+    @EnvironmentObject private var modelData: ModelData
     @State private var currentMemo: Memo? = nil
-    private var memos: [Memo]
     private var category: Memo.Category
     
-    init(memos: [Memo], category: Memo.Category) {
-        self.memos = memos
+    init(category: Memo.Category) {
         self.category = category
     }
 
     var body: some View {
         VStack(spacing: 0) {
-            ListHeader(category: category.description, memoCount: memos.count)
+            ListHeader(
+                category: category.description,
+                memoCount: modelData.filterMemo(by: category).count
+            )
             
             List {
-                ForEach(memos) { memo in
+                ForEach(modelData.filterMemo(by: category)) { memo in
                     VStack(alignment: .leading, spacing: 2) {
                         HorizontalSpacing()
                         
@@ -57,6 +59,7 @@ struct MemoListView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListView(memos: ModelData().toDoList, category: .doing)
+        MemoListView(category: .doing)
+            .environmentObject(ModelData())
     }
 }

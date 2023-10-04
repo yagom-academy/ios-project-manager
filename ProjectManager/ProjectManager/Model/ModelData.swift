@@ -10,16 +10,8 @@ import Foundation
 final class ModelData: ObservableObject {
     @Published var memos: [Memo] = memoExample
     
-    var toDoList: [Memo] {
-        memos.filter { $0.category == .toDo }
-    }
-    
-    var doingList: [Memo] {
-        memos.filter { $0.category == .doing }
-    }
-    
-    var doneList: [Memo] {
-        memos.filter { $0.category == .done }
+    func filterMemo(by category: Memo.Category) -> [Memo] {
+        memos.filter { $0.category == category }
     }
 }
 
