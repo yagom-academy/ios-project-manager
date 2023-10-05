@@ -53,6 +53,8 @@ final class ToDoListChildViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
         
+        tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressEvent)))
+        
         NSLayoutConstraint.activate([
             tableView.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
             tableView.heightAnchor.constraint(equalTo: safeArea.heightAnchor),
@@ -139,5 +141,27 @@ extension ToDoListChildViewController {
             present(alertController, animated: true)
         }
     }
-    
 }
+
+extension ToDoListChildViewController {
+    @objc private func longPressEvent(sender: UILongPressGestureRecognizer) {
+        let point = sender.location(in: tableView)
+        
+        guard let indexPath = self.tableView.indexPathForRow(at: point),
+              let viewModelDelegate = viewModel as? ToDoListChildViewModelDelegate else { return }
+        let entity = viewModel.outputs.entityList[indexPath.row]
+        let changeStatusViewModel = ChangeStatusViewModel()
+        changeStatusViewModel.delegate = viewModelDelegate
+        let changeStatusViewController = ChangeStatusViewController(entity, status: status, viewModel: changeStatusViewModel)
+        changeStatusViewController.modalPresentationStyle = .popover
+        changeStatusViewController.preferredContentSize = CGSize(width: 300, height: 150)
+        
+        let popOverController = changeStatusViewController.popoverPresentationController
+        popOverController?.sourceView = tableView
+        popOverController?.sourceRect = CGRect(x: point.x, y: point.y, width: 0, height: 0)
+        popOverController?.permittedArrowDirections = .up
+        present(changeStatusViewController, animated: true)
+        
+    }
+}
+

@@ -27,9 +27,12 @@
 		BA64637D2AC26F490080E80D /* ToDoListChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64637C2AC26F490080E80D /* ToDoListChildViewController.swift */; };
 		BA64637F2AC283F70080E80D /* ToDoListChildViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64637E2AC283F70080E80D /* ToDoListChildViewModel.swift */; };
 		BA6463812AC289680080E80D /* KeywordArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6463802AC289680080E80D /* KeywordArgument.swift */; };
-		BAD471D62ACBA2CB0021323A /* ToDoListBaseViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D52ACBA2CB0021323A /* ToDoListBaseViewModelDelegate.swift */; };
+		BAD471D62ACBA2CB0021323A /* ViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */; };
 		BAD471D82ACBA4820021323A /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471D72ACBA4820021323A /* Output.swift */; };
 		BAD471DF2ACF19EA0021323A /* ToDoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */; };
+		BAD471E62ACF2AC90021323A /* ChangeStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471E52ACF2AC90021323A /* ChangeStatusViewModel.swift */; };
+		BAD471EB2ACF2AF30021323A /* ChangeStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */; };
+		BAD471ED2ACF2B080021323A /* PopOverButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD471EC2ACF2B080021323A /* PopOverButton.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ToDoListBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ToDoListBaseViewController.swift */; };
@@ -53,9 +56,12 @@
 		BA64637C2AC26F490080E80D /* ToDoListChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListChildViewController.swift; sourceTree = "<group>"; };
 		BA64637E2AC283F70080E80D /* ToDoListChildViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListChildViewModel.swift; sourceTree = "<group>"; };
 		BA6463802AC289680080E80D /* KeywordArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordArgument.swift; sourceTree = "<group>"; };
-		BAD471D52ACBA2CB0021323A /* ToDoListBaseViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListBaseViewModelDelegate.swift; sourceTree = "<group>"; };
+		BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDelegate.swift; sourceTree = "<group>"; };
 		BAD471D72ACBA4820021323A /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		BAD471DE2ACF19EA0021323A /* ToDoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoUseCase.swift; sourceTree = "<group>"; };
+		BAD471E52ACF2AC90021323A /* ChangeStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeStatusViewModel.swift; sourceTree = "<group>"; };
+		BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeStatusViewController.swift; sourceTree = "<group>"; };
+		BAD471EC2ACF2B080021323A /* PopOverButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverButton.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +110,7 @@
 				BA64637B2AC0613D0080E80D /* Cell */,
 				BA6463822AC29D180080E80D /* BaseView */,
 				BA6463832AC29D1D0080E80D /* ChildView */,
+				BAD471E42ACF2A9E0021323A /* PopOverView */,
 			);
 			path = ListView;
 			sourceTree = "<group>";
@@ -156,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				BA64636C2AC045700080E80D /* ViewModelType.swift */,
-				BAD471D52ACBA2CB0021323A /* ToDoListBaseViewModelDelegate.swift */,
+				BAD471D52ACBA2CB0021323A /* ViewModelDelegate.swift */,
 			);
 			path = ViewModelProtocol;
 			sourceTree = "<group>";
@@ -200,6 +207,16 @@
 				BA6463772AC04FE40080E80D /* AlertBuilder.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		BAD471E42ACF2A9E0021323A /* PopOverView */ = {
+			isa = PBXGroup;
+			children = (
+				BAD471E52ACF2AC90021323A /* ChangeStatusViewModel.swift */,
+				BAD471EA2ACF2AF30021323A /* ChangeStatusViewController.swift */,
+				BAD471EC2ACF2B080021323A /* PopOverButton.swift */,
+			);
+			path = PopOverView;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -317,19 +334,22 @@
 				BA64637A2AC050AD0080E80D /* ToDoListTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				BAD471E62ACF2AC90021323A /* ChangeStatusViewModel.swift in Sources */,
 				BA6463752AC04F920080E80D /* ToDoListHeaderView.swift in Sources */,
 				BA64636D2AC045700080E80D /* ViewModelType.swift in Sources */,
 				BA64636F2AC04A700080E80D /* ToDoListBaseViewModel.swift in Sources */,
 				BA6463662AC0440E0080E80D /* CoreDataError.swift in Sources */,
 				BA6463602AC043680080E80D /* ToDo+CoreDataProperties.swift in Sources */,
-				BAD471D62ACBA2CB0021323A /* ToDoListBaseViewModelDelegate.swift in Sources */,
+				BAD471D62ACBA2CB0021323A /* ViewModelDelegate.swift in Sources */,
 				BA6463682AC044D70080E80D /* ToDoStatus.swift in Sources */,
 				BAD471D82ACBA4820021323A /* Output.swift in Sources */,
 				BA6463782AC04FE40080E80D /* AlertBuilder.swift in Sources */,
 				BAD471DF2ACF19EA0021323A /* ToDoUseCase.swift in Sources */,
 				BA64636A2AC045380080E80D /* Observable.swift in Sources */,
 				BA64635F2AC043680080E80D /* ToDo+CoreDataClass.swift in Sources */,
+				BAD471EB2ACF2AF30021323A /* ChangeStatusViewController.swift in Sources */,
 				BA6463642AC043F50080E80D /* CoreDataManager.swift in Sources */,
+				BAD471ED2ACF2B080021323A /* PopOverButton.swift in Sources */,
 				BA64637D2AC26F490080E80D /* ToDoListChildViewController.swift in Sources */,
 				BA6463582AC042A90080E80D /* ToDo.xcdatamodeld in Sources */,
 			);

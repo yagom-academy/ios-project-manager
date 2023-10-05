@@ -7,7 +7,6 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
 
 
@@ -17,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let coreDataManager = CoreDataManager()
         let useCase = ToDoUseCase(dataManager: coreDataManager)
-        let toDoViewModel = ToDoListBaseViewModel(dataManager: coreDataManager, useCase: useCase)
+        let toDoViewModel = ToDoListBaseViewModel(useCase: useCase)
         let baseViewController = ToDoListBaseViewController(toDoViewModel)
         let navigationViewController = UINavigationController(rootViewController: baseViewController)
         window?.rootViewController = navigationViewController

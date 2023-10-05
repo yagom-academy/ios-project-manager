@@ -62,6 +62,9 @@ final class ToDoListTableViewCell: UITableViewCell {
         titleLabel.textColor = .black
         bodyLabel.textColor = .black
         dateLabel.textColor = .black
+        titleLabel.text = ""
+        bodyLabel.text = ""
+        dateLabel.text = ""
     }
     
 }

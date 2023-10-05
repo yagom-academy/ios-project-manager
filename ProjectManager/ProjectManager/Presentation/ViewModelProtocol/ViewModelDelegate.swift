@@ -11,3 +11,7 @@ protocol ToDoListBaseViewModelDelegate: AnyObject {
     func createData(values: [KeywordArgument])
 #endif
 }
+
+protocol ToDoListChildViewModelDelegate: AnyObject {
+    func changeStatus(_ entity: ToDo, to newStatus: ToDoStatus)
+}

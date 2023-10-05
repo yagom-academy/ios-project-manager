@@ -42,6 +42,10 @@ struct ToDoUseCase {
     }
     
     func updateData(_ entity: ToDo, values: [KeywordArgument]) throws {
+        var values = values
+        if values.filter({ $0.key == "modifiedAt" }).isEmpty {
+            values.append(KeywordArgument(key: "modifiedAt", value: Date()))
+        }
         try coreDataManager.updateData(entity: entity, values: values)
     }
     

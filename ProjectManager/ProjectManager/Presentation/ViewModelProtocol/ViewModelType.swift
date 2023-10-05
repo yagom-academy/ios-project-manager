@@ -44,4 +44,15 @@ protocol ToDoChildViewModelOutputsType {
     var error: Observable<CoreDataError?> { get set }
 }
 
+protocol ToDoChangeStatusViewModelType {
+    var inputs: ToDoChangeStatusViewModelInputsType { get }
+    var outputs: ToDoChangeStatusViewModelOutputsType { get }
+}
 
+protocol ToDoChangeStatusViewModelInputsType {
+    func touchUpButton(_ entity: ToDo, status: ToDoStatus)
+}
+
+protocol ToDoChangeStatusViewModelOutputsType {
+    var error: Observable<CoreDataError?> { get set }
+}

@@ -7,8 +7,9 @@
 
 import Foundation
 
-final class ToDoListChildViewModel: ToDoChildViewModelType, ViewModelTypeWithError, ToDoChildViewModelOutputsType {
-    private let useCase: ToDoUseCase
+final class ToDoListChildViewModel: ToDoChildViewModelType, ToDoChildViewModelOutputsType {
+    var  useCase: ToDoUseCase
+    weak var delegate: ToDoListBaseViewModelDelegate?
     
     var inputs: ToDoChildViewModelInputsType { return self }
     var outputs: ToDoChildViewModelOutputsType { return self }
@@ -16,7 +17,6 @@ final class ToDoListChildViewModel: ToDoChildViewModelType, ViewModelTypeWithErr
     private let status: ToDoStatus
     var entityList: [ToDo] = []
     var action: Observable<Output?> = Observable(nil)
-    weak var delegate: ToDoListBaseViewModelDelegate?
     
     var error: Observable<CoreDataError?> = Observable(nil)
     
@@ -24,7 +24,9 @@ final class ToDoListChildViewModel: ToDoChildViewModelType, ViewModelTypeWithErr
         self.status = status
         self.useCase = useCase
     }
-    
+}
+
+extension ToDoListChildViewModel: ViewModelTypeWithError {
     func handle(error: Error) {
         if let coreDataError = error as? CoreDataError {
             self.setError(coreDataError)
@@ -35,20 +37,6 @@ final class ToDoListChildViewModel: ToDoChildViewModelType, ViewModelTypeWithErr
     
     func setError(_ error: CoreDataError) {
         self.error = Observable(error)
-    }
-}
-
-extension ToDoListChildViewModel {
-    func changeStatus(_ entity: ToDo, to newStatus: ToDoStatus) {
-        guard let index = entityList.firstIndex(of: entity) else { return }
-        do {
-            try useCase.updateData(entity, values: [KeywordArgument(key: "status", value: newStatus.rawValue)])
-            
-            action.value = Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)])
-            try delegate?.updateChild(newStatus, action: Output(type: .create))
-        } catch(let error) {
-            handle(error: error)
-        }
     }
 }
 
@@ -68,6 +56,20 @@ extension ToDoListChildViewModel: ToDoChildViewModelInputsType {
             try useCase.deleteData(entity)
             entityList = try useCase.fetchDataByStatus(for: status)
             action.value = Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)])
+        } catch(let error) {
+            handle(error: error)
+        }
+    }
+}
+
+extension ToDoListChildViewModel: ToDoListChildViewModelDelegate {
+    func changeStatus(_ entity: ToDo, to newStatus: ToDoStatus) {
+        guard let index = entityList.firstIndex(of: entity) else { return }
+        do {
+            try useCase.updateData(entity, values: [KeywordArgument(key: "status", value: newStatus.rawValue)])
+            entityList = try useCase.fetchDataByStatus(for: status)
+            action.value = Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)])
+            try delegate?.updateChild(newStatus, action: Output(type: .update))
         } catch(let error) {
             handle(error: error)
         }
