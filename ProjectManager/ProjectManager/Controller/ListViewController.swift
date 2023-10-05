@@ -15,6 +15,7 @@ enum ListKind: String {
 
 protocol ListViewControllerDelegate: AnyObject {
     func didTappedRightDoneButtonForUpdate(updateTask: Task)
+    func didSwipedDeleteTask(deleteTask: Task)
 }
 
 final class ListViewController: UIViewController {
@@ -23,25 +24,13 @@ final class ListViewController: UIViewController {
     }
     
     weak var delegate: ListViewControllerDelegate?
+    
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: listLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: listLayout())
         
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
-    }()
-    
-    private let listLayout: UICollectionViewCompositionalLayout = {
-        return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            var listLayout = UICollectionLayoutListConfiguration(appearance: .grouped)
-            
-            listLayout.headerMode = .supplementary
-
-            let section = NSCollectionLayoutSection.list(using: listLayout, layoutEnvironment: layoutEnvironment)
-            
-            section.interGroupSpacing = 10
-            return section
-        }
     }()
     
     private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Task>?
@@ -127,6 +116,29 @@ extension ListViewController {
             return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
         }
     }
+    
+    private func listLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            var listLayout = UICollectionLayoutListConfiguration(appearance: .grouped)
+            
+            listLayout.trailingSwipeActionsConfigurationProvider = {
+                indexPath in
+                let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, handler in
+                    guard let self = self else { return }
+                    
+                    self.didSwipedDeleteTask(deleteTask: self.taskList[indexPath.row])
+                }
+                return UISwipeActionsConfiguration(actions: [deleteAction])
+            }
+            
+            listLayout.headerMode = .supplementary
+
+            let section = NSCollectionLayoutSection.list(using: listLayout, layoutEnvironment: layoutEnvironment)
+            
+            section.interGroupSpacing = 10
+            return section
+        }
+    }
 }
 
 // MARK: - CollectionView Delegate
@@ -148,4 +160,9 @@ extension ListViewController: TaskViewControllerDelegate {
     func didTappedRightDoneButton(task: Task) {
         delegate?.didTappedRightDoneButtonForUpdate(updateTask: task)
     }
+    
+    func didSwipedDeleteTask(deleteTask: Task) {
+        delegate?.didSwipedDeleteTask(deleteTask: deleteTask)
+    }
 }
+
