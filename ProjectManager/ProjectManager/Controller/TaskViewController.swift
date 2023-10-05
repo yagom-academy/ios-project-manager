@@ -25,6 +25,14 @@ final class TaskViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         
+        textField.font = .preferredFont(forTextStyle: .title2)
+        textField.borderStyle = .roundedRect
+        textField.layer.borderColor = UIColor.label.cgColor
+        textField.layer.borderWidth = 0.3
+        textField.layer.shadowColor = UIColor.systemGray.cgColor
+        textField.layer.shadowOffset = CGSize(width: 2, height: 3)
+        textField.layer.shadowOpacity = 0.5
+        textField.layer.shadowRadius = 3
         textField.placeholder = "Title"
         return textField
     }()
@@ -40,6 +48,13 @@ final class TaskViewController: UIViewController {
     private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         
+        textView.layer.borderColor = UIColor.label.cgColor
+        textView.layer.borderWidth = 0.3
+        textView.layer.shadowColor = UIColor.systemGray.cgColor
+        textView.layer.shadowOffset = CGSize(width: 2, height: 3)
+        textView.layer.shadowOpacity = 0.5
+        textView.layer.shadowRadius = 3
+        textView.layer.masksToBounds = false
         textView.delegate = self
         return textView
     }()
@@ -90,7 +105,7 @@ final class TaskViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             
             placeHolderLabel.leadingAnchor.constraint(equalTo: descriptionTextView.leadingAnchor, constant: 5),
             placeHolderLabel.trailingAnchor.constraint(equalTo: descriptionTextView.trailingAnchor, constant: -5),
