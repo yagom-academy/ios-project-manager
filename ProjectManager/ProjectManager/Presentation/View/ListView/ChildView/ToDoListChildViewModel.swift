@@ -7,16 +7,22 @@
 
 import Foundation
 
-final class ToDoListChildViewModel: ViewModelType {
+final class ToDoListChildViewModel: ToDoChildViewModelType, ViewModelTypeWithError, ToDoChildViewModelOutputsType {
+    private let useCase: ToDoUseCase
+    
+    var inputs: ToDoChildViewModelInputsType { return self }
+    var outputs: ToDoChildViewModelOutputsType { return self }
+    
     private let status: ToDoStatus
     var entityList: [ToDo] = []
-    var action: Observable<Action?> = Observable(nil)
+    var action: Observable<Output?> = Observable(nil)
     weak var delegate: ToDoListBaseViewModelDelegate?
     
     var error: Observable<CoreDataError?> = Observable(nil)
     
-    init(status: ToDoStatus) {
+    init(status: ToDoStatus, useCase: ToDoUseCase) {
         self.status = status
+        self.useCase = useCase
     }
     
     func handle(error: Error) {
@@ -33,18 +39,38 @@ final class ToDoListChildViewModel: ViewModelType {
 }
 
 extension ToDoListChildViewModel {
-    func updateData(_ entity: ToDo, values: [KeywordArgument]) {
-        delegate?.updateData(entity, values: values, from: status)
-    }
-    
-    func deleteData(_ entity: ToDo) {
-        guard let index = entityList.firstIndex(of: entity) else { return }
-        delegate?.deleteData(entity, at: index, from: status)
-    }
-    
     func changeStatus(_ entity: ToDo, to newStatus: ToDoStatus) {
         guard let index = entityList.firstIndex(of: entity) else { return }
-        delegate?.changeStatus(entity, at: index, from: status, to: newStatus)
+        do {
+            try useCase.updateData(entity, values: [KeywordArgument(key: "status", value: newStatus.rawValue)])
+            
+            action.value = Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)])
+            try delegate?.updateChild(newStatus, action: Output(type: .create))
+        } catch(let error) {
+            handle(error: error)
+        }
+    }
+}
+
+extension ToDoListChildViewModel: ToDoChildViewModelInputsType {
+    func viewWillAppear() {
+        do {
+            entityList = try useCase.fetchDataByStatus(for: status)
+            action.value = Output(type: .read)
+        } catch(let error) {
+            handle(error: error)
+        }
+    }
+    
+    func swipeToDelete(_ entity: ToDo) {
+        guard let index = entityList.firstIndex(of: entity) else { return }
+        do {
+            try useCase.deleteData(entity)
+            entityList = try useCase.fetchDataByStatus(for: status)
+            action.value = Output(type: .delete, extraInformation: [KeywordArgument(key: "index", value: index)])
+        } catch(let error) {
+            handle(error: error)
+        }
     }
 }
 

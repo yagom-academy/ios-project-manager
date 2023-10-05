@@ -5,7 +5,7 @@
 //  Created by Max on 2023/10/03.
 //
 
-struct Action {
+struct Output {
     let type: ActionType
     let extraInformation: [KeywordArgument]
     
@@ -16,6 +16,7 @@ struct Action {
     
     enum ActionType {
         case create
+        case read
         case update
         case delete
     }

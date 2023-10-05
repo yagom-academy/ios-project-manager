@@ -10,7 +10,7 @@ import UIKit
 final class ToDoListChildViewController: UIViewController {
     private let status: ToDoStatus
     private let headerView: ToDoListHeaderView
-    private let viewModel: ToDoListChildViewModel
+    private let viewModel: ToDoChildViewModelType
     
     let today = Date().timeIntervalSinceReferenceDate
     private let dateFormatter: DateFormatter
@@ -23,7 +23,7 @@ final class ToDoListChildViewController: UIViewController {
         return tableView
     }()
     
-    init(_ status: ToDoStatus, viewModel: ToDoListChildViewModel, dateFormatter: DateFormatter) {
+    init(_ status: ToDoStatus, viewModel: ToDoChildViewModelType, dateFormatter: DateFormatter) {
         self.status = status
         self.headerView = ToDoListHeaderView(status)
         self.dateFormatter = dateFormatter
@@ -34,6 +34,11 @@ final class ToDoListChildViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.inputs.viewWillAppear()
     }
 
     override func viewDidLoad() {
@@ -65,7 +70,7 @@ final class ToDoListChildViewController: UIViewController {
 
 extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.entityList.count
+        viewModel.outputs.entityList.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -77,7 +82,7 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
                                                        for: indexPath) as?
                 ToDoListTableViewCell else { return UITableViewCell() }
         
-        let toDoEntity = viewModel.entityList[indexPath.row]
+        let toDoEntity = viewModel.outputs.entityList[indexPath.row]
         let isDone = toDoEntity.status == ToDoStatus.done.rawValue
         let isPast = floor(today/86400) > floor(toDoEntity.dueDate.timeIntervalSinceReferenceDate/86400) && !isDone
         let date = dateFormatter.string(from: toDoEntity.dueDate)
@@ -91,8 +96,8 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) ->
     UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "") { (_, _, success: @escaping (Bool) -> Void) in
-            let selectedEntity = self.viewModel.entityList[indexPath.row]
-            self.viewModel.deleteData(selectedEntity)
+            let selectedEntity = self.viewModel.outputs.entityList[indexPath.row]
+            self.viewModel.inputs.swipeToDelete(selectedEntity)
         }
         
         delete.backgroundColor = .systemRed
@@ -104,15 +109,15 @@ extension ToDoListChildViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension ToDoListChildViewController {
     private func setupBinding() {
-        viewModel.action.bind { [weak self] action in
+        viewModel.outputs.action.bind { [weak self] action in
             guard let self,
                   let action else { return }
             
             switch action.type {
             case .create:
-                let index = self.viewModel.entityList.count - 1
+                let index = self.viewModel.outputs.entityList.count - 1
                 self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            case .update:
+            case .read, .update:
                 self.tableView.reloadData()
             case .delete:
                 guard let indexInformation = action.extraInformation.filter({ $0.key == "index" }).first,
@@ -120,10 +125,10 @@ extension ToDoListChildViewController {
                 self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
             }
             
-            self.headerView.setupTotalCount(viewModel.entityList.count)
+            self.headerView.setupTotalCount(viewModel.outputs.entityList.count)
         }
         
-        viewModel.error.bind { [weak self] error in
+        viewModel.outputs.error.bind { [weak self] error in
             guard let self,
                   let error else { return }
             let alertBuilder = AlertBuilder(prefferedStyle: .alert)

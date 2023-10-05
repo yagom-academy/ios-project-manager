@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               
         window = UIWindow(windowScene: windowScene)
         let coreDataManager = CoreDataManager()
-        let toDoViewModel = ToDoListBaseViewModel(dataManager: coreDataManager)
+        let useCase = ToDoUseCase(dataManager: coreDataManager)
+        let toDoViewModel = ToDoListBaseViewModel(dataManager: coreDataManager, useCase: useCase)
         let baseViewController = ToDoListBaseViewController(toDoViewModel)
         let navigationViewController = UINavigationController(rootViewController: baseViewController)
         window?.rootViewController = navigationViewController

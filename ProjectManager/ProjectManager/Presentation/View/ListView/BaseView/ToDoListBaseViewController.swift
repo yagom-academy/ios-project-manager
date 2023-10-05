@@ -7,7 +7,7 @@
 import UIKit
 
 final class ToDoListBaseViewController: UIViewController {
-    private let viewModel: ToDoListBaseViewModel
+    private let viewModel: ToDoBaseViewModelType
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -26,17 +26,13 @@ final class ToDoListBaseViewController: UIViewController {
         return formatter
     }()
     
-    init(_ viewModel: ToDoListBaseViewModel) {
+    init(_ viewModel: ToDoBaseViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        viewModel.fetchAllData()
     }
     
     override func viewDidLoad() {
@@ -50,7 +46,7 @@ final class ToDoListBaseViewController: UIViewController {
     
     private func addChildren() {
         ToDoStatus.allCases.forEach { status in
-            let childViewModel = viewModel.addChild(status)
+            let childViewModel = viewModel.inputs.addChild(status)
             let childViewController = ToDoListChildViewController(status,
                                                               viewModel: childViewModel,
                                                               dateFormatter: dateFormatter)
@@ -91,14 +87,14 @@ final class ToDoListBaseViewController: UIViewController {
                 KeywordArgument(key: "modifiedAt", value: Date()),
                 KeywordArgument(key: "status", value: ToDoStatus.toDo.rawValue)
             ]
-            self?.viewModel.createData(values: testValue)
+            self?.viewModel.inputs.createData(values: testValue)
 #endif
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(primaryAction: addToDo)
     }
     
     private func setupBinding() {
-        viewModel.error.bind { [weak self] error in
+        viewModel.outputs.error.bind { [weak self] error in
             guard let self,
                   let error else { return }
             let alertBuilder = AlertBuilder(prefferedStyle: .alert)
