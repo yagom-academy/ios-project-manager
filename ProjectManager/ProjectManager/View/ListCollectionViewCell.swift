@@ -38,6 +38,7 @@ final class ListCollectionViewCell: UICollectionViewListCell {
         let label = UILabel()
         
         label.font = .systemFont(ofSize: 13)
+        label.numberOfLines = 3
         label.textColor = .lightGray
         return label
     }()
