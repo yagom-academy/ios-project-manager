@@ -22,7 +22,6 @@ final class WorkCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
         
         return label
     }()
@@ -37,7 +36,6 @@ final class WorkCell: UITableViewCell {
     
     private let deadlineLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
         
         return label
     }()
