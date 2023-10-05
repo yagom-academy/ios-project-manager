@@ -7,9 +7,27 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private let todoListViewController = ListViewController(listKind: .todo)
-    private let doingListViewController = ListViewController(listKind: .doing)
-    private let doneListViewController = ListViewController(listKind: .done)
+    private lazy var todoListViewController: ListViewController = {
+        let listViewController = ListViewController(listKind: .todo)
+        
+        listViewController.delegate = self
+        return listViewController
+    }()
+    
+    private lazy var doingListViewController: ListViewController = {
+        let listViewController = ListViewController(listKind: .doing)
+        
+        listViewController.delegate = self
+        return listViewController
+    }()
+    
+    private lazy var doneListViewController: ListViewController = {
+        let listViewController = ListViewController(listKind: .done)
+        
+        listViewController.delegate = self
+        return listViewController
+    }()
+
     private var taskList: [Task] = [] {
         didSet {
             reloadTaskListViewControllers()
@@ -89,8 +107,8 @@ final class MainViewController: UIViewController {
 // MARK: - Button Action
 extension MainViewController {
     private func didTappedRightAddButton() {
-        let newTask = Task(title: "", description: "", deadline: "")
-        let taskViewController = TaskViewController(task: newTask)
+        let newTask = Task(title: "", description: "", deadline: 0.0)
+        let taskViewController = TaskViewController(task: newTask, mode: .append)
         let navigationController = UINavigationController(rootViewController: taskViewController)
         
         taskViewController.delegate = self
@@ -103,5 +121,25 @@ extension MainViewController {
 extension MainViewController: TaskViewControllerDelegate {
     func didTappedRightDoneButton(task: Task) {
         taskList.append(task)
+    }
+}
+
+// MARK: - ListViewController Delegate
+extension MainViewController: ListViewControllerDelegate {
+    func didTappedRightDoneButtonForUpdate(updateTask: Task) {
+        let updatedTaskList = taskList.map {
+            if $0.id == updateTask.id {
+                var task = $0
+                
+                task.title = updateTask.title
+                task.description = updateTask.description
+                task.deadline = updateTask.deadline
+                return task
+            }
+            
+            return $0
+        }
+        
+        taskList = updatedTaskList
     }
 }

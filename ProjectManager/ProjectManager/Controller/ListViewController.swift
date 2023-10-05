@@ -13,14 +13,20 @@ enum ListKind: String {
     case done = "DONE"
 }
 
+protocol ListViewControllerDelegate: AnyObject {
+    func didTappedRightDoneButtonForUpdate(updateTask: Task)
+}
+
 final class ListViewController: UIViewController {
     enum Section {
         case main
     }
     
+    weak var delegate: ListViewControllerDelegate?
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: listLayout)
         
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -81,6 +87,16 @@ final class ListViewController: UIViewController {
     private func setUpViewController() {
         view.backgroundColor = .systemBackground
     }
+    
+    private func convertFormattedDeadline(deadline: Double) -> String {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy. MM. dd."
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = TimeZone.current
+        
+        return dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
+    }
 }
 
 // MARK: - Diffable DataSource
@@ -96,10 +112,13 @@ extension ListViewController {
     }
     
     private func setUpDiffableDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { cell, indexPath, task in
+        let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { [weak self] cell, indexPath, task in
+            guard let self = self else { return }
+            let formattedDeadLine = self.convertFormattedDeadline(deadline: task.deadline)
+            
             cell.setUpContents(title: task.title,
                                description: task.description,
-                               deadline: task.deadline)
+                               deadline: formattedDeadLine)
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, task in
@@ -119,5 +138,26 @@ extension ListViewController {
         diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
         }
+    }
+}
+
+// MARK: - CollectionView Delegate
+extension ListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let task = taskList[indexPath.row]
+        let taskViewController = TaskViewController(task: task, mode: .update)
+        let navigationController = UINavigationController(rootViewController: taskViewController)
+        
+        taskViewController.delegate = self
+        navigationController.modalPresentationStyle = .formSheet
+        present(navigationController, animated: true)
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - TaskViewController Delegate
+extension ListViewController: TaskViewControllerDelegate {
+    func didTappedRightDoneButton(task: Task) {
+        delegate?.didTappedRightDoneButtonForUpdate(updateTask: task)
     }
 }

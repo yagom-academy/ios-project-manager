@@ -12,6 +12,11 @@ protocol TaskViewControllerDelegate: AnyObject {
 }
 
 final class TaskViewController: UIViewController {
+    enum Mode {
+        case append
+        case update
+    }
+    
     weak var  delegate: TaskViewControllerDelegate?
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -25,7 +30,6 @@ final class TaskViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         
-        textField.font = .preferredFont(forTextStyle: .title2)
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.label.cgColor
         textField.layer.borderWidth = 0.3
@@ -71,9 +75,11 @@ final class TaskViewController: UIViewController {
     }()
     
     private var task: Task
+    private let mode: Mode
     
-    init(task: Task) {
+    init(task: Task, mode: Mode) {
         self.task = task
+        self.mode = mode
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -88,6 +94,7 @@ final class TaskViewController: UIViewController {
         configureUI()
         setUpConstraints()
         setUpViewController()
+        setUpContents()
     }
     
     private func configureUI() {
@@ -128,7 +135,17 @@ final class TaskViewController: UIViewController {
         }
         
         navigationItem.leftBarButtonItem = .init(systemItem: .cancel, primaryAction: leftCancelButtonAction)
-        navigationItem.rightBarButtonItem = .init(systemItem: .done, primaryAction: rightDoneButtonAction)
+        navigationItem.rightBarButtonItem = .init(systemItem: mode == .append ? .done : .edit,
+                                                  primaryAction: rightDoneButtonAction)
+    }
+    
+    private func setUpContents() {
+        if task.title.count == 0 || task.description.count == 0 { return }
+        
+        titleTextField.text = task.title
+        descriptionTextView.text = task.description
+        datePicker.date = Date(timeIntervalSince1970: task.deadline)
+        placeHolderLabel.isHidden = true
     }
 }
 
@@ -156,7 +173,7 @@ extension TaskViewController {
         
         task.title = title
         task.description = descriptionTextView.text
-        task.deadline = "123213123123123"
+        task.deadline = datePicker.date.timeIntervalSince1970
         delegate?.didTappedRightDoneButton(task: task)
         dismiss(animated: true)
     }
