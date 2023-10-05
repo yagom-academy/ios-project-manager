@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class TaskRealmRepository: TaskLocalRepository {
+final class RealTaskLocalRepository: TaskLocalRepository {
     
     private let realm: Realm = {
         do {

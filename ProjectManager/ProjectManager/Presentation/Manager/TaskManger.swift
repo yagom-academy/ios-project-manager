@@ -61,9 +61,9 @@ final class TaskManager: ObservableObject {
 extension TaskManager {
     convenience init(tasks: [Task]) {
         self.init(taskUseCases: TaskUseCases(
-                localRepository: TaskRealmRepository(),
-                remoteRepository: TaskFireStoreRepository(),
-                userRepository: UserRealmRepository())
+                localRepository: RealTaskLocalRepository(),
+                remoteRepository: RealTaskRemoteRepository(),
+                userRepository: RealUserLocalRepository())
         )
         self.tasks = tasks
     }

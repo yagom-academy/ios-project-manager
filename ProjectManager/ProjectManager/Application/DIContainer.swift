@@ -11,11 +11,11 @@ final class DIContainer {
     static let keyboardManager = KeyboardManager()
     static let networkManager = NetworkManager()
     
-    static private let sharedUserRepository = UserRealmRepository()
+    static private let sharedUserRepository = RealUserLocalRepository()
     
     static let taskManager: TaskManager = {
-        let localRepository = TaskRealmRepository()
-        let remoteRepository = TaskFireStoreRepository()
+        let localRepository = RealTaskLocalRepository()
+        let remoteRepository = RealTaskRemoteRepository()
         
         let taskUseCases = TaskUseCases(
             localRepository: localRepository,
@@ -35,7 +35,7 @@ final class DIContainer {
     }()
     
     static let historyManager: HistoryManager = {
-        let repository = HistoryRealmRepository()
+        let repository = RealHistoryLocalRepository()
         let useCases = HistoryUseCases(historyRepository: repository)
         
         return HistoryManager(historyUseCases: useCases)

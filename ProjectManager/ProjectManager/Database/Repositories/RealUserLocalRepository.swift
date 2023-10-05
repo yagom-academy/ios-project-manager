@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class UserRealmRepository: UserRepository {
+final class RealUserLocalRepository: UserRepository {
     
     private let realm: Realm = {
         do {
