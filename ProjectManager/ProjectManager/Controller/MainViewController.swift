@@ -125,6 +125,15 @@ extension MainViewController: TaskViewControllerDelegate {
 
 // MARK: - ListViewController Delegate
 extension MainViewController: ListViewControllerDelegate {
+    func didSwipedDeleteTask(deleteTask: Task) {
+        for (index, task) in taskList.enumerated() {
+            if task.id == deleteTask.id {
+                taskList.remove(at: index)
+                break
+            }
+        }
+    }
+    
     func didTappedRightDoneButtonForUpdate(updateTask: Task) {
         let updatedTaskList = taskList.map {
             if $0.id == updateTask.id {
