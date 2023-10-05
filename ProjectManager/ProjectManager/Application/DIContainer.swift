@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class DIContainer {
     static let keyboardManager = KeyboardManager()
     static let networkManager = NetworkManager()

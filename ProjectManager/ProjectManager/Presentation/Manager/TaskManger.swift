@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class TaskManager: ObservableObject {
     private let taskUseCases: TaskUseCases
     
@@ -26,13 +27,18 @@ final class TaskManager: ObservableObject {
     
     init(taskUseCases: TaskUseCases) {
         self.taskUseCases = taskUseCases
-        self.tasks = taskUseCases.initialFetch()
+        self.tasks = []
+        _Concurrency.Task {                        
+            self.tasks = await taskUseCases.initialFetch()
+        }
     }
     
     func registerFetch() {
-        self.tasks = taskUseCases.registerFetch()
+        _Concurrency.Task {
+            self.tasks = await taskUseCases.registerFetch()
+        }
     }
-    
+
     func create(_ task: Task) {
         taskUseCases.createTask(task)
         fetchLocalTasks()
@@ -47,12 +53,12 @@ final class TaskManager: ObservableObject {
         taskUseCases.moveTask(task: task, to: state)
         fetchLocalTasks()
     }
-    
+
     func delete(_ task: Task) {
         taskUseCases.deleteTask(task)
         fetchLocalTasks()
     }
-    
+
     private func fetchLocalTasks() {
         self.tasks = taskUseCases.fetchLocalTasks()
     }

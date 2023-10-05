@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class UserManager: ObservableObject {
     private let userUseCases: UserUseCases
     

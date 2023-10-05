@@ -17,31 +17,32 @@ final class RealTaskRemoteRepository: TaskRemoteRepository {
         self.firebase = Firestore.firestore()
     }
     
-    func fetchAll(by user: User) -> [Task] {
-        firebase
-            .collection(user.email)
-            .getDocuments { snapshot, err in
-                if let err = err {
-                    print("Error removing document: \(err)")
-                } else {
-                    if let documents = snapshot?.documents {
-                        let tasks = documents.compactMap {
-                            let data = $0.data()
-                            let id = data["id"] as? String ?? ""
-                            let title = data["title"] as? String ?? ""
-                            let content = data["content"] as? String ?? ""
-                            let date = (data["date"] as? Timestamp)?.dateValue() ?? .now
-                            let state = data["state"] as? Int8 ?? 1
+    func fetchAll(by user: User) async -> [Task] {
+        return await withCheckedContinuation { continuation in
+            firebase
+                .collection(user.email)
+                .getDocuments { snapshot, err in
+                    if let err = err {
+                        print("Error removing document: \(err)")
+                        continuation.resume(returning: [])
+                    } else {
+                        if let documents = snapshot?.documents {
+                            let tasks = documents.compactMap {
+                                let data = $0.data()
+                                let id = data["id"] as? String ?? ""
+                                let title = data["title"] as? String ?? ""
+                                let content = data["content"] as? String ?? ""
+                                let date = (data["date"] as? Timestamp)?.dateValue() ?? .now
+                                let state = data["state"] as? Int8 ?? 1
 
-                            return TaskDTO(id: id, title: title, content: content, date: date, state: state).toDomain()
+                                return TaskDTO(id: id, title: title, content: content, date: date, state: state).toDomain()
+                            }
+                                
+                            continuation.resume(returning: tasks)
                         }
-                            
-                        print(tasks)
                     }
                 }
-            }
-        
-        return []
+        }
     }
     
     func syncronize(from localTasks:[Task], by user: User) {

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TaskRemoteRepository {
-    func fetchAll(by user: User) -> [Task]
+    func fetchAll(by user: User) async -> [Task]
     func syncronize(from localTasks: [Task], by user: User)
     func save(_ task: Task, by user: User)
     func update(id: UUID, new task: Task, by user: User)

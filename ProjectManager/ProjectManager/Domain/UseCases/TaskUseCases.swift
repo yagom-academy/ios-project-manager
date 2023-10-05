@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class TaskUseCases {
     private let localTaskRepository: TaskLocalRepository
     private let remoteTaskRepositoty: TaskRemoteRepository
@@ -26,9 +27,9 @@ final class TaskUseCases {
         userRepository.fetchUser()
     }
     
-    func initialFetch() -> [Task] {
+    func initialFetch() async -> [Task] {
         if userRepository.isFirstLaunch {
-            return fetchRemoteTasks()
+            return await fetchRemoteTasks()
         } else {
             return fetchLocalTasks()
         }
@@ -36,11 +37,11 @@ final class TaskUseCases {
     
     /// 로그인 할 때 로컬 데이터가 없으면 서버에서 가져옴
     /// 데이터가 있다면 로컬 데이터를 서버에 덮어쓰고 로컬에서 가져옴
-    func registerFetch() -> [Task] {
+    func registerFetch() async -> [Task] {
         let localTasks = fetchLocalTasks()
         
         if localTasks.isEmpty {
-            return fetchRemoteTasks()
+            return await fetchRemoteTasks()
         } else {
             syncronize()
             return localTasks
@@ -51,9 +52,9 @@ final class TaskUseCases {
         localTaskRepository.fetchAll()
     }
     
-    func fetchRemoteTasks() -> [Task] {
+    func fetchRemoteTasks() async -> [Task] {
         if let user = user {
-            return remoteTaskRepositoty.fetchAll(by: user)
+            return await remoteTaskRepositoty.fetchAll(by: user)
         } else {
             return []
         }
