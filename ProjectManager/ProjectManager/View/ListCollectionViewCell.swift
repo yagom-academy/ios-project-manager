@@ -8,6 +8,15 @@
 import UIKit
 
 final class ListCollectionViewCell: UICollectionViewListCell {
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy. MM. dd."
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter
+    }()
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         
@@ -55,27 +64,17 @@ final class ListCollectionViewCell: UICollectionViewListCell {
     func setUpContents(title: String, description: String, deadline: Double) {
         titleLabel.text = title
         descriptionLabel.text = description
-        deadlineLabel.text = convertFormattedDeadline(deadline)
-        if isPassDeadline(deadline: deadline) {
-            deadlineLabel.textColor = .red
-        } else {
-            deadlineLabel.textColor = .black
-        }
+        deadlineLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
+        deadlineLabel.textColor = isPassDeadline(deadline: deadline) ? .red : .black
     }
     
     private func isPassDeadline(deadline: Double) -> Bool {
-        let currentTime = Date().timeIntervalSince1970
+        let currentDateString = dateFormatter.string(from: Date())
+        let deadlineDateString = dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
+        let currentDate = dateFormatter.date(from: currentDateString) ?? Date()
+        let deadlineDate = dateFormatter.date(from: deadlineDateString) ?? Date()
         
-        return currentTime > deadline
-    }
-    
-    private func convertFormattedDeadline(_ deadline: Double) -> String {
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy. MM. dd."
-        dateFormatter.locale = Locale.current
-        dateFormatter.timeZone = TimeZone.current
-        return dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
+        return currentDate.timeIntervalSince1970 > deadlineDate.timeIntervalSince1970
     }
     
     private func configureUI() {

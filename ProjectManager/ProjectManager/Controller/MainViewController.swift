@@ -42,7 +42,6 @@ final class MainViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.backgroundColor = .systemBackground
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         return stackView
     }()
     

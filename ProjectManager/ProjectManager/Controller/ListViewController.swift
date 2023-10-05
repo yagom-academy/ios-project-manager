@@ -103,11 +103,7 @@ extension ListViewController {
     }
     
     private func setUpDiffableDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { [weak self] cell, indexPath, task in
-            guard let self = self else { return }
-//            let formattedDeadLine = self.convertFormattedDeadline(deadline: task.deadline)
-            
-            //여기 변경했음
+        let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { cell, indexPath, task in
             cell.setUpContents(title: task.title,
                                description: task.description,
                                deadline: task.deadline)
