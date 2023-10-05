@@ -31,6 +31,9 @@ final class ListCollectionHeaderView: UICollectionReusableView {
         label.font = .systemFont(ofSize: 20)
         label.textColor = .white
         label.backgroundColor = .black
+        label.textAlignment = .center
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 15
         return label
     }()
     
@@ -70,7 +73,8 @@ final class ListCollectionHeaderView: UICollectionReusableView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            taskCountLabel.widthAnchor.constraint(equalTo: taskCountLabel.heightAnchor)
         ])
         
         dummyView.setContentHuggingPriority(.init(1), for: .horizontal)
