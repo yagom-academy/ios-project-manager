@@ -50,6 +50,12 @@ final class WorkCell: UITableViewCell {
         setUI()
     }
     
+    override func prepareForReuse() {
+        titleLabel.text = ""
+        deadlineLabel.text = ""
+        deadlineLabel.text = ""
+    }
+    
     private func setUI() {
         separatorInset = UIEdgeInsets.zero
         
