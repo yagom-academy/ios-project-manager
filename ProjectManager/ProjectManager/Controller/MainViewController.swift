@@ -125,6 +125,10 @@ extension MainViewController: TaskViewControllerDelegate {
 
 // MARK: - ListViewController Delegate
 extension MainViewController: ListViewControllerDelegate {
+    func moveCell(moveToListKind: ListKind, task: Task) {
+        taskList = convertUpdatedTaskList(updateTask: task, moveTolistKind: moveToListKind)
+    }
+    
     func didSwipedDeleteTask(deleteTask: Task) {
         for (index, task) in taskList.enumerated() {
             if task.id == deleteTask.id {
@@ -135,19 +139,26 @@ extension MainViewController: ListViewControllerDelegate {
     }
     
     func didTappedRightDoneButtonForUpdate(updateTask: Task) {
-        let updatedTaskList = taskList.map {
+        taskList = convertUpdatedTaskList(updateTask: updateTask)
+    }
+    
+    private func convertUpdatedTaskList(updateTask: Task, moveTolistKind: ListKind? = nil) -> [Task] {
+        return taskList.map {
             if $0.id == updateTask.id {
                 var task = $0
                 
                 task.title = updateTask.title
                 task.description = updateTask.description
                 task.deadline = updateTask.deadline
+                
+                if let moveTolistKind = moveTolistKind {
+                    task.listKind = moveTolistKind
+                }
+                
                 return task
             }
             
             return $0
         }
-        
-        taskList = updatedTaskList
     }
 }

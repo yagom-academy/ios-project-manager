@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ListCollectionViewCellDelegate: AnyObject {
+    func didLongPressCell(task: Task, cellFrame: CGRect)
+}
+
 final class ListCollectionViewCell: UICollectionViewListCell {
+    weak var delegate: ListCollectionViewCellDelegate?
+    
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         
@@ -51,22 +57,27 @@ final class ListCollectionViewCell: UICollectionViewListCell {
         return label
     }()
     
+    private var task: Task?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         configureUI()
         setUpConstraints()
+        setUpLongPressGesture()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpContents(title: String, description: String, deadline: Double) {
-        titleLabel.text = title
-        descriptionLabel.text = description
-        deadlineLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
-        deadlineLabel.textColor = isPassDeadline(deadline: deadline) ? .red : .black
+    func setUpContents(task: Task) {
+        self.task = task
+        
+        titleLabel.text = task.title
+        descriptionLabel.text = task.description
+        deadlineLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: task.deadline))
+        deadlineLabel.textColor = isPassDeadline(deadline: task.deadline) ? .red : .black
     }
     
     private func isPassDeadline(deadline: Double) -> Bool {
@@ -95,5 +106,18 @@ final class ListCollectionViewCell: UICollectionViewListCell {
         ])
         
         descriptionLabel.setContentHuggingPriority(.init(1), for: .vertical)
+    }
+    
+    private func setUpLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress))
+        
+        addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc
+    private func didLongPress() {
+        guard let task = task else { return }
+        
+        delegate?.didLongPressCell(task: task, cellFrame: frame)
     }
 }

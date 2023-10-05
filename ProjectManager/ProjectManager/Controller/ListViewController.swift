@@ -16,9 +16,10 @@ enum ListKind: String {
 protocol ListViewControllerDelegate: AnyObject {
     func didTappedRightDoneButtonForUpdate(updateTask: Task)
     func didSwipedDeleteTask(deleteTask: Task)
+    func moveCell(moveToListKind: ListKind, task: Task)
 }
 
-final class ListViewController: UIViewController {
+final class ListViewController: UIViewController, AlertControllerShowable {
     enum Section {
         case main
     }
@@ -87,15 +88,15 @@ extension ListViewController {
         self.taskList = taskList
         snapShot.appendSections([.main])
         snapShot.appendItems(taskList)
-        snapShot.reloadSections([.main])
         diffableDataSource?.apply(snapShot)
     }
     
     private func setUpDiffableDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { cell, indexPath, task in
-            cell.setUpContents(title: task.title,
-                               description: task.description,
-                               deadline: task.deadline)
+        let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { [weak self] cell, indexPath, task in
+            guard let self = self else { return }
+            
+            cell.delegate = self
+            cell.setUpContents(task: self.taskList[indexPath.row])
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, task in
@@ -166,3 +167,44 @@ extension ListViewController: TaskViewControllerDelegate {
     }
 }
 
+// MARK: - ListCollectionViewCell Delegate
+extension ListViewController: ListCollectionViewCellDelegate {
+    func didLongPressCell(task: Task, cellFrame: CGRect) {
+        let (firstMoveAlertTitle, secondMoveAlerTitle) = convertAlertsTitle()
+        
+        let firstMoveAlertAction: UIAlertAction = .init(title: firstMoveAlertTitle, style: .default) { action in
+            switch self.listKind {
+            case .todo:
+                self.moveCell(moveToListKind: .doing, task: task)
+            case .doing, .done:
+                self.moveCell(moveToListKind: .todo, task: task)
+            }
+        }
+        
+        let secondMoveAlertAction: UIAlertAction = .init(title: secondMoveAlerTitle, style: .default) { action in
+            switch self.listKind {
+            case .todo, .doing:
+                self.moveCell(moveToListKind: .done, task: task)
+            case .done:
+                self.moveCell(moveToListKind: .doing, task: task)
+            }
+        }
+        
+        showPopOverAlertController(sourceRect: cellFrame, alertActions: [firstMoveAlertAction, secondMoveAlertAction])
+    }
+    
+    private func moveCell(moveToListKind: ListKind, task: Task) {
+        delegate?.moveCell(moveToListKind: moveToListKind, task: task)
+    }
+    
+    private func convertAlertsTitle() -> (String, String) {
+        switch listKind {
+        case .todo:
+            return ("Move to DOING", "Move to DONE")
+        case .doing:
+            return ("Move to TODO", "Move to DONE")
+        case .done:
+            return ("Move to TODO", "Move to DOING")
+        }
+    }
+}
