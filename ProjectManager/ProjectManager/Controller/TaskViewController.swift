@@ -145,6 +145,7 @@ final class TaskViewController: UIViewController {
         titleTextField.text = task.title
         descriptionTextView.text = task.description
         datePicker.date = Date(timeIntervalSince1970: task.deadline)
+        
         placeHolderLabel.isHidden = true
     }
 }

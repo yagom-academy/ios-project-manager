@@ -52,10 +52,30 @@ final class ListCollectionViewCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpContents(title: String, description: String, deadline: String) {
+    func setUpContents(title: String, description: String, deadline: Double) {
         titleLabel.text = title
         descriptionLabel.text = description
-        deadlineLabel.text = deadline
+        deadlineLabel.text = convertFormattedDeadline(deadline)
+        if isPassDeadline(deadline: deadline) {
+            deadlineLabel.textColor = .red
+        } else {
+            deadlineLabel.textColor = .black
+        }
+    }
+    
+    private func isPassDeadline(deadline: Double) -> Bool {
+        let currentTime = Date().timeIntervalSince1970
+        
+        return currentTime > deadline
+    }
+    
+    private func convertFormattedDeadline(_ deadline: Double) -> String {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy. MM. dd."
+        dateFormatter.locale = Locale.current
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
     }
     
     private func configureUI() {

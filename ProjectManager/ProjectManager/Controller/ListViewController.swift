@@ -88,15 +88,6 @@ final class ListViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
-    private func convertFormattedDeadline(deadline: Double) -> String {
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy. MM. dd."
-        dateFormatter.locale = Locale.current
-        dateFormatter.timeZone = TimeZone.current
-        
-        return dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
-    }
 }
 
 // MARK: - Diffable DataSource
@@ -114,11 +105,12 @@ extension ListViewController {
     private func setUpDiffableDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { [weak self] cell, indexPath, task in
             guard let self = self else { return }
-            let formattedDeadLine = self.convertFormattedDeadline(deadline: task.deadline)
+//            let formattedDeadLine = self.convertFormattedDeadline(deadline: task.deadline)
             
+            //여기 변경했음
             cell.setUpContents(title: task.title,
                                description: task.description,
-                               deadline: formattedDeadLine)
+                               deadline: task.deadline)
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, task in
