@@ -198,12 +198,12 @@ extension MainViewController: UICollectionViewDelegate {
             break
         }
         
-        if let entity = entity {
-            cell.configureLabels(entity: entity)
-            
-            if collectionView != doneCollectionView {
-                cell.configureDurationTextColor(entity: entity)
-            }
+        guard let entity = entity else { return UICollectionViewCell() }
+
+        cell.configureLabels(entity: entity)
+
+        if collectionView != doneCollectionView {
+            cell.configureDurationTextColor(entity: entity)
         }
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
