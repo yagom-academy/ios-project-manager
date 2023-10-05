@@ -8,13 +8,13 @@
 import Foundation
 
 final class TaskUseCases {
-    private let localTaskRepository: TaskRepository
-    private let remoteTaskRepositoty: TaskRepository
+    private let localTaskRepository: TaskLocalRepository
+    private let remoteTaskRepositoty: TaskRemoteRepository
     private let userRepository: UserRepository
     
     init(
-        localRepository: TaskRepository,
-        remoteRepository: TaskRepository,
+        localRepository: TaskLocalRepository,
+        remoteRepository: TaskRemoteRepository,
         userRepository: UserRepository
     ) {
         self.localTaskRepository = localRepository
@@ -22,37 +22,64 @@ final class TaskUseCases {
         self.userRepository = userRepository
     }
     
-    func fetchTasks() -> [Task] {
-        let tasksFromLocal = localTaskRepository.fetchAll()
-        
+    var user: User? {
+        userRepository.fetchUser()
+    }
+    
+    func initialFetch() -> [Task] {
         if userRepository.isFirstLaunch {
-            return remoteTaskRepositoty.fetchAll()
+            return fetchRemoteTasks()
         } else {
-            return tasksFromLocal
+            return fetchLocalTasks()
+        }
+    }
+    
+    /// 로그인 할 때 로컬 데이터가 없으면 서버에서 가져옴
+    /// 데이터가 있다면 로컬 데이터를 서버에 덮어쓰고 로컬에서 가져옴
+    func registerFetch() -> [Task] {
+        let localTasks = fetchLocalTasks()
+        
+        if localTasks.isEmpty {
+            return fetchRemoteTasks()
+        } else {
+            syncronize()
+            return localTasks
+        }
+    }
+    
+    func fetchLocalTasks() -> [Task] {
+        localTaskRepository.fetchAll()
+    }
+    
+    func fetchRemoteTasks() -> [Task] {
+        if let user = user {
+            return remoteTaskRepositoty.fetchAll(by: user)
+        } else {
+            return []
         }
     }
     
     func createTask(_ task: Task) {
         localTaskRepository.save(task)
         
-        if userRepository.fetchUser() != nil {
-            remoteTaskRepositoty.save(task)
+        if let user = user {
+            remoteTaskRepositoty.save(task, by: user)
         }
     }
     
     func updateTask(id: UUID, new task: Task) {
         localTaskRepository.update(id: id, new: task)
         
-        if userRepository.fetchUser() != nil {
-            remoteTaskRepositoty.update(id: id, new: task)
+        if let user = user {
+            remoteTaskRepositoty.update(id: id, new: task, by: user)
         }
     }
     
     func deleteTask(_ task: Task) {
-        localTaskRepository.delete(task: task)
+        localTaskRepository.delete(task)
         
-        if userRepository.fetchUser() != nil {
-            remoteTaskRepositoty.delete(task: task)
+        if let user = user {
+            remoteTaskRepositoty.delete(task, by: user)
         }
     }
     
@@ -61,8 +88,15 @@ final class TaskUseCases {
         copiedTask.state = taskState
         localTaskRepository.update(id: task.id, new: copiedTask)
         
-        if userRepository.fetchUser() != nil {
-            remoteTaskRepositoty.update(id: task.id, new: copiedTask)
+        if let user = user {
+            remoteTaskRepositoty.update(id: task.id, new: copiedTask, by: user)
+        }
+    }
+    
+    func syncronize() {
+        if let user = user {
+            let localTasks = localTaskRepository.fetchAll()
+            remoteTaskRepositoty.syncronize(from: localTasks, by: user)
         }
     }
 }

@@ -19,7 +19,7 @@ struct RegisterView: View {
             }
             Button("시작하기"){
                 userManager.register()
-                taskManager.fetchAll()
+                taskManager.registerFetch()
             }
         }
     }

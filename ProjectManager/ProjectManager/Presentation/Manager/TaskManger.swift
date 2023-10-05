@@ -26,42 +26,44 @@ final class TaskManager: ObservableObject {
     
     init(taskUseCases: TaskUseCases) {
         self.taskUseCases = taskUseCases
-        self.tasks = taskUseCases.fetchTasks()
+        self.tasks = taskUseCases.initialFetch()
     }
     
-    func fetchAll() {
-        withAnimation {
-            tasks = taskUseCases.fetchTasks()
-        }
+    func registerFetch() {
+        self.tasks = taskUseCases.registerFetch()
     }
     
     func create(_ task: Task) {
         taskUseCases.createTask(task)
-        fetchAll()
+        fetchLocalTasks()
     }
     
     func update(newTask: Task) {
         taskUseCases.updateTask(id: newTask.id, new: newTask)
-        fetchAll()
+        fetchLocalTasks()
     }
     
     func move(_ task: Task, to state: TaskState) {
         taskUseCases.moveTask(task: task, to: state)
-        fetchAll()
+        fetchLocalTasks()
     }
     
     func delete(_ task: Task) {
         taskUseCases.deleteTask(task)
-        fetchAll()
+        fetchLocalTasks()
+    }
+    
+    private func fetchLocalTasks() {
+        self.tasks = taskUseCases.fetchLocalTasks()
     }
 }
 
 extension TaskManager {
     convenience init(tasks: [Task]) {
         self.init(taskUseCases: TaskUseCases(
-                localRepository: LocalTaskRepository(),
-                remoteRepository: RemoteTaskRepository(),
-                userRepository: LocalUserRepository())
+                localRepository: TaskRealmRepository(),
+                remoteRepository: TaskFireStoreRepository(),
+                userRepository: UserRealmRepository())
         )
         self.tasks = tasks
     }

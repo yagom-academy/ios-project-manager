@@ -7,10 +7,10 @@
 
 import Foundation
 
-protocol TaskRepository {
+protocol TaskLocalRepository {
     func fetchAll() -> [Task]
     func save(_ task: Task)
     func update(id: UUID, new task: Task)
-    func delete(task: Task)
+    func delete(_ task: Task)
     func fetch(id: UUID) -> Task?
 }

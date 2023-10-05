@@ -44,6 +44,6 @@ final class UserManager: ObservableObject {
     }
     
     private func turnOffFirstLaunch() {
-        UserDefaults.standard.set(true, forKey: LocalUserRepository.LaunchKey)
+        UserDefaults.standard.set(true, forKey: UserRealmRepository.LaunchKey)
     }
 }

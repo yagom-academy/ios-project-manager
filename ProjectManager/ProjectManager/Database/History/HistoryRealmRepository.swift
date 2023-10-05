@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class LocalHistoryRepository: HistoryRepository {
+final class HistoryRealmRepository: HistoryRepository {
     
     private let realm: Realm = {
         do {

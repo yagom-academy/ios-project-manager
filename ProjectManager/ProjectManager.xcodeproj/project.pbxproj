@@ -13,30 +13,35 @@
 		1F223AC52ABAC40100EDB1E9 /* KanbanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */; };
 		1F223ACD2ABAE76500EDB1E9 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */; };
 		1F2CDE662ACD0904001EE965 /* TaskDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE652ACD0904001EE965 /* TaskDTO.swift */; };
-		1F2CDE682ACD0920001EE965 /* RemoteTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE672ACD0920001EE965 /* RemoteTaskRepository.swift */; };
+		1F2CDE682ACD0920001EE965 /* TaskFireStoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE672ACD0920001EE965 /* TaskFireStoreRepository.swift */; };
 		1F2CDE702ACD12FB001EE965 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE6F2ACD12FB001EE965 /* RegisterView.swift */; };
 		1F2CDE732ACD2196001EE965 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE722ACD2196001EE965 /* User.swift */; };
 		1F2CDE752ACD2254001EE965 /* UserUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE742ACD2254001EE965 /* UserUseCases.swift */; };
 		1F2CDE772ACD2274001EE965 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE762ACD2274001EE965 /* UserRepository.swift */; };
 		1F2CDE7A2ACD2699001EE965 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE792ACD2699001EE965 /* UserObject.swift */; };
-		1F2CDE7C2ACD2740001EE965 /* LocalUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE7B2ACD2740001EE965 /* LocalUserRepository.swift */; };
+		1F2CDE7C2ACD2740001EE965 /* UserRealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE7B2ACD2740001EE965 /* UserRealmRepository.swift */; };
 		1F2CDE7E2ACD276B001EE965 /* UserMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE7D2ACD276B001EE965 /* UserMapper.swift */; };
 		1F2CDE812ACD3069001EE965 /* CloudButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDE802ACD3069001EE965 /* CloudButton.swift */; };
 		1F2CDEA22ACDBC43001EE965 /* TaskManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEA12ACDBC43001EE965 /* TaskManger.swift */; };
 		1F2CDEA42ACDBC50001EE965 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEA32ACDBC50001EE965 /* HistoryManager.swift */; };
 		1F2CDEAA2ACDC7FB001EE965 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEA92ACDC7FB001EE965 /* UserManager.swift */; };
+		1F2CDEB12ACDF7DC001EE965 /* TaskRemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEB02ACDF7DC001EE965 /* TaskRemoteRepository.swift */; };
+		1F2CDEB42ACE053F001EE965 /* ConnectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEB32ACE053F001EE965 /* ConnectedButton.swift */; };
+		1F2CDEB62ACE0554001EE965 /* DisconnectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEB52ACE0554001EE965 /* DisconnectedButton.swift */; };
+		1F2CDEB82ACE057B001EE965 /* BadNetworkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEB72ACE057B001EE965 /* BadNetworkButton.swift */; };
+		1F2CDEBA2ACE08C2001EE965 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDEB92ACE08C2001EE965 /* NetworkManager.swift */; };
 		1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */; };
 		1F3A6CA42ACC09F700EC9234 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */; };
 		1F3A6CB22ACC506E00EC9234 /* TaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB12ACC506E00EC9234 /* TaskObject.swift */; };
-		1F3A6CB42ACC508100EC9234 /* LocalTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB32ACC508100EC9234 /* LocalTaskRepository.swift */; };
-		1F3A6CB72ACC541400EC9234 /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB62ACC541400EC9234 /* TaskRepository.swift */; };
+		1F3A6CB42ACC508100EC9234 /* TaskRealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB32ACC508100EC9234 /* TaskRealmRepository.swift */; };
+		1F3A6CB72ACC541400EC9234 /* TaskLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB62ACC541400EC9234 /* TaskLocalRepository.swift */; };
 		1F3A6CB92ACC588400EC9234 /* TaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CB82ACC588400EC9234 /* TaskMapper.swift */; };
 		1F3A6CBB2ACC6E4F00EC9234 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CBA2ACC6E4F00EC9234 /* DIContainer.swift */; };
 		1F3A6CBE2ACC85BC00EC9234 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CBD2ACC85BC00EC9234 /* HistoryView.swift */; };
 		1F3A6CC22ACC865700EC9234 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CC12ACC865700EC9234 /* History.swift */; };
 		1F3A6CC42ACC8E1F00EC9234 /* HistoryUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CC32ACC8E1F00EC9234 /* HistoryUseCases.swift */; };
 		1F3A6CC82ACC8E7000EC9234 /* HistoryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CC72ACC8E7000EC9234 /* HistoryObject.swift */; };
-		1F3A6CCA2ACC8F2400EC9234 /* LocalHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CC92ACC8F2400EC9234 /* LocalHistoryRepository.swift */; };
+		1F3A6CCA2ACC8F2400EC9234 /* HistoryRealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CC92ACC8F2400EC9234 /* HistoryRealmRepository.swift */; };
 		1F3A6CCC2ACC8F4500EC9234 /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CCB2ACC8F4500EC9234 /* HistoryRepository.swift */; };
 		1F3A6CCE2ACC90F500EC9234 /* HistoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3A6CCD2ACC90F500EC9234 /* HistoryMapper.swift */; };
 		1F4D8D282ABD8A8200B5FB6E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8D272ABD8A8200B5FB6E /* CardView.swift */; };
@@ -65,30 +70,35 @@
 		1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanbanViewModel.swift; sourceTree = "<group>"; };
 		1F223ACC2ABAE76500EDB1E9 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
 		1F2CDE652ACD0904001EE965 /* TaskDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDTO.swift; sourceTree = "<group>"; };
-		1F2CDE672ACD0920001EE965 /* RemoteTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTaskRepository.swift; sourceTree = "<group>"; };
+		1F2CDE672ACD0920001EE965 /* TaskFireStoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFireStoreRepository.swift; sourceTree = "<group>"; };
 		1F2CDE6F2ACD12FB001EE965 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		1F2CDE722ACD2196001EE965 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1F2CDE742ACD2254001EE965 /* UserUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCases.swift; sourceTree = "<group>"; };
 		1F2CDE762ACD2274001EE965 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		1F2CDE792ACD2699001EE965 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
-		1F2CDE7B2ACD2740001EE965 /* LocalUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUserRepository.swift; sourceTree = "<group>"; };
+		1F2CDE7B2ACD2740001EE965 /* UserRealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmRepository.swift; sourceTree = "<group>"; };
 		1F2CDE7D2ACD276B001EE965 /* UserMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMapper.swift; sourceTree = "<group>"; };
 		1F2CDE802ACD3069001EE965 /* CloudButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudButton.swift; sourceTree = "<group>"; };
 		1F2CDEA12ACDBC43001EE965 /* TaskManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManger.swift; sourceTree = "<group>"; };
 		1F2CDEA32ACDBC50001EE965 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		1F2CDEA92ACDC7FB001EE965 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		1F2CDEB02ACDF7DC001EE965 /* TaskRemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteRepository.swift; sourceTree = "<group>"; };
+		1F2CDEB32ACE053F001EE965 /* ConnectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedButton.swift; sourceTree = "<group>"; };
+		1F2CDEB52ACE0554001EE965 /* DisconnectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectedButton.swift; sourceTree = "<group>"; };
+		1F2CDEB72ACE057B001EE965 /* BadNetworkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadNetworkButton.swift; sourceTree = "<group>"; };
+		1F2CDEB92ACE08C2001EE965 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1F34D9362AB92FB60061A6E1 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		1F3A6CA32ACC09F700EC9234 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		1F3A6CB12ACC506E00EC9234 /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
-		1F3A6CB32ACC508100EC9234 /* LocalTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTaskRepository.swift; sourceTree = "<group>"; };
-		1F3A6CB62ACC541400EC9234 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
+		1F3A6CB32ACC508100EC9234 /* TaskRealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRealmRepository.swift; sourceTree = "<group>"; };
+		1F3A6CB62ACC541400EC9234 /* TaskLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalRepository.swift; sourceTree = "<group>"; };
 		1F3A6CB82ACC588400EC9234 /* TaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMapper.swift; sourceTree = "<group>"; };
 		1F3A6CBA2ACC6E4F00EC9234 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		1F3A6CBD2ACC85BC00EC9234 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		1F3A6CC12ACC865700EC9234 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		1F3A6CC32ACC8E1F00EC9234 /* HistoryUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCases.swift; sourceTree = "<group>"; };
 		1F3A6CC72ACC8E7000EC9234 /* HistoryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryObject.swift; sourceTree = "<group>"; };
-		1F3A6CC92ACC8F2400EC9234 /* LocalHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalHistoryRepository.swift; sourceTree = "<group>"; };
+		1F3A6CC92ACC8F2400EC9234 /* HistoryRealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRealmRepository.swift; sourceTree = "<group>"; };
 		1F3A6CCB2ACC8F4500EC9234 /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		1F3A6CCD2ACC90F500EC9234 /* HistoryMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMapper.swift; sourceTree = "<group>"; };
 		1F4D8D272ABD8A8200B5FB6E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -167,7 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				1F2CDE652ACD0904001EE965 /* TaskDTO.swift */,
-				1F2CDE672ACD0920001EE965 /* RemoteTaskRepository.swift */,
+				1F2CDE672ACD0920001EE965 /* TaskFireStoreRepository.swift */,
 			);
 			path = FireStore;
 			sourceTree = "<group>";
@@ -176,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				1F3A6CB12ACC506E00EC9234 /* TaskObject.swift */,
-				1F3A6CB32ACC508100EC9234 /* LocalTaskRepository.swift */,
+				1F3A6CB32ACC508100EC9234 /* TaskRealmRepository.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -193,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				1F2CDE6F2ACD12FB001EE965 /* RegisterView.swift */,
-				1F2CDE802ACD3069001EE965 /* CloudButton.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -202,7 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				1F2CDE792ACD2699001EE965 /* UserObject.swift */,
-				1F2CDE7B2ACD2740001EE965 /* LocalUserRepository.swift */,
+				1F2CDE7B2ACD2740001EE965 /* UserRealmRepository.swift */,
 				1F2CDE7D2ACD276B001EE965 /* UserMapper.swift */,
 			);
 			path = User;
@@ -211,20 +220,24 @@
 		1F2CDEA02ACDBC38001EE965 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				1F2CDEAB2ACDDE2B001EE965 /* Utils */,
 				1F2CDEA12ACDBC43001EE965 /* TaskManger.swift */,
 				1F2CDEA32ACDBC50001EE965 /* HistoryManager.swift */,
 				1F2CDEA92ACDC7FB001EE965 /* UserManager.swift */,
 				1F8A93E02AC32B5200FB8770 /* KeyboardManager.swift */,
+				1F2CDEB92ACE08C2001EE965 /* NetworkManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		1F2CDEAB2ACDDE2B001EE965 /* Utils */ = {
+		1F2CDEB22ACE0520001EE965 /* CloudButtons */ = {
 			isa = PBXGroup;
 			children = (
+				1F2CDE802ACD3069001EE965 /* CloudButton.swift */,
+				1F2CDEB32ACE053F001EE965 /* ConnectedButton.swift */,
+				1F2CDEB52ACE0554001EE965 /* DisconnectedButton.swift */,
+				1F2CDEB72ACE057B001EE965 /* BadNetworkButton.swift */,
 			);
-			path = Utils;
+			path = CloudButtons;
 			sourceTree = "<group>";
 		};
 		1F34D9342AB92ED90061A6E1 /* Resources */ = {
@@ -260,7 +273,8 @@
 		1F3A6CB52ACC53AC00EC9234 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				1F3A6CB62ACC541400EC9234 /* TaskRepository.swift */,
+				1F3A6CB62ACC541400EC9234 /* TaskLocalRepository.swift */,
+				1F2CDEB02ACDF7DC001EE965 /* TaskRemoteRepository.swift */,
 				1F3A6CCB2ACC8F4500EC9234 /* HistoryRepository.swift */,
 				1F2CDE762ACD2274001EE965 /* UserRepository.swift */,
 			);
@@ -289,7 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				1F3A6CC72ACC8E7000EC9234 /* HistoryObject.swift */,
-				1F3A6CC92ACC8F2400EC9234 /* LocalHistoryRepository.swift */,
+				1F3A6CC92ACC8F2400EC9234 /* HistoryRealmRepository.swift */,
 				1F3A6CCD2ACC90F500EC9234 /* HistoryMapper.swift */,
 			);
 			path = History;
@@ -308,6 +322,7 @@
 		1F4D8D222ABD87AF00B5FB6E /* Kanban */ = {
 			isa = PBXGroup;
 			children = (
+				1F2CDEB22ACE0520001EE965 /* CloudButtons */,
 				1F223AC22ABAC3F200EDB1E9 /* KanbanView.swift */,
 				1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */,
 				1F4D8D232ABD881400B5FB6E /* Column */,
@@ -459,10 +474,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2CDEBA2ACE08C2001EE965 /* NetworkManager.swift in Sources */,
 				1F223AC52ABAC40100EDB1E9 /* KanbanViewModel.swift in Sources */,
 				1FD252BC2AC5DDE800ECA6F7 /* TaskEditViewModel.swift in Sources */,
 				1F3A6CA42ACC09F700EC9234 /* CustomAlert.swift in Sources */,
 				1F223ABC2ABAC28000EDB1E9 /* TaskUseCases.swift in Sources */,
+				1F2CDEB42ACE053F001EE965 /* ConnectedButton.swift in Sources */,
 				1FD252BA2AC5DDDD00ECA6F7 /* TaskCreateViewModel.swift in Sources */,
 				1F3A6CCE2ACC90F500EC9234 /* HistoryMapper.swift in Sources */,
 				1F3A6CC82ACC8E7000EC9234 /* HistoryObject.swift in Sources */,
@@ -473,6 +490,7 @@
 				1F2CDE702ACD12FB001EE965 /* RegisterView.swift in Sources */,
 				1F3A6CCC2ACC8F4500EC9234 /* HistoryRepository.swift in Sources */,
 				1F2CDE772ACD2274001EE965 /* UserRepository.swift in Sources */,
+				1F2CDEB12ACDF7DC001EE965 /* TaskRemoteRepository.swift in Sources */,
 				1F2CDE732ACD2196001EE965 /* User.swift in Sources */,
 				1F3A6CC22ACC865700EC9234 /* History.swift in Sources */,
 				1F223ACD2ABAE76500EDB1E9 /* TaskFormView.swift in Sources */,
@@ -484,20 +502,22 @@
 				1F2CDE7A2ACD2699001EE965 /* UserObject.swift in Sources */,
 				1F3A6CBB2ACC6E4F00EC9234 /* DIContainer.swift in Sources */,
 				1F223ABA2ABAC21600EDB1E9 /* Task.swift in Sources */,
-				1F3A6CB42ACC508100EC9234 /* LocalTaskRepository.swift in Sources */,
-				1F2CDE7C2ACD2740001EE965 /* LocalUserRepository.swift in Sources */,
-				1F3A6CB72ACC541400EC9234 /* TaskRepository.swift in Sources */,
+				1F3A6CB42ACC508100EC9234 /* TaskRealmRepository.swift in Sources */,
+				1F2CDE7C2ACD2740001EE965 /* UserRealmRepository.swift in Sources */,
+				1F3A6CB72ACC541400EC9234 /* TaskLocalRepository.swift in Sources */,
 				1F99DF182AC4387900B84B11 /* SafeIndex.swift in Sources */,
 				1F2CDEA22ACDBC43001EE965 /* TaskManger.swift in Sources */,
 				1F3A6CB92ACC588400EC9234 /* TaskMapper.swift in Sources */,
+				1F2CDEB82ACE057B001EE965 /* BadNetworkButton.swift in Sources */,
 				1F2CDE7E2ACD276B001EE965 /* UserMapper.swift in Sources */,
-				1F3A6CCA2ACC8F2400EC9234 /* LocalHistoryRepository.swift in Sources */,
+				1F2CDEB62ACE0554001EE965 /* DisconnectedButton.swift in Sources */,
+				1F3A6CCA2ACC8F2400EC9234 /* HistoryRealmRepository.swift in Sources */,
 				3C60CD902AC272A9005F9783 /* ShadowBackground.swift in Sources */,
 				1F3A6CC42ACC8E1F00EC9234 /* HistoryUseCases.swift in Sources */,
 				1F2CDE662ACD0904001EE965 /* TaskDTO.swift in Sources */,
 				1F4D8D282ABD8A8200B5FB6E /* CardView.swift in Sources */,
 				1F8A93E12AC32B5200FB8770 /* KeyboardManager.swift in Sources */,
-				1F2CDE682ACD0920001EE965 /* RemoteTaskRepository.swift in Sources */,
+				1F2CDE682ACD0920001EE965 /* TaskFireStoreRepository.swift in Sources */,
 				1F2CDEAA2ACDC7FB001EE965 /* UserManager.swift in Sources */,
 				1F34D9372AB92FB60061A6E1 /* ProjectManagerApp.swift in Sources */,
 			);

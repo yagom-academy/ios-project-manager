@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class LocalTaskRepository: TaskRepository {
+final class TaskRealmRepository: TaskLocalRepository {
     
     private let realm: Realm = {
         do {
@@ -41,7 +41,7 @@ final class LocalTaskRepository: TaskRepository {
         }
     }
     
-    func delete(task: Task) {
+    func delete(_ task: Task) {
         if let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: task.id) {
             try? realm.write {
                 realm.delete(taskObject)
