@@ -21,7 +21,9 @@ final class ListTitleCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 3
+        label.backgroundColor = .black
+        label.textColor = .white
+        label.textAlignment = .center
         
         return label
     }()
@@ -50,11 +52,19 @@ final class ListTitleCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 4),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
             
-            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 4),
-            countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            countLabel.widthAnchor.constraint(equalToConstant: 22.5),
+            countLabel.heightAnchor.constraint(equalToConstant: 22.5)
         ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        countLabel.layer.cornerRadius = countLabel.bounds.width / 2
+        countLabel.clipsToBounds = true
     }
     
     func setModel(title: String, count: Int) {

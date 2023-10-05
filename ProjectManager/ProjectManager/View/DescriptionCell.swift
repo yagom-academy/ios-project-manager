@@ -20,6 +20,7 @@ final class DescriptionCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 3
         
         return label
     }()
