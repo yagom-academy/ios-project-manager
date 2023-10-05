@@ -13,14 +13,14 @@ final class TaskObject: Object {
     @Persisted var title: String
     @Persisted var content: String
     @Persisted var date: Date
-    @Persisted var state: Int8
+    @Persisted var state: Int
     
     convenience init(
         id: UUID,
         title: String,
         content: String,
         date: Date,
-        state: Int8
+        state: Int
     ) {
         self.init()
         self.id = id

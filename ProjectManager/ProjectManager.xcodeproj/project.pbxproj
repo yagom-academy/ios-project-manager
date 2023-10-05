@@ -267,12 +267,12 @@
 		1F4D8D222ABD87AF00B5FB6E /* Kanban */ = {
 			isa = PBXGroup;
 			children = (
-				1F2CDEB22ACE0520001EE965 /* CloudButtons */,
 				1F223AC22ABAC3F200EDB1E9 /* KanbanView.swift */,
 				1F223AC42ABAC40100EDB1E9 /* KanbanViewModel.swift */,
 				1F4D8D232ABD881400B5FB6E /* Column */,
 				1F3A6CBC2ACC85A400EC9234 /* History */,
 				1F4D8D2B2ABD8B2F00B5FB6E /* TaskForm */,
+				1F2CDEB22ACE0520001EE965 /* CloudButtons */,
 				1F2CDE6B2ACD12CB001EE965 /* Register */,
 				1F4926152ABB53D3002663A4 /* Utils */,
 			);

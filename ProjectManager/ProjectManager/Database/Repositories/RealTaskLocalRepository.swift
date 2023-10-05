@@ -49,10 +49,10 @@ final class RealTaskLocalRepository: TaskLocalRepository {
         }
     }
     
-    func fetch(id: UUID) -> Task? {
-        let taskObject = realm.object(ofType: TaskObject.self, forPrimaryKey: id)
-        return taskObject?.toDomain()
+    func deleteAll() {
+        try? realm.write {
+            let allTasks = realm.objects(TaskObject.self)
+            realm.delete(allTasks)
+        }
     }
 }
-
-

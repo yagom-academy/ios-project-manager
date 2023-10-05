@@ -13,5 +13,5 @@ struct TaskDTO: Codable {
     var title: String
     var content: String
     var date: Date
-    var state: Int8
+    var state: Int
 }

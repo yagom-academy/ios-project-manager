@@ -27,12 +27,10 @@ final class TaskManager: ObservableObject {
     
     init(taskUseCases: TaskUseCases) {
         self.taskUseCases = taskUseCases
-        self.tasks = []
-        _Concurrency.Task {                        
-            self.tasks = await taskUseCases.initialFetch()
-        }
+        self.tasks = taskUseCases.fetchLocalTasks()
     }
     
+    /// 로그인을 하면 서버데이터를 불러와서 로컬데이터를 덮어쓴다.
     func registerFetch() {
         _Concurrency.Task {
             self.tasks = await taskUseCases.registerFetch()

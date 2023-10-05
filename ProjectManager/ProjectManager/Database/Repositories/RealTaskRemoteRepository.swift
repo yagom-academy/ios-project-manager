@@ -23,7 +23,7 @@ final class RealTaskRemoteRepository: TaskRemoteRepository {
                 .collection(user.email)
                 .getDocuments { snapshot, err in
                     if let err = err {
-                        print("Error removing document: \(err)")
+                        print("[\(user.email)] 데이터를 불러오는데 실패했습니다 \(err.localizedDescription)")
                         continuation.resume(returning: [])
                     } else {
                         if let documents = snapshot?.documents {
@@ -33,21 +33,16 @@ final class RealTaskRemoteRepository: TaskRemoteRepository {
                                 let title = data["title"] as? String ?? ""
                                 let content = data["content"] as? String ?? ""
                                 let date = (data["date"] as? Timestamp)?.dateValue() ?? .now
-                                let state = data["state"] as? Int8 ?? 1
+                                let state = data["state"] as! Int
 
                                 return TaskDTO(id: id, title: title, content: content, date: date, state: state).toDomain()
                             }
-                                
+                            
+                            print("[\(user.email)] 데이터를 불러오는데 성공했습니다.")
                             continuation.resume(returning: tasks)
                         }
                     }
                 }
-        }
-    }
-    
-    func syncronize(from localTasks:[Task], by user: User) {
-        for task in localTasks {
-            save(task, by: user)
         }
     }
     
@@ -57,8 +52,10 @@ final class RealTaskRemoteRepository: TaskRemoteRepository {
                 .collection(user.email)
                 .document(task.id.uuidString)
                 .setData(from: task.toDTO())
+            
+            print("[\(user.email)] '\(task.title)'이 서버에 성공적으로 저장되었습니다.")
         } catch {
-            print("firestore save fail")
+            print("[\(user.email)] '\(task.title)' 저장에 실패하였습니다. \(error.localizedDescription)")
         }
     }
     
@@ -68,8 +65,10 @@ final class RealTaskRemoteRepository: TaskRemoteRepository {
                 .collection(user.email)
                 .document(id.uuidString)
                 .setData(from: task.toDTO())
+            
+            print("[\(user.email)] '\(task.title)'을 서버에 성공적으로 수정하였습니다.")
         } catch {
-            print("firestore update fail")
+            print("[\(user.email)] '\(task.title)' 수정에 실패하였습니다. \(error.localizedDescription)")
         }
     }
     
@@ -79,21 +78,9 @@ final class RealTaskRemoteRepository: TaskRemoteRepository {
             .document(task.id.uuidString)
             .delete() { err in
                 if let err = err {
-                    print("Error removing document: \(err)")
+                    print("[\(user.email)] '\(task.title)'을 삭제하는데 실패했습니다. \(err.localizedDescription)")
                 } else {
-                    print("Document successfully removed!")
-                }
-            }
-    }
-    
-    private func deleteAll(by user: User) {
-        firebase
-            .collection(user.email)
-            .getDocuments { snapshot, err in                
-                if let documents = snapshot?.documents {
-                    documents.forEach {
-                        $0.reference.delete()
-                    }
+                    print("[\(user.email)] '\(task.title)'을 서버에 성공적으로 삭제하였습니다.")
                 }
             }
     }

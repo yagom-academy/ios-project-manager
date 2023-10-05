@@ -28,6 +28,4 @@ extension Task {
             state: self.state.rawValue
         )
     }
-    
-    
 }

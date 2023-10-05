@@ -29,7 +29,6 @@ final class RealUserLocalRepository: UserRepository {
         }
     }
     
-    @MainActor
     func fetchUser() -> User? {
         if let userObject = realm.objects(UserObject.self).first {
             return userObject.toDomain()

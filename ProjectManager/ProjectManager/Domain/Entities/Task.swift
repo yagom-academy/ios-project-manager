@@ -29,7 +29,7 @@ struct Task: Identifiable, Equatable {
     }
 }
 
-enum TaskState: Int8, CaseIterable {
+enum TaskState: Int, CaseIterable {
     case todo = 1, doing, done
     
     var title: String {

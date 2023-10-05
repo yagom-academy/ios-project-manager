@@ -27,25 +27,13 @@ final class TaskUseCases {
         userRepository.fetchUser()
     }
     
-    func initialFetch() async -> [Task] {
-        if userRepository.isFirstLaunch {
-            return await fetchRemoteTasks()
-        } else {
-            return fetchLocalTasks()
-        }
-    }
-    
-    /// 로그인 할 때 로컬 데이터가 없으면 서버에서 가져옴
-    /// 데이터가 있다면 로컬 데이터를 서버에 덮어쓰고 로컬에서 가져옴
+    /// 로그인을 언제하던 상관없이 로컬 데이터는 리모트 데이터로 덮어쓰고
+    /// 로그인한 계정에 저장되어있는 데이터를 가져온다.
     func registerFetch() async -> [Task] {
-        let localTasks = fetchLocalTasks()
-        
-        if localTasks.isEmpty {
-            return await fetchRemoteTasks()
-        } else {
-            syncronize()
-            return localTasks
-        }
+        let remoteTasks = await fetchRemoteTasks()
+        localTaskRepository.deleteAll()
+        remoteTasks.forEach { localTaskRepository.save($0) }
+        return remoteTasks
     }
     
     func fetchLocalTasks() -> [Task] {
@@ -91,13 +79,6 @@ final class TaskUseCases {
         
         if let user = user {
             remoteTaskRepositoty.update(id: task.id, new: copiedTask, by: user)
-        }
-    }
-    
-    func syncronize() {
-        if let user = user {
-            let localTasks = localTaskRepository.fetchAll()
-            remoteTaskRepositoty.syncronize(from: localTasks, by: user)
         }
     }
 }
