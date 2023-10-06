@@ -12,14 +12,27 @@ struct RegisterView: View {
     @EnvironmentObject private var taskManager: TaskManager
     
     var body: some View {
-        Group{
-            TextField("이메일을 입력하세요", text: $userManager.inputEmail)
-            Button("나중에"){
-                userManager.pushback()
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("이메일을 입력하세요", text: $userManager.inputEmail)
+                } footer: {
+                    Text("이전에 등록한 이메일이 있다면 입력 후 복원하세요")
+                }                
+                
+                Section {
+                    Button("시작하기"){
+                        userManager.register()
+                        taskManager.registerFetch()
+                    }.disabled(userManager.inputEmail.isEmpty)
+                }
             }
-            Button("시작하기"){
-                userManager.register()
-                taskManager.registerFetch()
+            .navigationTitle("클라우드에 데이터를 안전하게 보관하세요")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button("나중에") {
+                    userManager.pushback()
+                }
             }
         }
     }

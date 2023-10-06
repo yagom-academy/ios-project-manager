@@ -33,9 +33,15 @@ final class RealTaskRemoteRepository: TaskRemoteRepository {
                                 let title = data["title"] as? String ?? ""
                                 let content = data["content"] as? String ?? ""
                                 let date = (data["date"] as? Timestamp)?.dateValue() ?? .now
-                                let state = data["state"] as! Int
+                                let state = data["state"] as? Int ?? 1
 
-                                return TaskDTO(id: id, title: title, content: content, date: date, state: state).toDomain()
+                                return TaskDTO(
+                                            id: id,
+                                            title: title,
+                                            content: content,
+                                            date: date,
+                                            state: state
+                                        ).toDomain()
                             }
                             
                             print("[\(user.email)] 데이터를 불러오는데 성공했습니다.")

@@ -12,7 +12,11 @@ struct History: Identifiable, Equatable {
     let title: String
     let date: Date
     
-    init(id: UUID = .init(), title: String, date: Date = .now) {
+    init(
+        id: UUID = .init(),
+        title: String,
+        date: Date = .now
+     ) {
         self.id = id
         self.title = title
         self.date = date

@@ -47,10 +47,8 @@ struct KanbanView: View {
                     }
                 }
             }
-            .alert("클라우드에 데이터를 안전하게 보관하세요", isPresented: $userManager.isRegisterFormOn) {
+            .sheet(isPresented: $userManager.isRegisterFormOn) {
                 RegisterView()
-            } message: {
-                Text("이전에 등록한 이메일이 있다면 입력 후 복원하세요")
             }            
             .customAlert(isOn: $kanbanViewModel.isFormOn) {
                 TaskFormView(TaskCreateViewModel(formSize: geo.size))
