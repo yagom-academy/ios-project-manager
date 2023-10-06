@@ -20,15 +20,12 @@ final class TODOViewController: UIViewController {
         let textField: UITextField = UITextField()
         textField.placeholder = "Title"
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.backgroundColor = .green
         
         return textField
     }()
     
     private let bodyTextView: UITextView = {
         let textView: UITextView = UITextView()
-        textView.backgroundColor = .brown
-    
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
