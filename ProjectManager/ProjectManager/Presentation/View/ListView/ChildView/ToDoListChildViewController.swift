@@ -134,11 +134,11 @@ extension ToDoListChildViewController {
             guard let self,
                   let error else { return }
             let alertBuilder = AlertBuilder(prefferedStyle: .alert)
-            alertBuilder.setControllerTitle(title: error.alertTitle)
-            alertBuilder.setControllerMessage(message: error.alertMessage)
-            alertBuilder.addAction(.confirm)
-            let alertController = alertBuilder.makeAlertController()
-            present(alertController, animated: true)
+                .setTitle(error.alertTitle)
+                .setMessage(error.alertMessage)
+                .addAction(.confirm)
+                .build()
+            present(alertBuilder, animated: true)
         }
     }
 }

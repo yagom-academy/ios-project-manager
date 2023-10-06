@@ -5,7 +5,7 @@
 //  Created by Max on 2023/09/26.
 //
 
-final class KeywordArgument {
+struct KeywordArgument {
     let key: String
     let value: Any?
     

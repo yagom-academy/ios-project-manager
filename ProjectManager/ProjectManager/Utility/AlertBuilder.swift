@@ -7,35 +7,51 @@
 
 import UIKit
 
-final class AlertBuilder {
-    let alertController: UIAlertController
-    private var controllerTitle: String = ""
-    private var controllerMessage: String = ""
-    private var alertActions: [UIAlertAction] = []
+struct AlertBuilder {
+    let configuration: AlertConfiguration
     
     init(prefferedStyle: UIAlertController.Style) {
-        self.alertController = UIAlertController(title: nil, message: nil, preferredStyle: prefferedStyle)
+        self.configuration = AlertConfiguration(prefferedStyle: prefferedStyle)
     }
     
-    func setControllerTitle(title: String) {
-        self.controllerTitle = title
+    @discardableResult
+    func setTitle(_ title: String) -> Self {
+        configuration.title = title
+        return self
     }
     
-    func setControllerMessage(message: String) {
-        self.controllerMessage = message
+    @discardableResult
+    func setMessage(_ message: String) -> Self {
+        configuration.message = message
+        return self
     }
     
-    func addAction(_ actionType: AlertActionType, action: ((UIAlertAction) -> Void)? = nil) {
+    @discardableResult
+    func addAction(_ actionType: AlertActionType, action: ((UIAlertAction) -> Void)? = nil) -> Self {
         let action = UIAlertAction(title: actionType.title, style: actionType.style, handler: action)
-        alertActions.append(action)
+        configuration.actions.append(action)
+        return self
     }
     
-    func makeAlertController() -> UIAlertController {
-        alertController.title = controllerTitle
-        alertController.message = controllerMessage
-        alertActions.forEach { alertController.addAction($0) }
-        
+    func build() -> UIAlertController {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: configuration.prefferedStyle)
+        alertController.title = configuration.title
+        alertController.message = configuration.message
+        configuration.actions.forEach { alertController.addAction($0) }
         return alertController
+    }
+}
+
+extension AlertBuilder {
+    final class AlertConfiguration {
+        let prefferedStyle: UIAlertController.Style
+        var title: String = ""
+        var message: String = ""
+        var actions: [UIAlertAction] = []
+        
+        init(prefferedStyle: UIAlertController.Style) {
+            self.prefferedStyle = prefferedStyle
+        }
     }
 }
 
