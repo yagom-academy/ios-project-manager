@@ -97,9 +97,9 @@ final class MainViewController: UIViewController {
             }
         }
         
-        todoListViewController.setUpDiffableDataSourceSanpShot(taskList: todoList)
-        doingListViewController.setUpDiffableDataSourceSanpShot(taskList: doingList)
-        doneListViewController.setUpDiffableDataSourceSanpShot(taskList: doneList)
+        todoListViewController.reloadTaskList(taskList: todoList)
+        doingListViewController.reloadTaskList(taskList: doingList)
+        doneListViewController.reloadTaskList(taskList: doneList)
     }
 }
 

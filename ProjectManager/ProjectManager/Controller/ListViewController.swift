@@ -23,7 +23,6 @@ final class ListViewController: UIViewController, AlertControllerShowable {
     enum Section {
         case main
     }
-    
     weak var delegate: ListViewControllerDelegate?
     
     private lazy var collectionView: UICollectionView = {
@@ -39,6 +38,8 @@ final class ListViewController: UIViewController, AlertControllerShowable {
     private let listKind: ListKind
     
     private var taskList: [Task] = []
+    
+    private var headerView: ListCollectionHeaderView?
     
     init(listKind: ListKind) {
         self.listKind = listKind
@@ -82,7 +83,12 @@ final class ListViewController: UIViewController, AlertControllerShowable {
 
 // MARK: - Diffable DataSource
 extension ListViewController {
-    func setUpDiffableDataSourceSanpShot(taskList: [Task] = []) {
+    func reloadTaskList(taskList: [Task]) {
+        setUpDiffableDataSourceSanpShot(taskList: taskList)
+        headerView?.setUpContents(title: listKind.rawValue, taskCount: "\(taskList.count)")
+    }
+    
+    private func setUpDiffableDataSourceSanpShot(taskList: [Task] = []) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Task>()
         
         self.taskList = taskList
@@ -110,6 +116,7 @@ extension ListViewController {
         let headerRegistration = UICollectionView.SupplementaryRegistration<ListCollectionHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, elementKind, indexPath in
             guard let self = self else { return }
             
+            self.headerView = headerView
             headerView.setUpContents(title: self.listKind.rawValue, taskCount: "\(self.taskList.count)")
         }
         
