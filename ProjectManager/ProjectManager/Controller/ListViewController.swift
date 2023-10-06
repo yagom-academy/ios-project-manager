@@ -129,13 +129,13 @@ extension ListViewController {
         return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             var listLayout = UICollectionLayoutListConfiguration(appearance: .grouped)
             
-            listLayout.trailingSwipeActionsConfigurationProvider = {
-                indexPath in
+            listLayout.trailingSwipeActionsConfigurationProvider = { indexPath in
                 let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, handler in
                     guard let self = self else { return }
                     
                     self.didSwipedDeleteTask(deleteTask: self.taskList[indexPath.row])
                 }
+                
                 return UISwipeActionsConfiguration(actions: [deleteAction])
             }
             

@@ -45,6 +45,18 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
+    private let useCase: MainViewControllerUseCaseType
+    
+    init(useCase: MainViewControllerUseCaseType) {
+        self.useCase = useCase
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -126,7 +138,9 @@ extension MainViewController: TaskViewControllerDelegate {
 // MARK: - ListViewController Delegate
 extension MainViewController: ListViewControllerDelegate {
     func moveCell(moveToListKind: ListKind, task: Task) {
-        taskList = convertUpdatedTaskList(updateTask: task, moveTolistKind: moveToListKind)
+        taskList = useCase.convertUpdatedTaskList(taskList: taskList,
+                                                  updateTask: task,
+                                                  moveTolistKind: moveToListKind)
     }
     
     func didSwipedDeleteTask(deleteTask: Task) {
@@ -139,26 +153,8 @@ extension MainViewController: ListViewControllerDelegate {
     }
     
     func didTappedRightDoneButtonForUpdate(updateTask: Task) {
-        taskList = convertUpdatedTaskList(updateTask: updateTask)
-    }
-    
-    private func convertUpdatedTaskList(updateTask: Task, moveTolistKind: ListKind? = nil) -> [Task] {
-        return taskList.map {
-            if $0.id == updateTask.id {
-                var task = $0
-                
-                task.title = updateTask.title
-                task.description = updateTask.description
-                task.deadline = updateTask.deadline
-                
-                if let moveTolistKind = moveTolistKind {
-                    task.listKind = moveTolistKind
-                }
-                
-                return task
-            }
-            
-            return $0
-        }
+        taskList = useCase.convertUpdatedTaskList(taskList: taskList,
+                                                  updateTask: updateTask,
+                                                  moveTolistKind: updateTask.listKind)
     }
 }
