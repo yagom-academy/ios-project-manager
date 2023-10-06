@@ -11,7 +11,7 @@ protocol TaskViewControllerDelegate: AnyObject {
     func didTappedRightDoneButton(task: Task)
 }
 
-final class TaskViewController: UIViewController {
+final class TaskViewController: UIViewController, ToastShowable {
     enum Mode {
         case append
         case update
@@ -170,7 +170,10 @@ extension TaskViewController {
     }
     
     private func didTappedRightDoneButton() {
-        guard let title = titleTextField.text else { return }
+        guard let title = titleTextField.text, titleTextField.text?.count != 0 else {
+            showToast(message: "Empty Title")
+            return
+        }
         
         task.title = title
         task.description = descriptionTextView.text
