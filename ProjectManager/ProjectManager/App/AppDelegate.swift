@@ -2,7 +2,7 @@
 //  ProjectManager - AppDelegate.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
-// 
+//  Last modified by Max.
 
 import UIKit
 
