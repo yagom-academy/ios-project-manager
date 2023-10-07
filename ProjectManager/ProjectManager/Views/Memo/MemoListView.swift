@@ -29,9 +29,9 @@ struct MemoListView: View {
                         HorizontalSpacing()
                         
                         MemoRow(memo: memo)
-                            .swipeActions {
-                                Button {
-                                    // Delete
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    modelData.deleteMemo(memo)
                                 } label: {
                                     Text("Delete")
                                 }

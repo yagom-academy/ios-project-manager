@@ -25,6 +25,13 @@ final class ModelData: ObservableObject {
         }
         memos[index] = memo
     }
+    
+    func deleteMemo(_ memo: Memo) {
+        guard let index = memos.firstIndex(where: { $0.id == memo.id }) else {
+            return
+        }
+        memos.remove(at: index)
+    }
 }
 
 extension ModelData {
