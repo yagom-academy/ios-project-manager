@@ -10,8 +10,20 @@ import Foundation
 final class ModelData: ObservableObject {
     @Published var memos: [Memo] = memoExample
     
+    var newMemo: Memo {
+        Memo(title: "", body: "", deadline: .now, category: .toDo)
+    }
+    
     func filterMemo(by category: Memo.Category) -> [Memo] {
         memos.filter { $0.category == category }
+    }
+    
+    func saveMemo(_ memo: Memo) {
+        guard let index = memos.firstIndex(where: { $0.id == memo.id }) else {
+            memos.append(memo)
+            return
+        }
+        memos[index] = memo
     }
 }
 

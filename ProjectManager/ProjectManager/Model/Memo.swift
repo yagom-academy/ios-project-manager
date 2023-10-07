@@ -14,8 +14,6 @@ struct Memo: Identifiable {
     var deadline: Date
     var category: Category
     
-    static let newMemo = Memo(title: "", body: "", deadline: .now, category: .toDo)
-    
     enum Category: CustomStringConvertible, CaseIterable {
         case toDo
         case doing
