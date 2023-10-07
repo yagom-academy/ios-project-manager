@@ -28,6 +28,7 @@
 		AC6FCE652AB9889200B82DF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6FCE642AB9889200B82DF1 /* Assets.xcassets */; };
 		AC6FCE682AB9889200B82DF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */; };
 		AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75E9C12ABAD8C000493121 /* AppDelegate.swift */; };
+		AC86F6262AD15122002BF540 /* SheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC86F6252AD15122002BF540 /* SheetViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		AC6FCE642AB9889200B82DF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC75E9C12ABAD8C000493121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AC86F6252AD15122002BF540 /* SheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			children = (
 				44DC00C12AC300A000AF3C0E /* MemoDetail.swift */,
 				AC20E4B52AC455040076E80F /* NewMemo.swift */,
+				AC86F6252AD15122002BF540 /* SheetViewModel.swift */,
 				44FC5B682AC55F0C0092E412 /* Component */,
 				44FC5B732ACC09A30092E412 /* ViewModifier */,
 			);
@@ -274,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC86F6262AD15122002BF540 /* SheetViewModel.swift in Sources */,
 				44FC5B6D2AC560AD0092E412 /* ListHeader.swift in Sources */,
 				AC20E4B62AC455050076E80F /* NewMemo.swift in Sources */,
 				AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */,
