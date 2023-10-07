@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoHomeView: View {
-    @State private var showDetail: Bool = false
+    @ObservedObject var viewModel = MemoHomeViewModel(memoManager: MemoManager())
     
     var body: some View {
         NavigationView {
@@ -17,8 +17,11 @@ struct MemoHomeView: View {
                 ColorSet.backgroundBetweenLists
                 
                 HStack(spacing: 4) {
-                    ForEach(Memo.Category.allCases, id: \.description) {
-                        MemoListView(category: $0)
+                    ForEach(viewModel.categories, id: \.description) {
+                        MemoListView(
+                            viewModel: MemoListViewModel(category: $0,
+                                                         memoManager: viewModel.memoManager)
+                        )
                     }
                 }
                 .clipped()
@@ -27,12 +30,16 @@ struct MemoHomeView: View {
                 .navigationBarItems(
                     trailing:
                         Button {
-                            showDetail.toggle()
+                            viewModel.showDetail.toggle()
                         } label: {
                             Image(systemName: "plus")
                         }
-                        .sheet(isPresented: $showDetail) {
-                            SheetView(viewModel: SheetViewModel(memo: MemoViewModel().newMemo, canEditable: true))
+                        .sheet(isPresented: $viewModel.showDetail) {
+                            SheetView(
+                                viewModel: SheetViewModel(memo: viewModel.newMemo,
+                                                          canEditable: true,
+                                                          memoManager: viewModel.memoManager)
+                            )
                         }
                 )
             }

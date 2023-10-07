@@ -39,6 +39,6 @@ struct MemoRow: View {
 
 struct MemoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MemoRow(memo: MemoViewModel().memos[0])
+        MemoRow(memo: MemoManager().memos[0])
     }
 }

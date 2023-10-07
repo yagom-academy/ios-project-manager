@@ -1,14 +1,14 @@
 //
-//  MemoViewModel.swift
+//  MemoManager.swift
 //  ProjectManager
 //
-//  Created by Mary & Dasan on 2023/10/07.
+//  Created by Mary & Dasan on 2023/10/08.
 //
 
 import Foundation
 
-final class MemoViewModel: ObservableObject {
-    @Published var memos: [Memo] = memoExample
+final class MemoManager {
+    var memos: [Memo] = memoExample
     
     var newMemo: Memo {
         Memo(title: "", body: "", deadline: .now, category: .toDo)
@@ -16,6 +16,13 @@ final class MemoViewModel: ObservableObject {
     
     func filterMemo(by category: Memo.Category) -> [Memo] {
         memos.filter { $0.category == category }
+    }
+    
+    func findMemo(id: UUID) -> Memo? {
+        guard let index = memos.firstIndex(where: { $0.id == id }) else {
+            return nil
+        }
+        return memos[index]
     }
     
     func saveMemo(_ memo: Memo) {
@@ -34,7 +41,7 @@ final class MemoViewModel: ObservableObject {
     }
 }
 
-extension MemoViewModel {
+extension MemoManager {
     private static let memoExample: [Memo] = [
         Memo(title: "저녁 재료 주문하기🍅",
              body: "- 파스타면\n- 베이컨\n- 토마토\n- 치즈\n- 생크림",

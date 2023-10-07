@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Memo: Identifiable {
+struct Memo: Identifiable, Equatable {
     var id = UUID()
     var title: String
     var body: String

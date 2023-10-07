@@ -10,12 +10,10 @@ import SwiftUI
 @main
 struct ProjectManagerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject private var modelData = MemoViewModel()
     
     var body: some Scene {
         WindowGroup {
             MemoHomeView()
-                .environmentObject(modelData)
         }
     }
 }

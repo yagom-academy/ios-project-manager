@@ -9,9 +9,8 @@ import SwiftUI
 
 struct SheetView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var modelData: MemoViewModel
     @ObservedObject var viewModel: SheetViewModel
-        
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -46,7 +45,7 @@ struct SheetView: View {
     
     var doneButton: some View {
         Button("Done") {
-            modelData.saveMemo(viewModel.memo)
+            viewModel.saveMemo()
             dismiss()
         }
     }
@@ -54,6 +53,6 @@ struct SheetView: View {
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(viewModel: SheetViewModel(memo: MemoViewModel().newMemo, canEditable: true))
+        SheetView(viewModel: SheetViewModel(memo: Memo(title: "", body: "", deadline: .now, category: .toDo), canEditable: true, memoManager: MemoManager()))
     }
 }

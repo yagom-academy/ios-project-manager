@@ -25,6 +25,6 @@ struct TitleTextField: View {
 
 struct TitleTextField_Previews: PreviewProvider {
     static var previews: some View {
-        TitleTextField(content: .constant(MemoViewModel().memos[0].title))
+        TitleTextField(content: .constant(MemoManager().memos[0].title))
     }
 }

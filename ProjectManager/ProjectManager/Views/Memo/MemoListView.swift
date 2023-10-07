@@ -8,30 +8,24 @@
 import SwiftUI
 
 struct MemoListView: View {
-    @EnvironmentObject private var modelData: MemoViewModel
-    @State private var currentMemo: Memo? = nil
-    private var category: Memo.Category
-    
-    init(category: Memo.Category) {
-        self.category = category
-    }
+    @ObservedObject var viewModel: MemoListViewModel
 
     var body: some View {
         VStack(spacing: 0) {
             ListHeader(
-                category: category.description,
-                memoCount: modelData.filterMemo(by: category).count
+                category: viewModel.category.description,
+                memoCount: viewModel.memos.count
             )
             
             List {
-                ForEach(modelData.filterMemo(by: category)) { memo in
+                ForEach(viewModel.memos) { memo in
                     VStack(alignment: .leading, spacing: 2) {
                         HorizontalSpacing()
                         
                         MemoRow(memo: memo)
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
-                                    modelData.deleteMemo(memo)
+                                    viewModel.deleteMemo(memo)
                                 } label: {
                                     Text("Delete")
                                 }
@@ -44,11 +38,17 @@ struct MemoListView: View {
                     .listRowInsets(EdgeInsets())
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        currentMemo = memo
+                        viewModel.selectedMemo = memo
                     }
                 }
-                .sheet(item: $currentMemo) { memo in
-                    SheetView(viewModel: SheetViewModel(memo: memo, canEditable: false))
+                .sheet(item: $viewModel.selectedMemo, onDismiss: {
+                    viewModel.update()
+                }){ memo in
+                    SheetView(
+                        viewModel: SheetViewModel(memo: memo,
+                                                  canEditable: false,
+                                                  memoManager: viewModel.memoManager)
+                    )
                 }
             }
             .background(ColorSet.background)
@@ -59,7 +59,6 @@ struct MemoListView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListView(category: .doing)
-            .environmentObject(MemoViewModel())
+        MemoListView(viewModel: MemoListViewModel(category: .toDo, memoManager: MemoManager()))
     }
 }
