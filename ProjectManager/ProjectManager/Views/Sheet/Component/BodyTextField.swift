@@ -24,6 +24,6 @@ struct BodyTextField: View {
 
 struct BodyTextField_Previews: PreviewProvider {
     static var previews: some View {
-        BodyTextField(content: .constant(ModelData().memos[0].body))
+        BodyTextField(content: .constant(MemoViewModel().memos[0].body))
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoListView: View {
-    @EnvironmentObject private var modelData: ModelData
+    @EnvironmentObject private var modelData: MemoViewModel
     @State private var currentMemo: Memo? = nil
     private var category: Memo.Category
     
@@ -60,6 +60,6 @@ struct MemoListView: View {
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
         MemoListView(category: .doing)
-            .environmentObject(ModelData())
+            .environmentObject(MemoViewModel())
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SheetView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var modelData: ModelData
+    @EnvironmentObject var modelData: MemoViewModel
     @ObservedObject var viewModel: SheetViewModel
         
     var body: some View {
@@ -54,6 +54,6 @@ struct SheetView: View {
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(viewModel: SheetViewModel(memo: ModelData().newMemo, canEditable: true))
+        SheetView(viewModel: SheetViewModel(memo: MemoViewModel().newMemo, canEditable: true))
     }
 }

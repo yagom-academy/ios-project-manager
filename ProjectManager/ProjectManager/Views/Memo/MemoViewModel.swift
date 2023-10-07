@@ -1,13 +1,13 @@
 //
-//  ModelData.swift
+//  MemoViewModel.swift
 //  ProjectManager
 //
-//  Created by Mary & Dasan on 2023/09/22.
+//  Created by Mary & Dasan on 2023/10/07.
 //
 
 import Foundation
 
-final class ModelData: ObservableObject {
+final class MemoViewModel: ObservableObject {
     @Published var memos: [Memo] = memoExample
     
     var newMemo: Memo {
@@ -34,7 +34,7 @@ final class ModelData: ObservableObject {
     }
 }
 
-extension ModelData {
+extension MemoViewModel {
     private static let memoExample: [Memo] = [
         Memo(title: "저녁 재료 주문하기🍅",
              body: "- 파스타면\n- 베이컨\n- 토마토\n- 치즈\n- 생크림",
