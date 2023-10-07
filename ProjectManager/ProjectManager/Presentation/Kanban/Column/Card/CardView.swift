@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct CardView: View {
+    @EnvironmentObject private var taskManager: TaskManager
+    @EnvironmentObject private var historyManager: HistoryManager
     @EnvironmentObject private var kanbanViewModel: KanbanViewModel
+    
     private let cardViewModel: CardViewModel
     
     init(task: Task) {
@@ -37,15 +40,25 @@ struct CardView: View {
             let secondDestination = cardViewModel.secondDestination
                 
             Button("Move to \(firstDestination.title)") {
-                kanbanViewModel.move(cardViewModel.task, to: firstDestination)
+                historyManager.save(
+                    type: .moved(destination: firstDestination),
+                    task: cardViewModel.task)
+                
+                taskManager.move(cardViewModel.task, to: firstDestination)
             }
             Button("Move to \(secondDestination.title)") {
-                kanbanViewModel.move(cardViewModel.task, to: secondDestination)
-            }            
+                historyManager.save(
+                    type: .moved(destination: secondDestination),
+                    task: cardViewModel.task
+                )
+                
+                taskManager.move(cardViewModel.task, to: secondDestination)
+            }
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button("Delete", role: .destructive) {
-                kanbanViewModel.delete(cardViewModel.task)
+                historyManager.save(type: .removed, task: cardViewModel.task)
+                taskManager.delete(cardViewModel.task)
             }
         }
         .onTapGesture {
@@ -56,6 +69,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(task: KanbanViewModel.mock.todos[0])
+        CardView(task: TaskManager.mock.tasks[0])
     }
 }

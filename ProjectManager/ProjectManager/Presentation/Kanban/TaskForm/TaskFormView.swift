@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {    
-    @EnvironmentObject private var kanbanViewModel: KanbanViewModel
-    @EnvironmentObject private var keyboard: KeyboardManager
+struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {
+    @EnvironmentObject private var taskManager: TaskManager
+    @EnvironmentObject private var historyManager: HistoryManager
+    @EnvironmentObject private var keyboardManager: KeyboardManager
     
+    @EnvironmentObject private var kanbanViewModel: KanbanViewModel
     @ObservedObject private var taskFormViewModel: TaskFormViewModel
     
     @FocusState private var textEditorIsFocused: Bool
@@ -86,8 +88,8 @@ struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {
     
     @ViewBuilder
     private var emptySpaceForKeyboard: some View {
-        if keyboard.isVisible {
-            Spacer(minLength: keyboard.height)
+        if keyboardManager.isVisible {
+            Spacer(minLength: keyboardManager.height)
         }
     }
     
@@ -103,7 +105,10 @@ struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {
             Button("Done") {
                 let task = taskFormViewModel.task
                 
-                kanbanViewModel.create(task)
+                taskManager.create(task)
+                
+                historyManager.save(type: .added, task: task)
+                
                 kanbanViewModel.setFormVisible(false)
             }
             .disabled(taskFormViewModel.title.isEmpty)
@@ -122,7 +127,7 @@ struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {
             Button("Done") {
                 let task = taskFormViewModel.task
                 
-                kanbanViewModel.update(newTask: task)
+                taskManager.update(newTask: task)
                 kanbanViewModel.setFormVisible(nil)
             }
         }
@@ -132,7 +137,7 @@ struct TaskFormView<TaskFormViewModel: TaskFormProtocol>: View {
 struct TaskAddView_Previews: PreviewProvider {
     static var previews: some View {
         TaskFormView(
-            viewModel: TaskCreateViewModel(
+            TaskCreateViewModel(
                 formSize: CGSize(width: 500, height: 600)
             )
         )

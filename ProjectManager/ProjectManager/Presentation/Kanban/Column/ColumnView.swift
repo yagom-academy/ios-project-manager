@@ -51,6 +51,6 @@ struct ColumnView: View {
 
 struct ColumnView_Previews: PreviewProvider {
     static var previews: some View {
-        ColumnView(tasks: KanbanViewModel.mock.todos, title: "TODO")
+        ColumnView(tasks: TaskManager.mock.todos, title: "TODO")
     }
 }

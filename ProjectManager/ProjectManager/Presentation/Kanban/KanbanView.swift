@@ -8,26 +8,37 @@
 import SwiftUI
 
 struct KanbanView: View {
-    @ObservedObject private var kanbanViewModel: KanbanViewModel
+    @EnvironmentObject private var taskManager: TaskManager
+    @EnvironmentObject private var historyManager: HistoryManager
+    @EnvironmentObject private var userManager: UserManager
     
-    init(kanbanViewModel: KanbanViewModel = KanbanViewModel.mock) {
-        self.kanbanViewModel = kanbanViewModel 
-    }
+    @StateObject private var kanbanViewModel = KanbanViewModel()
     
     var body: some View {
         GeometryReader { geo in
             NavigationStack {
                 HStack {
-                    ColumnView(tasks: kanbanViewModel.todos, title: "TODO")
-                    ColumnView(tasks: kanbanViewModel.doings, title: "DOING")
-                    ColumnView(tasks: kanbanViewModel.dones, title: "DONE")
+                    ColumnView(tasks: taskManager.todos, title: "TODO")
+                    ColumnView(tasks: taskManager.doings, title: "DOING")
+                    ColumnView(tasks: taskManager.dones, title: "DONE")
                 }
                 .background(.quaternary)
                 .navigationTitle("Project Manager")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarBackground(.visible, for: .navigationBar)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                .toolbar {                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("History") {
+                            historyManager.setHistoryVisible(true)
+                        }
+                        .popover(isPresented: $historyManager.isHistoryOn) {
+                            HistoryView(superSize: geo.size)
+                        }
+                    }
+                    
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        CloudButton()
+                        
                         Button {
                             kanbanViewModel.setFormVisible(true)
                         } label: {
@@ -36,6 +47,9 @@ struct KanbanView: View {
                     }
                 }
             }
+            .sheet(isPresented: $userManager.isRegisterFormOn) {
+                RegisterView()
+            }            
             .customAlert(isOn: $kanbanViewModel.isFormOn) {
                 TaskFormView(TaskCreateViewModel(formSize: geo.size))
             }
@@ -46,15 +60,17 @@ struct KanbanView: View {
                         formSize: geo.size
                     )
                 )
-            }
+            }            
         }
-        .environmentObject(kanbanViewModel)
         .ignoresSafeArea(.keyboard, edges: .bottom)
+        .environmentObject(kanbanViewModel)
     }
 }
 
 struct KanbanView_Previews: PreviewProvider {
+    @StateObject static private var taskManager = TaskManager.mock
     static var previews: some View {
-        KanbanView(kanbanViewModel: KanbanViewModel.mock)
+        KanbanView()
+            .environmentObject(taskManager)
     }
 }

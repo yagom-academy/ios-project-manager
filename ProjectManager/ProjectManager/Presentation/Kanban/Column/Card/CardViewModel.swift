@@ -8,6 +8,7 @@
 import Foundation
 
 final class CardViewModel {
+    
     let task: Task
     
     init(task: Task) {
