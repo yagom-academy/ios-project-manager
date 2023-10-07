@@ -48,7 +48,7 @@ struct MemoListView: View {
                     }
                 }
                 .sheet(item: $currentMemo) { memo in
-                    MemoDetail(memo: memo)
+                    SheetView(viewModel: SheetViewModel(memo: memo, canEditable: false))
                 }
             }
             .background(ColorSet.background)

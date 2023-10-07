@@ -32,7 +32,7 @@ struct MemoHomeView: View {
                             Image(systemName: "plus")
                         }
                         .sheet(isPresented: $showDetail) {
-                            NewMemo()
+                            SheetView(viewModel: SheetViewModel(memo: ModelData().newMemo, canEditable: true))
                         }
                 )
             }
