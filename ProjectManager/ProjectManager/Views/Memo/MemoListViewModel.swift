@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MemoListViewModel: ObservableObject {
+final class MemoListViewModel: ObservableObject, ViewUpdateDelegate {
     @Published var memos: [Memo]
     @Published var selectedMemo: Memo? = nil
     let memoManager: MemoManager
@@ -23,12 +23,10 @@ final class MemoListViewModel: ObservableObject {
         memoManager.deleteMemo(memo)
     }
     
-    func update() {
-        guard let selectedMemo = selectedMemo,
-              let foundMemo = memoManager.findMemo(id: selectedMemo.id),
-                  selectedMemo != foundMemo
-        else { return }
-        
-        self.selectedMemo = foundMemo
+    func update(memo: Memo) {
+        guard let index = memos.firstIndex(where: { $0.id == memo.id }) else {
+            return
+        }
+        memos[index] = memo
     }
 }

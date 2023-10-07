@@ -41,19 +41,24 @@ struct MemoListView: View {
                         viewModel.selectedMemo = memo
                     }
                 }
-                .sheet(item: $viewModel.selectedMemo, onDismiss: {
-                    viewModel.update()
-                }){ memo in
-                    SheetView(
-                        viewModel: SheetViewModel(memo: memo,
-                                                  canEditable: false,
-                                                  memoManager: viewModel.memoManager)
-                    )
+                .sheet(item: $viewModel.selectedMemo) { memo in
+                    createSheetView(memo: memo)
                 }
             }
             .background(ColorSet.background)
             .listStyle(.plain)
         }
+    }
+    
+    private func createSheetView(memo: Memo) -> SheetView {
+        let sheetViewModel = SheetViewModel(memo: memo,
+                                            canEditable: false,
+                                            memoManager: viewModel.memoManager)
+        sheetViewModel.delegate = viewModel
+        
+        return SheetView(
+            viewModel: sheetViewModel
+        )
     }
 }
 
