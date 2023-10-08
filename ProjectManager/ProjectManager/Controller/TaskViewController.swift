@@ -60,6 +60,7 @@ final class TaskViewController: UIViewController, ToastShowable {
         textView.layer.shadowRadius = 3
         textView.layer.masksToBounds = false
         textView.delegate = self
+        textView.clipsToBounds = true
         return textView
     }()
     
