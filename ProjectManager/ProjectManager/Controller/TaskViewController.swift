@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskViewControllerDelegate: AnyObject {
-    func didTappedRightDoneButton(task: Task)
+    func didTappedDoneButton(task: Task)
 }
 
 final class TaskViewController: UIViewController, ToastShowable {
@@ -17,7 +17,7 @@ final class TaskViewController: UIViewController, ToastShowable {
         case update
     }
     
-    weak var  delegate: TaskViewControllerDelegate?
+    weak var delegate: TaskViewControllerDelegate?
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         
@@ -126,17 +126,17 @@ final class TaskViewController: UIViewController, ToastShowable {
         view.backgroundColor = .systemBackground
         navigationItem.title = "TODO"
         
-        let leftCancelButtonAction: UIAction = .init { action in
-            self.didTappedLeftCancelButton()
+        let cancelButtonAction: UIAction = .init { action in
+            self.didTappedCancelButton()
         }
         
-        let rightDoneButtonAction: UIAction = .init { action in
-            self.didTappedRightDoneButton()
+        let doneButtonAction: UIAction = .init { action in
+            self.didTappedDoneButton()
         }
         
-        navigationItem.leftBarButtonItem = .init(systemItem: .cancel, primaryAction: leftCancelButtonAction)
+        navigationItem.leftBarButtonItem = .init(systemItem: .cancel, primaryAction: cancelButtonAction)
         navigationItem.rightBarButtonItem = .init(systemItem: mode == .append ? .done : .edit,
-                                                  primaryAction: rightDoneButtonAction)
+                                                  primaryAction: doneButtonAction)
     }
     
     private func setUpContents() {
@@ -165,11 +165,11 @@ extension TaskViewController: UITextViewDelegate {
 
 // MARK: - Button Action
 extension TaskViewController {
-    private func didTappedLeftCancelButton() {
+    private func didTappedCancelButton() {
         dismiss(animated: true)
     }
     
-    private func didTappedRightDoneButton() {
+    private func didTappedDoneButton() {
         guard let title = titleTextField.text, titleTextField.text?.count != 0 else {
             showToast(message: "Empty Title")
             return
@@ -178,7 +178,7 @@ extension TaskViewController {
         task.title = title
         task.description = descriptionTextView.text
         task.deadline = datePicker.date.timeIntervalSince1970
-        delegate?.didTappedRightDoneButton(task: task)
+        delegate?.didTappedDoneButton(task: task)
         dismiss(animated: true)
     }
 }

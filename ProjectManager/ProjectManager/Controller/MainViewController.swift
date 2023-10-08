@@ -86,11 +86,11 @@ final class MainViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.title = "Project Manager"
         
-        let rightAddButtonAction: UIAction = .init {
-            action in self.didTappedRightAddButton()
+        let addButtonAction: UIAction = .init {
+            action in self.didTappedAddButton()
         }
         
-        navigationItem.rightBarButtonItem = .init(systemItem: .add, primaryAction: rightAddButtonAction)
+        navigationItem.rightBarButtonItem = .init(systemItem: .add, primaryAction: addButtonAction)
     }
     
     private func reloadTaskListViewControllers() {
@@ -117,7 +117,7 @@ final class MainViewController: UIViewController {
 
 // MARK: - Button Action
 extension MainViewController {
-    private func didTappedRightAddButton() {
+    private func didTappedAddButton() {
         let newTask = Task(title: "", description: "", deadline: 0.0)
         let taskViewController = TaskViewController(task: newTask, mode: .append)
         let navigationController = UINavigationController(rootViewController: taskViewController)
@@ -130,7 +130,7 @@ extension MainViewController {
 
 // MARK: - TaskViewController Delegate
 extension MainViewController: TaskViewControllerDelegate {
-    func didTappedRightDoneButton(task: Task) {
+    func didTappedDoneButton(task: Task) {
         taskList.append(task)
     }
 }
@@ -152,7 +152,7 @@ extension MainViewController: ListViewControllerDelegate {
         }
     }
     
-    func didTappedRightDoneButtonForUpdate(updateTask: Task) {
+    func didTappedDoneButtonForUpdate(updateTask: Task) {
         taskList = useCase.convertUpdatedTaskList(taskList: taskList,
                                                   updateTask: updateTask,
                                                   moveTolistKind: updateTask.listKind)

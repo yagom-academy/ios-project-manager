@@ -14,7 +14,7 @@ enum ListKind: String {
 }
 
 protocol ListViewControllerDelegate: AnyObject {
-    func didTappedRightDoneButtonForUpdate(updateTask: Task)
+    func didTappedDoneButtonForUpdate(updateTask: Task)
     func didSwipedDeleteTask(deleteTask: Task)
     func moveCell(moveToListKind: ListKind, task: Task)
 }
@@ -165,8 +165,8 @@ extension ListViewController: UICollectionViewDelegate {
 
 // MARK: - TaskViewController Delegate
 extension ListViewController: TaskViewControllerDelegate {
-    func didTappedRightDoneButton(task: Task) {
-        delegate?.didTappedRightDoneButtonForUpdate(updateTask: task)
+    func didTappedDoneButton(task: Task) {
+        delegate?.didTappedDoneButtonForUpdate(updateTask: task)
     }
     
     func didSwipedDeleteTask(deleteTask: Task) {
