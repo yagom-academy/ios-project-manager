@@ -161,6 +161,12 @@ extension TaskViewController: UITextViewDelegate {
             placeHolderLabel.isHidden = false
         }
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let willChangeTextCount = textView.text.count - range.length + text.count
+        
+        return willChangeTextCount > 1000 ? false : true
+    }
 }
 
 // MARK: - Button Action
