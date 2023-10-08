@@ -37,12 +37,15 @@ final class ListViewController: UIViewController, AlertControllerShowable {
     
     private let taskStatus: TaskStatus
     
+    private let useCase: ListViewControllerUseCaseType
+    
     private var taskList: [Task] = []
     
     private var headerView: ListCollectionHeaderView?
     
-    init(taskStatus: TaskStatus) {
+    init(taskStatus: TaskStatus, useCase: ListViewControllerUseCaseType) {
         self.taskStatus = taskStatus
+        self.useCase = useCase
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -100,9 +103,10 @@ extension ListViewController {
     private func setUpDiffableDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ListCollectionViewCell, Task> { [weak self] cell, indexPath, task in
             guard let self = self else { return }
+            let taskDTO  = self.useCase.convertTaskDTOFromTask(task: task)
             
             cell.delegate = self
-            cell.setUpContents(task: self.taskList[indexPath.row])
+            cell.setUpContents(taskDTO: taskDTO)
         }
         
         diffableDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, task in
@@ -176,8 +180,9 @@ extension ListViewController: TaskViewControllerDelegate {
 
 // MARK: - ListCollectionViewCell Delegate
 extension ListViewController: ListCollectionViewCellDelegate {
-    func didLongPressCell(task: Task, cellFrame: CGRect) {
+    func didLongPressCell(taskDTO: TaskDTO, cellFrame: CGRect) {
         let (firstMoveAlertTitle, secondMoveAlerTitle) = convertAlertsTitle()
+        let task = useCase.convertTaskFromTaskDTO(taskDTO: taskDTO)
         
         let firstMoveAlertAction: UIAlertAction = .init(title: firstMoveAlertTitle, style: .default) { action in
             switch self.taskStatus {

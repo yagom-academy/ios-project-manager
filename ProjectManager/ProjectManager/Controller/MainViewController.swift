@@ -8,21 +8,24 @@ import UIKit
 
 final class MainViewController: UIViewController {
     private lazy var todoListViewController: ListViewController = {
-        let listViewController = ListViewController(taskStatus: .todo)
+        let listViewController = ListViewController(taskStatus: .todo,
+                                                    useCase: listViewControllerUseCase)
         
         listViewController.delegate = self
         return listViewController
     }()
     
     private lazy var doingListViewController: ListViewController = {
-        let listViewController = ListViewController(taskStatus: .doing)
+        let listViewController = ListViewController(taskStatus: .doing,
+                                                    useCase: listViewControllerUseCase)
         
         listViewController.delegate = self
         return listViewController
     }()
     
     private lazy var doneListViewController: ListViewController = {
-        let listViewController = ListViewController(taskStatus: .done)
+        let listViewController = ListViewController(taskStatus: .done,
+                                                    useCase: listViewControllerUseCase)
         
         listViewController.delegate = self
         return listViewController
@@ -45,10 +48,13 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let useCase: MainViewControllerUseCaseType
+    private let mainViewControllerUseCase: MainViewControllerUseCaseType
+    private let listViewControllerUseCase: ListViewControllerUseCaseType
     
-    init(useCase: MainViewControllerUseCaseType) {
-        self.useCase = useCase
+    init(mainViewControllerUseCase: MainViewControllerUseCaseType,
+         listViewControllerUseCase: ListViewControllerUseCaseType) {
+        self.mainViewControllerUseCase = mainViewControllerUseCase
+        self.listViewControllerUseCase = listViewControllerUseCase
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -138,7 +144,7 @@ extension MainViewController: TaskViewControllerDelegate {
 // MARK: - ListViewController Delegate
 extension MainViewController: ListViewControllerDelegate {
     func moveCell(moveToTaskStatus: TaskStatus, task: Task) {
-        taskList = useCase.convertUpdatedTaskList(taskList: taskList,
+        taskList = mainViewControllerUseCase.convertUpdatedTaskList(taskList: taskList,
                                                   updateTask: task,
                                                   moveToTaskStatus: moveToTaskStatus)
     }
@@ -153,7 +159,7 @@ extension MainViewController: ListViewControllerDelegate {
     }
     
     func didTappedDoneButtonForUpdate(updateTask: Task) {
-        taskList = useCase.convertUpdatedTaskList(taskList: taskList,
+        taskList = mainViewControllerUseCase.convertUpdatedTaskList(taskList: taskList,
                                                   updateTask: updateTask,
                                                   moveToTaskStatus: updateTask.taskStatus)
     }

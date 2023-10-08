@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ListCollectionViewCellDelegate: AnyObject {
-    func didLongPressCell(task: Task, cellFrame: CGRect)
+    func didLongPressCell(taskDTO: TaskDTO, cellFrame: CGRect)
 }
 
 final class ListCollectionViewCell: UICollectionViewListCell {
@@ -57,7 +57,7 @@ final class ListCollectionViewCell: UICollectionViewListCell {
         return label
     }()
     
-    private var task: Task?
+    private var taskDTO: TaskDTO?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,22 +71,13 @@ final class ListCollectionViewCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpContents(task: Task) {
-        self.task = task
+    func setUpContents(taskDTO: TaskDTO) {
+        self.taskDTO = taskDTO
         
-        titleLabel.text = task.title
-        descriptionLabel.text = task.description
-        deadlineLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: task.deadline))
-        deadlineLabel.textColor = isPassDeadline(deadline: task.deadline) ? .red : .black
-    }
-    
-    private func isPassDeadline(deadline: Double) -> Bool {
-        let currentDateString = dateFormatter.string(from: Date())
-        let deadlineDateString = dateFormatter.string(from: Date(timeIntervalSince1970: deadline))
-        let currentDate = dateFormatter.date(from: currentDateString) ?? Date()
-        let deadlineDate = dateFormatter.date(from: deadlineDateString) ?? Date()
-        
-        return currentDate.timeIntervalSince1970 > deadlineDate.timeIntervalSince1970
+        titleLabel.text = taskDTO.title
+        descriptionLabel.text = taskDTO.description
+        deadlineLabel.text = taskDTO.deadline
+        deadlineLabel.textColor = taskDTO.isPassDeadline ? .red : .black
     }
     
     private func configureUI() {
@@ -116,8 +107,8 @@ final class ListCollectionViewCell: UICollectionViewListCell {
     
     @objc
     private func didLongPress() {
-        guard let task = task else { return }
+        guard let taskDTO = taskDTO else { return }
         
-        delegate?.didLongPressCell(task: task, cellFrame: frame)
+        delegate?.didLongPressCell(taskDTO: taskDTO, cellFrame: frame)
     }
 }

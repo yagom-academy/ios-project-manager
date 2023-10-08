@@ -11,8 +11,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let useCase: MainViewControllerUseCaseType = MainViewControllerUseCase()
-        let mainViewController = MainViewController(useCase: useCase)
+        let mainViewControllerUseCase: MainViewControllerUseCaseType = MainViewControllerUseCase()
+        let listViewControllerUseCase: ListViewControllerUseCaseType = ListViewControllerUseCase()
+        let mainViewController = MainViewController(mainViewControllerUseCase: mainViewControllerUseCase,
+                                                    listViewControllerUseCase: listViewControllerUseCase)
         let navigationController = UINavigationController(rootViewController: mainViewController)
         
         window = UIWindow(windowScene: windowScene)
