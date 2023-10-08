@@ -8,37 +8,26 @@
 import SwiftUI
 
 struct MemoRow: View {
-    private var memo: Memo
-    
-    init(memo: Memo) {
-        self.memo = memo
-    }
-    
-    var isOverdue: Bool {
-        if (memo.category == .toDo || memo.category == .doing) && (Calendar.current.compare(memo.deadline, to: .now, toGranularity: .day) == .orderedAscending) {
-            return true
-        }
-        return false
-    }
+    @ObservedObject var viewModel: MemoRowViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(memo.title)
+            Text(viewModel.memo.title)
                 .font(.title3)
                 .lineLimit(1)
             
-            Text(memo.body)
+            Text(viewModel.memo.body)
                 .foregroundColor(.secondary)
                 .lineLimit(3)
             
-            Text(memo.deadline.formatted(date: .numeric, time: .omitted))
-                .foregroundColor(isOverdue ? .red : .primary)
+            Text(viewModel.memo.deadline.formatted(date: .numeric, time: .omitted))
+                .foregroundColor(viewModel.isOverdue ? .red : .primary)
         }
     }
 }
 
 struct MemoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MemoRow(memo: MemoManager().memos[0])
+        MemoRow(viewModel: MemoRowViewModel(memo: MemoManager().memos[0]))
     }
 }

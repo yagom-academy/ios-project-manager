@@ -30,6 +30,7 @@
 		AC6FCE682AB9889200B82DF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */; };
 		AC75E9C22ABAD8C000493121 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC75E9C12ABAD8C000493121 /* AppDelegate.swift */; };
 		AC86F6262AD15122002BF540 /* SheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC86F6252AD15122002BF540 /* SheetViewModel.swift */; };
+		AC86F62A2AD30303002BF540 /* MemoRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC86F6292AD30303002BF540 /* MemoRowViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		AC6FCE672AB9889200B82DF1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AC75E9C12ABAD8C000493121 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC86F6252AD15122002BF540 /* SheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewModel.swift; sourceTree = "<group>"; };
+		AC86F6292AD30303002BF540 /* MemoRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRowViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				AC20E4AF2ABD6F120076E80F /* MemoListView.swift */,
 				44476BEA2AD1A6F2002C456B /* MemoListViewModel.swift */,
 				AC20E4AD2ABD6D460076E80F /* MemoRow.swift */,
+				AC86F6292AD30303002BF540 /* MemoRowViewModel.swift */,
 				44FC5B692AC55F890092E412 /* Component */,
 			);
 			path = Memo;
@@ -291,6 +294,7 @@
 				AC23046F2ACA5C9300663591 /* HorizontalSpacing.swift in Sources */,
 				44476BED2AD1B3FA002C456B /* MemoManager.swift in Sources */,
 				44FC5B612AC559670092E412 /* TitleTextField.swift in Sources */,
+				AC86F62A2AD30303002BF540 /* MemoRowViewModel.swift in Sources */,
 				44476BEB2AD1A6F2002C456B /* MemoListViewModel.swift in Sources */,
 				44FC5B652AC55C9B0092E412 /* DeadlinePicker.swift in Sources */,
 				AC20E4B92AC47F520076E80F /* ColorSet.swift in Sources */,
