@@ -15,7 +15,7 @@ enum TaskStatus: String {
 
 protocol ListViewControllerDelegate: AnyObject {
     func didTappedDoneButtonForUpdate(updateTask: Task)
-    func didSwipedDeleteTask(deleteTask: Task)
+    func didSwipedDeleteTask(_ deleteTask: Task)
     func moveCell(moveToTaskStatus: TaskStatus, task: Task)
 }
 
@@ -133,7 +133,7 @@ extension ListViewController {
                 let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, handler in
                     guard let self = self else { return }
                     
-                    self.didSwipedDeleteTask(deleteTask: self.taskList[indexPath.row])
+                    self.didSwipedDeleteTask(self.taskList[indexPath.row])
                 }
                 
                 return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -169,8 +169,8 @@ extension ListViewController: TaskViewControllerDelegate {
         delegate?.didTappedDoneButtonForUpdate(updateTask: task)
     }
     
-    func didSwipedDeleteTask(deleteTask: Task) {
-        delegate?.didSwipedDeleteTask(deleteTask: deleteTask)
+    func didSwipedDeleteTask(_ deleteTask: Task) {
+        delegate?.didSwipedDeleteTask(deleteTask)
     }
 }
 

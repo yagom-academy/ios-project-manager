@@ -143,7 +143,7 @@ extension MainViewController: ListViewControllerDelegate {
                                                   moveToTaskStatus: moveToTaskStatus)
     }
     
-    func didSwipedDeleteTask(deleteTask: Task) {
+    func didSwipedDeleteTask(_ deleteTask: Task) {
         for (index, task) in taskList.enumerated() {
             if task.id == deleteTask.id {
                 taskList.remove(at: index)
