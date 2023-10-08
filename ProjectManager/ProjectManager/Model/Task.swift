@@ -12,5 +12,5 @@ struct Task: Hashable, Identifiable {
     var title: String
     var description: String
     var deadline: Double
-    var listKind: ListKind = .todo
+    var taskStatus: TaskStatus = .todo
 }

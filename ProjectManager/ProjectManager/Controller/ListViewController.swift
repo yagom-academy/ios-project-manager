@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum ListKind: String {
+enum TaskStatus: String {
     case todo = "TODO"
     case doing = "DOING"
     case done = "DONE"
@@ -16,7 +16,7 @@ enum ListKind: String {
 protocol ListViewControllerDelegate: AnyObject {
     func didTappedDoneButtonForUpdate(updateTask: Task)
     func didSwipedDeleteTask(deleteTask: Task)
-    func moveCell(moveToListKind: ListKind, task: Task)
+    func moveCell(moveToTaskStatus: TaskStatus, task: Task)
 }
 
 final class ListViewController: UIViewController, AlertControllerShowable {
@@ -35,14 +35,14 @@ final class ListViewController: UIViewController, AlertControllerShowable {
     
     private var diffableDataSource: UICollectionViewDiffableDataSource<Section, Task>?
     
-    private let listKind: ListKind
+    private let taskStatus: TaskStatus
     
     private var taskList: [Task] = []
     
     private var headerView: ListCollectionHeaderView?
     
-    init(listKind: ListKind) {
-        self.listKind = listKind
+    init(taskStatus: TaskStatus) {
+        self.taskStatus = taskStatus
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -85,7 +85,7 @@ final class ListViewController: UIViewController, AlertControllerShowable {
 extension ListViewController {
     func reloadTaskList(taskList: [Task]) {
         setUpDiffableDataSourceSanpShot(taskList: taskList)
-        headerView?.setUpContents(title: listKind.rawValue, taskCount: "\(taskList.count)")
+        headerView?.setUpContents(title: taskStatus.rawValue, taskCount: "\(taskList.count)")
     }
     
     private func setUpDiffableDataSourceSanpShot(taskList: [Task] = []) {
@@ -117,7 +117,7 @@ extension ListViewController {
             guard let self = self else { return }
             
             self.headerView = headerView
-            headerView.setUpContents(title: self.listKind.rawValue, taskCount: "\(self.taskList.count)")
+            headerView.setUpContents(title: self.taskStatus.rawValue, taskCount: "\(self.taskList.count)")
         }
         
         diffableDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
@@ -180,32 +180,32 @@ extension ListViewController: ListCollectionViewCellDelegate {
         let (firstMoveAlertTitle, secondMoveAlerTitle) = convertAlertsTitle()
         
         let firstMoveAlertAction: UIAlertAction = .init(title: firstMoveAlertTitle, style: .default) { action in
-            switch self.listKind {
+            switch self.taskStatus {
             case .todo:
-                self.moveCell(moveToListKind: .doing, task: task)
+                self.moveCell(moveToTaskStatus: .doing, task: task)
             case .doing, .done:
-                self.moveCell(moveToListKind: .todo, task: task)
+                self.moveCell(moveToTaskStatus: .todo, task: task)
             }
         }
         
         let secondMoveAlertAction: UIAlertAction = .init(title: secondMoveAlerTitle, style: .default) { action in
-            switch self.listKind {
+            switch self.taskStatus {
             case .todo, .doing:
-                self.moveCell(moveToListKind: .done, task: task)
+                self.moveCell(moveToTaskStatus: .done, task: task)
             case .done:
-                self.moveCell(moveToListKind: .doing, task: task)
+                self.moveCell(moveToTaskStatus: .doing, task: task)
             }
         }
         
         showPopOverAlertController(sourceRect: cellFrame, alertActions: [firstMoveAlertAction, secondMoveAlertAction])
     }
     
-    private func moveCell(moveToListKind: ListKind, task: Task) {
-        delegate?.moveCell(moveToListKind: moveToListKind, task: task)
+    private func moveCell(moveToTaskStatus: TaskStatus, task: Task) {
+        delegate?.moveCell(moveToTaskStatus: moveToTaskStatus, task: task)
     }
     
     private func convertAlertsTitle() -> (String, String) {
-        switch listKind {
+        switch taskStatus {
         case .todo:
             return ("Move to DOING", "Move to DONE")
         case .doing:

@@ -8,21 +8,21 @@ import UIKit
 
 final class MainViewController: UIViewController {
     private lazy var todoListViewController: ListViewController = {
-        let listViewController = ListViewController(listKind: .todo)
+        let listViewController = ListViewController(taskStatus: .todo)
         
         listViewController.delegate = self
         return listViewController
     }()
     
     private lazy var doingListViewController: ListViewController = {
-        let listViewController = ListViewController(listKind: .doing)
+        let listViewController = ListViewController(taskStatus: .doing)
         
         listViewController.delegate = self
         return listViewController
     }()
     
     private lazy var doneListViewController: ListViewController = {
-        let listViewController = ListViewController(listKind: .done)
+        let listViewController = ListViewController(taskStatus: .done)
         
         listViewController.delegate = self
         return listViewController
@@ -99,7 +99,7 @@ final class MainViewController: UIViewController {
         var doneList = [Task]()
         
         for task in taskList {
-            switch task.listKind {
+            switch task.taskStatus {
             case .todo:
                 todoList.append(task)
             case .doing:
@@ -137,10 +137,10 @@ extension MainViewController: TaskViewControllerDelegate {
 
 // MARK: - ListViewController Delegate
 extension MainViewController: ListViewControllerDelegate {
-    func moveCell(moveToListKind: ListKind, task: Task) {
+    func moveCell(moveToTaskStatus: TaskStatus, task: Task) {
         taskList = useCase.convertUpdatedTaskList(taskList: taskList,
                                                   updateTask: task,
-                                                  moveTolistKind: moveToListKind)
+                                                  moveToTaskStatus: moveToTaskStatus)
     }
     
     func didSwipedDeleteTask(deleteTask: Task) {
@@ -155,6 +155,6 @@ extension MainViewController: ListViewControllerDelegate {
     func didTappedDoneButtonForUpdate(updateTask: Task) {
         taskList = useCase.convertUpdatedTaskList(taskList: taskList,
                                                   updateTask: updateTask,
-                                                  moveTolistKind: updateTask.listKind)
+                                                  moveToTaskStatus: updateTask.taskStatus)
     }
 }
