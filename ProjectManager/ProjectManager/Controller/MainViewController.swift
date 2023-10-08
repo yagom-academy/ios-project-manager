@@ -143,7 +143,7 @@ extension MainViewController: TaskViewControllerDelegate {
 
 // MARK: - ListViewController Delegate
 extension MainViewController: ListViewControllerDelegate {
-    func moveCell(moveToTaskStatus: TaskStatus, task: Task) {
+    func moveCell(to moveToTaskStatus: TaskStatus, task: Task) {
         taskList = mainViewControllerUseCase.convertUpdatedTaskList(taskList: taskList,
                                                   updateTask: task,
                                                   moveToTaskStatus: moveToTaskStatus)

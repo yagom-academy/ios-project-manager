@@ -16,7 +16,7 @@ enum TaskStatus: String {
 protocol ListViewControllerDelegate: AnyObject {
     func didTappedDoneButtonForUpdate(updateTask: Task)
     func didSwipedDeleteTask(_ deleteTask: Task)
-    func moveCell(moveToTaskStatus: TaskStatus, task: Task)
+    func moveCell(to moveToTaskStatus: TaskStatus, task: Task)
 }
 
 final class ListViewController: UIViewController, AlertControllerShowable {
@@ -187,26 +187,26 @@ extension ListViewController: ListCollectionViewCellDelegate {
         let firstMoveAlertAction: UIAlertAction = .init(title: firstMoveAlertTitle, style: .default) { action in
             switch self.taskStatus {
             case .todo:
-                self.moveCell(moveToTaskStatus: .doing, task: task)
+                self.moveCell(to: .doing, task: task)
             case .doing, .done:
-                self.moveCell(moveToTaskStatus: .todo, task: task)
+                self.moveCell(to: .todo, task: task)
             }
         }
         
         let secondMoveAlertAction: UIAlertAction = .init(title: secondMoveAlerTitle, style: .default) { action in
             switch self.taskStatus {
             case .todo, .doing:
-                self.moveCell(moveToTaskStatus: .done, task: task)
+                self.moveCell(to: .done, task: task)
             case .done:
-                self.moveCell(moveToTaskStatus: .doing, task: task)
+                self.moveCell(to: .doing, task: task)
             }
         }
         
         showPopOverAlertController(sourceRect: cellFrame, alertActions: [firstMoveAlertAction, secondMoveAlertAction])
     }
     
-    private func moveCell(moveToTaskStatus: TaskStatus, task: Task) {
-        delegate?.moveCell(moveToTaskStatus: moveToTaskStatus, task: task)
+    private func moveCell(to moveToTaskStatus: TaskStatus, task: Task) {
+        delegate?.moveCell(to: moveToTaskStatus, task: task)
     }
     
     private func convertAlertsTitle() -> (String, String) {
