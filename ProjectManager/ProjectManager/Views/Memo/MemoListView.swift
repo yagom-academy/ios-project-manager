@@ -22,7 +22,7 @@ struct MemoListView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         HorizontalSpacing()
                         
-                        MemoRow(memo: memo)
+                        MemoRow(viewModel: MemoRowViewModel(memo: memo))
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     viewModel.deleteMemo(memo)
@@ -38,7 +38,7 @@ struct MemoListView: View {
                     .listRowInsets(EdgeInsets())
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        viewModel.selectedMemo = memo
+                        viewModel.setSelectedMemo(memo)
                     }
                 }
                 .sheet(item: $viewModel.selectedMemo) { memo in
@@ -64,6 +64,9 @@ struct MemoListView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListView(viewModel: MemoListViewModel(category: .toDo, memoManager: MemoManager()))
+        MemoListView(
+            viewModel: MemoListViewModel(category: .toDo,
+                                         memoManager: MemoManager())
+        )
     }
 }
