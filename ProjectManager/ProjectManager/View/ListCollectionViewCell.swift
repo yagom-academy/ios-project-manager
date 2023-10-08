@@ -14,15 +14,6 @@ protocol ListCollectionViewCellDelegate: AnyObject {
 final class ListCollectionViewCell: UICollectionViewListCell {
     weak var delegate: ListCollectionViewCellDelegate?
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "yyyy. MM. dd."
-        dateFormatter.locale = Locale.current
-        dateFormatter.timeZone = TimeZone.current
-        return dateFormatter
-    }()
-    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         

@@ -181,7 +181,7 @@ extension ListViewController: TaskViewControllerDelegate {
 // MARK: - ListCollectionViewCell Delegate
 extension ListViewController: ListCollectionViewCellDelegate {
     func didLongPressCell(taskDTO: TaskDTO, cellFrame: CGRect) {
-        let (firstMoveAlertTitle, secondMoveAlerTitle) = convertAlertsTitle()
+        let (firstMoveAlertTitle, secondMoveAlerTitle) = useCase.convertAlertsTitle(taskStatus: taskStatus)
         let task = useCase.convertTaskFromTaskDTO(taskDTO: taskDTO)
         
         let firstMoveAlertAction: UIAlertAction = .init(title: firstMoveAlertTitle, style: .default) { action in
@@ -207,16 +207,5 @@ extension ListViewController: ListCollectionViewCellDelegate {
     
     private func moveCell(to moveToTaskStatus: TaskStatus, task: Task) {
         delegate?.moveCell(to: moveToTaskStatus, task: task)
-    }
-    
-    private func convertAlertsTitle() -> (String, String) {
-        switch taskStatus {
-        case .todo:
-            return ("Move to DOING", "Move to DONE")
-        case .doing:
-            return ("Move to TODO", "Move to DONE")
-        case .done:
-            return ("Move to TODO", "Move to DOING")
-        }
     }
 }

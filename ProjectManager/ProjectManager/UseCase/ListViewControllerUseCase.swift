@@ -10,6 +10,7 @@ import Foundation
 protocol ListViewControllerUseCaseType {
     func convertTaskDTOFromTask(task: Task) -> TaskDTO
     func convertTaskFromTaskDTO(taskDTO: TaskDTO) -> Task
+    func convertAlertsTitle(taskStatus: TaskStatus) -> (String, String)
 }
 
 final class ListViewControllerUseCase: ListViewControllerUseCaseType {
@@ -42,6 +43,17 @@ final class ListViewControllerUseCase: ListViewControllerUseCaseType {
                     description: taskDTO.description,
                     deadline: deadline,
                     taskStatus: taskDTO.taskStatus)
+    }
+    
+    func convertAlertsTitle(taskStatus: TaskStatus) -> (String, String) {
+        switch taskStatus {
+        case .todo:
+            return ("Move to DOING", "Move to DONE")
+        case .doing:
+            return ("Move to TODO", "Move to DONE")
+        case .done:
+            return ("Move to TODO", "Move to DOING")
+        }
     }
     
     private func isPassDeadline(deadline: Double) -> Bool {
