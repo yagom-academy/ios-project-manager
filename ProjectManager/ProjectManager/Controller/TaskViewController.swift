@@ -140,13 +140,13 @@ final class TaskViewController: UIViewController, ToastShowable {
     }
     
     private func setUpContents() {
-        if task.title.count == 0 || task.description.count == 0 { return }
+        if task.title.count == 0 && task.description.count == 0 { return }
         
         titleTextField.text = task.title
         descriptionTextView.text = task.description
         datePicker.date = Date(timeIntervalSince1970: task.deadline)
         
-        placeHolderLabel.isHidden = true
+        placeHolderLabel.isHidden = descriptionTextView.text.count != 0
     }
 }
 
