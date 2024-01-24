@@ -7,6 +7,7 @@
 import UIKit
 
 final class MainViewController: UIViewController {
+    // MARK: - Property
     private let todoTableView = ListViewController(scheduleType: .todo)
     private let doingTableView = ListViewController(scheduleType: .doing)
     private let doneTableView = ListViewController(scheduleType: .done)
@@ -21,13 +22,15 @@ final class MainViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStackView()
         setupStackViewConstraint()
     }
     
+    // MARK: - Helper
     private func setupStackView() {
         stackView.addArrangedSubview(todoTableView.view)
         stackView.addArrangedSubview(doingTableView.view)

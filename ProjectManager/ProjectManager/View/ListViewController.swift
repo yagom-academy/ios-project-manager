@@ -8,6 +8,7 @@
 import UIKit
 
 final class ListViewController: UIViewController {
+    // MARK: - Property
     private let tableView = UITableView()
     private let scheduleType: Schedule
     
@@ -20,10 +21,12 @@ final class ListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         setupTableView()
     }
     
+    // MARK: - Helper
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -31,6 +34,7 @@ final class ListViewController: UIViewController {
     
 }
 
+// MARK: - UITableViewDataSource Method
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -42,6 +46,7 @@ extension ListViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UITableViewDelegate Method
 extension ListViewController: UITableViewDelegate {
     
 }
