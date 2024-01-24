@@ -9,7 +9,13 @@ import UIKit
 
 final class ListViewController: UIViewController {
     // MARK: - Property
-    private let tableView = UITableView()
+    private let tableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     private let scheduleType: Schedule
     
     init(scheduleType: Schedule) {
@@ -24,14 +30,24 @@ final class ListViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         setupTableView()
+        setupTableViewConstraint()
     }
     
     // MARK: - Helper
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        view.addSubview(tableView)
     }
     
+    private func setupTableViewConstraint() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        ])
+    }
 }
 
 // MARK: - UITableViewDataSource Method
