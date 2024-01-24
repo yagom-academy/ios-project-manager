@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ListViewController: UIViewController {
+final class ListViewController: UINavigationController {
     // MARK: - Property
     private let tableView = UITableView()
     private let scheduleType: Schedule
