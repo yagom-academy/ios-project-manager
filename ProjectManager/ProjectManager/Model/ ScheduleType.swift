@@ -15,11 +15,11 @@ extension Schedule {
     var discription: String {
         switch self {
         case .todo:
-            return "TODO"
+            return NameSpace.todo
         case .doing:
-            return "DOING"
+            return NameSpace.doing
         case .done:
-            return "DONE"
+            return NameSpace.done
         }
     }
 }
