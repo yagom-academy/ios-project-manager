@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .landscape
+    }
 
     // MARK: UISceneSession Lifecycle
 
