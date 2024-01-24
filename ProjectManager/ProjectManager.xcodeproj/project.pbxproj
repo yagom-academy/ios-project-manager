@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3C353EF92B60B9E70006509D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C353EF82B60B9E70006509D /* GoogleService-Info.plist */; };
 		3C353EFC2B60BC8B0006509D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353EFB2B60BC8B0006509D /* FirebaseAnalytics */; };
+		3C353F0B2B60BFE00006509D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353F0A2B60BFE00006509D /* RxCocoa */; };
+		3C353F0F2B60BFE00006509D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353F0E2B60BFE00006509D /* RxRelay */; };
+		3C353F132B60BFE00006509D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353F122B60BFE00006509D /* RxSwift */; };
 		3C8D87FE2B5FB98000D7BD42 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3C8D87FD2B5FB98000D7BD42 /* Realm */; };
 		3C8D88002B5FB98000D7BD42 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C8D87FF2B5FB98000D7BD42 /* RealmSwift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -34,9 +37,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C353F0B2B60BFE00006509D /* RxCocoa in Frameworks */,
+				3C353F132B60BFE00006509D /* RxSwift in Frameworks */,
 				3C8D88002B5FB98000D7BD42 /* RealmSwift in Frameworks */,
 				3C8D87FE2B5FB98000D7BD42 /* Realm in Frameworks */,
 				3C353EFC2B60BC8B0006509D /* FirebaseAnalytics in Frameworks */,
+				3C353F0F2B60BFE00006509D /* RxRelay in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +99,9 @@
 				3C8D87FD2B5FB98000D7BD42 /* Realm */,
 				3C8D87FF2B5FB98000D7BD42 /* RealmSwift */,
 				3C353EFB2B60BC8B0006509D /* FirebaseAnalytics */,
+				3C353F0A2B60BFE00006509D /* RxCocoa */,
+				3C353F0E2B60BFE00006509D /* RxRelay */,
+				3C353F122B60BFE00006509D /* RxSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -125,6 +134,7 @@
 			packageReferences = (
 				3C8D87FC2B5FB98000D7BD42 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				3C353EFA2B60BC8B0006509D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3C353F052B60BFE00006509D /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -361,6 +371,14 @@
 				minimumVersion = 10.20.0;
 			};
 		};
+		3C353F052B60BFE00006509D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
 		3C8D87FC2B5FB98000D7BD42 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
@@ -376,6 +394,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3C353EFA2B60BC8B0006509D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		3C353F0A2B60BFE00006509D /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C353F052B60BFE00006509D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		3C353F0E2B60BFE00006509D /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C353F052B60BFE00006509D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		3C353F122B60BFE00006509D /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C353F052B60BFE00006509D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 		3C8D87FD2B5FB98000D7BD42 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
