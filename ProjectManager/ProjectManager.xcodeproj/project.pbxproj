@@ -12,6 +12,8 @@
 		3C353F0B2B60BFE00006509D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353F0A2B60BFE00006509D /* RxCocoa */; };
 		3C353F0F2B60BFE00006509D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353F0E2B60BFE00006509D /* RxRelay */; };
 		3C353F132B60BFE00006509D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353F122B60BFE00006509D /* RxSwift */; };
+		3C8BE8E92B61018C006C66DB /* ListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8BE8E82B61018C006C66DB /* ListTableView.swift */; };
+		3C8BE8EB2B610380006C66DB /*  ScheduleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8BE8EA2B610380006C66DB /*  ScheduleType.swift */; };
 		3C8D87FE2B5FB98000D7BD42 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3C8D87FD2B5FB98000D7BD42 /* Realm */; };
 		3C8D88002B5FB98000D7BD42 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C8D87FF2B5FB98000D7BD42 /* RealmSwift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		3C353EF82B60B9E70006509D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3C8BE8E82B61018C006C66DB /* ListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableView.swift; sourceTree = "<group>"; };
+		3C8BE8EA2B610380006C66DB /*  ScheduleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ScheduleType.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +56,7 @@
 		3C8BE8E42B60EDF6006C66DB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3C8BE8EA2B610380006C66DB /*  ScheduleType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -59,6 +64,7 @@
 		3C8BE8E52B60EE02006C66DB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3C8BE8E82B61018C006C66DB /* ListTableView.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 			);
 			path = View;
@@ -195,7 +201,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C8BE8EB2B610380006C66DB /*  ScheduleType.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				3C8BE8E92B61018C006C66DB /* ListTableView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
