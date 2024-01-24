@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C353EF92B60B9E70006509D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C353EF82B60B9E70006509D /* GoogleService-Info.plist */; };
+		3C353EFC2B60BC8B0006509D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3C353EFB2B60BC8B0006509D /* FirebaseAnalytics */; };
 		3C8D87FE2B5FB98000D7BD42 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3C8D87FD2B5FB98000D7BD42 /* Realm */; };
 		3C8D88002B5FB98000D7BD42 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C8D87FF2B5FB98000D7BD42 /* RealmSwift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -17,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C353EF82B60B9E70006509D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,6 +36,7 @@
 			files = (
 				3C8D88002B5FB98000D7BD42 /* RealmSwift in Frameworks */,
 				3C8D87FE2B5FB98000D7BD42 /* Realm in Frameworks */,
+				3C353EFC2B60BC8B0006509D /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +68,7 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				3C353EF82B60B9E70006509D /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -87,6 +92,7 @@
 			packageProductDependencies = (
 				3C8D87FD2B5FB98000D7BD42 /* Realm */,
 				3C8D87FF2B5FB98000D7BD42 /* RealmSwift */,
+				3C353EFB2B60BC8B0006509D /* FirebaseAnalytics */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -118,6 +124,7 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				3C8D87FC2B5FB98000D7BD42 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				3C353EFA2B60BC8B0006509D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -135,6 +142,7 @@
 			files = (
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
+				3C353EF92B60B9E70006509D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +353,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3C353EFA2B60BC8B0006509D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.20.0;
+			};
+		};
 		3C8D87FC2B5FB98000D7BD42 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
@@ -356,6 +372,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3C353EFB2B60BC8B0006509D /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C353EFA2B60BC8B0006509D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
 		3C8D87FD2B5FB98000D7BD42 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3C8D87FC2B5FB98000D7BD42 /* XCRemoteSwiftPackageReference "realm-swift" */;
