@@ -49,6 +49,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C8BE8E42B60EDF6006C66DB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3C8BE8E52B60EE02006C66DB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C8BE8E62B60EE0B006C66DB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3C8BE8E72B60EFDB006C66DB /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -70,9 +101,10 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				3C8BE8E42B60EDF6006C66DB /* Model */,
+				3C8BE8E52B60EE02006C66DB /* View */,
+				3C8BE8E62B60EE0B006C66DB /* ViewModel */,
+				3C8BE8E72B60EFDB006C66DB /* Helper */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				3C353EF82B60B9E70006509D /* GoogleService-Info.plist */,
 			);
