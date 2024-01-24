@@ -1,5 +1,5 @@
 //
-//  ListTableView.swift
+//  ListViewController.swift
 //  ProjectManager
 //
 //  Created by Toy on 1/24/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ListView: UINavigationController {
+final class ListViewController: UIViewController {
     private let tableView = UITableView()
     private let scheduleType: Schedule
     
@@ -22,7 +22,6 @@ final class ListView: UINavigationController {
     
     override func viewDidLoad() {
         setupTableView()
-        setupTableViewConstraint()
     }
     
     private func setupTableView() {
@@ -30,28 +29,19 @@ final class ListView: UINavigationController {
         tableView.dataSource = self
     }
     
-    private func setupTableViewConstraint() {
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-    }
 }
 
-extension ListView: UITableViewDataSource {
+extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
     
-    
 }
 
-extension ListView: UITableViewDelegate {
+extension ListViewController: UITableViewDelegate {
     
 }
