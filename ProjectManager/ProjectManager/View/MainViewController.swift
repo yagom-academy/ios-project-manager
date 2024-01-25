@@ -43,9 +43,12 @@ final class MainViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
+        setupTableStackView()
         setupStackView()
         setupStackViewConstraint()
-        setupNavigationBar()
+        
+    }
     }
 
     // MARK: - Helper
@@ -60,10 +63,15 @@ final class MainViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = appearnce
     }
     
+    private func setupTableStackView() {
+        tabelStackView.addArrangedSubview(todoTableView.view)
+        tabelStackView.addArrangedSubview(doingTableView.view)
+        tabelStackView.addArrangedSubview(doneTableView.view)
+    }
+    
     private func setupStackView() {
-        stackView.addArrangedSubview(todoTableView.view)
-        stackView.addArrangedSubview(doingTableView.view)
-        stackView.addArrangedSubview(doneTableView.view)
+        stackView.addArrangedSubview(tabelStackView)
+        stackView.addArrangedSubview(footerView)
         view.addSubview(stackView)
     }
     
