@@ -14,6 +14,7 @@ final class ListViewController: UIViewController {
     private let tableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -91,5 +92,7 @@ extension ListViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate Method
 extension ListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
