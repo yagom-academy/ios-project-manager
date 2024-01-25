@@ -11,9 +11,24 @@ final class ListViewController: UIViewController {
     // MARK: - Property
     private let tableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemGray6
         return tableView
+    }()
+    
+    private lazy var headerView = {
+        let headerView = HeaderView(frame: .zero, schedule: scheduleType)
+        headerView.backgroundColor = .systemGray6
+        return headerView
+    }()
+    
+    private let stackView = {
+       let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 0
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private let scheduleType: Schedule
