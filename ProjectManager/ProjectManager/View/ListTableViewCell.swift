@@ -14,19 +14,29 @@ final class ListTableViewCell: UITableViewCell {
     // 다음 스텝에서 수정하겠습니다.
     private let titleLabel = {
         let label = UILabel()
-        label.text = "title test"
+        label.text = "title testbody testbody testbody testbody testbody testbody testbody testbody testbody test"
+        label.font = UIFont.systemFont(ofSize: 22)
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
         return label
     }()
     
     private let bodyLabel = {
         let label = UILabel()
-        label.text = "body test"
+        label.text = """
+                    body testbody testbodybody testbody testbodybody testbody testbodybody testbody testbodybody testbody testbodybody testbody testbody
+                    """
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .lightGray
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 3
         return label
     }()
     
     private let dateLabel = {
         let label = UILabel()
-        label.text = "2024. 01. 25 test"
+        label.text = "2024. 01. 25. test"
+        label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
     
