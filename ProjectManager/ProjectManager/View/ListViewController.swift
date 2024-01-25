@@ -45,24 +45,31 @@ final class ListViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         setupTableView()
-        setupTableViewConstraint()
+        setupStackView()
+        setupStackViewConstraint()
     }
     
     // MARK: - Helper
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        view.addSubview(tableView)
     }
     
-    private func setupTableViewConstraint() {
+    private func setupStackView() {
+        stackView.addArrangedSubview(headerView)
+        stackView.addArrangedSubview(tableView)
+        view.addSubview(stackView)
+    }
+    
+    private func setupStackViewConstraint() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
     }
+    
 }
 
 // MARK: - UITableViewDataSource Method
