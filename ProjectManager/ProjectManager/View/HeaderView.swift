@@ -11,7 +11,7 @@ final class HeaderView: UIView {
     // MARK: - Property
     private let titleLabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.font = UIFont.systemFont(ofSize: 32, weight: .regular)
         return label
     }()
     
