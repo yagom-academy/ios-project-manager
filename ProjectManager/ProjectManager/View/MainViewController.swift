@@ -28,9 +28,21 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupStackView()
         setupStackViewConstraint()
+        setupNavigationBar()
+    }
+
+    // MARK: - Helper
+    private func setupNavigationBar() {
+        let appearnce = UINavigationBarAppearance()
+        appearnce.configureWithTransparentBackground()
+        appearnce.backgroundColor = UIColor(red: 0xE5 / 255.0, green: 0xE5 / 255.0, blue: 0xE5 / 255.0, alpha: 1.0)
+        
+        navigationItem.title = NameSpace.title
+        navigationItem.compactAppearance = appearnce
+        navigationItem.standardAppearance = appearnce
+        navigationItem.scrollEdgeAppearance = appearnce
     }
     
-    // MARK: - Helper
     private func setupStackView() {
         stackView.addArrangedSubview(todoTableView.view)
         stackView.addArrangedSubview(doingTableView.view)
