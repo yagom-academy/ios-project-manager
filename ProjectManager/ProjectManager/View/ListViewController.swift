@@ -9,6 +9,8 @@ import UIKit
 
 final class ListViewController: UIViewController {
     // MARK: - Property
+    private let scheduleType: Schedule
+    
     private let tableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
@@ -30,8 +32,6 @@ final class ListViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    private let scheduleType: Schedule
     
     init(scheduleType: Schedule) {
         self.scheduleType = scheduleType
