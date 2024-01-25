@@ -10,10 +10,40 @@ import UIKit
 final class ListTableViewCell: UITableViewCell {
     // MARK: - Property
     static let identifier = String(describing: ListViewController.self)
+    // text 는 테스트용으로 설정하였습니다.
+    // 다음 스텝에서 수정하겠습니다.
+    private let titleLabel = {
+        let label = UILabel()
+        label.text = "title test"
+        return label
+    }()
+    
+    private let bodyLabel = {
+        let label = UILabel()
+        label.text = "body test"
+        return label
+    }()
+    
+    private let dateLabel = {
+        let label = UILabel()
+        label.text = "2024. 01. 25 test"
+        return label
+    }()
+    
+    private let stackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 4
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        setupStackView()
+        setupStackViewConstraint()
     }
     
     required init?(coder: NSCoder) {
@@ -26,5 +56,20 @@ final class ListTableViewCell: UITableViewCell {
     }
     
     // MARK: - Helper
+    private func setupStackView() {
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(bodyLabel)
+        stackView.addArrangedSubview(dateLabel)
+        self.addSubview(stackView)
+    }
+    
+    private func setupStackViewConstraint() {
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
+        ])
+    }
     
 }
