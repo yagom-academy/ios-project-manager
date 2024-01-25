@@ -49,6 +49,9 @@ final class MainViewController: UIViewController {
         setupStackViewConstraint()
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        footerView.addTopBorder(at: .top, color: .gray, thickness: 0.3)
     }
 
     // MARK: - Helper
