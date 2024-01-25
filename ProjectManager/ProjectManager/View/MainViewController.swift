@@ -52,7 +52,7 @@ final class MainViewController: UIViewController {
     private func setupNavigationBar() {
         let appearnce = UINavigationBarAppearance()
         appearnce.configureWithTransparentBackground()
-        appearnce.backgroundColor = UIColor(red: 0xE5 / 255.0, green: 0xE5 / 255.0, blue: 0xE5 / 255.0, alpha: 1.0)
+        appearnce.backgroundColor = NameSpace.headerAndFooterColor
         
         navigationItem.title = NameSpace.title
         navigationItem.compactAppearance = appearnce
