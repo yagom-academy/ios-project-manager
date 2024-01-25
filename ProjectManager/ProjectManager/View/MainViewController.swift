@@ -18,7 +18,7 @@ final class MainViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 10
-        stackView.backgroundColor = .lightGray
+        stackView.backgroundColor = .systemGray4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
