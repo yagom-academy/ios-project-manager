@@ -26,7 +26,6 @@ final class MainViewController: UIViewController {
         stackView.alignment = .fill
         stackView.spacing = 10
         stackView.backgroundColor = .systemGray4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -47,11 +46,10 @@ final class MainViewController: UIViewController {
         setupTableStackView()
         setupStackView()
         setupStackViewConstraint()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        footerView.addTopBorder(at: .top, color: .gray, thickness: 0.3)
+        footerView.addBorder(at: .top, color: .gray, thickness: 0.3)
     }
 
     // MARK: - Helper

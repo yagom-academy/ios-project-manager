@@ -14,14 +14,13 @@ final class ListViewController: UIViewController {
     private let tableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
-        tableView.separatorStyle = .none
         return tableView
     }()
     
     private lazy var headerView = {
-        let headerView = HeaderView(frame: .zero, schedule: scheduleType)
-        headerView.backgroundColor = .systemGray6
-        return headerView
+        let view = HeaderView(frame: .zero, schedule: scheduleType)
+        view.backgroundColor = .systemGray6
+        return view
     }()
     
     private let stackView = {
@@ -49,6 +48,11 @@ final class ListViewController: UIViewController {
         setupStackView()
         setupStackViewConstraint()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        headerView.addBorder(at: .bottom, color: .gray, thickness: 0.5)
+//        headerView.frame = headerView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: -10, right: 0))
+//    }
     
     // MARK: - Helper
     private func setupTableView() {

@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIView {
-    func addTopBorder(at position: UIRectEdge, color: UIColor, thickness: CGFloat) {
+    func addBorder(at position: UIRectEdge, color: UIColor, thickness: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         

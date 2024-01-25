@@ -40,6 +40,13 @@ final class ListTableViewCell: UITableViewCell {
         return label
     }()
     
+    private let spacingOfRowView = {
+       let view = UIView()
+        view.backgroundColor = .systemGray6
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let stackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -54,6 +61,7 @@ final class ListTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupStackView()
         setupStackViewConstraint()
+        setupSpacingOfRowViewConstraint()
     }
     
     required init?(coder: NSCoder) {
@@ -70,15 +78,25 @@ final class ListTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(bodyLabel)
         stackView.addArrangedSubview(dateLabel)
-        self.addSubview(stackView)
+        contentView.addSubview(spacingOfRowView)
+        contentView.addSubview(stackView)
     }
     
     private func setupStackViewConstraint() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10)
+            stackView.topAnchor.constraint(equalTo: spacingOfRowView.bottomAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15)
+        ])
+    }
+    
+    private func setupSpacingOfRowViewConstraint() {
+        NSLayoutConstraint.activate([
+            spacingOfRowView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            spacingOfRowView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            spacingOfRowView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            spacingOfRowView.heightAnchor.constraint(equalToConstant: 8)
         ])
     }
     
