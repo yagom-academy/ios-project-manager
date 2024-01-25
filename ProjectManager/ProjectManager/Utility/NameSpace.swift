@@ -9,4 +9,5 @@ enum NameSpace {
     static let todo = "TODO"
     static let doing = "DOING"
     static let done = "DONE"
+    static let title = "Project Manager"
 }
