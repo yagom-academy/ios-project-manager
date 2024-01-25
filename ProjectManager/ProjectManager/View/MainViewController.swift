@@ -12,13 +12,30 @@ final class MainViewController: UIViewController {
     private let doingTableView = ListViewController(scheduleType: .doing)
     private let doneTableView = ListViewController(scheduleType: .done)
     
-    private let stackView = {
+    private let footerView = {
+        let view = UIView()
+        view.backgroundColor = NameSpace.headerAndFooterColor
+        view.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        return view
+    }()
+    
+    private let tabelStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 10
         stackView.backgroundColor = .systemGray4
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let stackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
