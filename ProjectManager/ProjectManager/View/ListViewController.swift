@@ -14,6 +14,7 @@ final class ListViewController: UIViewController {
     private let tableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -90,6 +91,14 @@ extension ListViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.addBorder(at: .top, color: .systemGray4, thickness: 0.8)
     }
     
 }

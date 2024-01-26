@@ -40,14 +40,21 @@ final class ListTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let spacingOfRowView = {
-       let view = UIView()
-        view.backgroundColor = .systemGray6
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private let lineOfSapcingView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray4
+        view.heightAnchor.constraint(equalToConstant: 0.8).isActive = true
         return view
     }()
     
-    private let stackView = {
+    private let spacingOfRowView = {
+       let view = UIView()
+        view.backgroundColor = .systemGray6
+        view.heightAnchor.constraint(equalToConstant: 8).isActive = true
+        return view
+    }()
+    
+    private let labelStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -57,11 +64,19 @@ final class ListTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    private let spacingStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupStackView()
-        setupStackViewConstraint()
-        setupSpacingOfRowViewConstraint()
+        setupUI()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -74,30 +89,43 @@ final class ListTableViewCell: UITableViewCell {
     }
     
     // MARK: - Helper
-    private func setupStackView() {
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(bodyLabel)
-        stackView.addArrangedSubview(dateLabel)
-        contentView.addSubview(spacingOfRowView)
-        contentView.addSubview(stackView)
+    private func setupUI() {
+        setupLabelStackView()
+        setupSpacingStackView()
     }
     
-    private func setupStackViewConstraint() {
+    private func setupConstraints() {
+        setupSpacingStackViewConstraint()
+        setupLabelStackViewConstraint()
+    }
+    
+    private func setupLabelStackView() {
+        labelStackView.addArrangedSubview(titleLabel)
+        labelStackView.addArrangedSubview(bodyLabel)
+        labelStackView.addArrangedSubview(dateLabel)
+        contentView.addSubview(labelStackView)
+    }
+    
+    private func setupLabelStackViewConstraint() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: spacingOfRowView.bottomAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15)
+            labelStackView.topAnchor.constraint(equalTo: spacingStackView.bottomAnchor, constant: 10),
+            labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15)
         ])
     }
     
-    private func setupSpacingOfRowViewConstraint() {
-        NSLayoutConstraint.activate([
-            spacingOfRowView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            spacingOfRowView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            spacingOfRowView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            spacingOfRowView.heightAnchor.constraint(equalToConstant: 8)
-        ])
+    private func setupSpacingStackView() {
+        spacingStackView.addArrangedSubview(lineOfSapcingView)
+        spacingStackView.addArrangedSubview(spacingOfRowView)
+        contentView.addSubview(spacingStackView)
     }
     
+    private func setupSpacingStackViewConstraint() {
+        NSLayoutConstraint.activate([
+            spacingStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            spacingStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            spacingStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
+    }
 }
