@@ -43,7 +43,7 @@ final class ListTableViewCell: UITableViewCell {
     private let lineOfSapcingView = {
         let view = UIView()
         view.backgroundColor = .systemGray4
-        view.heightAnchor.constraint(equalToConstant: 0.8).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         return view
     }()
     

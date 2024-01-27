@@ -47,7 +47,7 @@ final class HeaderView: UIView {
     // MARK: - Lifecycle
     override func layoutSubviews() {
         circleView.layer.cornerRadius = circleView.frame.size.width / 2
-        self.addBorder(at: .bottom, color: .systemGray4, thickness: 0.8)
+        self.addBorder(at: .bottom, color: .systemGray4, thickness: 0.5)
     }
     
     // MARK: - Helper
