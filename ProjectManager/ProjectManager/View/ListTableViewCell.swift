@@ -73,6 +73,7 @@ final class ListTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    // MARK: - Helper
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -83,12 +84,6 @@ final class ListTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-    
-    // MARK: - Helper
     private func setupUI() {
         setupLabelStackView()
         setupSpacingStackView()
