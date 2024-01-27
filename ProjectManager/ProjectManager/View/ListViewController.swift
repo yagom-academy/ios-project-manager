@@ -29,11 +29,18 @@ final class ListViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        setupTableView()
+        setupStackView()
+        setupStackViewConstraint()
+    }
+    
+    // MARK: - Helper
     init(scheduleType: Schedule) {
         self.scheduleType = scheduleType
         super.init(nibName: nil, bundle: nil)
@@ -43,19 +50,6 @@ final class ListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        setupTableView()
-        setupStackView()
-        setupStackViewConstraint()
-    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        headerView.addBorder(at: .bottom, color: .gray, thickness: 0.5)
-//        headerView.frame = headerView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: -10, right: 0))
-//    }
-    
-    // MARK: - Helper
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -91,14 +85,6 @@ extension ListViewController: UITableViewDataSource {
         }
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        view.addBorder(at: .top, color: .systemGray4, thickness: 0.8)
     }
     
 }
