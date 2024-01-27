@@ -44,6 +44,13 @@ final class HeaderView: UIView {
         return stackView
     }()
     
+    // MARK: - Lifecycle
+    override func layoutSubviews() {
+        circleView.layer.cornerRadius = circleView.frame.size.width / 2
+        self.addBorder(at: .bottom, color: .systemGray4, thickness: 0.8)
+    }
+    
+    // MARK: - Helper
     init(frame: CGRect, schedule: Schedule) {
         self.titleLabel.text = schedule.discription
         super.init(frame: frame)
@@ -55,11 +62,6 @@ final class HeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        circleView.layer.cornerRadius = circleView.frame.size.width / 2
-    }
-    
-    // MARK: - Helper
     private func setupUI() {
         setupnumberOfCircleLabel()
         setupStackView()
